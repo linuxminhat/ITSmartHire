@@ -34,4 +34,11 @@ npm install --save-dev @types/bcryptjs@2.4.2
 ```bash
 npm install --save-exact class-validator@0.14.0 class-transformer@0.5.1
 ```
-
+### 5.  Soft-delete plugin
+```bash
+npm i --save-exact soft-delete-plugin-mongoose@1.0.15
+```
+### 6.  Query Builder
+```bash
+ npm i --save-exact api-query-params@5.4.0
+```
