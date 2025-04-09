@@ -34,10 +34,17 @@ async function bootstrap() {
     app.useStaticAssets(join(__dirname, "..", "public"));//js/css/images
     app.setBaseViewsDir(join(__dirname, "..", "views"));//view 
     app.setViewEngine("ejs");
+    app.useGlobalPipes(new ValidationPipe());
+    //config cors
+    app.enableCors(
+        {
+            "origin": "*",
+            "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+            "preflightContinue": false,
+        }
+    );
     // await app.listen(process.env.PORT);
     await app.listen(configService.get<string>('PORT'));
     // await app.listen(3000);
-    app.useGlobalPipes(new ValidationPipe());
-
 }
 bootstrap();
