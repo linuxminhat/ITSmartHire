@@ -11,6 +11,11 @@ export class Company {
     @Prop()
     address: string;
     @Prop()
+    latitude: number;
+
+    @Prop()
+    longitude: number;
+    @Prop()
     description: string;
     @Prop({ type: Object })
     createdBy: {
