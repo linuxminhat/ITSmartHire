@@ -1,0 +1,43 @@
+.ant-pro-footer-bar {
+    z-index: 1000;
+    background-color: white;
+}
+
+.ant-menu-horizontal {
+    border-bottom: unset !important;
+}
+
+.ql-editor {
+    min-height: 350px !important;
+    overflow: hidden;
+}
+
+.modal-company {
+    &.close {
+        transform: scale(0);
+        opacity: 0;
+        -webkit-transition: all .1s linear;
+        -o-transition: all .25s linear;
+        transition: all .25s linear;
+    }
+}
+
+.modal-company-root {
+    &.close {
+        .ant-modal-mask {
+            background-color: unset !important;
+            // -webkit-transition: background-color 0.3s ease-in;
+            // /* Safari */
+            // transition: background-color 0s linear;
+            // -webkit-transition-delay: 0.3s;
+            // /* Safari */
+            // transition-delay: 0.2s;
+        }
+    }
+}
+
+.customize-form-item {
+    .ant-form-item {
+        margin-bottom: 0 !important;
+    }
+}
