@@ -13,6 +13,8 @@ export class User {
     @Prop()
     name: string;
     @Prop()
+    phone: string;
+    @Prop()
     age: number;
     @Prop()
     address: string;
