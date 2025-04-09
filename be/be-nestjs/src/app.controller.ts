@@ -14,25 +14,6 @@ export class AppController {
   constructor(private readonly appService: AppService,
     private configService: ConfigService,
     private authService: AuthService) { }
-  @Get()
-  @Render('views')
-  root() {
-    console.log(">>check port=", this.configService.get<string>('PORT'));
-    console.log(">>port", this.configService.get<String>('PORT'));
 
-    return { message: "Hello Worlds" };
-  }
-
-  @Public()
-  @UseGuards(LocalAuthGuard)
-  @Post('/login')
-  handleLogin(@Request() req) {
-    return this.authService.login(req.user);
-  }
-  // @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
 
 }
