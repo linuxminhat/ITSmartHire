@@ -1,7 +1,7 @@
 {
   "name": "fe-vite-nestjs-hoidanit",
-  "author": "Hỏi Dân IT với Eric",
-  "description": "Frontend for series Nest.JS Youtube Hỏi Dân IT",
+  "author": "ITsmarthire-fe",
+  "description": "Frontend for ITsmarthire project",
   "private": true,
   "version": "1.0.0",
   "type": "module",
