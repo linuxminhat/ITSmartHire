@@ -26,6 +26,9 @@ import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { JwtAuthGuard } from './auth/jwt-auth-guards';
 import { TransformInterceptor } from './core/transform.interceptor';
+import * as cookieParser from 'cookie-parser';
+
+// import cookieParser from 'cookie-parser'
 require('dotenv').config();
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -38,6 +41,8 @@ async function bootstrap() {
     app.useGlobalPipes(new ValidationPipe());
     app.useGlobalInterceptors(new TransformInterceptor(reflector));
 
+    //config cookie 
+    app.use(cookieParser());
     //config cors
     app.enableCors(
         {
