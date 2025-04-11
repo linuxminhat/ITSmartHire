@@ -23,6 +23,7 @@ export class CompaniesService {
     });
   }
 
+  //logic pagination query ! 
   async findAll(currentPage: number, limit: number, qs: string) {
     const { filter, skip, sort, projection, population } = aqp(qs);
     delete filter.page;
