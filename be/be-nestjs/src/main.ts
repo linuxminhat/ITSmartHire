@@ -23,7 +23,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { JwtAuthGuard } from './auth/jwt-auth-guards';
 import { TransformInterceptor } from './core/transform.interceptor';
 require('dotenv').config();
@@ -46,6 +46,14 @@ async function bootstrap() {
             "preflightContinue": false,
         }
     );
+    // or "app.enableVersioning()"
+    app.setGlobalPrefix('api');
+    app.enableVersioning({
+
+        type: VersioningType.URI,
+        // prefix: 'api/v',
+        defaultVersion: ['1', '2']
+    });
     // await app.listen(process.env.PORT);
     await app.listen(configService.get<string>('PORT'));
     // await app.listen(3000);
