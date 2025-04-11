@@ -81,7 +81,7 @@ export default function App() {
         { path: "company/:id", element: <ClientCompanyDetailPage /> }
       ],
     },
-
+    //ADMIN 
     {
       path: "/admin",
       element: (<LayoutApp><LayoutAdmin /> </LayoutApp>),
