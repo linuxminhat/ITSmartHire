@@ -25,6 +25,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { JwtAuthGuard } from './auth/jwt-auth-guards';
+import { TransformInterceptor } from './core/transform.interceptor';
 require('dotenv').config();
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -35,6 +36,8 @@ async function bootstrap() {
     app.setBaseViewsDir(join(__dirname, "..", "views"));//view 
     app.setViewEngine("ejs");
     app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalInterceptors(new TransformInterceptor(reflector));
+
     //config cors
     app.enableCors(
         {
