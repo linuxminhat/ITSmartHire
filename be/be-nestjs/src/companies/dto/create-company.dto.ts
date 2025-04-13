@@ -5,8 +5,10 @@ export class CreateCompanyDto {
 
     @IsNotEmpty({ message: "Địa chỉ công ty không được để trống", })
     address: string;
+
     @IsNotEmpty({ message: "Mô tả công ty không được để trống", })
     description: string;
+
     @IsNotEmpty({ message: 'Vĩ độ (latitude) không được để trống' })
     @IsNumber({}, { message: 'Vĩ độ phải là số' })
     latitude: number;

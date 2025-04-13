@@ -26,8 +26,10 @@ export class CompaniesService {
   //logic pagination query ! 
   async findAll(currentPage: number, limit: number, qs: string) {
     const { filter, skip, sort, projection, population } = aqp(qs);
-    delete filter.page;
-    delete filter.limit;
+
+    delete filter.current;
+    delete filter.pageSize;
+
     let offset = (+currentPage - 1) * (+limit);
     let defaultLimit = +limit ? +limit : 10;
 
@@ -37,8 +39,7 @@ export class CompaniesService {
     const result = await this.companyModel.find(filter)
       .skip(offset)
       .limit(defaultLimit)
-      // @ts-ignore: Unreachable code error
-      .sort(sort)
+      .sort(sort as any)
       .populate(population)
       .exec();
     return {

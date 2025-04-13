@@ -15,8 +15,10 @@ export class Company {
 
     @Prop()
     longitude: number;
+
     @Prop()
     description: string;
+
     @Prop({ type: Object })
     createdBy: {
         _id: mongoose.Schema.Types.ObjectId;
