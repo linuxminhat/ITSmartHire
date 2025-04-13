@@ -18,9 +18,11 @@ import { AuthModule } from './auth/auth.module';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 import { CompaniesModule } from './companies/companies.module';
 
+
 @Module({
   imports: [
-    // imports: [MongooseModule.forRoot('mongodb+srv://minhnhatdang2810:sdytrkRaJ0AReGca@cluster0.k737ddv.mongodb.net/'),
+
+
     //Note : forRootAsync function ! 
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -37,6 +39,7 @@ import { CompaniesModule } from './companies/companies.module';
       isGlobal: true
     }),
     //Auto update
+
     UsersModule,
     AuthModule,
     CompaniesModule,

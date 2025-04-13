@@ -35,7 +35,7 @@ export class CreateUserDto {
 
 }
 export class RegisterUserDto {
-    @IsNotEmpty({ message: 'Tên không được bỏ trống' })
+    @IsNotEmpty({ message: 'Tên không được bỏ trống', })
     name: string;
     @IsEmail({}, { message: 'Email không đúng định dạng ', })
     @IsNotEmpty({ message: 'Email không đúng định dạng', })

@@ -20,6 +20,8 @@ export class UsersService {
     return hash;
 
   }
+
+
   async create(createUserDto: CreateUserDto, user: IUser) {
     const {
       name, email, password, age,
@@ -52,7 +54,7 @@ export class UsersService {
     }
     return await this.userModel.findOne({
       _id: id
-    }).select("-password");
+    }).select("-password");//Exclude <-> Include
   }
 
 
@@ -66,6 +68,7 @@ export class UsersService {
   isValidPassword(password: string, hash: string) {
     return compareSync(password, hash);
   }
+
   async update(updateUserDto: UpdateUserDto, user: IUser) {
     const updated = await this.userModel.updateOne(
       { _id: updateUserDto._id },
@@ -99,7 +102,7 @@ export class UsersService {
 
   async register(user: RegisterUserDto) {
     const { name, email, password, age, gender, address } = user; //Pass from DTO 
-    //Adding logic checking email 
+    //Adding logic checking whether email exist
     const isExist = await this.userModel.findOne({ email: email });
     if (isExist) {
       throw new BadGatewayException(`Email ${email} đã tồn tại `);
@@ -118,8 +121,8 @@ export class UsersService {
   }
   async findAll(currentPage: number, limit: number, qs: string) {
     const { filter, sort, population } = aqp(qs);
-    delete filter.page;
-    delete filter.limit;
+    delete filter.current;
+    delete filter.pageSize;
     let offset = (+currentPage - 1) * (+limit);
     let defaultLimit = +limit ? +limit : 10;
 
@@ -130,7 +133,7 @@ export class UsersService {
       .skip(offset)
       .limit(defaultLimit)
       // @ts-ignore: Unreachable code error
-      .sort(sort)
+      .sort(sort as any)
       .select('-password')
       .populate(population)
       .exec();
@@ -153,6 +156,9 @@ export class UsersService {
       }
     )
 
+  }
+  findUserbyToken = async (refreshToken: string) => {
+    return await this.userModel.findOne({ refreshToken })
   }
 
 }
