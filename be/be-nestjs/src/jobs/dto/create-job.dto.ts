@@ -1,28 +1,33 @@
-import { IsNotEmpty, IsNumber, Matches } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import { ArrayNotEmpty, IsArray, IsBoolean, IsDate, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, ValidateNested } from 'class-validator';
 import mongoose from 'mongoose';
+import { Company } from 'src/companies/schemas/company.schema';
+
 export class CreateJobDto {
     @IsNotEmpty({ message: "Tên công việc không được để trống", })
     name: string;
 
-    @IsNotEmpty({ message: "Tên kĩ năng không được để trống", })
+    @IsArray({ message: "Tên kĩ năng liệt kê định dạng là mảng" })
+    @ArrayNotEmpty({ message: "Tên kĩ năng không được để trống" })
+    @IsString({ each: true, message: "Kĩ năng có định dạng là string" })
     skills: string[];
 
-    @IsNotEmpty({ message: "Tên công ty tuyển dụng không được để trống", })
-    company: {
-        _id: mongoose.Schema.Types.ObjectId;
-        name: string;
-    }
+    @IsNotEmptyObject()
+    @IsObject()
+    @ValidateNested()
+    @Type(() => Company)
+    // company: {
+    //     _id: mongoose.Schema.Types.ObjectId;
+    //     name: string;
+    // }
+    company: Company;
 
-    @IsNotEmpty({ message: "Tên kĩ năng không được để trống", })
-    location: string;
 
     @IsNotEmpty({ message: "Tên lương không được để trống", })
-    @IsNumber({}, { message: "Lương phải là số, đơn vị VNĐ và chấp nhận các đồng tiền ngoại tệ" })
-    salary: string;
+    salary: number;
 
     @IsNotEmpty({ message: "Tên số lượng người tuyển không được để trống", })
-    @IsNumber({}, { message: "Không giới hạn người tuyển dụng từ 1 người cho vị trí đăng tuyển" })
-    quantity: string;
+    quantity: number;
 
     @IsNotEmpty({ message: "Vị trí công việc không được để trống", })
     level: string;
@@ -31,12 +36,17 @@ export class CreateJobDto {
     description: string;
 
     @IsNotEmpty({ message: "Ngày đăng công việc không được để trống", })
-    startDate: string;
+    @Transform(({ value }) => new Date(value))
+    @IsDate({ message: 'startdate có định dạng là date' })
+    startDate: Date;
 
     @IsNotEmpty({ message: "Ngày hết hạn công việc không được để trống", })
-    endDate: string;
+    @Transform(({ value }) => new Date(value))
+    @IsDate({ message: 'startdate có định dạng là date' })
+    endDate: Date;
 
     @IsNotEmpty({ message: "Trạng thái công việc không được để trống", })
+    @IsBoolean({ message: 'startdate có định dạng là date' })
     isActive: boolean;
 
 }
