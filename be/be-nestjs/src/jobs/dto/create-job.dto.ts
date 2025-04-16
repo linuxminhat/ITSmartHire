@@ -1,14 +1,22 @@
 import { Transform, Type } from 'class-transformer';
 import { ArrayNotEmpty, IsArray, IsBoolean, IsDate, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, ValidateNested } from 'class-validator';
 import mongoose from 'mongoose';
-import { Company } from 'src/companies/schemas/company.schema';
-
+// import { Company } from 'src/companies/schemas/company.schema';
+class Company {
+    @IsNotEmpty()
+    _id: mongoose.Schema.Types.ObjectId;
+    @IsNotEmpty()
+    name: string;
+    @IsNotEmpty()
+    logo: string;
+}
 export class CreateJobDto {
     @IsNotEmpty({ message: "Tên công việc không được để trống", })
     name: string;
 
     @IsArray({ message: "Tên kĩ năng liệt kê định dạng là mảng" })
     @ArrayNotEmpty({ message: "Tên kĩ năng không được để trống" })
+    //Each meaning check item in array 
     @IsString({ each: true, message: "Kĩ năng có định dạng là string" })
     skills: string[];
 
@@ -23,6 +31,8 @@ export class CreateJobDto {
     company: Company;
 
 
+    @IsNotEmpty({ message: "Địa chỉ không được để trống" })
+    location: string;
     @IsNotEmpty({ message: "Tên lương không được để trống", })
     salary: number;
 

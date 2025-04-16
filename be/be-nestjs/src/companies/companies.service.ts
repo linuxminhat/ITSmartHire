@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { Company, CompanyDocument } from './schemas/company.schema';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { IUser } from 'src/users/users.interface';
@@ -53,10 +53,22 @@ export class CompaniesService {
     }
 
   }
+  async findOne(id: string) {
+    const company = await this.companyModel.findById(id);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new NotFoundException(`Không tìm thấy công ty với id = ${id} hoặc định dạng ID không hợp lệ`);
+      // Hoặc trả về thông báo: return "Không tìm thấy công ty";
+    }
+    // Kiểm tra nếu không thấy
+    if (!company) {
+      throw new NotFoundException(`Company with id = ${id} not found`);
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+    return company;
   }
+  // async findOne(id: string) {
+  //   return `This action returns a #${id} company`;
+  // }
 
   async update(id: string, updateCompanyDto: UpdateCompanyDto, user: IUser) {
     return await this.companyModel.updateOne(
