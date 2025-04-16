@@ -305,3 +305,28 @@
         align-items: center;
     }
 }
+
+//Adding tabpane 
+/* Giả sử bạn có styles/client.module.scss hoặc 1 file SCSS khác */
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
+    background-color: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px 5px 0 0;
+    margin-right: 8px; // khoảng cách giữa các nút
+    padding: 8px 16px; // khoảng trống trong tab
+}
+
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab:hover {
+    color: #1890ff; // khi hover
+}
+
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab-active {
+    background-color: #fff;
+    border-bottom-color: #fff;
+    // Giúp tab active nổi bật hơn
+}
+
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab-btn {
+    font-weight: 500;
+}

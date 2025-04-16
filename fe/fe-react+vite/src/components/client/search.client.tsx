@@ -32,7 +32,7 @@ const SearchClient = () => {
                         <Select
                             mode="multiple"
                             allowClear
-                            showArrow={false}
+                            // showArrow={false}
                             style={{ width: '100%' }}
                             placeholder={
                                 <>
@@ -49,7 +49,7 @@ const SearchClient = () => {
                         <Select
                             mode="multiple"
                             allowClear
-                            showArrow={false}
+                            // showArrow={false}
                             style={{ width: '100%' }}
                             placeholder={
                                 <>
