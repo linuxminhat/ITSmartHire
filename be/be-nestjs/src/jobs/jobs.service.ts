@@ -16,12 +16,12 @@ export class JobsService {
     const {
       name, skills, company, salary, quantity,
       level, description, startDate, endDate,
-      isActive
+      isActive, location
     } = createJobDto;
     let newJob = this.jobModel.create({
       name, skills, company, salary, quantity,
       level, description, startDate, endDate,
-      isActive,
+      isActive, location,
       createdBy: {
         _id: user._id,
         email: user.email
@@ -88,4 +88,20 @@ export class JobsService {
       _id
     })
   }
+  // jobs/jobs.service.ts
+  // Sửa lại findByCompany trong jobs.service.ts
+  async findByCompany(companyId: string) {
+    const jobs = await this.jobModel.find({
+      'company._id': new mongoose.Types.ObjectId(companyId),
+      isActive: true,
+      isDeleted: false
+    }).exec();
+
+    return {
+      statusCode: 200,
+      message: "Successfully fetched jobs by company",
+      data: jobs
+    };
+  }
+
 }
