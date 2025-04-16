@@ -1,6 +1,7 @@
 import { Col, Row } from 'antd';
 import styles from 'styles/client.module.scss';
 import CompanyCard from '@/components/client/card/company.card';
+import 'leaflet/dist/leaflet.css';
 
 const ClientCompanyPage = (props: any) => {
     return (

@@ -38,6 +38,8 @@ export interface IAccount {
 export interface IGetAccount extends Omit<IAccount, "access_token"> { }
 
 export interface ICompany {
+    longitude: number;
+    latitude: number;
     _id?: string;
     name?: string;
     address?: string;
@@ -93,6 +95,7 @@ export interface IJob {
     startDate: Date;
     endDate: Date;
     isActive: boolean;
+    isHot?: boolean;
 
     createdBy?: string;
     isDeleted?: boolean;

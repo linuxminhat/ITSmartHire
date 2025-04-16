@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ApplyModal from "@/components/client/modal/apply.modal";
 dayjs.extend(relativeTime)
+dayjs.locale('en');
 
 
 const ClientJobDetailPage = (props: any) => {
