@@ -1,4 +1,4 @@
-import { BadGatewayException, Injectable } from '@nestjs/common';
+import { BadGatewayException, BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto, RegisterUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -54,7 +54,8 @@ export class UsersService {
     }
     return await this.userModel.findOne({
       _id: id
-    }).select("-password");//Exclude <-> Include
+    })
+      .select("-password").populate({ path: "role", select: { name: 1, _id: 1 } });
   }
 
 
@@ -62,7 +63,7 @@ export class UsersService {
   findOneByUserName(username: string) {
     return this.userModel.findOne({
       email: username
-    })
+    }).populate({ path: "role", select: { name: 1, permissions: 1 } })
   }
 
   isValidPassword(password: string, hash: string) {
@@ -83,8 +84,14 @@ export class UsersService {
 
   }
   async remove(id: string, user: IUser) {
+    //email : adminitsmarthire@gmail.com
     if (!mongoose.Types.ObjectId.isValid(id))
-      return 'not found user'
+      return 'not found user';
+    const foundUser = await this.userModel.findById(id);
+    if (foundUser.email === 'adminitsmarthire@gmail.com') {
+      throw new BadRequestException("Không thể xóa tài khoản admin của hệ thống ")
+    }
+
     //first update then remove 
     await this.userModel.updateOne(
       { _id: id },
