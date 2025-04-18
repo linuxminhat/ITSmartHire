@@ -30,6 +30,7 @@ export class PermissionsController {
   findOne(@Param('id') id: string) {
     return this.permissionsService.findOne(id);
   }
+
   @Patch(':id')
   @ResponseMessage('Update a permission')
   update(@Param('id') id: string, @Body() updatePermissionDto: UpdatePermissionDto, @User() user: IUser) {

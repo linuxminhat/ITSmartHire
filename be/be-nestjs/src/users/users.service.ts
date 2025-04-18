@@ -7,11 +7,14 @@ import mongoose, { Model } from 'mongoose';
 import { genSaltSync, hashSync, compareSync } from 'bcryptjs';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { IUser } from './users.interface';
-import aqp from 'api-query-params'
+import aqp from 'api-query-params';
+import { USER_ROLE } from 'src/databases/sample';
+import { Role, RoleDocument } from 'src/roles/schemas/role.schema';
+
 @Injectable()
 export class UsersService {
 
-  constructor(@InjectModel(UserM.name) private userModel: SoftDeleteModel<UserDocument>) { }
+  constructor(@InjectModel(UserM.name) private userModel: SoftDeleteModel<UserDocument>, @InjectModel(Role.name) private roleModel: SoftDeleteModel<RoleDocument>) { }
 
   hashPassword = (password: string) => {
 
@@ -49,22 +52,23 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id))
       return "Not found a user !"
-    }
+
     return await this.userModel.findOne({
       _id: id
     })
       .select("-password").populate({ path: "role", select: { name: 1, _id: 1 } });
   }
 
-
-  //SignIn SignUp by Email
   findOneByUserName(username: string) {
     return this.userModel.findOne({
       email: username
-    }).populate({ path: "role", select: { name: 1, permissions: 1 } })
+    }).populate({
+      path: "role", select: { name: 1, permissions: 1 }
+    });
   }
+
 
   isValidPassword(password: string, hash: string) {
     return compareSync(password, hash);
@@ -87,6 +91,7 @@ export class UsersService {
     //email : adminitsmarthire@gmail.com
     if (!mongoose.Types.ObjectId.isValid(id))
       return 'not found user';
+
     const foundUser = await this.userModel.findById(id);
     if (foundUser.email === 'adminitsmarthire@gmail.com') {
       throw new BadRequestException("Không thể xóa tài khoản admin của hệ thống ")
@@ -114,6 +119,9 @@ export class UsersService {
     if (isExist) {
       throw new BadGatewayException(`Email ${email} đã tồn tại `);
     }
+    //fetch user role 
+    const userRole = await this.roleModel.findOne({ name: USER_ROLE });
+
     const hashPassword = this.hashPassword(password);
     let newRegister = await this.userModel.create({
       name, email,
@@ -121,7 +129,7 @@ export class UsersService {
       age,
       gender,
       address,
-      role: "USER"
+      role: userRole?._id
     })
     return newRegister;
 
@@ -165,7 +173,7 @@ export class UsersService {
 
   }
   findUserbyToken = async (refreshToken: string) => {
-    return await this.userModel.findOne({ refreshToken })
+    return await this.userModel.findOne({ refreshToken }).populate({ path: "role", select: { name: 1 } });
   }
 
 }

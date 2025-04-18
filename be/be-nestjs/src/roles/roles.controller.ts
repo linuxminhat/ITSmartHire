@@ -10,13 +10,13 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) { }
 
   @Post()
-  @ResponseMessage("Create a new permission")
+  @ResponseMessage("Create a new role")
   create(@Body() createRoleDto: CreateRoleDto, @User() user: IUser) {
     return this.rolesService.create(createRoleDto, user);
   }
 
   @Get()
-  @ResponseMessage("Fetch permissions with paginate")
+  @ResponseMessage("Fetch roles with paginate")
   findAll(
     @Query("current") currentPage: string,
     @Query("pageSize") limit: string,

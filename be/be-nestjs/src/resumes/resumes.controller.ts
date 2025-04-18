@@ -26,6 +26,7 @@ export class ResumesController {
   getResumeByUser(@User() user: IUser) {
     return this.resumesService.findByUsers(user);
   }
+
   //Find All Resume 
   @Get()
   @ResponseMessage("Fetch all resumes with paginate")

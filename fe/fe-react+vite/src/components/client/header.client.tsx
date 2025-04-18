@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { callLogout } from '@/config/api';
 import { setLogoutAction } from '@/redux/slice/accountSlide';
 import ManageAccount from './modal/manage.account';
+import { UserOutlined, /* các icon khác */ } from '@ant-design/icons';
 
 const Header = (props: any) => {
     const navigate = useNavigate();
@@ -85,6 +86,11 @@ const Header = (props: any) => {
             >Đăng xuất</label>,
             key: 'logout',
             icon: <LogoutOutlined />
+        },
+        {
+            label: <Link to="/user">Thông tin tài khoản</Link>,
+            key: 'user-info',
+            icon: <UserOutlined />
         },
     ];
 
