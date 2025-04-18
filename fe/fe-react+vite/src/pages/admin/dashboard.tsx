@@ -1,7 +1,10 @@
 import { Card, Col, Row, Statistic } from "antd";
 import CountUp from 'react-countup';
+import { useEffect } from "react";
+import { useAppSelector } from "@/redux/hooks";
 
 const DashboardPage = () => {
+
     const formatter = (value: number | string) => {
         return (
             <CountUp end={Number(value)} separator="," />

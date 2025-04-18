@@ -6,6 +6,7 @@ import { RegisterUserDto } from 'src/users/dto/create-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import ms from 'ms';
+import { RolesService } from 'src/roles/roles.service';
 
 
 @Injectable()
@@ -13,7 +14,8 @@ export class AuthService {
 
     constructor(private usersService: UsersService,
         private jwtService: JwtService,
-        private configService: ConfigService
+        private configService: ConfigService,
+        private rolesService: RolesService
     ) { }
 
     //Run when login
@@ -26,15 +28,22 @@ export class AuthService {
         if (user) {
             const isValid = this.usersService.isValidPassword(pass, user.password);
             if (isValid === true) {
-                return user;
+
+                const userRole = user.role as unknown as { _id: string; name: string }
+                const temp = await this.rolesService.findOne(userRole._id);
+                console.log("Role permissions:", temp?.permissions); // Thêm dòng này để debug
+                const objUser = {
+                    ...user.toObject(),
+                    permissions: temp?.permissions ?? []
+                }
+                return objUser;
             }
-            return null;
         }
     }
 
     async login(user: IUser, response: Response) {
 
-        const { _id, name, email, role } = user;
+        const { _id, name, email, role, permissions } = user;
         //Define what you want in payload
         const payload = {
             //subtitle
@@ -63,7 +72,8 @@ export class AuthService {
                 _id,
                 name,
                 email,
-                role
+                role,
+                permissions
 
             }
 
@@ -111,6 +121,10 @@ export class AuthService {
                 const refresh_token = this.createRefreshToken(payload);
 
                 await this.usersService.updateUserToken(refresh_token, _id.toString());
+                //fetch user role 
+                const userRole = user.role as unknown as { _id: string; name: string }
+                const temp = await this.rolesService.findOne(userRole._id)
+
                 response.clearCookie("refresh_token");
                 //set refresh_token as cookies 
                 response.cookie("refresh_token", refresh_token, {
@@ -120,12 +134,13 @@ export class AuthService {
 
                 return {
                     access_token: this.jwtService.sign(payload),
-                    refresh_token,
+                    // refresh_token,
                     user: {
                         _id,
                         name,
                         email,
-                        role
+                        role,
+                        permissions: temp?.permissions ?? []
 
                     }
 

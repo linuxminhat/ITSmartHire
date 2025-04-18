@@ -8,19 +8,19 @@ import { PassThrough } from 'stream';
 import { Response, response } from 'express';
 import { IUser } from 'src/users/users.interface';
 import { Request } from 'express';
+import { RolesService } from 'src/roles/roles.service';
 
 @Controller("auth")
 export class AuthController {
     //port from .env
     constructor(
-        private readonly authService: AuthService) { }
-
+        private authService: AuthService, private rolesService: RolesService) { }
 
     @Public()
     @UseGuards(LocalAuthGuard)
     @Post('/login')
     @ResponseMessage("User Login ")
-    handleLogin(@Req() req: any, @Res({ passthrough: true }) response: Response) {
+    handleLogin(@Req() req, @Res({ passthrough: true }) response: Response) {
         return this.authService.login(req.user, response);
     }
 
@@ -34,7 +34,9 @@ export class AuthController {
 
     @ResponseMessage("Get user information")
     @Get('/account')
-    handleGetAccount(@User() user: IUser) { //Get from req.user
+    async handleGetAccount(@User() user: IUser) { //Get from req.user
+        const temp = await this.rolesService.findOne(user.role._id) as any;
+        user.permissions = temp.permissions;
         return { user };
     }
 

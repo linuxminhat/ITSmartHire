@@ -69,7 +69,7 @@ export class ResumesService {
 
   async findByUsers(user: IUser) {
     return await this.resumeModel.find({
-      userId: user._id
+      userId: user._id,
     })
       .sort("-createdAt")
       .populate([

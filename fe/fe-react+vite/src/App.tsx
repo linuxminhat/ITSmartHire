@@ -30,6 +30,9 @@ import ClientJobPage from './pages/job';
 import ClientJobDetailPage from './pages/job/detail';
 import ClientCompanyPage from './pages/company';
 import ClientCompanyDetailPage from './pages/company/detail';
+// Import các pages mới
+import ClientUserPage from './pages/user';
+import ClientUserDetailPage from './pages/user/detail';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -79,6 +82,9 @@ export default function App() {
         { path: "job/:id", element: <ClientJobDetailPage /> },
         { path: "company", element: <ClientCompanyPage /> },
         { path: "company/:id", element: <ClientCompanyDetailPage /> },
+        // Thêm routes user mới ở đây
+        { path: "user", element: <ClientUserPage /> },
+        { path: "user/:id", element: <ClientUserDetailPage /> },
 
       ],
     },
