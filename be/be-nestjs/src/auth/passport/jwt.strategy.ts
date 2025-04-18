@@ -4,11 +4,15 @@ import { Injectable } from '@nestjs/common';
 import { ignoreElements } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
 import { IUser } from 'src/users/users.interface';
+import { RolesService } from 'src/roles/roles.service';
+import { PermissionsService } from 'src/permissions/permissions.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(
         private configService: ConfigService,
+        private rolesService: RolesService,
+        // private permissions: PermissionsService
     ) {
         super({
             //get token from header and decode 
@@ -24,12 +28,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     //if token valid return data of user 
     async validate(payload: IUser) {
         const { _id, name, email, role } = payload;
-        //req.user
+        const userRole = role as unknown as { _id: string; name: string }
+        const temp = (await this.rolesService.findOne(userRole._id)).toObject();
         return {
             _id,
             name,
             email,
-            role
+            role,
+            permissions: temp?.permissions ?? []
         };
     }
 

@@ -31,7 +31,8 @@ export class AuthService {
 
                 const userRole = user.role as unknown as { _id: string; name: string }
                 const temp = await this.rolesService.findOne(userRole._id);
-                console.log("Role permissions:", temp?.permissions); // Thêm dòng này để debug
+
+                console.log("Role permissions:", temp?.permissions);
                 const objUser = {
                     ...user.toObject(),
                     permissions: temp?.permissions ?? []
@@ -39,6 +40,7 @@ export class AuthService {
                 return objUser;
             }
         }
+        return null;
     }
 
     async login(user: IUser, response: Response) {

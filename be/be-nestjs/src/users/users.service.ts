@@ -65,7 +65,7 @@ export class UsersService {
     return this.userModel.findOne({
       email: username
     }).populate({
-      path: "role", select: { name: 1, permissions: 1 }
+      path: "role", select: { name: 1 }
     });
   }
 
@@ -93,7 +93,7 @@ export class UsersService {
       return 'not found user';
 
     const foundUser = await this.userModel.findById(id);
-    if (foundUser.email === 'adminitsmarthire@gmail.com') {
+    if (foundUser && foundUser.email === 'adminitsmarthire@gmail.com') {
       throw new BadRequestException("Không thể xóa tài khoản admin của hệ thống ")
     }
 
