@@ -12,9 +12,10 @@ export class CreateRoleDto {
     @IsBoolean({ message: 'isActive có giá trị boolean', })
     isActive: boolean;
 
-    @IsNotEmpty({ message: 'permissions không được để trống', })
-    @IsMongoId({ each: true, message: "Mỗi PERMISSION là mongo object id", })
-    @IsArray({ message: 'Mỗi PERMISSION có định dạng là mảng', })
-    permissions: mongoose.Schema.Types.ObjectId[];
+    // Bỏ trường permissions
+    // @IsNotEmpty({ message: 'permissions không được để trống', })
+    // @IsMongoId({ each: true, message: "Mỗi PERMISSION là mongo object id", })
+    // @IsArray({ message: 'Mỗi PERMISSION có định dạng là mảng', })
+    // permissions: mongoose.Schema.Types.ObjectId[];
 
 }

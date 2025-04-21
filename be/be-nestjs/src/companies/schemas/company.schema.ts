@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import * as mongooseDelete from 'soft-delete-plugin-mongoose';
+import { Skill } from 'src/skills/schemas/skill.schema';
 
 export type CompanyDocument = HydratedDocument<Company>;
 
@@ -21,6 +22,27 @@ export class Company {
 
     @Prop()
     logo: string;
+
+    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Skill' })
+    skills: Skill[];
+
+    @Prop()
+    specializationDescription: string;
+
+    @Prop()
+    companyModel: string;
+
+    @Prop()
+    industry: string;
+
+    @Prop()
+    companySize: string;
+
+    @Prop()
+    country: string;
+
+    @Prop()
+    workingTime: string;
 
     @Prop({ type: Object })
     createdBy: {

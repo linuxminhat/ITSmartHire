@@ -6,6 +6,7 @@ import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { IUser } from 'src/users/users.interface';
 import { userInfo } from 'os';
 import { CompaniesService } from 'src/companies/companies.service';
+import { FindJobsBySkillsDto } from './dto/find-jobs-by-skills.dto';
 
 @Controller('jobs')
 export class JobsController {
@@ -17,25 +18,39 @@ export class JobsController {
     return this.jobsService.create(createJobDto, user);
   }
 
-  @Get()
   @Public()
-  @ResponseMessage("Fetch jobs with pagination")
+  @Get('search')
+  @ResponseMessage("Search jobs by name and location")
+  search(
+    @Query('name') name?: string,
+    @Query('location') location?: string,
+    @Query("current") currentPage?: string,
+    @Query("pageSize") limit?: string,
+    @Query() qs?: string) {
+
+    const current = parseInt(currentPage) || 1;
+    const size = parseInt(limit) || 10;
+
+    return this.jobsService.search(name, location, current, size, qs);
+  }
+
+  @Get()
+  @ResponseMessage("Fetch all jobs with paginate")
   findAll(
     @Query('current') currentPage: string,
     @Query('pageSize') limit: string,
-    @Query() qs: string
+    @Query() qs: string,
+    @User() user: IUser
   ) {
-    return this.jobsService.findAll(+currentPage, +limit, qs);
+    return this.jobsService.findAll(+currentPage, +limit, qs, user);
   }
 
-  //Get Job 
   @Get(':id')
   @Public()
   @ResponseMessage("Fetch jobs by id")
   findOne(@Param('id') id: string) {
     return this.jobsService.findOne(id);
   }
-
 
   @Patch(':id')
   @ResponseMessage("Update a job")
@@ -50,5 +65,45 @@ export class JobsController {
   @ResponseMessage("Delete a job")
   remove(@Param('id') id: string, @User() user: IUser) {
     return this.jobsService.remove(id, user);
+  }
+
+  @Public()
+  @Get('by-company/:companyId')
+  @ResponseMessage("Fetch jobs by company")
+  findByCompany(@Param('companyId') companyId: string) {
+    return this.jobsService.findByCompany(companyId);
+  }
+
+  @Get(':id/similar')
+  @Public()
+  @ResponseMessage("Fetch similar jobs by id")
+  findSimilar(@Param('id') id: string, @Query('limit') limit: string) {
+    return this.jobsService.findSimilar(id, +limit || 5);
+  }
+  
+  @Post('/by-skills')
+  @Public()
+  @ResponseMessage("Fetch jobs by skills with pagination")
+  findBySkills(
+    @Body() findJobsBySkillsDto: FindJobsBySkillsDto,
+    @Query("current") currentPage: string, 
+    @Query("pageSize") limit: string,
+  ) {
+    const current = +currentPage || 1;
+    const pageSize = +limit || 10;
+    return this.jobsService.findBySkills(findJobsBySkillsDto, current, pageSize);
+  }
+
+  @Get('/by-category/:categoryId')
+  @Public()
+  @ResponseMessage("Fetch jobs by category with pagination")
+  findByCategory(
+    @Param('categoryId') categoryId: string,
+    @Query("current") currentPage: string, 
+    @Query("pageSize") limit: string,
+  ) {
+    const current = +currentPage || 1;
+    const pageSize = +limit || 10;
+    return this.jobsService.findByCategory(categoryId, current, pageSize);
   }
 }

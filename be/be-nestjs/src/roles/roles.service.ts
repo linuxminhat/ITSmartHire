@@ -14,7 +14,7 @@ export class RolesService {
   constructor(@InjectModel(Role.name) private roleModel: SoftDeleteModel<RoleDocument>) { }
 
   async create(createRoleDto: CreateRoleDto, user: IUser) {
-    const { name, description, isActive, permissions } = createRoleDto;
+    const { name, description, isActive } = createRoleDto;
 
     const isExist = await this.roleModel.findOne({ name });
     if (isExist) {
@@ -23,7 +23,7 @@ export class RolesService {
 
     //If not error create a new Permission 
     const newRole = await this.roleModel.create({
-      name, description, isActive, permissions,
+      name, description, isActive,
       createdBy: {
         _id: user._id,
         email: user.email
@@ -71,8 +71,7 @@ export class RolesService {
       throw new BadRequestException("Not Found A Role")
     }
 
-    // return (await this.roleModel.findById(id)).populate({ path: "permissions", select: { _id: 1, apiPath: 1, name: 1, method: 1, module: 1 } });
-    return await this.roleModel.findById(id).populate({ path: "permissions", select: { _id: 1, apiPath: 1, name: 1, method: 1, module: 1 } });
+    return await this.roleModel.findById(id);
   }
 
   async update(_id: string, updateRoleDto: UpdateRoleDto, user: IUser) {
@@ -80,17 +79,12 @@ export class RolesService {
       throw new BadRequestException("Not Found Permission")
     }
 
-    const { name, description, isActive, permissions } = updateRoleDto;
-
-    // const isExist = await this.roleModel.findOne({ name });
-    // if (isExist) {
-    //   throw new BadRequestException(`Role với name = ${name} đã tồn tại !!! `)
-    // }
+    const { name, description, isActive } = updateRoleDto;
 
     const updated = await this.roleModel.updateOne(
       { _id },
       {
-        name, description, isActive, permissions,
+        name, description, isActive,
         updatedBy: {
           _id: user._id,
           email: user.email

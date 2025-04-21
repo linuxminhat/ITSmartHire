@@ -17,14 +17,14 @@ export class CompaniesController {
   }
 
   @Get()
-  @Public()
-  @ResponseMessage("Fetch list company")
+  @ResponseMessage("Fetch List Company with Paginate")
   findAll(
     @Query("current") currentPage: string,
     @Query("pageSize") limit: string,
     @Query() qs: string,
+    @User() user: IUser
   ) {
-    return this.companiesService.findAll(+currentPage, +limit, qs);
+    return this.companiesService.findAll(+currentPage, +limit, qs, user);
 
   }
 
