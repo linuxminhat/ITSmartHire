@@ -5,14 +5,12 @@ import { ignoreElements } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
 import { IUser } from 'src/users/users.interface';
 import { RolesService } from 'src/roles/roles.service';
-import { PermissionsService } from 'src/permissions/permissions.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(
         private configService: ConfigService,
         private rolesService: RolesService,
-        // private permissions: PermissionsService
     ) {
         super({
             //get token from header and decode 
@@ -35,7 +33,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             name,
             email,
             role,
-            permissions: temp?.permissions ?? []
         };
     }
 
