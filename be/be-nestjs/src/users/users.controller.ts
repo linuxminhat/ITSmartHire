@@ -206,9 +206,13 @@ export class UsersController {
   }
 
   @ResponseMessage("Update a user (Admin)")
-  @Patch()
-  async updateUserGeneral(@Body() updateUserDto: UpdateUserDto, @User() user: IUser) {
-    let updatedUser = await this.usersService.update(updateUserDto, user);
+  @Patch(':id')
+  async updateUserGeneral(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto, 
+    @User() user: IUser
+    ) { 
+    let updatedUser = await this.usersService.update(id, updateUserDto, user); 
     return updatedUser;
   }
 

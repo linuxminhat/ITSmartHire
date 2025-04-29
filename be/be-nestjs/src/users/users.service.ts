@@ -105,18 +105,20 @@ export class UsersService {
     return compareSync(password, hash);
   }
 
-  async update(updateUserDto: UpdateUserDto, user: IUser) {
+  async update(id: string, updateUserDto: UpdateUserDto, user: IUser) {
+    // Xóa dòng destructuring không cần thiết vì _id không còn trong DTO
+    // const { _id, ...dataToUpdate } = updateUserDto; 
+
     const updated = await this.userModel.updateOne(
-      { _id: updateUserDto._id },
+      { _id: id }, // Sử dụng id từ tham số
       {
-        ...updateUserDto,
+        ...updateUserDto, // Sử dụng trực tiếp updateUserDto
         updatedBy: {
           _id: user._id,
           email: user.email
         }
       });
     return updated;
-
   }
   async remove(id: string, user: IUser) {
     //email : adminitsmarthire@gmail.com

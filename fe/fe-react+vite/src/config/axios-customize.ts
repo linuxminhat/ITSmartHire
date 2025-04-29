@@ -1,8 +1,7 @@
 import { IBackendRes } from "@/types/backend";
 import { Mutex } from "async-mutex";
 import axiosClient from "axios";
-import { store } from "@/redux/store";
-import { setRefreshTokenAction } from "@/redux/slice/accountSlide";
+
 interface AccessTokenResponse {
     access_token: string;
 }
@@ -57,17 +56,6 @@ instance.interceptors.response.use(
                 localStorage.setItem('access_token', access_token)
                 return instance.request(error.config);
             }
-        }
-
-        if (
-            error.config && error.response
-            && +error.response.status === 400
-            && error.config.url === '/api/v1/auth/refresh'
-            && location.pathname.startsWith("/admin")
-        ) {
-            const message = error?.response?.data?.message ?? "Có lỗi xảy ra, vui lòng login.";
-            //dispatch redux action
-            store.dispatch(setRefreshTokenAction({ status: true, message }));
         }
 
         return error?.response?.data ?? Promise.reject(error);

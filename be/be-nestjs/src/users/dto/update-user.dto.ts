@@ -7,9 +7,12 @@
 
 import { OmitType, PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-import { IsNotEmpty } from 'class-validator';
 
-export class UpdateUserDto extends OmitType(CreateUserDto, ['password'] as const) {
-    @IsNotEmpty({ message: 'Id không được để trống' })
-    _id: string;
+// Sử dụng PartialType để làm các trường kế thừa từ CreateUserDto (trừ password) thành tùy chọn
+// Sử dụng OmitType để loại bỏ trường password không cần thiết cho update
+export class UpdateUserDto extends PartialType(
+    OmitType(CreateUserDto, ['password'] as const)
+) {
+    // Xóa trường _id vì ID được lấy từ Param, không phải từ Body
+    // Các trường name, email, age, gender, address, role giờ đây là optional do dùng PartialType
 }
