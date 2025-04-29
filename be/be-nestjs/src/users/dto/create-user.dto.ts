@@ -44,13 +44,10 @@ export class CreateUserDto {
     @IsMongoId({ message: "Role ID phải là MongoID hợp lệ" })
     role: mongoose.Schema.Types.ObjectId;
 
-    // Sửa lại validation cho company thành optional
-    @IsOptional() // << Thêm IsOptional
-    // @IsNotEmptyObject() // << Bỏ dòng này
-    @IsObject({ message: 'Company phải là object' })
-    @ValidateNested({ message: 'Company object không hợp lệ' })
-    @Type(() => CompanyDto) // Sử dụng DTO phụ đã định nghĩa
-    company?: CompanyDto; // Đặt là optional (?) 
+    // Sửa validation cho company để chấp nhận string ID
+    @IsOptional() // Giữ lại nếu company là tùy chọn
+    @IsMongoId({ message: "Company ID phải là MongoID hợp lệ"})
+    company?: string; // Thay đổi kiểu thành string và là optional
 }
 
 export class RegisterUserDto {

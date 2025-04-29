@@ -15,12 +15,10 @@ import { DatabasesModule } from './databases/databases.module';
 import { SkillsModule } from './skills/skills.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ApplicationsModule } from './applications/applications.module';
-
+import { BlogsModule } from './blogs/blogs.module';
 
 @Module({
   imports: [
-
-
     //Note : forRootAsync function ! 
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -49,6 +47,7 @@ import { ApplicationsModule } from './applications/applications.module';
     SkillsModule,
     CategoriesModule,
     ApplicationsModule,
+    BlogsModule,
   ],
 
   controllers: [AppController],
