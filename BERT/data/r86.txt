@@ -1,0 +1,27 @@
+Hoang Van F Security Engineer - Aviron Da Nang Da Nang, Vietnam - hoangvanf08092002@gmail.com - 0934567890 - github.com/hoangvanf
+I am a Software Engineering graduate with a focus on cybersecurity. I am dedicated to protecting systems from cyber threats.
+WORK EXPERIENCE
+Aviron Embedded Software Engineer
+Developed embedded software for IoT devices, ensuring secure and efficient operation.
+Jun 2024 - Dec 2024 Da Nang
+AVNON Security Engineer
+Designed and implemented network security solutions, reducing vulnerabilities by 30%.
+Jan 2025 - Present Da Nang
+EDUCATION
+Bachelor of Software Engineering
+Da Nang University of Technology
+GPA: 3.9/4.0
+Sep 2020 - Sep 2024
+PROJECTS
+IoT Monitoring System
+Description: Built an environmental monitoring system using sensors and microcontrollers. The project provided real-time data to users.
+Jan 2024 - Mar 2024
+Security Vulnerability Scanner
+Description: Developed a tool to automatically scan for web application vulnerabilities. The project reduced security risks for clients.
+Apr 2024 - Jun 2024
+SKILLS
+Embedded Systems: C, C++, RTOS
+Security: Kali Linux, Wireshark, Nmap
+CERTIFICATIONS
+Certified Ethical Hacker (CEH) (Credential ID: CEH-12345) by EC-Council
+Cisco Certified Network Associate (CCNA) (Credential ID: CCNA-67890) by Cisco

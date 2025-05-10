@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  flask-resume-api:
+    build: .
+    container_name: resume-parser
+    ports:
+      - "6969:6969"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    volumes:
+      - .:/app
+      - venv:/app/.venv
+    restart: unless-stopped
+
+volumes:
+  venv:

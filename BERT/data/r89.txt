@@ -1,0 +1,27 @@
+Bui Thi I Software Architect - AZAPA ENGINEERING Da Nang Da Nang, Vietnam - buithii14122005@gmail.com - 0923456789 - github.com/buithii
+I am an Information Technology graduate with a focus on software architecture. I aim to design scalable and efficient software systems.
+WORK EXPERIENCE
+AZAPA ENGINEERING Software Engineer
+Developed software for automotive control systems, improving performance and reliability.
+Aug 2027 - Feb 2028 Da Nang
+AZPLAYS Co., LTD Game Developer
+Designed and developed mobile games, creating engaging user experiences.
+Mar 2028 - Present Da Nang
+EDUCATION
+Bachelor of Information Technology (BIT)
+Da Nang University of Economics
+GPA: 3.1/4.0
+Sep 2023 - Sep 2027
+PROJECTS
+Automotive Engine Control System
+Description: Designed the software architecture for an engine control system. The project increased system efficiency by 15%.
+Jan 2027 - Mar 2027
+Mobile Game "Puzzle Master"
+Description: Developed a puzzle game with creative gameplay. The project received positive user feedback.
+Apr 2027 - Jun 2027
+SKILLS
+Software Architecture: Design Patterns, Microservices
+Programming: Java, C++, Python
+CERTIFICATIONS
+Certified Software Architect (CSA) (Credential ID: CSA-12345) by Software Architecture Institute
+Oracle Certified Java Programmer (OCJP) (Credential ID: OCJP-67890) by Oracle

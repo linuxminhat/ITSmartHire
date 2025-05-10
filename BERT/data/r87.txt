@@ -1,0 +1,27 @@
+Vu Thi G Data Engineer - AZoom VietNam Ho Chi Minh Ho Chi Minh, Vietnam - vuthig10112003@gmail.com - 0967890123 - github.com/vuthig
+I am a Master's graduate in Data Science with a passion for turning data into actionable insights. I aim to drive business decisions through data analysis.
+WORK EXPERIENCE
+AZoom VietNam Data Analyst
+Analyzed business data to support decision-making, improving marketing campaign effectiveness by 20%.
+Feb 2025 - Aug 2025 Ho Chi Minh
+AZPLAYS Co., LTD Machine Learning Engineer
+Developed machine learning algorithms for game content recommendation, increasing user engagement by 25%.
+Sep 2025 - Present Ho Chi Minh
+EDUCATION
+Master of Data Science
+Ho Chi Minh City University of Science
+GPA: 3.6/4.0
+Sep 2023 - Sep 2025
+PROJECTS
+Market Trend Analysis
+Description: Used historical data to predict market trends. The project helped the company adjust its business strategy.
+Jan 2025 - Mar 2025
+Game Content Recommendation System
+Description: Built a recommendation system based on player behavior. The project increased user interaction by 25%.
+Apr 2025 - Jun 2025
+SKILLS
+Data Analysis: Python, R, Pandas, NumPy
+Machine Learning: Scikit-learn, TensorFlow
+CERTIFICATIONS
+Certified Data Analyst (CDA) (Credential ID: CDA-12345) by Data Analysis Association
+Google Cloud Professional Data Engineer (Credential ID: GCP-DE-67890) by Google Cloud

@@ -1,0 +1,27 @@
+Dang Van H Penetration Tester - AVSTEK Ha Noi Ha Noi, Vietnam - dangvanh12122004@gmail.com - 0945678901 - github.com/dangvanh
+I am a Cybersecurity graduate with expertise in identifying and mitigating security threats. I aim to protect systems from cyber attacks.
+WORK EXPERIENCE
+AVSTEK Security Analyst
+Conducted security audits for web applications, identifying and fixing vulnerabilities.
+Jul 2026 - Jan 2027 Ha Noi
+AWING Cloud Security Engineer
+Developed security solutions for cloud systems, enhancing protection against cyber threats.
+Feb 2027 - Present Ha Noi
+EDUCATION
+Bachelor of Cybersecurity
+Hanoi National University
+GPA: 3.4/4.0
+Sep 2022 - Sep 2026
+PROJECTS
+Banking Application Security Testing
+Description: Performed penetration testing for a banking application, improving its security posture.
+Jan 2026 - Mar 2026
+Honeypot for Attack Detection
+Description: Set up a honeypot to collect data on cyber attacks. The project improved threat detection capabilities.
+Apr 2026 - Jun 2026
+SKILLS
+Security Tools: Metasploit, Burp Suite, OWASP ZAP
+Programming: Python, Bash
+CERTIFICATIONS
+Offensive Security Certified Professional (OSCP) (Credential ID: OSCP-12345) by Offensive Security
+CompTIA Security+ (Credential ID: SEC-67890) by CompTIA

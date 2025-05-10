@@ -10,7 +10,7 @@ const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [age, setAge] = useState<number | string>(''); 
+  const [age, setAge] = useState<number | string>('');
   const [gender, setGender] = useState<string>('');
   const [address, setAddress] = useState<string>('');
 
@@ -30,9 +30,9 @@ const RegisterPage: React.FC = () => {
       return;
     }
     if (password.length < 8) {
-       toast.error('Mật khẩu phải có ít nhất 8 ký tự.');
-       setIsLoading(false);
-       return;
+      toast.error('Mật khẩu phải có ít nhất 8 ký tự.');
+      setIsLoading(false);
+      return;
     }
     if (password !== confirmPassword) {
       toast.error('Mật khẩu xác nhận không khớp.');
@@ -66,7 +66,7 @@ const RegisterPage: React.FC = () => {
 
   return (
     <div className="flex items-stretch min-h-screen bg-white">
-      <div 
+      <div
         className="relative hidden w-1/2 lg:block bg-cover bg-center"
         style={{ backgroundImage: `url(${backgroundImageUrl})` }}
       >
@@ -106,9 +106,9 @@ const RegisterPage: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="name">Họ và tên</label>
-              <input 
-                type="text" 
-                placeholder="Nhập họ và tên" 
+              <input
+                type="text"
+                placeholder="Nhập họ và tên"
                 id="name"
                 required
                 value={name}
@@ -119,9 +119,9 @@ const RegisterPage: React.FC = () => {
             </div>
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                placeholder="your.email@example.com" 
+              <input
+                type="email"
+                placeholder="your.email@example.com"
                 id="email"
                 required
                 value={email}
@@ -132,22 +132,22 @@ const RegisterPage: React.FC = () => {
             </div>
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="password">Mật khẩu</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 placeholder="Tạo mật khẩu (ít nhất 8 ký tự)"
                 id="password"
                 required
-                minLength={8} 
+                minLength={8}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
                 className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition duration-200 disabled:bg-gray-200"
               />
             </div>
-            <div> 
+            <div>
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="confirmPassword">Xác nhận mật khẩu</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 placeholder="Nhập lại mật khẩu"
                 id="confirmPassword"
                 required
@@ -160,20 +160,20 @@ const RegisterPage: React.FC = () => {
                 <p className="text-xs text-red-600 mt-1">Mật khẩu xác nhận không khớp.</p>
               )}
             </div>
-            
+
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="age">Tuổi</label>
               <input type="number" placeholder="Nhập tuổi của bạn" id="age" required value={age} onChange={(e) => setAge(e.target.value)} disabled={isLoading} className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition duration-200 disabled:bg-gray-200" />
             </div>
-            
+
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="gender">Giới tính</label>
-              <select 
-                id="gender" 
-                required 
-                value={gender} 
-                onChange={(e) => setGender(e.target.value)} 
-                disabled={isLoading} 
+              <select
+                id="gender"
+                required
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                disabled={isLoading}
                 className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition duration-200 disabled:bg-gray-200"
               >
                 <option value="" disabled>-- Chọn giới tính --</option>
@@ -182,16 +182,16 @@ const RegisterPage: React.FC = () => {
                 <option value="other">Khác</option>
               </select>
             </div>
-            
+
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="address">Địa chỉ</label>
               <input type="text" placeholder="Nhập địa chỉ của bạn" id="address" required value={address} onChange={(e) => setAddress(e.target.value)} disabled={isLoading} className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition duration-200 disabled:bg-gray-200" />
             </div>
 
-            <div className="pt-2"> 
-              <button 
-                type="submit" 
-                disabled={isLoading || (password !== confirmPassword && !!confirmPassword)} 
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isLoading || (password !== confirmPassword && !!confirmPassword)}
                 className="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Đang xử lý...' : 'Tạo tài khoản'}

@@ -1,0 +1,463 @@
+[
+    {
+        "content": "Dang Nhat Minh FullStack Developer - RikkeiSoft Da Nang Da Nang, Viet Nam - minhnhatdang28@gmail.com - 0365256800 - linkedin.com/in/dang-nhat-minh-2840b2003 - github.com/minhnhatd I am a Computer Science major with solid software development experience, driven by my passion for building and optimizing robust backend systems. I aim to become a DevOps Engineer who ensures scalability, efficiency, and reliability in every project. WORK EXPERIENCE Freelance Backend Developer I ported the Smart Food Recipes from Java to Kotlin (Android Development) Built a Node.js backend for a job assistance application targeting IT students, integrating machine learning features to help recruiters scan applicant resumes. Jan 2025 - Mar 2025 Viet Nam RikkeiSoft Da Nang Software Intern/Fresher Backend Development (Python/Flask) : Developed a query search website leveraging Google Dorking techniques, built with Flask and SQLite. DevOps Role : Managed Linux system administration, deployed CI/CD projects using GitHub, Jenkins, and Docker, and operated mobile systems with MDM SOTi MobiControl for building troubleshooting and maintenance. Hands-on Project : Responsible for modifying Python backend code for a small module in a real-world Supergrid project. Sep 2024 - Dec 2024 Da Nang NAL JAPAN, INC. FullStack Developer Intern FullStack Developer : Developed a recruitment platform with Vue.js and Node.js, featuring advanced search and connections, and improved UX/UI to reduce bounce rate by 20%. Link Project, Certification Mar 2024 - Jun 2024 Da Nang EDUCATION Bachelor of Computer Science Da Nang University of Science and Technology Specialization : Information Technology with a focus on Japanese Language (HEDSPI Program) GPA: 3.42/4.0 Sep 2021 - Sep 2025 PROJECTS Exam and Test Management System Description: Built an application to streamline exam organization (Vue.js and Flask tech stacks), manage test materials, and track student performance for teachers and students. Main Features: Teachers's role : organize exams, manage question banks, track scores, handle class rosters, and create accounts. Student's role : Join classes, access materials, participate in exams, view progress, and manage accounts. Outcome: Improved exam management efficiency, reduced administrative workload, and enhanced transparency in scores and feedback for students. Jun 2024 - Aug 2024 Food Recipes Application Description: Building a mobile app in Kotlin with recipe instructions Main Features: User Authentication, Displays recipes for dishes, Choose your favorite food, Watch instructional videos to receive coins. Each coin corresponds to a detailed cooking video Feb 2024 - Apr 2024 SKILLS DevOps Skill: Linux, Shell scripting, Docker, GitHub CI/CD, Jenkins, basic AWS knowledge Backend Development: Node.JS/Express, Java/Spring, Python/Flask Frontend Development: HTML/CSS, Bootstrap, jQuery, Tailwind CSS, React.JS Java Programming: Java Core, JDBC, JSP/SERVLETS, Hibernate/JPA, Spring Core, Spring Boot, RESTful API Database Management: PostgreSQL, MongoDB, Design Database Android Native Development : Native app development (Java and Kotlin) CERTIFICATIONS Introduction to Linux (Credential ID: LFS101) by Linux Foundation Introduction to Kubernetes (Credential ID: LFS158) by Linux Foundation MoSQ Certificate for Professional's awareness of ArangoDB by ArangoDB AWS Cloud Practitioner Essentials (Credential ID: AWS-E) by AWS DevOps skills fundamental training course by VTI Academy Mar 2025 Feb 2025 Jan 2025 Aug 2024 Apr 2024",
+        "annotation": [
+            {
+                "label": [
+                    "NAME"
+                ],
+                "points": [
+                    {
+                        "start": 0,
+                        "end": 13,
+                        "text": "Dang Nhat Minh"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "DESIG"
+                ],
+                "points": [
+                    {
+                        "start": 15,
+                        "end": 54,
+                        "text": "FullStack Developer - RikkeiSoft Da Nang"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "EMAIL"
+                ],
+                "points": [
+                    {
+                        "start": 76,
+                        "end": 99,
+                        "text": "minhnhatdang28@gmail.com"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "PHONE"
+                ],
+                "points": [
+                    {
+                        "start": 103,
+                        "end": 112,
+                        "text": "0365256800"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "GITHUB"
+                ],
+                "points": [
+                    {
+                        "start": 159,
+                        "end": 178,
+                        "text": "github.com/minhnhatd"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "COMPANY_MONTHS"
+                ],
+                "points": [
+                    {
+                        "start": 448,
+                        "end": 456,
+                        "text": "Freelance"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "DESIG"
+                ],
+                "points": [
+                    {
+                        "start": 458,
+                        "end": 474,
+                        "text": "Backend Developer"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "LOC"
+                ],
+                "points": [
+                    {
+                        "start": 731,
+                        "end": 738,
+                        "text": "Viet Nam"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "COMPANY_MONTHS"
+                ],
+                "points": [
+                    {
+                        "start": 740,
+                        "end": 757,
+                        "text": "RikkeiSoft Da Nang"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "DESIG"
+                ],
+                "points": [
+                    {
+                        "start": 759,
+                        "end": 781,
+                        "text": "Software Intern/Fresher"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 804,
+                        "end": 815,
+                        "text": "Python/Flask"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 942,
+                        "end": 1082,
+                        "text": "Linux system administration, deployed CI/CD projects using GitHub, Jenkins, and Docker, and operated mobile systems with MDM SOTi MobiControl"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 1175,
+                        "end": 1180,
+                        "text": "Python"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "LOC"
+                ],
+                "points": [
+                    {
+                        "start": 1269,
+                        "end": 1275,
+                        "text": "Da Nang"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "COMPANY_MONTHS"
+                ],
+                "points": [
+                    {
+                        "start": 1277,
+                        "end": 1291,
+                        "text": "NAL JAPAN, INC."
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "DESIG"
+                ],
+                "points": [
+                    {
+                        "start": 1293,
+                        "end": 1318,
+                        "text": "FullStack Developer Intern"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 1380,
+                        "end": 1397,
+                        "text": "Vue.js and Node.js"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "LOC"
+                ],
+                "points": [
+                    {
+                        "start": 1540,
+                        "end": 1546,
+                        "text": "Da Nang"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "DEG"
+                ],
+                "points": [
+                    {
+                        "start": 1558,
+                        "end": 1585,
+                        "text": "Bachelor of Computer Science"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "UNI"
+                ],
+                "points": [
+                    {
+                        "start": 1587,
+                        "end": 1630,
+                        "text": "Da Nang University of Science and Technology"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "GPA"
+                ],
+                "points": [
+                    {
+                        "start": 1728,
+                        "end": 1735,
+                        "text": "3.42/4.0"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "GRADUATION_YEAR"
+                ],
+                "points": [
+                    {
+                        "start": 1752,
+                        "end": 1755,
+                        "text": "2025"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "PROJECT"
+                ],
+                "points": [
+                    {
+                        "start": 1766,
+                        "end": 2372,
+                        "text": "Exam and Test Management System Description: Built an application to streamline exam organization (Vue.js and Flask tech stacks), manage test materials, and track student performance for teachers and students. Main Features: Teachers's role : organize exams, manage question banks, track scores, handle class rosters, and create accounts. Student's role : Join classes, access materials, participate in exams, view progress, and manage accounts. Outcome: Improved exam management efficiency, reduced administrative workload, and enhanced transparency in scores and feedback for students. Jun 2024 - Aug 2024"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "PROJECT"
+                ],
+                "points": [
+                    {
+                        "start": 2374,
+                        "end": 2674,
+                        "text": "Food Recipes Application Description: Building a mobile app in Kotlin with recipe instructions Main Features: User Authentication, Displays recipes for dishes, Choose your favorite food, Watch instructional videos to receive coins. Each coin corresponds to a detailed cooking video Feb 2024 - Apr 2024"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 2683,
+                        "end": 2770,
+                        "text": "DevOps Skill: Linux, Shell scripting, Docker, GitHub CI/CD, Jenkins, basic AWS knowledge"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 2772,
+                        "end": 2834,
+                        "text": "Backend Development: Node.JS/Express, Java/Spring, Python/Flask"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 2836,
+                        "end": 2908,
+                        "text": "Frontend Development: HTML/CSS, Bootstrap, jQuery, Tailwind CSS, React.JS"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 2910,
+                        "end": 3010,
+                        "text": "Java Programming: Java Core, JDBC, JSP/SERVLETS, Hibernate/JPA, Spring Core, Spring Boot, RESTful API"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 3012,
+                        "end": 3068,
+                        "text": "Database Management: PostgreSQL, MongoDB, Design Database"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "TECHSTACK_SKILLS"
+                ],
+                "points": [
+                    {
+                        "start": 3070,
+                        "end": 3138,
+                        "text": "Android Native Development : Native app development (Java and Kotlin)"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "CERTIFICATION"
+                ],
+                "points": [
+                    {
+                        "start": 3155,
+                        "end": 3219,
+                        "text": "Introduction to Linux (Credential ID: LFS101) by Linux Foundation"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "CERTIFICATION"
+                ],
+                "points": [
+                    {
+                        "start": 3221,
+                        "end": 3290,
+                        "text": "Introduction to Kubernetes (Credential ID: LFS158) by Linux Foundation"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "CERTIFICATION"
+                ],
+                "points": [
+                    {
+                        "start": 3292,
+                        "end": 3360,
+                        "text": "MoSQ Certificate for Professional's awareness of ArangoDB by ArangoDB"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "CERTIFICATION"
+                ],
+                "points": [
+                    {
+                        "start": 3362,
+                        "end": 3424,
+                        "text": "AWS Cloud Practitioner Essentials (Credential ID: AWS-E) by AWS"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "CERTIFICATION"
+                ],
+                "points": [
+                    {
+                        "start": 3426,
+                        "end": 3481,
+                        "text": "DevOps skills fundamental training course by VTI Academy"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "EXPERIENCE_MONTHS"
+                ],
+                "points": [
+                    {
+                        "start": 711,
+                        "end": 729,
+                        "text": "Jan 2025 - Mar 2025"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "EXPERIENCE_MONTHS"
+                ],
+                "points": [
+                    {
+                        "start": 1249,
+                        "end": 1267,
+                        "text": "Sep 2024 - Dec 2024"
+                    }
+                ]
+            },
+            {
+                "label": [
+                    "EXPERIENCE_MONTHS"
+                ],
+                "points": [
+                    {
+                        "start": 1520,
+                        "end": 1538,
+                        "text": "Mar 2024 - Jun 2024"
+                    }
+                ]
+            }
+        ]
+    }
+]

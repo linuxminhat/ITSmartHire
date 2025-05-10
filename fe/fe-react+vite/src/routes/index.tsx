@@ -31,6 +31,7 @@ import JobSearchResultsPage from '@/pages/JobSearchResultsPage';
 import AppliedJobsPage from "@/pages/AppliedJobsPage";
 import BlogListPage from '@/pages/BlogListPage';
 import BlogDetailPage from '@/pages/BlogDetailPage';
+import MockInterviewPage from "@/pages/MockInterviewPage";
 
 const Root = () => (
   <AuthProvider>
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
           {
             path: "blog/:id",
             element: <BlogDetailPage />,
+          },
+          {
+            path: "mockinterview",
+            element: <MockInterviewPage />,
           },
         ]
       },

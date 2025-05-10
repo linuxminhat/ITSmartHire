@@ -1,0 +1,38 @@
+Frontend : HTML, CSS, JavaScript,React, Vue, Angular, Svelte, Ember.js, TypeScript, Sass ,Less, Tailwind CSS, Webpack, Babel, Redux
+Backend : Spring (Java), NestJS (Node.js) , JavaScript (Node.js), ASP.NET (C#), Django (Python), Flask (Python) , Ruby on Rails (Ruby), PHP, Go 
+DevOps : GitLab , Jenkins, GitHub Actions, Kubernetes, Docker, Ansible, Terraform, Prometheus, Grafana  
+
+Database: MySQL, PostgreSQL, SQLite, Oracle, MongoDB, Redis, Cassandra
+Cloud Services : Amazon Web Services (AWS), Microsoft Azure, Google Cloud Platform (GCP), Heroku, DigitalOcean
+Mobile Development : Swift (iOS), Kotlin (Android), React Native, Flutter 
+
+AI and  Machine Learning : TensorFlow, PyTorch, Scikit-learn,Pandas, NumPy
+Testing: Jest, Selenium, Git
+Message Brokers: RabbitMQ, Apache Kafka
+Frontend Technologies : Blazor, Next.js, Nuxt.js, Gatsby, Astro, Lit, Solid.js, Alpine.js, jQuery, Backbone.js
+Backend Technologies : Express.js, Koa.js, FastAPI, Phoenix, Play Framework, Symfony, Laravel, Gin, Rocket, Actix Web
+
+DevOps : CircleCI, Travis CI, Bamboo, ArgoCD, Spinnaker, Puppet, Chef, SaltStack, ELK Stack (Elasticsearch, Logstash, Kibana),New Relic
+Database Technologies : MariaDB, CouchDB, DynamoDB, Firebase Realtime Database, CockroachDB, InfluxDB, Neo4j, ArangoDB, Apache HBase,Snowflake
+Cloud Services & Platforms : IBM Cloud, Oracle Cloud, Alibaba Cloud, Cloudflare Workers, Netlify, Vercel,Linode, OVHcloud, Render,Fly.io
+
+Mobile Development : Xamarin, Ionic, NativeScript, Apache Cordova,  Unity,Corona SDK, Appcelerator Titanium, Qt Mobile, Java (Android), Objective-C (iOS)
+AI & Machine Learning: Keras, XGBoost, LightGBM, CatBoost, H2O.ai, Apache Mahout, MLlib, Fast.ai,OpenCV, NLTK
+Testing & Quality Assurance : Cypress, Playwright,Puppeteer, Mocha, Chai, JUnit, TestNG, Postman, SoapUI, Appium
+Message Brokers & Streaming : Apache ActiveMQ, NATS, ZeroMQ, Apache Pulsar, Amazon SQS, Google Pub/Sub,Azure Service Bus ,Redis Streams,Apache Flink
+Other Technologies : GraphQL, gRPC, WebAssembly, Electron, Tauri, Apache Airflow,Dask, Apache Hadoop, Apache Spark, Elasticsearch
+
+Frontend: HTML, CSS, JavaScript, React, Vue, Angular, Svelte, Ember.js, TypeScript, Sass, Less, Tailwind CSS, Webpack, Babel, Redux, Blazor, Next.js, Nuxt.js, Gatsby, Astro, Lit, Solid.js, Alpine.js, jQuery, Backbone.js, Vite, Parcel, npm, yarn, pnpm, React Testing Library, Storybook, Vitest
+Backend: Spring (Java), NestJS (Node.js), JavaScript (Node.js), ASP.NET (C#), Django (Python), Flask (Python), Ruby on Rails (Ruby), PHP, Go, Express.js, Koa.js, FastAPI, Phoenix, Play Framework, Symfony, Laravel, Gin, Rocket, Actix Web, Axum, Warp, Cowboy, Mockito (Java), Supertest (Node.js), RSpec (Ruby)
+DevOps: GitLab, Jenkins, GitHub Actions, Kubernetes, Docker, Ansible, Terraform, Prometheus, Grafana, CircleCI, Travis CI, Bamboo, ArgoCD, Spinnaker, Puppet, Chef, SaltStack, ELK Stack (Elasticsearch, Logstash, Kibana), New Relic, Loki, Jaeger, Fluentd, Podman, CRI-O, Vault (HashiCorp), Aqua Security, Falco, Pulumi, Crossplane
+
+Database: MySQL, PostgreSQL, SQLite, Oracle, MongoDB, Redis, Cassandra, MariaDB, CouchDB, DynamoDB, Firebase Realtime Database, CockroachDB, InfluxDB, Neo4j, ArangoDB, Apache HBase, Snowflake, TimescaleDB, VictoriaMetrics, Dgraph, JanusGraph, OpenSearch
+Cloud Services & Platforms: Amazon Web Services (AWS), Microsoft Azure, Google Cloud Platform (GCP), Heroku, DigitalOcean, IBM Cloud, Oracle Cloud, Alibaba Cloud, Cloudflare Workers, Netlify, Vercel, Linode, OVHcloud, Render, Fly.io, AWS Lambda, Google Cloud Functions, Azure Functions, GitHub Codespaces, Gitpod, Anthos (GCP), Azure Arc
+Mobile Development: Xamarin, Ionic, NativeScript, Apache Cordova, Unity, Corona SDK, Appcelerator Titanium, Qt Mobile, Java (Android), Objective-C (iOS), Capacitor, MAUI (.NET Multi-platform App UI), Detox, Espresso (Android), XCTest (iOS)
+
+AI & Machine Learning: TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy, Keras, XGBoost, LightGBM, CatBoost, H2O.ai, Apache Mahout, MLlib, Fast.ai, OpenCV, NLTK, Hugging Face Transformers, LangChain, spaCy, MLflow, Kubeflow, DVC, Google AutoML, H2O AutoML
+Testing & Quality Assurance: Jest, Selenium, Git, Cypress, Playwright, Puppeteer, Mocha, Chai, JUnit, TestNG, Postman, SoapUI, Appium, Pact, JMeter, Gatling, k6, OWASP ZAP, Burp Suite
+Message Brokers & Streaming: RabbitMQ, Apache Kafka, Apache ActiveMQ, NATS, ZeroMQ, Apache Pulsar, Amazon SQS, Google Pub/Sub, Azure Service Bus, Redis Streams, Apache Flink, Apache Beam, Redpanda, Apache Camel, MuleSoft
+Other Technologies: GraphQL, gRPC, WebAssembly, Electron, Tauri, Apache Airflow, Dask, Apache Hadoop, Apache Spark, Elasticsearch, Kong, Apigee, Tyk, Socket.IO, SignalR, Wasmtime, Wasmer, Retool, OutSystems, Appgyver
+
+
