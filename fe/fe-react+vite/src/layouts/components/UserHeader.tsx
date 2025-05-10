@@ -42,16 +42,16 @@ const UserHeader: React.FC = () => {
         const skillRes: any = await callFetchAllSkills();
         console.log("Raw Skill Response:", skillRes);
         const skillsArray = skillRes?.data?.result;
-        
-        if (skillsArray && Array.isArray(skillsArray)) { 
+
+        if (skillsArray && Array.isArray(skillsArray)) {
           setSkills(skillsArray);
         } else {
-           console.error("Skills array could not be extracted. Check Raw Skill Response log.");
-           setSkills([]);
+          console.error("Skills array could not be extracted. Check Raw Skill Response log.");
+          setSkills([]);
         }
       } catch (error) {
         console.error("Failed to fetch skills:", error);
-        setSkills([]); 
+        setSkills([]);
       } finally {
         setIsLoadingSkills(false);
       }
@@ -63,15 +63,15 @@ const UserHeader: React.FC = () => {
         console.log("Raw Category Response:", categoryRes);
         const categoriesArray = categoryRes?.data?.result;
 
-        if (categoriesArray && Array.isArray(categoriesArray)) { 
-            setCategories(categoriesArray);
+        if (categoriesArray && Array.isArray(categoriesArray)) {
+          setCategories(categoriesArray);
         } else {
-            console.error("Categories array could not be extracted. Check Raw Category Response log.");
-            setCategories([]);
+          console.error("Categories array could not be extracted. Check Raw Category Response log.");
+          setCategories([]);
         }
       } catch (error) {
         console.error("Failed to fetch categories:", error);
-        setCategories([]); 
+        setCategories([]);
       } finally {
         setIsLoadingCategories(false);
       }
@@ -85,7 +85,7 @@ const UserHeader: React.FC = () => {
 
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-indigo-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`;
-  
+
   const mobileNavLinkClasses = ({ isActive }: { isActive: boolean }) =>
     `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-indigo-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`;
 
@@ -111,91 +111,93 @@ const UserHeader: React.FC = () => {
             <div className="ml-10 flex items-baseline space-x-4">
               {/* Job Menu Dropdown */}
               <div className="relative" onMouseLeave={() => setIsJobMenuOpen(false)}>
-                 <button 
-                    type="button"
-                    onMouseEnter={() => setIsJobMenuOpen(true)}
-                    onClick={() => setIsJobMenuOpen(!isJobMenuOpen)}
-                    className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none"
-                 >
-                    Việc làm IT
-                    <ChevronDownIcon className={`h-4 w-4 ml-1 transition-transform ${isJobMenuOpen ? 'rotate-180' : ''}`} />
-                 </button>
-                 {isJobMenuOpen && (
-                    <div 
-                        className="absolute left-0 mt-2 w-80 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10 flex"
-                        role="menu"
-                        aria-orientation="vertical"
-                    >
-                        <div className="w-1/2 border-r border-gray-100">
-                            <NavLink 
-                                to="/jobs" 
-                                className={({ isActive }) => `${jobMenuItemClass} ${isActive ? 'bg-gray-100 font-medium' : ''}`}
+                <button
+                  type="button"
+                  onMouseEnter={() => setIsJobMenuOpen(true)}
+                  onClick={() => setIsJobMenuOpen(!isJobMenuOpen)}
+                  className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none"
+                >
+                  Việc làm IT
+                  <ChevronDownIcon className={`h-4 w-4 ml-1 transition-transform ${isJobMenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isJobMenuOpen && (
+                  <div
+                    className="absolute left-0 mt-2 w-80 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10 flex"
+                    role="menu"
+                    aria-orientation="vertical"
+                  >
+                    <div className="w-1/2 border-r border-gray-100">
+                      <NavLink
+                        to="/jobs"
+                        className={({ isActive }) => `${jobMenuItemClass} ${isActive ? 'bg-gray-100 font-medium' : ''}`}
+                        role="menuitem"
+                        onClick={() => setIsJobMenuOpen(false)}
+                      >
+                        Tất cả việc làm
+                      </NavLink>
+                      <div className="mt-1 pt-1">
+                        <span className="block px-4 pt-2 pb-1 text-xs text-gray-500 font-semibold uppercase flex items-center">
+                          <RectangleStackIcon className="h-4 w-4 mr-1.5" /> Việc làm theo Danh mục
+                        </span>
+                        {isLoadingCategories ? (
+                          <div className="px-4 py-2 text-sm text-gray-500">Đang tải...</div>
+                        ) : categories.length > 0 ? (
+                          <div className="max-h-60 overflow-y-auto px-2 py-1">
+                            {categories.map(category => (
+                              <Link
+                                key={category._id}
+                                to={`/jobs/by-category/${category._id}`}
+                                className={jobSubMenuItemClass}
+                                title={category.name}
                                 role="menuitem"
                                 onClick={() => setIsJobMenuOpen(false)}
-                            >
-                                Tất cả việc làm
-                            </NavLink>
-                            <div className="mt-1 pt-1">
-                                <span className="block px-4 pt-2 pb-1 text-xs text-gray-500 font-semibold uppercase flex items-center">
-                                     <RectangleStackIcon className="h-4 w-4 mr-1.5"/> Việc làm theo Danh mục
-                                </span>
-                                {isLoadingCategories ? (
-                                    <div className="px-4 py-2 text-sm text-gray-500">Đang tải...</div>
-                                ) : categories.length > 0 ? (
-                                    <div className="max-h-60 overflow-y-auto px-2 py-1"> 
-                                        {categories.map(category => (
-                                            <Link 
-                                                key={category._id}
-                                                to={`/jobs/by-category/${category._id}`}
-                                                className={jobSubMenuItemClass}
-                                                title={category.name}
-                                                role="menuitem"
-                                                onClick={() => setIsJobMenuOpen(false)}
-                                            >
-                                                {category.name}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="px-4 py-2 text-sm text-gray-500">Không có danh mục.</div>
-                                )}
-                            </div>
-                        </div>
-                        
-                        <div className="w-1/2">
-                            <div className="mt-1 pt-1">
-                                <span className="block px-4 pt-2 pb-1 text-xs text-gray-500 font-semibold uppercase flex items-center">
-                                    <TagIcon className="h-4 w-4 mr-1.5"/> Việc làm theo Kỹ năng
-                                </span>
-                                {isLoadingSkills ? (
-                                    <div className="px-4 py-2 text-sm text-gray-500">Đang tải...</div>
-                                ) : skills.length > 0 ? (
-                                    <div className="max-h-[16.5rem] overflow-y-auto px-2 py-1"> 
-                                        <div className="grid grid-cols-2 gap-x-2 gap-y-1"> 
-                                            {skills.map(skill => (
-                                                <Link 
-                                                    key={skill._id}
-                                                    to={`/jobs/by-skill/${skill._id}`}
-                                                    className={jobSubMenuItemClass}
-                                                    title={skill.name}
-                                                    role="menuitem"
-                                                    onClick={() => setIsJobMenuOpen(false)}
-                                                >
-                                                    {skill.name}
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="px-4 py-2 text-sm text-gray-500">Không có kỹ năng.</div>
-                                )}
-                            </div>
-                        </div>
+                              >
+                                {category.name}
+                              </Link>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="px-4 py-2 text-sm text-gray-500">Không có danh mục.</div>
+                        )}
+                      </div>
                     </div>
-                 )}
+
+                    <div className="w-1/2">
+                      <div className="mt-1 pt-1">
+                        <span className="block px-4 pt-2 pb-1 text-xs text-gray-500 font-semibold uppercase flex items-center">
+                          <TagIcon className="h-4 w-4 mr-1.5" /> Việc làm theo Kỹ năng
+                        </span>
+                        {isLoadingSkills ? (
+                          <div className="px-4 py-2 text-sm text-gray-500">Đang tải...</div>
+                        ) : skills.length > 0 ? (
+                          <div className="max-h-[16.5rem] overflow-y-auto px-2 py-1">
+                            <div className="grid grid-cols-2 gap-x-2 gap-y-1">
+                              {skills.map(skill => (
+                                <Link
+                                  key={skill._id}
+                                  to={`/jobs/by-skill/${skill._id}`}
+                                  className={jobSubMenuItemClass}
+                                  title={skill.name}
+                                  role="menuitem"
+                                  onClick={() => setIsJobMenuOpen(false)}
+                                >
+                                  {skill.name}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="px-4 py-2 text-sm text-gray-500">Không có kỹ năng.</div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-              
+
               <NavLink to="/companies" className={navLinkClasses}>Công ty</NavLink>
+              <NavLink to="/blog" className={navLinkClasses}>Blog về IT</NavLink>
+              <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn giả lập</NavLink>
             </div>
           </div>
 
@@ -228,31 +230,31 @@ const UserHeader: React.FC = () => {
                     >
                       {isStandardUser && (
                         <>
-                           <Link to="/dashboard" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                             <Squares2X2Icon className={userMenuIconClass} /> Tổng quan
-                           </Link>
-                           <Link to="/resumes/attached" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                              <DocumentArrowUpIcon className={userMenuIconClass} /> Hồ sơ đính kèm
-                           </Link>
-                           <Link to="/profile" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                             <IdentificationIcon className={userMenuIconClass} /> Hồ sơ
-                           </Link>
-                           <Link to="/jobs/applied" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                              <BriefcaseIcon className={userMenuIconClass} /> Việc làm của tôi
-                           </Link>
+                          <Link to="/dashboard" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                            <Squares2X2Icon className={userMenuIconClass} /> Tổng quan
+                          </Link>
+                          <Link to="/resumes/attached" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                            <DocumentArrowUpIcon className={userMenuIconClass} /> Hồ sơ đính kèm
+                          </Link>
+                          <Link to="/profile" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                            <IdentificationIcon className={userMenuIconClass} /> Hồ sơ
+                          </Link>
+                          <Link to="/jobs/applied" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                            <BriefcaseIcon className={userMenuIconClass} /> Việc làm của tôi
+                          </Link>
                         </>
                       )}
                       {!isStandardUser && (
-                          <Link
-                            to={profilePath} 
-                            className={userMenuItemClass} 
-                            role="menuitem"
-                            onClick={() => setIsUserMenuOpen(false)} 
-                          >
-                             <UserCircleIcon className={userMenuIconClass} /> Hồ sơ
-                          </Link>
+                        <Link
+                          to={profilePath}
+                          className={userMenuItemClass}
+                          role="menuitem"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <UserCircleIcon className={userMenuIconClass} /> Hồ sơ
+                        </Link>
                       )}
-                       {!isStandardUser && <div className="my-1 border-t border-gray-100"></div>}
+                      {!isStandardUser && <div className="my-1 border-t border-gray-100"></div>}
                       <button
                         onClick={() => { handleLogout(); setIsUserMenuOpen(false); }}
                         className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
@@ -300,10 +302,10 @@ const UserHeader: React.FC = () => {
       {/* Mobile Menu */}
       <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`} id="mobile-menu">
         <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-           {/* Mobile Job Links */}
-           <NavLink to="/jobs" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Tất cả việc làm</NavLink>
-           {/* TODO: Add Mobile Skill/Category Links Here */}
-           <NavLink to="/companies" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Công ty</NavLink>
+          {/* Mobile Job Links */}
+          <NavLink to="/jobs" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Tất cả việc làm</NavLink>
+          {/* TODO: Add Mobile Skill/Category Links Here */}
+          <NavLink to="/companies" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>Công ty</NavLink>
         </div>
         {/* Rest of mobile menu auth section */}
         <div className="border-t border-gray-700 pb-3 pt-4">
@@ -311,7 +313,7 @@ const UserHeader: React.FC = () => {
             <>
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                   <UserCircleIcon className="h-10 w-10 text-gray-400" />
+                  <UserCircleIcon className="h-10 w-10 text-gray-400" />
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">{user.name}</div>
@@ -319,23 +321,23 @@ const UserHeader: React.FC = () => {
                 </div>
               </div>
               <div className="mt-3 space-y-1 px-2">
-                 {isStandardUser && (
-                    <>
-                       <Link to="/dashboard" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Tổng quan</Link>
-                       <Link to="/resumes/attached" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Hồ sơ đính kèm</Link>
-                       <Link to="/profile" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Hồ sơ ITviec</Link>
-                       <Link to="/jobs/applied" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Việc làm của tôi</Link>
-                    </>
-                 )}
-                 {!isStandardUser && (
-                    <Link
-                      to={profilePath} 
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Hồ sơ
-                    </Link>
-                 )}
+                {isStandardUser && (
+                  <>
+                    <Link to="/dashboard" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Tổng quan</Link>
+                    <Link to="/resumes/attached" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Hồ sơ đính kèm</Link>
+                    <Link to="/profile" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Hồ sơ ITviec</Link>
+                    <Link to="/jobs/applied" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>Việc làm của tôi</Link>
+                  </>
+                )}
+                {!isStandardUser && (
+                  <Link
+                    to={profilePath}
+                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Hồ sơ
+                  </Link>
+                )}
                 <button
                   onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}
                   className="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-red-400 hover:bg-gray-700 hover:text-white"
@@ -349,15 +351,15 @@ const UserHeader: React.FC = () => {
               <Link
                 to="/login"
                 className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                 onClick={() => setIsMobileMenuOpen(false)}
-             >
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Đăng nhập
               </Link>
               <Link
                 to="/register"
                 className="block rounded-md px-3 py-2 text-base font-medium text-indigo-400 hover:bg-gray-700 hover:text-white"
-                 onClick={() => setIsMobileMenuOpen(false)}
-             >
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Đăng ký
               </Link>
             </div>

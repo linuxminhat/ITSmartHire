@@ -1,0 +1,27 @@
+Do Thi L Data Engineer - AWING Ha Noi Ha Noi, Vietnam - dothil18122007@gmail.com - 0912345678 - github.com/dothil
+I am a Data Science graduate with expertise in building data pipelines and analytics systems. I aim to drive business insights through data.
+WORK EXPERIENCE
+AWING Data Analyst
+Analyzed customer data to optimize marketing campaigns, increasing effectiveness by 15%.
+May 2029 - Nov 2029 Ha Noi
+AZoom VietNam Data Engineer
+Built predictive models for sales forecasting, improving accuracy by 20%.
+Dec 2029 - Present Ha Noi
+EDUCATION
+Bachelor of Data Science
+Hanoi University of Science
+GPA: 3.5/4.0
+Sep 2025 - Sep 2029
+PROJECTS
+Real-time Data Analysis System
+Description: Designed and implemented a streaming data processing system. The project provided real-time insights for business decisions.
+Jan 2029 - Mar 2029
+Business Reporting Dashboard
+Description: Created an interactive dashboard to track business KPIs. The project helped management monitor performance easily.
+Apr 2029 - Jun 2029
+SKILLS
+Data Engineering: Apache Kafka, Spark Streaming
+Data Analysis: Python, SQL, Tableau
+CERTIFICATIONS
+Cloudera Certified Data Engineer (Credential ID: CCDE-12345) by Cloudera
+Tableau Desktop Specialist (Credential ID: TDS-67890) by Tableau

@@ -1,0 +1,28 @@
+Le Thi C Web Developer - AVSTEK Da Nang Da Nang, Vietnam - lethic02031999@gmail.com - 0912345678 - github.com/lethic
+I am a Computer Science graduate with a passion for building user-friendly web applications. I specialize in frontend development and aim to create seamless digital experiences.
+WORK EXPERIENCE
+AVSTEK Web Developer
+Developed and maintained web applications using React and Node.js, improving user engagement by 25%. Optimized frontend performance, reducing load times by 15%.
+Jan 2022 - Jun 2023 Da Nang
+AZAPA ENGINEERING Software Engineer
+Designed and implemented embedded systems for automotive applications, ensuring high reliability and performance.
+Jul 2023 - Present Da Nang
+EDUCATION
+Bachelor of Information Technology (BIT)
+Da Nang University of Science and Technology
+GPA: 3.5/4.0
+Sep 2017 - Sep 2021
+PROJECTS
+Customer Relationship Management (CRM) System
+Description: Developed a CRM to manage customer information and transaction history. The project increased customer management efficiency by 30%.
+Jan 2022 - Mar 2022
+Health Tracking Mobile App
+Description: Built a mobile app to track health metrics. The app helped users monitor and improve their daily health.
+Apr 2022 - Jun 2022
+SKILLS
+Frontend Technologies: React, Next.js, Tailwind CSS
+Backend Technologies: Node.js, Express.js
+Databases: MongoDB, PostgreSQL
+CERTIFICATIONS
+ISTQB Certified Tester Foundation Level (Credential ID: ISTQB-12345) by ISTQB
+AWS Certified Solutions Architect (Credential ID: AWS-SA-67890) by Amazon Web Services

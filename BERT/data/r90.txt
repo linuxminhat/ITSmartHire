@@ -1,0 +1,27 @@
+Ngo Van K Machine Learning Engineer - BAN VIEN CORPORATION Ho Chi Minh Ho Chi Minh, Vietnam - ngovank16122006@gmail.com - 0956789012 - github.com/ngovank
+I am a Master's graduate in Artificial Intelligence with a passion for developing intelligent systems. I aim to apply AI to solve complex problems.
+WORK EXPERIENCE
+BAN VIEN CORPORATION AI Researcher
+Researched and developed AI algorithms for robotics, enhancing automation capabilities.
+Apr 2028 - Oct 2028 Ho Chi Minh
+AVNON AI Engineer
+Implemented AI solutions for automation systems, improving operational efficiency.
+Nov 2028 - Present Ho Chi Minh
+EDUCATION
+Master of Artificial Intelligence
+Ho Chi Minh City University of Technology and Education
+GPA: 3.9/4.0
+Sep 2026 - Sep 2028
+PROJECTS
+Autonomous Robot
+Description: Developed an autonomous robot capable of navigation and obstacle avoidance. The project was applied in warehouse logistics.
+Jan 2028 - Mar 2028
+Object Detection System
+Description: Built a system to detect objects in images and videos. The project supported surveillance and security applications.
+Apr 2028 - Jun 2028
+SKILLS
+AI and Machine Learning: Keras, PyTorch, OpenCV
+Programming: Python, MATLAB
+CERTIFICATIONS
+Deep Learning Specialization (Credential ID: DLS-12345) by Coursera
+NVIDIA Certified AI Professional (Credential ID: NVIDIA-AI-67890) by NVIDIA

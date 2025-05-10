@@ -1,0 +1,27 @@
+Tran Thi E Application Developer - AZPLAYS Co., LTD Ha Noi Ha Noi, Vietnam - tranthie06072001@gmail.com - 0901234567 - github.com/tranthie
+I am a Computer Engineering graduate with a passion for developing innovative applications. I aim to create software that enhances user experiences.
+WORK EXPERIENCE
+AZPLAYS Co., LTD Application Developer
+Developed mobile games using Unity, achieving over 100,000 downloads.
+Sep 2022 - Mar 2023 Ha Noi
+VietinBank Insurance (VBI) Software Developer
+Built an online insurance management system, increasing contract processing efficiency by 40%.
+Apr 2023 - Present Ha Noi
+EDUCATION
+Bachelor of Engineering in Computer Engineering
+Hanoi University of Science and Technology
+GPA: 3.7/4.0
+Sep 2018 - Sep 2022
+PROJECTS
+Mobile Game "Adventure Quest"
+Description: Developed a 3D mobile game with engaging gameplay. The project attracted over 100,000 downloads.
+Jan 2023 - Mar 2023
+Insurance Management System
+Description: Built a web system to manage insurance contracts. The project increased contract processing efficiency by 40%.
+Apr 2023 - Jun 2023
+SKILLS
+Game Development: Unity, C#
+Web Development: ASP.NET, SQL Server
+CERTIFICATIONS
+Unity Certified Developer (Credential ID: UCD-12345) by Unity Technologies
+Microsoft Certified: Azure Developer Associate (Credential ID: AZ-DEV-67890) by Microsoft

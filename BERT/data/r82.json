@@ -1,0 +1,391 @@
+{
+    "classes": [
+        "NAME",
+        "EMAIL",
+        "GITHUB",
+        "LOC",
+        "PHONE",
+        "UNI",
+        "DEG",
+        "GPA",
+        "GRADUATION_YEAR",
+        "WORKING_COMPANY_EXPERIENCES",
+        "WORKING_TIME_EXPERIENCES",
+        "DESIG",
+        "TECHSTACK_SKILLS",
+        "PROJECT",
+        "PROJECT_DESCRIPTION",
+        "CERTIFICATION",
+        "WORKING_DESCRIPTION"
+    ],
+    "annotations": [
+        [
+            "Le Thi C Web Developer - AVSTEK Da Nang Da Nang, Vietnam - lethic02031999@gmail.com - 0912345678 - github.com/lethic\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        8,
+                        "NAME"
+                    ],
+                    [
+                        9,
+                        22,
+                        "DESIG"
+                    ],
+                    [
+                        25,
+                        31,
+                        "WORKING_COMPANY_EXPERIENCES"
+                    ],
+                    [
+                        40,
+                        47,
+                        "LOC"
+                    ],
+                    [
+                        59,
+                        83,
+                        "LOC"
+                    ],
+                    [
+                        86,
+                        96,
+                        "PHONE"
+                    ],
+                    [
+                        99,
+                        116,
+                        "GITHUB"
+                    ]
+                ]
+            }
+        ],
+        [
+            "I am a Computer Science graduate with a passion for building user-friendly web applications. I specialize in frontend development and aim to create seamless digital experiences.\r",
+            {
+                "entities": [
+                    [
+                        52,
+                        92,
+                        "WORKING_DESCRIPTION"
+                    ],
+                    [
+                        95,
+                        176,
+                        "WORKING_DESCRIPTION"
+                    ]
+                ]
+            }
+        ],
+        [
+            "WORK EXPERIENCE\r",
+            {
+                "entities": []
+            }
+        ],
+        [
+            "AVSTEK Web Developer\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        6,
+                        "WORKING_COMPANY_EXPERIENCES"
+                    ],
+                    [
+                        7,
+                        20,
+                        "DESIG"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Developed and maintained web applications using React and Node.js, improving user engagement by 25%. Optimized frontend performance, reducing load times by 15%.\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        159,
+                        "WORKING_DESCRIPTION"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Jan 2022 - Jun 2023 Da Nang\r",
+            {
+                "entities": []
+            }
+        ],
+        [
+            "AZAPA ENGINEERING Software Engineer\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        17,
+                        "WORKING_COMPANY_EXPERIENCES"
+                    ],
+                    [
+                        18,
+                        35,
+                        "DESIG"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Designed and implemented embedded systems for automotive applications, ensuring high reliability and performance.\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        113,
+                        "WORKING_DESCRIPTION"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Jul 2023 - Present Da Nang\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        18,
+                        "WORKING_TIME_EXPERIENCES"
+                    ]
+                ]
+            }
+        ],
+        [
+            "EDUCATION\r",
+            {
+                "entities": []
+            }
+        ],
+        [
+            "Bachelor of Information Technology (BIT)\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        40,
+                        "DEG"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Da Nang University of Science and Technology\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        44,
+                        "UNI"
+                    ]
+                ]
+            }
+        ],
+        [
+            "GPA: 3.5/4.0\r",
+            {
+                "entities": [
+                    [
+                        5,
+                        12,
+                        "GPA"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Sep 2017 - Sep 2021\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        19,
+                        "GRADUATION_YEAR"
+                    ]
+                ]
+            }
+        ],
+        [
+            "PROJECTS\r",
+            {
+                "entities": []
+            }
+        ],
+        [
+            "Customer Relationship Management (CRM) System\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        45,
+                        "PROJECT"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Description: Developed a CRM to manage customer information and transaction history. The project increased customer management efficiency by 30%.\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        144,
+                        "PROJECT_DESCRIPTION"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Jan 2022 - Mar 2022\r",
+            {
+                "entities": []
+            }
+        ],
+        [
+            "Health Tracking Mobile App\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        26,
+                        "PROJECT"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Description: Built a mobile app to track health metrics. The app helped users monitor and improve their daily health.\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        117,
+                        "PROJECT_DESCRIPTION"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Apr 2022 - Jun 2022\r",
+            {
+                "entities": []
+            }
+        ],
+        [
+            "SKILLS\r",
+            {
+                "entities": []
+            }
+        ],
+        [
+            "Frontend Technologies: React, Next.js, Tailwind CSS\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        8,
+                        "TECHSTACK_SKILLS"
+                    ],
+                    [
+                        23,
+                        28,
+                        "TECHSTACK_SKILLS"
+                    ],
+                    [
+                        30,
+                        37,
+                        "TECHSTACK_SKILLS"
+                    ],
+                    [
+                        39,
+                        51,
+                        "TECHSTACK_SKILLS"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Backend Technologies: Node.js, Express.js\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        7,
+                        "TECHSTACK_SKILLS"
+                    ],
+                    [
+                        22,
+                        29,
+                        "TECHSTACK_SKILLS"
+                    ],
+                    [
+                        31,
+                        41,
+                        "TECHSTACK_SKILLS"
+                    ]
+                ]
+            }
+        ],
+        [
+            "Databases: MongoDB, PostgreSQL\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        9,
+                        "TECHSTACK_SKILLS"
+                    ],
+                    [
+                        11,
+                        18,
+                        "TECHSTACK_SKILLS"
+                    ],
+                    [
+                        20,
+                        30,
+                        "TECHSTACK_SKILLS"
+                    ]
+                ]
+            }
+        ],
+        [
+            "CERTIFICATIONS\r",
+            {
+                "entities": []
+            }
+        ],
+        [
+            "ISTQB Certified Tester Foundation Level (Credential ID: ISTQB-12345) by ISTQB\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        77,
+                        "CERTIFICATION"
+                    ]
+                ]
+            }
+        ],
+        [
+            "AWS Certified Solutions Architect (Credential ID: AWS-SA-67890) by Amazon Web Services",
+            {
+                "entities": [
+                    [
+                        0,
+                        86,
+                        "CERTIFICATION"
+                    ]
+                ]
+            }
+        ]
+    ]
+}
