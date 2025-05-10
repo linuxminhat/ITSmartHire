@@ -105,7 +105,7 @@ const UserDashboardPage: React.FC = () => {
                                 <h1 className="text-2xl font-bold text-gray-800 mb-1">{user.name}</h1>
                                 <p className="text-sm text-gray-500 flex items-center justify-center sm:justify-start mb-1">
                                     <PencilSquareIcon className="h-4 w-4 mr-1.5" />
-                                    <span className="hover:text-indigo-600 cursor-pointer">Cập nhật chức danh</span>
+                                    <span className="hover:text-indigo-600 cursor-pointer">Cập nhật dddchức danh</span>
                                 </p>
                                 <p className="text-sm text-gray-500 flex items-center justify-center sm:justify-start">
                                     <EnvelopeIcon className="h-4 w-4 mr-1.5" />
