@@ -31,7 +31,7 @@ import JobSearchResultsPage from '@/pages/JobSearchResultsPage';
 import AppliedJobsPage from "@/pages/AppliedJobsPage";
 import BlogListPage from '@/pages/BlogListPage';
 import BlogDetailPage from '@/pages/BlogDetailPage';
-import MockInterviewPage from "@/pages/MockInterviewPage";
+import HRPage from "@/pages/admin/HRPage";
 
 const Root = () => (
   <AuthProvider>
@@ -71,10 +71,10 @@ export const router = createBrowserRouter([
             path: "blog/:id",
             element: <BlogDetailPage />,
           },
-          {
-            path: "mockinterview",
-            element: <MockInterviewPage />,
-          },
+          // {
+          //   path: "mockinterview",
+          //   element: <MockInterviewPage />,
+          // },
         ]
       },
 
@@ -106,6 +106,7 @@ export const router = createBrowserRouter([
           {
             element: <AdminLayout />,
             children: [
+              { index: true, element: <HRPage /> },
               { index: true, element: <Navigate to="/hr/jobs" replace /> },
               { path: "profile", element: <ProfilePage /> },
               { path: "companies", element: <ManageCompaniesPage /> },
