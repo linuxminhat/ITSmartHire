@@ -23,11 +23,20 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "styles/*": [
+        "src/styles/*"
+      ],
+      "config/*": [
+        "src/config/*"
+      ],
+      "pages/*": [
+        "src/pages/*"
       ]
-    },
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    }
   },
   "include": [
     "src"
@@ -36,6 +45,8 @@
     "node_modules"
   ],
   "references": [
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }

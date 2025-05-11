@@ -1,126 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import UserDashboardSidebar from '@/layouts/components/UserDashboardSidebar';
-import { useAuth } from '@/contexts/AuthContext';
-import { UserCircleIcon, EnvelopeIcon, PencilSquareIcon, DocumentCheckIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
-import Spinner from '@/components/Spinner';
-import { callGetAttachedCvs } from '@/services/user.service';
-import { IAttachedCv } from '@/types/backend';
-import { toast } from 'react-toastify';
+// import { useState, useEffect } from 'react';
+// import { Button } from '@/components/ui/button'; // Shadcn UI
+// import { Input } from '@/components/ui/input'; // Shadcn UI
+// import { toast } from 'react-toastify';
+// import questionsData from '@/data/questions.json'; // File câu hỏi
 
-const UserDashboardPage: React.FC = () => {
-    const { user, isLoading } = useAuth();
-    const [attachedCvs, setAttachedCvs] = useState<IAttachedCv[]>([]);
-    const [isLoadingCvs, setIsLoadingCvs] = useState<boolean>(false);
+// const MockInterviewPage = () => {
+//     const [field, setField] = useState('');
+//     const [started, setStarted] = useState(false);
+//     const [currentQuestion, setCurrentQuestion] = useState(null);
+//     const [answer, setAnswer] = useState('');
+//     const [timeLeft, setTimeLeft] = useState(60); // 60 giây cho mỗi câu
+//     const [questionIndex, setQuestionIndex] = useState(0);
+//     const [answers, setAnswers] = useState([]);
 
-    // Fetch attached CVs on mount
-    useEffect(() => {
-        const fetchAttachedCvs = async () => {
-            if (!user) return;
+//     // Lấy câu hỏi ngẫu nhiên
+//     const getRandomQuestion = (field) => {
+//         const fieldData = questionsData.find((data) => data.field === field);
+//         if (!fieldData) return null;
+//         const randomIndex = Math.floor(Math.random() * fieldData.questions.length);
+//         return fieldData.questions[randomIndex];
+//     };
 
-            setIsLoadingCvs(true);
-            try {
-                const res = await callGetAttachedCvs();
-                if (res && res.data) {
-                    setAttachedCvs(res.data);
-                }
-            } catch (err) {
-                console.error("Fetch Attached CVs Error:", err);
-            } finally {
-                setIsLoadingCvs(false);
-            }
-        };
+//     // Bắt đầu phỏng vấn
+//     const handleStart = () => {
+//         if (!field) {
+//             toast.error('Please select a field!');
+//             return;
+//         }
+//         setStarted(true);
+//         setCurrentQuestion(getRandomQuestion(field));
+//         setTimeLeft(60);
+//         toast.success('Interview started!');
+//     };
 
-        fetchAttachedCvs();
-    }, [user]);
+//     // Đếm ngược thời gian
+//     useEffect(() => {
+//         if (started && timeLeft > 0) {
+//             const timer = setInterval(() => {
+//                 setTimeLeft((prev) => prev - 1);
+//             }, 1000);
+//             return () => clearInterval(timer);
+//         } else if (timeLeft === 0) {
+//             handleNextQuestion();
+//         }
+//     }, [started, timeLeft]);
 
-    if (isLoading) {
-        return <div className="flex justify-center items-center min-h-[calc(100vh-200px)]"><Spinner /></div>;
-    }
+//     // Gửi câu trả lời và chuyển câu hỏi tiếp theo
+//     const handleNextQuestion = () => {
+//         setAnswers([...answers, { question: currentQuestion, answer }]);
+//         setAnswer('');
+//         setTimeLeft(60);
+//         setQuestionIndex(questionIndex + 1);
+//         if (questionIndex + 1 >= 5) { // Giả sử 5 câu hỏi mỗi phiên
+//             setStarted(false);
+//             toast.success('Interview completed!');
+//             return;
+//         }
+//         setCurrentQuestion(getRandomQuestion(field));
+//     };
 
-    if (!user) {
-        return <div className="p-6 text-center text-gray-500">Vui lòng đăng nhập để xem trang này.</div>;
-    }
+//     return (
+//         <div className="container mx-auto p-4">
+//             <h1 className="text-2xl font-bold mb-4">Mock Interview</h1>
+//             {!started ? (
+//                 <div>
+//                     <select
+//                         value={field}
+//                         onChange={(e) => setField(e.target.value)}
+//                         className="border p-2 rounded"
+//                     >
+//                         <option value="">Select a field</option>
+//                         <option value="Frontend">Frontend</option>
+//                         <option value="Backend">Backend</option>
+//                         <option value="Behavioral">Behavioral</option>
+//                     </select>
+//                     <Button onClick={handleStart} className="ml-4">
+//                         Start Interview
+//                     </Button>
+//                 </div>
+//             ) : (
+//                 <div>
+//                     <div className="mb-4">
+//                         <p className="text-lg font-semibold">Question {questionIndex + 1}:</p>
+//                         <p>{currentQuestion?.text}</p>
+//                         <p className="text-sm text-gray-500">Time left: {timeLeft}s</p>
+//                     </div>
+//                     <Input
+//                         value={answer}
+//                         onChange={(e) => setAnswer(e.target.value)}
+//                         placeholder="Type your answer here..."
+//                         className="mb-4"
+//                     />
+//                     <Button onClick={handleNextQuestion}>Next Question</Button>
+//                 </div>
+//             )}
+//         </div>
+//     );
+// };
 
-    const AttachedResumesSection = () => (
-        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold text-gray-800">Hồ sơ đính kèm của bạn</h2>
-            </div>
-
-            {isLoadingCvs ? (
-                <div className="flex justify-center py-4">
-                    <Spinner />
-                </div>
-            ) : attachedCvs.length > 0 ? (
-                <div className="space-y-2">
-                    {attachedCvs.slice(0, 3).map((cv) => (
-                        <div key={cv._id} className="flex items-center p-3 border border-gray-200 rounded-md bg-gray-50">
-                            <DocumentCheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0" />
-                            <span className="text-gray-800 font-medium truncate">{cv.name}</span>
-                        </div>
-                    ))}
-                    {attachedCvs.length > 3 && (
-                        <div className="text-sm text-gray-500 text-center pt-1">
-                            +{attachedCvs.length - 3} CV khác
-                        </div>
-                    )}
-                </div>
-            ) : (
-                <div className="border border-dashed border-gray-300 rounded-md p-6 text-center text-gray-500">
-                    <p>Chưa có hồ sơ nào được đính kèm.</p>
-                    <Link
-                        to="/user/attached-cvs"
-                        className="mt-4 inline-block px-4 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700"
-                    >
-                        Quản lý hồ sơ đính kèm
-                    </Link>
-                </div>
-            )}
-        </div>
-    );
-
-
-    const RecentActivitySection = () => (
-        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Hoạt động của bạn</h2>
-            <p className="text-gray-500">Chưa có hoạt động gần đây.</p>
-        </div>
-    );
-
-    return (
-        <div className="bg-gray-100 min-h-screen p-6 md:p-8">
-            <div className="container mx-auto max-w-7xl">
-                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
-                    <div className="md:col-span-1 lg:col-span-1">
-                        <UserDashboardSidebar user={user} />
-                    </div>
-
-                    <div className="md:col-span-3 lg:col-span-4 space-y-6 md:space-y-8">
-                        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 flex flex-col sm:flex-row items-center gap-4">
-                            <div className="flex-shrink-0">
-                                <UserCircleIcon className="h-16 w-16 text-gray-400" />
-                            </div>
-                            <div className="flex-grow text-center sm:text-left">
-                                <h1 className="text-2xl font-bold text-gray-800 mb-1">{user.name}</h1>
-                                <p className="text-sm text-gray-500 flex items-center justify-center sm:justify-start mb-1">
-                                    <PencilSquareIcon className="h-4 w-4 mr-1.5" />
-                                    <span className="hover:text-indigo-600 cursor-pointer">Cập nhật dddchức danh</span>
-                                </p>
-                                <p className="text-sm text-gray-500 flex items-center justify-center sm:justify-start">
-                                    <EnvelopeIcon className="h-4 w-4 mr-1.5" />
-                                    {user.email}
-                                </p>
-                            </div>
-                        </div>
-
-                        <AttachedResumesSection />
-                        <RecentActivitySection />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default UserDashboardPage; 
+// export default MockInterviewPage;
