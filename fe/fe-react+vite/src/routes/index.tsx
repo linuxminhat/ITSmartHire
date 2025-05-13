@@ -33,6 +33,7 @@ import BlogListPage from '@/pages/BlogListPage';
 import BlogDetailPage from '@/pages/BlogDetailPage';
 import HRPage from "@/pages/admin/HRPage";
 
+//component root 
 const Root = () => (
   <AuthProvider>
     <AuthWrapper>
@@ -45,10 +46,16 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    //children : root con 
     children: [
       {
+        //Root cho người dùng bình thường
+        //path : đường dẫn URL muốn ánh xạ đến Component đó 
+        //element : component muốn render khi path tương ứng được truy cập
+        //children : route con = nested routes
         element: <UserLayout />,
         children: [
+          //route mặc định khi truy cập vào path cha 
           { index: true, element: <HomePage /> },
           { path: "login", element: <LoginPage /> },
           { path: "register", element: <RegisterPage /> },
@@ -78,6 +85,7 @@ export const router = createBrowserRouter([
         ]
       },
 
+      //root cho admin và hr đều có bảo vệ 
       {
         path: "admin",
         element: <ProtectedRoute allowedRoles={['ADMIN']} />,

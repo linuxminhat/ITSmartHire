@@ -2,7 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
 
-// Cấu hình Firebase của bạn
 const firebaseConfig = {
   apiKey: "AIzaSyAPJeLZUENHaeRLUU254VWcA0i36XGMsQc",
   authDomain: "itsmarthire-774c4.firebaseapp.com",

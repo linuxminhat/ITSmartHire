@@ -6,7 +6,6 @@ import Spinner from '@/components/Spinner';
 interface ProtectedRouteProps {
   allowedRoles: string[];
 }
-
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   const { isAuthenticated, user, isLoading } = useAuth();
 
@@ -19,10 +18,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   }
 
   const userRoleName = user?.role?.name;
-  
-  if (!userRoleName || !allowedRoles.includes(userRoleName)) { 
+
+  if (!userRoleName || !allowedRoles.includes(userRoleName)) {
     return <Navigate to="/login" state={{ message: "Bạn không có quyền truy cập trang này." }} replace />;
   }
+  //Nếu hợp lệ cho vào route con 
 
   return <Outlet />;
 };
