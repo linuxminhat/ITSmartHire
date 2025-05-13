@@ -9,13 +9,49 @@ import { ICompany, IRole, IUser } from '@/types/backend';
 import { PlusIcon, UsersIcon } from '@heroicons/react/24/outline';
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import TableFilter, { FilterState } from './TableFilter';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import dayjs from 'dayjs';
 
 const ManageUsersPage: React.FC = () => {
   //Fix bug 
   // đặt ngay dưới các state hoặc ở đầu file
-  const buildUserQuery = (page = 1, size = 10) =>
-    `current=${page}&pageSize=${size}` +
-    `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
+  // const buildUserQuery = (page = 1, size = 10) =>
+  //   `current=${page}&pageSize=${size}` +
+  //   `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
+
+  const buildUserQuery = (
+    page = meta.current,
+    size = meta.pageSize,
+    f = filter
+  ) => {
+    let q =
+      `current=${page}&pageSize=${size}` +
+      `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
+
+
+    if (f.name.trim()) q += `&name=${encodeURIComponent(f.name.trim())}`;
+    if (f.email.trim()) q += `&email=${encodeURIComponent(f.email.trim())}`;
+    if (f.role.trim()) q += `&role=${encodeURIComponent(f.role.trim())}`;
+    return q;
+  };
+
+  const handleResetFilter = () => {
+    const empty: FilterState = { name: '', email: '', role: '' };
+    setFilter(empty);
+    setMeta(m => ({ ...m, current: 1 }));
+    fetchUsers(buildUserQuery(1, meta.pageSize, empty));
+    toast.info('Đã làm mới trang');
+  };
+
+  const handleSearch = async () => {
+    setMeta(m => ({ ...m, current: 1 }));
+
+    const count = await fetchUsers(buildUserQuery(1, meta.pageSize));
+
+    toast.success(`Tìm thấy ${count} người dùng`);
+  };
 
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,6 +63,11 @@ const ManageUsersPage: React.FC = () => {
 
   const [listRoles, setListRoles] = useState<IRole[]>([]);
   const [listCompanies, setListCompanies] = useState<ICompany[]>([]);
+  const [filter, setFilter] = useState<FilterState>({
+    name: '',
+    email: '',
+    role: '',
+  });
 
 
   const fetchUsers = useCallback(async (query?: string) => {
@@ -34,12 +75,14 @@ const ManageUsersPage: React.FC = () => {
     let defaultQuery = `current=${meta.current}&pageSize=${meta.pageSize}`;
     defaultQuery += `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
     // const finalQuery = query ? query : defaultQuery;
-    const finalQuery = query ?? buildUserQuery(meta.current, meta.pageSize);
+    // const finalQuery = query ?? buildUserQuery(meta.current, meta.pageSize);
+    const finalQuery = query ?? buildUserQuery();
     try {
       const res = await callFetchUser(finalQuery);
       if (res && res.data) {
         setUsers(res.data.result);
         setMeta(res.data.meta);
+        return res.data.result.length;
       } else {
         toast.error(res.message || "Không thể tải danh sách người dùng.");
       }
@@ -124,6 +167,39 @@ const ManageUsersPage: React.FC = () => {
   //     setIsLoading(false);
   //   }
   // };
+  const handleExportExcel = () => {
+    if (!users.length) {
+      toast.info('Không có dữ liệu để xuất');
+      return;
+    }
+
+    // 1. Chuyển danh sách thành mảng object phẳng
+    const data = users.map((u, idx) => ({
+      STT: (meta.current - 1) * meta.pageSize + idx + 1,
+      Tên: u.name,
+      Email: u.email,
+      'Vai trò': typeof u.role === 'object' ? u.role.name : u.role,
+      'Ngày tạo': dayjs(u.createdAt).format('DD/MM/YYYY HH:mm'),
+    }));
+
+    // 2. Tạo worksheet & workbook
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Users');
+
+    // 3. Ghi ra blob và download
+    const wbBlob = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    saveAs(
+      new Blob([wbBlob], { type: 'application/octet-stream' }),
+      `users_${dayjs().format('YYYYMMDD_HHmmss')}.xlsx`
+    );
+
+    toast.success(`Đã xuất ${data.length} dòng ra Excel`);
+  };
   const handleDelete = async (user: IUser) => {
     if (!user._id) return;
     if (!confirm(`Bạn có chắc chắn muốn xóa người dùng này không?`)) return;
@@ -167,9 +243,17 @@ const ManageUsersPage: React.FC = () => {
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="bg-white p-6 rounded-lg shadow-sm">
+        {/* ---------- FILTER BAR ----------
+        <TableFilter
+          value={filter}
+          onChange={setFilter}
+          onReset={handleResetFilter}
+          onSearch={handleSearch}
+        />
         <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
           <div className="flex-1">
           </div>
+
           <button
             onClick={handleAddNew}
             className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
@@ -177,7 +261,34 @@ const ManageUsersPage: React.FC = () => {
             <PlusIcon className="h-5 w-5 mr-2" />
             Thêm mới
           </button>
+        </div> */}
+        <div className="flex items-start mb-6 pb-4 border-b border-gray-200 gap-4">
+          {/* FILTER + BUTTONS */}
+          <TableFilter
+            value={filter}
+            onChange={setFilter}
+            onReset={handleResetFilter}
+            onSearch={handleSearch}
+          />
+          {/* NÚT XUẤT EXCEL  */}
+          <button
+            onClick={handleExportExcel}
+            className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700"
+          >
+            <PlusIcon className="h-5 w-5 mr-2" />
+            Xuất File
+          </button>
+
+          {/* NÚT THÊM MỚI (đặt sát bên phải) */}
+          <button
+            onClick={handleAddNew}
+            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700"
+          >
+            <PlusIcon className="h-5 w-5 mr-2" />
+            Thêm mới
+          </button>
         </div>
+
 
         <UserTable
           users={users}
@@ -205,7 +316,7 @@ const ManageUsersPage: React.FC = () => {
         dataInit={dataInit}
         setDataInit={setDataInit}
       />
-    </div>
+    </div >
   );
 };
 

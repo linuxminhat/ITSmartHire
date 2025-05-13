@@ -16,6 +16,7 @@ import { AddProjectDto, UpdateProjectDto } from './dto/project.dto';
 import { AddCertificateDto, UpdateCertificateDto } from './dto/certificate.dto';
 import { AddAwardDto, UpdateAwardDto } from './dto/award.dto';
 import { AddAttachedCvDto } from './dto/add-attached-cv.dto';
+import { ListUsersDto } from './dto/list-users.dto';
 
 @Injectable()
 export class UsersService {
@@ -74,9 +75,9 @@ export class UsersService {
 
     // Explicitly list fields needed by the profile page
     const selectFields = [
-        '_id', 'name', 'email', 'age', 'gender', 'address', 
-        'phone', 'aboutMe', 'skills', 'cvUrl', 
-        'createdAt', 'updatedAt' // Add timestamps if needed
+      '_id', 'name', 'email', 'age', 'gender', 'address',
+      'phone', 'aboutMe', 'skills', 'cvUrl',
+      'createdAt', 'updatedAt' // Add timestamps if needed
     ].join(' ');
 
     return await this.userModel.findOne({ _id: userId })
@@ -94,10 +95,10 @@ export class UsersService {
     return this.userModel.findOne({
       email: username
     })
-    .select("+password")
-    .populate({
-      path: "role", select: { name: 1 }
-    });
+      .select("+password")
+      .populate({
+        path: "role", select: { name: 1 }
+      });
   }
 
 
@@ -165,34 +166,90 @@ export class UsersService {
     })
     return newRegister;
   }
-  async findAll(currentPage: number, limit: number, qs: string) {
-    const { filter, sort, population, projection } = aqp(qs);
-    delete filter.current;
-    delete filter.pageSize;
-    let offset = (+currentPage - 1) * (+limit);
-    let defaultLimit = +limit ? +limit : 10;
+  // async findAll(currentPage: number, limit: number, qs: string) {
+  //   const { filter, sort, population, projection } = aqp(qs);
+  //   delete filter.current;
+  //   delete filter.pageSize;
+  //   let offset = (+currentPage - 1) * (+limit);
+  //   let defaultLimit = +limit ? +limit : 10;
 
-    const totalItems = (await this.userModel.find(filter)).length;
-    const totalPages = Math.ceil(totalItems / defaultLimit);
+  //   const totalItems = (await this.userModel.find(filter)).length;
+  //   const totalPages = Math.ceil(totalItems / defaultLimit);
 
-    const result = await this.userModel.find(filter)
-      .skip(offset)
-      .limit(defaultLimit)
-      .sort(sort as any)
-      .select(projection as any)
-      .populate(population)
-      .exec();
+  //   const result = await this.userModel.find(filter)
+  //     .skip(offset)
+  //     .limit(defaultLimit)
+  //     .sort(sort as any)
+  //     .select(projection as any)
+  //     .populate(population)
+  //     .exec();
+
+  //   return {
+  //     meta: {
+  //       current: currentPage,
+  //       pageSize: limit,
+  //       pages: totalPages,
+  //       total: totalItems
+  //     },
+  //     result //kết quả query
+  //   }
+  // }
+  async findAll(dto: ListUsersDto) {
+    const current = +dto.current || 1;
+    const pageSize = +dto.pageSize || 10;
+
+    const match: any = {};
+
+    if (dto.name) match.name = { $regex: dto.name, $options: 'i' };
+    if (dto.email) match.email = { $regex: dto.email, $options: 'i' };
+    // không add dto.role ở đây vì cần lookup trước
+
+    /* -------- Pipeline -------- */
+    const pipeline: any[] = [
+      { $match: match },
+
+      /* join với collection roles */
+      {
+        $lookup: {
+          from: 'roles',
+          localField: 'role',
+          foreignField: '_id',
+          as: 'role',
+        }
+      },
+      { $unwind: '$role' },
+    ];
+
+    /* lọc theo role.name */
+    if (dto.role) {
+      pipeline.push({
+        $match: { 'role.name': { $regex: dto.role, $options: 'i' } },
+      });
+    }
+
+    /* đếm tổng */
+    const totalPipeline = [...pipeline, { $count: 'total' }];
+    const [{ total = 0 } = {}] = await this.userModel.aggregate(totalPipeline);
+
+    /* phân trang */
+    pipeline.push({ $skip: (current - 1) * pageSize });
+    pipeline.push({ $limit: pageSize });
+
+    const result = await this.userModel.aggregate(pipeline);
 
     return {
+      result,
       meta: {
-        current: currentPage,
-        pageSize: limit,
-        pages: totalPages,
-        total: totalItems
+        current,
+        pageSize,
+        total,
+        pages: Math.ceil(total / pageSize),
       },
-      result //kết quả query
-    }
+    };
   }
+
+
+
   updateUserToken = async (refreshToken: string, _id: string) => {
     return await this.userModel.updateOne(
       { _id },
@@ -204,7 +261,7 @@ export class UsersService {
   }
   findUserbyToken = async (refreshToken: string) => {
     return await this.userModel.findOne({ refreshToken })
-             .populate({ path: "role", select: { name: 1 } });
+      .populate({ path: "role", select: { name: 1 } });
   }
 
   async updateUserProfile(userId: string, updateUserProfileDto: UpdateUserProfileDto) {
@@ -225,7 +282,7 @@ export class UsersService {
     // Removed cvUrl handling from here
 
     if (Object.keys(updateData).length === 0) {
-         throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật.');
+      throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật.');
     }
 
     const updatedUser = await this.userModel.findOneAndUpdate(
@@ -233,445 +290,445 @@ export class UsersService {
       { $set: updateData },
       { new: true }
     )
-    .populate({ path: "role", select: { name: 1, _id: 1 } })
-    .populate('education')
-    .populate('experience')
-    .populate('projects')
-    .populate('certificates')
-    .populate('awards')
-    .populate('attachedCvs') // Populate the array
-    .select("-password -refreshToken")
-    .exec();
+      .populate({ path: "role", select: { name: 1, _id: 1 } })
+      .populate('education')
+      .populate('experience')
+      .populate('projects')
+      .populate('certificates')
+      .populate('awards')
+      .populate('attachedCvs') // Populate the array
+      .select("-password -refreshToken")
+      .exec();
 
     if (!updatedUser) {
       throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
     }
-    
-    return updatedUser; 
+
+    return updatedUser;
   }
 
   async addEducation(userId: string, addEducationDto: AddEducationDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId)) {
-          throw new BadRequestException('ID người dùng không hợp lệ');
-      }
-      
-      const newEducationEntry = { 
-          ...addEducationDto, 
-      };
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw new BadRequestException('ID người dùng không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $push: { education: newEducationEntry } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const newEducationEntry = {
+      ...addEducationDto,
+    };
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      return updatedUser;
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $push: { education: newEducationEntry } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+    return updatedUser;
   }
 
   async updateEducation(userId: string, eduId: string, updateEducationDto: UpdateEducationDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(eduId)) {
-          throw new BadRequestException('ID người dùng hoặc ID học vấn không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(eduId)) {
+      throw new BadRequestException('ID người dùng hoặc ID học vấn không hợp lệ');
+    }
 
-      const updateFields = {};
-      for (const key in updateEducationDto) {
-          if (updateEducationDto.hasOwnProperty(key)) {
-              updateFields[`education.$.${key}`] = updateEducationDto[key];
-          }
+    const updateFields = {};
+    for (const key in updateEducationDto) {
+      if (updateEducationDto.hasOwnProperty(key)) {
+        updateFields[`education.$.${key}`] = updateEducationDto[key];
       }
+    }
 
-      if (Object.keys(updateFields).length === 0) {
-        throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật học vấn.');
-      }
+    if (Object.keys(updateFields).length === 0) {
+      throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật học vấn.');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId, 'education._id': eduId },
-          { $set: updateFields },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId, 'education._id': eduId },
+      { $set: updateFields },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy mục học vấn với ID ${eduId} cho người dùng ID ${userId}`);
-      }
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy mục học vấn với ID ${eduId} cho người dùng ID ${userId}`);
+    }
+    return updatedUser;
   }
 
   async deleteEducation(userId: string, eduId: string): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(eduId)) {
-          throw new BadRequestException('ID người dùng hoặc ID học vấn không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(eduId)) {
+      throw new BadRequestException('ID người dùng hoặc ID học vấn không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $pull: { education: { _id: eduId } } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { education: { _id: eduId } } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+
+    return updatedUser;
   }
 
   async addExperience(userId: string, addExperienceDto: AddExperienceDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId)) {
-          throw new BadRequestException('ID người dùng không hợp lệ');
-      }
-      
-      const newExperienceEntry = { 
-          ...addExperienceDto, 
-      };
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw new BadRequestException('ID người dùng không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $push: { experience: newExperienceEntry } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const newExperienceEntry = {
+      ...addExperienceDto,
+    };
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      return updatedUser;
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $push: { experience: newExperienceEntry } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+    return updatedUser;
   }
 
   async updateExperience(userId: string, expId: string, updateExperienceDto: UpdateExperienceDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(expId)) {
-          throw new BadRequestException('ID người dùng hoặc ID kinh nghiệm không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(expId)) {
+      throw new BadRequestException('ID người dùng hoặc ID kinh nghiệm không hợp lệ');
+    }
 
-      const updateFields = {};
-      for (const key in updateExperienceDto) {
-          if (updateExperienceDto.hasOwnProperty(key)) {
-              updateFields[`experience.$.${key}`] = updateExperienceDto[key];
-          }
+    const updateFields = {};
+    for (const key in updateExperienceDto) {
+      if (updateExperienceDto.hasOwnProperty(key)) {
+        updateFields[`experience.$.${key}`] = updateExperienceDto[key];
       }
+    }
 
-      if (Object.keys(updateFields).length === 0) {
-        throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật kinh nghiệm.');
-      }
+    if (Object.keys(updateFields).length === 0) {
+      throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật kinh nghiệm.');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId, 'experience._id': expId },
-          { $set: updateFields },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId, 'experience._id': expId },
+      { $set: updateFields },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy mục kinh nghiệm với ID ${expId} cho người dùng ID ${userId}`);
-      }
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy mục kinh nghiệm với ID ${expId} cho người dùng ID ${userId}`);
+    }
+    return updatedUser;
   }
 
   async deleteExperience(userId: string, expId: string): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(expId)) {
-          throw new BadRequestException('ID người dùng hoặc ID kinh nghiệm không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(expId)) {
+      throw new BadRequestException('ID người dùng hoặc ID kinh nghiệm không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $pull: { experience: { _id: expId } } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { experience: { _id: expId } } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+
+    return updatedUser;
   }
 
   async updateSkills(userId: string, updateSkillsDto: UpdateSkillsDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId)) {
-          throw new BadRequestException('ID người dùng không hợp lệ');
-      }
-      
-      if (updateSkillsDto.skills === undefined) {
-          throw new BadRequestException('Trường kỹ năng là bắt buộc để cập nhật.');
-      }
-      
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $set: { skills: updateSkillsDto.skills } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw new BadRequestException('ID người dùng không hợp lệ');
+    }
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      return updatedUser;
+    if (updateSkillsDto.skills === undefined) {
+      throw new BadRequestException('Trường kỹ năng là bắt buộc để cập nhật.');
+    }
+
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $set: { skills: updateSkillsDto.skills } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+    return updatedUser;
   }
 
   async addProject(userId: string, addProjectDto: AddProjectDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId)) {
-          throw new BadRequestException('ID người dùng không hợp lệ');
-      }
-      
-      const newProjectEntry: Omit<Project, '_id' | 'createdAt' | 'updatedAt'> = { 
-          ...addProjectDto, 
-      };
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw new BadRequestException('ID người dùng không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $push: { projects: newProjectEntry } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const newProjectEntry: Omit<Project, '_id' | 'createdAt' | 'updatedAt'> = {
+      ...addProjectDto,
+    };
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      return updatedUser;
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $push: { projects: newProjectEntry } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+    return updatedUser;
   }
 
   async updateProject(userId: string, projectId: string, updateProjectDto: UpdateProjectDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(projectId)) {
-          throw new BadRequestException('ID người dùng hoặc ID dự án không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(projectId)) {
+      throw new BadRequestException('ID người dùng hoặc ID dự án không hợp lệ');
+    }
 
-      const updateFields = {};
-      for (const key in updateProjectDto) {
-          if (updateProjectDto.hasOwnProperty(key)) {
-              updateFields[`projects.$.${key}`] = updateProjectDto[key];
-          }
+    const updateFields = {};
+    for (const key in updateProjectDto) {
+      if (updateProjectDto.hasOwnProperty(key)) {
+        updateFields[`projects.$.${key}`] = updateProjectDto[key];
       }
+    }
 
-      if (Object.keys(updateFields).length === 0) {
-        throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật dự án.');
-      }
+    if (Object.keys(updateFields).length === 0) {
+      throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật dự án.');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId, 'projects._id': projectId },
-          { $set: updateFields },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId, 'projects._id': projectId },
+      { $set: updateFields },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy dự án với ID ${projectId} cho người dùng ID ${userId}`);
-      }
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy dự án với ID ${projectId} cho người dùng ID ${userId}`);
+    }
+    return updatedUser;
   }
 
   async deleteProject(userId: string, projectId: string): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(projectId)) {
-          throw new BadRequestException('ID người dùng hoặc ID dự án không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(projectId)) {
+      throw new BadRequestException('ID người dùng hoặc ID dự án không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $pull: { projects: { _id: projectId } } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { projects: { _id: projectId } } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+
+    return updatedUser;
   }
 
   async addCertificate(userId: string, addCertificateDto: AddCertificateDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId)) {
-          throw new BadRequestException('ID người dùng không hợp lệ');
-      }
-      
-      const newCertificateEntry: Omit<Certificate, '_id' | 'createdAt' | 'updatedAt'> = { 
-          name: addCertificateDto.name,
-          issuingOrganization: addCertificateDto.issuingOrganization,
-          ...(addCertificateDto.issueDate && { issueDate: addCertificateDto.issueDate }),
-          ...(addCertificateDto.expirationDate && { expirationDate: addCertificateDto.expirationDate }),
-          ...(addCertificateDto.credentialId && { credentialId: addCertificateDto.credentialId }),
-          ...(addCertificateDto.credentialUrl && { credentialUrl: addCertificateDto.credentialUrl }),
-      };
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw new BadRequestException('ID người dùng không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $push: { certificates: newCertificateEntry } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const newCertificateEntry: Omit<Certificate, '_id' | 'createdAt' | 'updatedAt'> = {
+      name: addCertificateDto.name,
+      issuingOrganization: addCertificateDto.issuingOrganization,
+      ...(addCertificateDto.issueDate && { issueDate: addCertificateDto.issueDate }),
+      ...(addCertificateDto.expirationDate && { expirationDate: addCertificateDto.expirationDate }),
+      ...(addCertificateDto.credentialId && { credentialId: addCertificateDto.credentialId }),
+      ...(addCertificateDto.credentialUrl && { credentialUrl: addCertificateDto.credentialUrl }),
+    };
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      return updatedUser;
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $push: { certificates: newCertificateEntry } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+    return updatedUser;
   }
 
   async updateCertificate(userId: string, certId: string, updateCertificateDto: UpdateCertificateDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(certId)) {
-          throw new BadRequestException('ID người dùng hoặc ID chứng chỉ không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(certId)) {
+      throw new BadRequestException('ID người dùng hoặc ID chứng chỉ không hợp lệ');
+    }
 
-      const updateFields = {};
-      for (const key in updateCertificateDto) {
-          if (updateCertificateDto.hasOwnProperty(key)) {
-              updateFields[`certificates.$.${key}`] = updateCertificateDto[key];
-          }
+    const updateFields = {};
+    for (const key in updateCertificateDto) {
+      if (updateCertificateDto.hasOwnProperty(key)) {
+        updateFields[`certificates.$.${key}`] = updateCertificateDto[key];
       }
+    }
 
-      if (Object.keys(updateFields).length === 0) {
-        throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật chứng chỉ.');
-      }
+    if (Object.keys(updateFields).length === 0) {
+      throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật chứng chỉ.');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId, 'certificates._id': certId },
-          { $set: updateFields },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId, 'certificates._id': certId },
+      { $set: updateFields },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy chứng chỉ với ID ${certId} cho người dùng ID ${userId}`);
-      }
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy chứng chỉ với ID ${certId} cho người dùng ID ${userId}`);
+    }
+    return updatedUser;
   }
 
   async deleteCertificate(userId: string, certId: string): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(certId)) {
-          throw new BadRequestException('ID người dùng hoặc ID chứng chỉ không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(certId)) {
+      throw new BadRequestException('ID người dùng hoặc ID chứng chỉ không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $pull: { certificates: { _id: certId } } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { certificates: { _id: certId } } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+
+    return updatedUser;
   }
 
   async addAward(userId: string, addAwardDto: AddAwardDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId)) {
-          throw new BadRequestException('ID người dùng không hợp lệ');
-      }
-      
-      const newAwardEntry: Omit<Award, '_id' | 'createdAt' | 'updatedAt'> = { 
-          title: addAwardDto.title,
-          ...(addAwardDto.issuer && { issuer: addAwardDto.issuer }),
-          ...(addAwardDto.issueDate && { issueDate: addAwardDto.issueDate }),
-          ...(addAwardDto.description && { description: addAwardDto.description }),
-      };
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw new BadRequestException('ID người dùng không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $push: { awards: newAwardEntry } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const newAwardEntry: Omit<Award, '_id' | 'createdAt' | 'updatedAt'> = {
+      title: addAwardDto.title,
+      ...(addAwardDto.issuer && { issuer: addAwardDto.issuer }),
+      ...(addAwardDto.issueDate && { issueDate: addAwardDto.issueDate }),
+      ...(addAwardDto.description && { description: addAwardDto.description }),
+    };
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      return updatedUser;
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $push: { awards: newAwardEntry } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+    return updatedUser;
   }
 
   async updateAward(userId: string, awardId: string, updateAwardDto: UpdateAwardDto): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(awardId)) {
-          throw new BadRequestException('ID người dùng hoặc ID giải thưởng không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(awardId)) {
+      throw new BadRequestException('ID người dùng hoặc ID giải thưởng không hợp lệ');
+    }
 
-      const updateFields = {};
-      for (const key in updateAwardDto) {
-          if (updateAwardDto.hasOwnProperty(key)) {
-              updateFields[`awards.$.${key}`] = updateAwardDto[key];
-          }
+    const updateFields = {};
+    for (const key in updateAwardDto) {
+      if (updateAwardDto.hasOwnProperty(key)) {
+        updateFields[`awards.$.${key}`] = updateAwardDto[key];
       }
+    }
 
-      if (Object.keys(updateFields).length === 0) {
-        throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật giải thưởng.');
-      }
+    if (Object.keys(updateFields).length === 0) {
+      throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật giải thưởng.');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId, 'awards._id': awardId },
-          { $set: updateFields },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId, 'awards._id': awardId },
+      { $set: updateFields },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy giải thưởng với ID ${awardId} cho người dùng ID ${userId}`);
-      }
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy giải thưởng với ID ${awardId} cho người dùng ID ${userId}`);
+    }
+    return updatedUser;
   }
 
   async deleteAward(userId: string, awardId: string): Promise<UserDocument> {
-      if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(awardId)) {
-          throw new BadRequestException('ID người dùng hoặc ID giải thưởng không hợp lệ');
-      }
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(awardId)) {
+      throw new BadRequestException('ID người dùng hoặc ID giải thưởng không hợp lệ');
+    }
 
-      const updatedUser = await this.userModel.findOneAndUpdate(
-          { _id: userId },
-          { $pull: { awards: { _id: awardId } } },
-          { new: true }
-      ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { awards: { _id: awardId } } },
+      { new: true }
+    ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
-      if (!updatedUser) {
-          throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
-      }
-      
-      return updatedUser;
+    if (!updatedUser) {
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+    }
+
+    return updatedUser;
   }
 
   // --- Attached CV Management (using array) --- 
 
   async addAttachedCv(userId: string, addCvDto: AddAttachedCvDto): Promise<UserDocument> {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-        throw new BadRequestException('ID người dùng không hợp lệ');
+      throw new BadRequestException('ID người dùng không hợp lệ');
     }
-    
-    const newCvEntry = { 
-        name: addCvDto.name,
-        url: addCvDto.url,
+
+    const newCvEntry = {
+      name: addCvDto.name,
+      url: addCvDto.url,
     };
 
     const updatedUser = await this.userModel.findOneAndUpdate(
-        { _id: userId },
-        { $push: { attachedCvs: newCvEntry } },
-        { new: true }
+      { _id: userId },
+      { $push: { attachedCvs: newCvEntry } },
+      { new: true }
     )
-    .select('-password -refreshToken')
-    .populate('attachedCvs')
-    .exec();
+      .select('-password -refreshToken')
+      .populate('attachedCvs')
+      .exec();
 
     if (!updatedUser) {
-        throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
     }
     return updatedUser;
   }
 
   async getAttachedCvs(userId: string): Promise<AttachedCv[]> {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-        throw new BadRequestException('ID người dùng không hợp lệ');
+      throw new BadRequestException('ID người dùng không hợp lệ');
     }
 
     const user = await this.userModel.findById(userId).select('attachedCvs').exec();
 
     if (!user) {
-        throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
     }
     return user.attachedCvs || [];
   }
 
   async deleteAttachedCv(userId: string, cvId: string): Promise<UserDocument> {
     if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(cvId)) {
-        throw new BadRequestException('ID người dùng hoặc ID CV không hợp lệ');
+      throw new BadRequestException('ID người dùng hoặc ID CV không hợp lệ');
     }
 
     const updatedUser = await this.userModel.findOneAndUpdate(
-        { _id: userId },
-        { $pull: { attachedCvs: { _id: new Types.ObjectId(cvId) } } },
-        { new: true }
+      { _id: userId },
+      { $pull: { attachedCvs: { _id: new Types.ObjectId(cvId) } } },
+      { new: true }
     )
-    .select('-password -refreshToken')
-    .populate('attachedCvs')
-    .exec();
+      .select('-password -refreshToken')
+      .populate('attachedCvs')
+      .exec();
 
     if (!updatedUser) {
-        throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
+      throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
     }
-        
+
     return updatedUser;
   }
   // --- End Attached CV Management ---
