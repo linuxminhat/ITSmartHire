@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-// import { Permission } from 'src/permissions/schemas/permission.schema'; // Remove unused import
 
 export type RoleDocument = HydratedDocument<Role>;
 
@@ -14,10 +13,6 @@ export class Role {
 
     @Prop()
     isActive: boolean;
-
-    //[] for declare an array 
-    // @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Permission.name })
-    // permissions: Permission[];
 
     @Prop({ type: Object })
     createdBy: {

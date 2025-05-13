@@ -36,34 +36,75 @@ export class RolesService {
     };
   }
 
-  async findAll(currentPage: number, limit: number, qs: string) {
-    const { filter, sort, population, projection } = aqp(qs);
+  // async findAll(currentPage: number, limit: number, qs: string) {
+  //   const { filter, sort, population, projection } = aqp(qs);
+  //   delete filter.current;
+  //   delete filter.pageSize;
+
+  //   let offset = (+currentPage - 1) * (+limit);
+  //   let defaultLimit = +limit ? +limit : 10;
+
+  //   const totalItems = (await this.roleModel.find(filter)).length;
+  //   const totalPages = Math.ceil(totalItems / defaultLimit);
+
+  //   const result = await this.roleModel.find(filter)
+  //     .skip(offset)
+  //     .limit(defaultLimit)
+  //     .sort(sort as any)
+  //     .populate(population)
+  //     .select(projection as any)
+  //     .exec();
+
+  //   return {
+  //     meta: {
+  //       current: currentPage,
+  //       pageSize: limit,
+  //       pages: totalPages,
+  //       total: totalItems
+  //     },
+  //     result
+  //   }
+  // }
+  async findAll(currentPage = 1, limit = 10, qs = '') {
+    const { filter = {}, sort = {}, projection = {} } = aqp(qs);
     delete filter.current;
     delete filter.pageSize;
 
-    let offset = (+currentPage - 1) * (+limit);
-    let defaultLimit = +limit ? +limit : 10;
+    const page = Number(currentPage) || 1;
+    const pageSize = Number(limit) || 10;
+    const skip = (page - 1) * pageSize;
 
-    const totalItems = (await this.roleModel.find(filter)).length;
-    const totalPages = Math.ceil(totalItems / defaultLimit);
+    const totalItems = await this.roleModel.countDocuments(filter);
+    const totalPages = Math.ceil(totalItems / pageSize);
+    const sortStage = Object.keys(sort).length ? sort : { createdAt: -1 };
+    const pipeline: any[] = [
+      { $match: filter },
+      { $sort: sortStage },
+      {
+        $lookup: {
+          from: 'users',
+          localField: '_id',
+          foreignField: 'role',
+          as: 'users',
+        },
+      },
+      { $addFields: { userCount: { $size: '$users' } } },
+      { $project: { users: 0, ...projection } }, // ẩn mảng users
+      { $skip: skip },
+      { $limit: pageSize },
+    ];
 
-    const result = await this.roleModel.find(filter)
-      .skip(offset)
-      .limit(defaultLimit)
-      .sort(sort as any)
-      .populate(population)
-      .select(projection as any)
-      .exec();
+    const result = await this.roleModel.aggregate(pipeline);
 
     return {
       meta: {
-        current: currentPage,
-        pageSize: limit,
+        current: page,
+        pageSize,
         pages: totalPages,
-        total: totalItems
+        total: totalItems,
       },
-      result
-    }
+      result,
+    };
   }
 
   async findOne(id: string) {

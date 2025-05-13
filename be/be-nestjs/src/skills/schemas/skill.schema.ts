@@ -7,11 +7,12 @@ export type SkillDocument = HydratedDocument<Skill>;
 export class Skill {
     @Prop({ required: true, unique: true }) // Ensure name is required and unique
     name: string;
-
-    // Optional: Add description if needed
-    // @Prop()
-    // description: string;
-
+    @Prop({ required: true, enum: ['Java Programming', 'DevOps', 'Frontend', 'Database', /* … */] })
+    category: string;
+    @Prop({ default: '' })
+    description: string;
+    @Prop({ default: true })
+    isActive: boolean;
     @Prop({ type: Object })
     createdBy: {
         _id: mongoose.Schema.Types.ObjectId;
