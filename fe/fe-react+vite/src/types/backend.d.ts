@@ -120,11 +120,11 @@ export interface IAward {
 
 // --- User Attached Resume Type (Renamed to Attached CV) ---
 export interface IAttachedCv { // Interface for the CV object in the array
-  _id: string; 
-  name: string;
-  url: string;
-  createdAt?: string | Date;
-  updatedAt?: string | Date;
+    _id: string;
+    name: string;
+    url: string;
+    createdAt?: string | Date;
+    updatedAt?: string | Date;
 }
 
 export interface IUser {
@@ -233,12 +233,12 @@ export interface IRole {
     description: string;
     isActive: boolean;
     permissions: IPermission[] | string[];
-
     createdBy?: string;
     isDeleted?: boolean;
     deletedAt?: boolean | null;
     createdAt?: string;
     updatedAt?: string;
+    userCount?: number;
 }
 
 export interface ISkill {
@@ -298,19 +298,19 @@ export interface IUserProfileUpdatePayload {
     portfolio?: string;
 }
 
-export interface IEducationPayload extends Omit<IEducation, '_id'> {}
+export interface IEducationPayload extends Omit<IEducation, '_id'> { }
 
-export interface IExperiencePayload extends Omit<IExperience, '_id'> {}
+export interface IExperiencePayload extends Omit<IExperience, '_id'> { }
 
 export interface IUserSkillsUpdatePayload {
     skills: string[];
 }
 
-export interface IProjectPayload extends Omit<IProject, '_id'> {}
+export interface IProjectPayload extends Omit<IProject, '_id'> { }
 
-export interface ICertificatePayload extends Omit<ICertificate, '_id'> {}
+export interface ICertificatePayload extends Omit<ICertificate, '_id'> { }
 
-export interface IAwardPayload extends Omit<IAward, '_id'> {}
+export interface IAwardPayload extends Omit<IAward, '_id'> { }
 
 // Payload for adding a new attached CV
-export interface IAttachedCvPayload extends Omit<IAttachedCv, '_id' | 'createdAt' | 'updatedAt'> {} // Payload for name & url
+export interface IAttachedCvPayload extends Omit<IAttachedCv, '_id' | 'createdAt' | 'updatedAt'> { } // Payload for name & url

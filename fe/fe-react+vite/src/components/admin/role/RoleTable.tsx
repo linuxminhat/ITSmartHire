@@ -25,7 +25,7 @@ const RoleTable: React.FC<RoleTableProps> = ({ roles, meta, isLoading, onEdit, o
     let endPage = Math.min(pages, startPage + maxPagesToShow - 1);
 
     if (endPage - startPage + 1 < maxPagesToShow) {
-        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
     }
 
     for (let i = startPage; i <= endPage; i++) {
@@ -68,12 +68,12 @@ const RoleTable: React.FC<RoleTableProps> = ({ roles, meta, isLoading, onEdit, o
                   {number}
                 </button>
               ))}
-               {endPage < pages - 1 && (
-                 <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
-               )}
-               {endPage < pages && (
-                 <button onClick={() => onPageChange(pages)} className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">{pages}</button>
-               )}
+              {endPage < pages - 1 && (
+                <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
+              )}
+              {endPage < pages && (
+                <button onClick={() => onPageChange(pages)} className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">{pages}</button>
+              )}
               <button
                 onClick={() => onPageChange(current + 1)}
                 disabled={current === pages || pages === 0}
@@ -98,20 +98,22 @@ const RoleTable: React.FC<RoleTableProps> = ({ roles, meta, isLoading, onEdit, o
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày tạo</th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cập nhật lần cuối</th>
+            <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Mô tả ngắn</th>
+            <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Số tài khoản người dùng </th>
             <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {isLoading && (
             <tr>
-              <td colSpan={5} className="text-center py-4">
+              <td colSpan={7} className="text-center py-4">
                 <Spinner />
               </td>
             </tr>
           )}
           {!isLoading && roles.length === 0 && (
             <tr>
-              <td colSpan={5} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+              <td colSpan={7} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                 Không tìm thấy vai trò nào.
               </td>
             </tr>
@@ -120,12 +122,18 @@ const RoleTable: React.FC<RoleTableProps> = ({ roles, meta, isLoading, onEdit, o
             <tr key={role._id}>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{role.name}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${role.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {role.isActive ? 'ACTIVE' : 'INACTIVE'}
+                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${role.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  {role.isActive ? 'ACTIVE' : 'INACTIVE'}
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{dayjs(role.createdAt).format('DD/MM/YYYY HH:mm')}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{dayjs(role.updatedAt).format('DD/MM/YYYY HH:mm')}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {role.description || '-'}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
+                {role.userCount ?? 0}
+              </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                 <button onClick={() => onEdit(role)} className="text-indigo-600 hover:text-indigo-900 mr-3">
                   <PencilIcon className="h-5 w-5" />
@@ -136,6 +144,7 @@ const RoleTable: React.FC<RoleTableProps> = ({ roles, meta, isLoading, onEdit, o
               </td>
             </tr>
           ))}
+
         </tbody>
       </table>
       {!isLoading && renderPagination()}
