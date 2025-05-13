@@ -92,6 +92,19 @@ const UserTable: React.FC<UserTableProps> = ({ users, meta, isLoading, onEdit, o
       onDelete(user);
     }
   };
+  const getRoleColor = (role: any) => {
+    const name = typeof role === 'object' ? role.name : role;
+
+    switch (name?.toUpperCase()) {
+      case 'ADMIN':
+        return 'bg-red-100 text-red-700';
+      case 'HR':
+        return 'bg-yellow-100 text-yellow-700';
+      case 'USER':
+      default:
+        return 'bg-indigo-100 text-indigo-700';
+    }
+  };
 
   return (
     <div className="bg-white shadow rounded-lg overflow-hidden">
@@ -133,7 +146,17 @@ const UserTable: React.FC<UserTableProps> = ({ users, meta, isLoading, onEdit, o
                   </button>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{typeof user.role === 'object' ? user.role.name : user.role}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  <span
+                    className={
+                      `px-3 py-1 rounded-full text-xs font-semibold ` +
+                      getRoleColor(user.role)
+                    }
+                  >
+                    {typeof user.role === 'object' ? user.role.name : user.role}
+                  </span>
+                </td>
+                {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{typeof user.role === 'object' ? user.role.name : user.role}</td> */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {dayjs(user.createdAt).format('DD/MM/YYYY HH:mm')}
                 </td>
