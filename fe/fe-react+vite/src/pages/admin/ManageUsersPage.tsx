@@ -11,10 +11,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const ManageUsersPage: React.FC = () => {
+  //Fix bug 
+  // đặt ngay dưới các state hoặc ở đầu file
+  const buildUserQuery = (page = 1, size = 10) =>
+    `current=${page}&pageSize=${size}` +
+    `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
+
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [meta, setMeta] = useState<{ current: number; pageSize: number; pages: number; total: number }>({ current: 1, pageSize: 10, pages: 0, total: 0 });
-  
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDetailOpen, setIsDetailOpen] = useState<boolean>(false);
   const [dataInit, setDataInit] = useState<IUser | null>(null);
@@ -22,19 +28,20 @@ const ManageUsersPage: React.FC = () => {
   const [listRoles, setListRoles] = useState<IRole[]>([]);
   const [listCompanies, setListCompanies] = useState<ICompany[]>([]);
 
+
   const fetchUsers = useCallback(async (query?: string) => {
     setIsLoading(true);
     let defaultQuery = `current=${meta.current}&pageSize=${meta.pageSize}`;
     defaultQuery += `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
-    const finalQuery = query ? query : defaultQuery;
-
+    // const finalQuery = query ? query : defaultQuery;
+    const finalQuery = query ?? buildUserQuery(meta.current, meta.pageSize);
     try {
       const res = await callFetchUser(finalQuery);
       if (res && res.data) {
         setUsers(res.data.result);
         setMeta(res.data.meta);
       } else {
-         toast.error(res.message || "Không thể tải danh sách người dùng.");
+        toast.error(res.message || "Không thể tải danh sách người dùng.");
       }
     } catch (error: any) {
       console.error("Fetch Users Error:", error);
@@ -46,39 +53,40 @@ const ManageUsersPage: React.FC = () => {
 
   useEffect(() => {
     const fetchInitialData = async () => {
-       setIsLoading(true);
-       try {
-           const [userRes, roleRes, companyRes] = await Promise.all([
-                callFetchUser(`current=1&pageSize=${meta.pageSize}&populate=role,company&fields=role._id,role.name,company._id,company.name`),
-                callFetchRole('current=1&pageSize=100'),
-                callFetchCompany('current=1&pageSize=100')
-           ]);
+      setIsLoading(true);
+      try {
+        const [userRes, roleRes, companyRes] = await Promise.all([
+          // callFetchUser(`current=1&pageSize=${meta.pageSize}&populate=role,company&fields=role._id,role.name,company._id,company.name`),
+          callFetchUser(buildUserQuery(1, meta.pageSize)),
+          callFetchRole('current=1&pageSize=100'),
+          callFetchCompany('current=1&pageSize=100')
+        ]);
 
-           if (userRes && userRes.data) {
-                setUsers(userRes.data.result);
-                setMeta(userRes.data.meta);
-           } else {
-                toast.error(userRes?.message || "Không thể tải danh sách người dùng.");
-           }
+        if (userRes && userRes.data) {
+          setUsers(userRes.data.result);
+          setMeta(userRes.data.meta);
+        } else {
+          toast.error(userRes?.message || "Không thể tải danh sách người dùng.");
+        }
 
-           if (roleRes && roleRes.data) {
-               setListRoles(roleRes.data.result);
-           } else {
-                toast.error(roleRes?.message || "Không thể tải danh sách vai trò.");
-           }
+        if (roleRes && roleRes.data) {
+          setListRoles(roleRes.data.result);
+        } else {
+          toast.error(roleRes?.message || "Không thể tải danh sách vai trò.");
+        }
 
-           if (companyRes && companyRes.data) {
-               setListCompanies(companyRes.data.result);
-           } else {
-                toast.error(companyRes?.message || "Không thể tải danh sách công ty.");
-           }
+        if (companyRes && companyRes.data) {
+          setListCompanies(companyRes.data.result);
+        } else {
+          toast.error(companyRes?.message || "Không thể tải danh sách công ty.");
+        }
 
-       } catch (error) {
-           console.error("Error fetching initial data:", error);
-           toast.error("Lỗi khi tải dữ liệu khởi tạo.");
-       } finally {
-            setIsLoading(false);
-       }
+      } catch (error) {
+        console.error("Error fetching initial data:", error);
+        toast.error("Lỗi khi tải dữ liệu khởi tạo.");
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchInitialData();
   }, [meta.pageSize]);
@@ -94,27 +102,60 @@ const ManageUsersPage: React.FC = () => {
   };
 
   const handleView = (user: IUser) => {
-      setDataInit(user);
-      setIsDetailOpen(true);
+    setDataInit(user);
+    setIsDetailOpen(true);
   };
 
+  // const handleDelete = async (user: IUser) => {
+  //   if (!user._id) return;
+  //   setIsLoading(true);
+  //   try {
+  //     const res = await callDeleteUser(user._id);
+  //     if (res && res.data) {
+  //       toast.success('Xóa người dùng thành công!');
+  //       fetchUsers();
+  //     } else {
+  //       toast.error(res.message || 'Có lỗi xảy ra khi xóa.');
+  //     }
+  //   } catch (error: any) {
+  //     console.error("Delete User Error:", error);
+  //     toast.error(error.message || 'Đã có lỗi xảy ra.');
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
   const handleDelete = async (user: IUser) => {
-     if (!user._id) return;
-     setIsLoading(true);
-     try {
-         const res = await callDeleteUser(user._id);
-         if (res && res.data) {
-             toast.success('Xóa người dùng thành công!');
-             fetchUsers();
-         } else {
-             toast.error(res.message || 'Có lỗi xảy ra khi xóa.');
-         }
-     } catch (error: any) {
-         console.error("Delete User Error:", error);
-         toast.error(error.message || 'Đã có lỗi xảy ra.');
-     } finally {
-        setIsLoading(false);
-     }
+    if (!user._id) return;
+    if (!confirm(`Bạn có chắc chắn muốn xóa người dùng này không?`)) return;
+
+    setIsLoading(true);
+    try {
+      const res = await callDeleteUser(user._id);
+      if (res && res.data) {
+        toast.success('Xóa người dùng thành công!');
+        // const query = meta.current > 1 && users.length === 1
+        //   ? `current=${meta.current - 1}&pageSize=${meta.pageSize}`
+        //   : `current=${meta.current}&pageSize=${meta.pageSize}`;
+        // fetchUsers(query);
+        const targetPage = meta.current > 1 && users.length === 1
+          ? meta.current - 1
+          : meta.current;
+        fetchUsers(buildUserQuery(targetPage, meta.pageSize));
+      } else {
+        toast.error(res.message || 'Có lỗi xảy ra khi xóa.');
+      }
+    } catch (error: any) {
+      console.error("Delete User Error:", error);
+      toast.error(error.message || 'Đã có lỗi xảy ra.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleTableChange = (page: number, pageSize?: number) => {
+    const newPageSize = pageSize || meta.pageSize;
+    setMeta(prevMeta => ({ ...prevMeta, current: page, pageSize: newPageSize }));
+    // fetchUsers(`current=${page}&pageSize=${newPageSize}`);
+    fetchUsers(buildUserQuery(page, newPageSize));
   };
 
   const breadcrumbItems = [
@@ -145,6 +186,7 @@ const ManageUsersPage: React.FC = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
           onView={handleView}
+          onPageChange={handleTableChange}
         />
       </div>
 
@@ -157,14 +199,18 @@ const ManageUsersPage: React.FC = () => {
         listCompanies={listCompanies}
       />
 
-       <ViewUserDetail
-         open={isDetailOpen}
-         onClose={setIsDetailOpen}
-         dataInit={dataInit}
-         setDataInit={setDataInit}
-       />
+      <ViewUserDetail
+        open={isDetailOpen}
+        onClose={setIsDetailOpen}
+        dataInit={dataInit}
+        setDataInit={setDataInit}
+      />
     </div>
   );
 };
 
-export default ManageUsersPage; 
+export default ManageUsersPage;
+
+function fetchRoles(arg0: string) {
+  throw new Error('Function not implemented.');
+}
