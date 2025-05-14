@@ -5,12 +5,16 @@ export type CategoryDocument = HydratedDocument<Category>;
 
 @Schema({ timestamps: true })
 export class Category {
-    @Prop({ required: true, unique: true }) // Name is required and unique
+    @Prop({ required: true, unique: true })
     name: string;
 
-    // Optional: Add description if needed
-    // @Prop()
-    // description: string;
+    @Prop({ default: '' })
+    description: string;
+    @Prop({ default: true })
+    isActive: boolean;
+
+    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Skill', default: [] })
+    skills: mongoose.Types.ObjectId[];
 
     @Prop({ type: Object })
     createdBy: {

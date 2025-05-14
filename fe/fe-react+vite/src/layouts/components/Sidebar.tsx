@@ -48,12 +48,6 @@ const Sidebar: React.FC = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={`${basePath}/blogs`} className={navLinkClasses}>
-                  <NewspaperIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                  <span className="flex-1 whitespace-nowrap">Quản lý Bài viết</span>
-                </NavLink>
-              </li>
-              <li>
                 <NavLink to={`${basePath}/roles`} className={navLinkClasses}>
                   <TagIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
                   <span className="flex-1 whitespace-nowrap">Quản lý Vai trò</span>
@@ -69,6 +63,12 @@ const Sidebar: React.FC = () => {
                 <NavLink to={`${basePath}/categories`} className={navLinkClasses}>
                   <RectangleGroupIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
                   <span className="flex-1 whitespace-nowrap">Quản lý Danh mục</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`${basePath}/blogs`} className={navLinkClasses}>
+                  <NewspaperIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
+                  <span className="flex-1 whitespace-nowrap">Quản lý Bài viết</span>
                 </NavLink>
               </li>
             </>

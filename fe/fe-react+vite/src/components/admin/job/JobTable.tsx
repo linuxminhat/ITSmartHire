@@ -26,7 +26,7 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, meta, isLoading, onEdit, onDe
     let endPage = Math.min(pages, startPage + maxPagesToShow - 1);
 
     if (endPage - startPage + 1 < maxPagesToShow) {
-        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
     }
 
     for (let i = startPage; i <= endPage; i++) {
@@ -35,7 +35,7 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, meta, isLoading, onEdit, onDe
 
     return (
       <nav className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 mt-4">
-         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
             <p className="text-sm text-gray-700">
               Hiển thị <span className="font-medium">{(current - 1) * pageSize + 1}</span>
@@ -69,12 +69,12 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, meta, isLoading, onEdit, onDe
                   {number}
                 </button>
               ))}
-               {endPage < pages - 1 && (
-                 <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
-               )}
-               {endPage < pages && (
-                 <button onClick={() => onPageChange(pages)} className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">{pages}</button>
-               )}
+              {endPage < pages - 1 && (
+                <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
+              )}
+              {endPage < pages && (
+                <button onClick={() => onPageChange(pages)} className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">{pages}</button>
+              )}
               <button
                 onClick={() => onPageChange(current + 1)}
                 disabled={current === pages || pages === 0}
@@ -119,24 +119,32 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, meta, isLoading, onEdit, onDe
           {!isLoading && jobs.map((job) => (
             <tr key={job._id}>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{job.name}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{typeof job.category === 'object' ? job.category.name : '-'}</td>
+              {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{typeof job.category === 'object' ? job.category.name : '-'}</td> */}
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {job.category?.name ?? '-'}
+              </td>
+              {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {(Array.isArray(job.skills) ? job.skills : [])
-                    .map(skill => typeof skill === 'object' ? skill.name : skill)
-                    .join(', ') || '-'}
-                </td>
+                  .map(skill => typeof skill === 'object' ? skill.name : skill)
+                  .join(', ') || '-'}
+              </td> */}
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {(job.skills ?? [])
+                  .map(s => (s as any)?.name ?? (typeof s === 'string' ? s : '-'))
+                  .join(', ') || '-'}
+              </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{job.company?.name || '-'}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{job.location}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${job.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {job.isActive ? 'ACTIVE' : 'INACTIVE'}
+                  {job.isActive ? 'ACTIVE' : 'INACTIVE'}
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{dayjs(job.createdAt).format('DD/MM/YYYY')}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                <button 
-                  onClick={() => onViewApplicants(job)} 
-                  className="text-blue-600 hover:text-blue-900 mr-3" 
+                <button
+                  onClick={() => onViewApplicants(job)}
+                  className="text-blue-600 hover:text-blue-900 mr-3"
                   title="Xem ứng viên"
                 >
                   <UsersIcon className="h-5 w-5" />

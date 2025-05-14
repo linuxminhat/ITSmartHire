@@ -258,6 +258,10 @@ export interface ISkill {
 }
 
 export interface ICategory {
+    skills: never[];
+    recruitCount: number;
+    description: string;
+    isActive: boolean;
     _id?: string;
     name: string;
     createdBy?: string;
