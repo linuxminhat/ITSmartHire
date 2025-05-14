@@ -66,7 +66,8 @@ export class UsersService {
       _id: id
     })
       .select("-password -refreshToken")
-      .populate({ path: "role", select: { name: 1, _id: 1 } });
+      .populate({ path: "role", select: { name: 1, _id: 1 } })
+      .populate({ path: 'company', select: 'name _id' });
   }
 
   async findUserProfile(userId: string) {
@@ -81,8 +82,9 @@ export class UsersService {
     ].join(' ');
 
     return await this.userModel.findOne({ _id: userId })
-      .select(selectFields) // Use the explicit list of fields
+      .select(selectFields)
       .populate({ path: "role", select: { name: 1, _id: 1 } })
+      .populate({ path: 'company', select: 'name _id' })
       .populate('education')
       .populate('experience')
       .populate('projects')
@@ -206,6 +208,7 @@ export class UsersService {
 
     /* -------- Pipeline -------- */
     const pipeline: any[] = [
+      { $match: { isDeleted: { $ne: true } } },
       { $match: match },
 
       /* join với collection roles */
@@ -218,6 +221,15 @@ export class UsersService {
         }
       },
       { $unwind: '$role' },
+      {
+        $lookup: {
+          from: 'companies',
+          localField: 'company',
+          foreignField: '_id',
+          as: 'company',
+        },
+      },
+      { $unwind: { path: '$company', preserveNullAndEmptyArrays: true } },
     ];
 
     /* lọc theo role.name */

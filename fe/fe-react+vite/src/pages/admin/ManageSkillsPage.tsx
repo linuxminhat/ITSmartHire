@@ -2,42 +2,75 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import SkillTable from '@/components/admin/skill/SkillTable';
 import SkillModal from '@/components/admin/skill/SkillModal';
+import SkillFilter, { SkillFilterState } from './SkillFilter';
 import { callFetchSkill, callDeleteSkill } from '@/services/skill.service';
 import { ISkill } from '@/types/backend';
 import { toast } from 'react-toastify';
 import { PlusIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import dayjs from 'dayjs';
 
 const ManageSkillsPage: React.FC = () => {
+  /* ----------------------------- State ----------------------------- */
   const [skills, setSkills] = useState<ISkill[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [meta, setMeta] = useState<{ current: number; pageSize: number; pages: number; total: number }>({ current: 1, pageSize: 10, pages: 0, total: 0 });
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [meta, setMeta] = useState({ current: 1, pageSize: 10, pages: 0, total: 0 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataInit, setDataInit] = useState<ISkill | null>(null);
+  const [filter, setFilter] = useState<SkillFilterState>({ name: '', category: '' });
 
+  /* ------------------------ Build Query String ------------------------ */
+  const buildSkillQuery = (
+    page = meta.current,
+    size = meta.pageSize,
+    f: SkillFilterState = filter,
+  ) => {
+    let q = `current=${page}&pageSize=${size}`;
+    if (f.name.trim()) q += `&name=${encodeURIComponent(f.name.trim())}`;
+    if (f.category.trim()) q += `&category=${encodeURIComponent(f.category.trim())}`;
+    return q;
+  };
+
+  /* --------------------------- Fetch Skill --------------------------- */
   const fetchSkills = useCallback(async (query?: string) => {
     setIsLoading(true);
-    const defaultQuery = `current=${meta.current}&pageSize=${meta.pageSize}`;
-    const finalQuery = query ? query : defaultQuery;
+    const finalQuery = query ?? buildSkillQuery();
 
     try {
       const res = await callFetchSkill(finalQuery);
       if (res && res.data) {
         setSkills(res.data.result);
         setMeta(res.data.meta);
-      } else {
-        toast.error(res.message || "Không thể tải danh sách kỹ năng.");
+        return res.data.result.length;
       }
-    } catch (error: any) {
-      console.error("Fetch Skills Error:", error);
-      toast.error(error.message || "Đã có lỗi xảy ra khi tải dữ liệu kỹ năng.");
+      toast.error(res?.message || 'Không thể tải danh sách kỹ năng.');
+    } catch (err: any) {
+      console.error('Fetch Skills Error:', err);
+      toast.error(err.message || 'Đã có lỗi xảy ra khi tải dữ liệu kỹ năng.');
     } finally {
       setIsLoading(false);
     }
-  }, [meta.current, meta.pageSize]);
+  }, [meta.current, meta.pageSize, filter]);
 
   useEffect(() => {
     fetchSkills();
   }, [fetchSkills]);
+
+  /* --------------------------- Handlers --------------------------- */
+  const handleResetFilter = () => {
+    const empty = { name: '', category: '' } as SkillFilterState;
+    setFilter(empty);
+    setMeta((m) => ({ ...m, current: 1 }));
+    fetchSkills(buildSkillQuery(1, meta.pageSize, empty));
+    toast.info('Đã làm mới trang');
+  };
+
+  const handleSearch = async () => {
+    setMeta((m) => ({ ...m, current: 1 }));
+    const count = await fetchSkills(buildSkillQuery(1, meta.pageSize));
+    toast.success(`Tìm thấy ${count} kỹ năng`);
+  };
 
   const handleAddNew = () => {
     setDataInit(null);
@@ -56,45 +89,75 @@ const ManageSkillsPage: React.FC = () => {
     setIsLoading(true);
     try {
       const res = await callDeleteSkill(skill._id);
-      if (res && res.data) {
+      if (res?.data !== undefined || res?.status) {
         toast.success('Xóa kỹ năng thành công!');
-        const query = meta.current > 1 && skills.length === 1 ? `current=${meta.current - 1}&pageSize=${meta.pageSize}` : `current=${meta.current}&pageSize=${meta.pageSize}`;
-        fetchSkills(query);
+        const tgtPage = meta.current > 1 && skills.length === 1 ? meta.current - 1 : meta.current;
+        fetchSkills(buildSkillQuery(tgtPage, meta.pageSize));
       } else {
         toast.error(res.message || 'Có lỗi xảy ra khi xóa kỹ năng.');
       }
-    } catch (error: any) {
-      console.error("Delete Skill Error:", error);
-      toast.error(error.message || 'Đã có lỗi xảy ra khi xóa.');
+    } catch (err: any) {
+      console.error('Delete Skill Error:', err);
+      toast.error(err.message || 'Đã có lỗi xảy ra.');
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleTableChange = (page: number, pageSize?: number) => {
-    const newPageSize = pageSize || meta.pageSize;
-    setMeta(prevMeta => ({ ...prevMeta, current: page, pageSize: newPageSize }));
-    fetchSkills(`current=${page}&pageSize=${newPageSize}`);
+    const newSize = pageSize || meta.pageSize;
+    setMeta((m) => ({ ...m, current: page, pageSize: newSize }));
+    fetchSkills(buildSkillQuery(page, newSize));
   };
 
-  const breadcrumbItems = [
-    { label: 'Quản lý Kỹ năng', icon: AcademicCapIcon },
-  ];
+  /* ------------------------- Export to Excel ------------------------- */
+  const handleExportExcel = () => {
+    if (!skills.length) return toast.info('Không có dữ liệu để xuất');
+
+    const data = skills.map((s, idx) => ({
+      STT: (meta.current - 1) * meta.pageSize + idx + 1,
+      'Tên kỹ năng': s.name,
+      'Bộ kỹ năng': s.category,
+      'Lượt tuyển': s.recruitCount ?? 0,
+      'Ngày tạo': dayjs(s.createdAt).format('DD/MM/YYYY'),
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Skills');
+
+    const blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    saveAs(new Blob([blob], { type: 'application/octet-stream' }), `skills_${dayjs().format('YYYYMMDD_HHmmss')}.xlsx`);
+
+    toast.success(`Đã xuất ${data.length} dòng ra Excel`);
+  };
+
+  /* --------------------------- Breadcrumb --------------------------- */
+  const breadcrumbItems = [{ label: 'Quản lý Kỹ năng', icon: AcademicCapIcon }];
 
   return (
     <div className="p-4 md:p-6 bg-gray-50 min-h-full">
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
-          <div className="flex-1">
-          </div>
+        {/* FILTER + ACTION BAR */}
+        <div className="flex items-start mb-6 pb-4 border-b border-gray-200 gap-4 flex-wrap">
+          <SkillFilter value={filter} onChange={setFilter} onReset={handleResetFilter} onSearch={handleSearch} />
+
+          {/* EXPORT */}
+          <button
+            onClick={handleExportExcel}
+            className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700"
+          >
+            <PlusIcon className="h-5 w-5 mr-1" /> Xuất File
+          </button>
+
+          {/* ADD NEW */}
           <button
             onClick={handleAddNew}
-            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700"
           >
-            <PlusIcon className="h-5 w-5 mr-2" />
-            Thêm mới
+            <PlusIcon className="h-5 w-5 mr-1" /> Thêm mới
           </button>
         </div>
 
@@ -105,6 +168,7 @@ const ManageSkillsPage: React.FC = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
           onPageChange={handleTableChange}
+          onSortRecruit={() => { }}
         />
       </div>
 
@@ -118,4 +182,4 @@ const ManageSkillsPage: React.FC = () => {
   );
 };
 
-export default ManageSkillsPage; 
+export default ManageSkillsPage;

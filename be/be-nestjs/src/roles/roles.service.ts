@@ -31,7 +31,6 @@ export class RolesService {
     })
     return {
       _id: newRole?.id,
-      //Van con thieu 
       createdAt: newRole?.createdAt
     };
   }
@@ -78,6 +77,7 @@ export class RolesService {
     const totalPages = Math.ceil(totalItems / pageSize);
     const sortStage = Object.keys(sort).length ? sort : { createdAt: -1 };
     const pipeline: any[] = [
+      { $match: { isDeleted: { $ne: true } } },
       { $match: filter },
       { $sort: sortStage },
       {

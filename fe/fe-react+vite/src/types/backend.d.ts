@@ -1,4 +1,5 @@
 export interface IBackendRes<T> {
+    status: boolean;
     error?: string | string[];
     message: string;
     statusCode: number | string;
@@ -244,11 +245,16 @@ export interface IRole {
 export interface ISkill {
     _id?: string;
     name: string;
+    category: string;
+    description?: string;
+    isActive: boolean;
     createdBy?: string;
     isDeleted?: boolean;
     deletedAt?: boolean | null;
     createdAt?: string;
     updatedAt?: string;
+    recruitCount?: number;  // server trả về
+
 }
 
 export interface ICategory {
