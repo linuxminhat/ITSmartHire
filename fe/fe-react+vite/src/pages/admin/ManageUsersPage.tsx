@@ -7,7 +7,7 @@ import { callFetchRole } from '@/services/role.service';
 import { callDeleteUser, callFetchUser } from '@/services/user.service';
 import { ICompany, IRole, IUser } from '@/types/backend';
 import { PlusIcon, UsersIcon } from '@heroicons/react/24/outline';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import TableFilter, { FilterState } from './TableFilter';
 import * as XLSX from 'xlsx';
@@ -15,11 +15,6 @@ import { saveAs } from 'file-saver';
 import dayjs from 'dayjs';
 
 const ManageUsersPage: React.FC = () => {
-  //Fix bug 
-  // đặt ngay dưới các state hoặc ở đầu file
-  // const buildUserQuery = (page = 1, size = 10) =>
-  //   `current=${page}&pageSize=${size}` +
-  //   `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
 
   const buildUserQuery = (
     page = meta.current,
@@ -148,25 +143,6 @@ const ManageUsersPage: React.FC = () => {
     setDataInit(user);
     setIsDetailOpen(true);
   };
-
-  // const handleDelete = async (user: IUser) => {
-  //   if (!user._id) return;
-  //   setIsLoading(true);
-  //   try {
-  //     const res = await callDeleteUser(user._id);
-  //     if (res && res.data) {
-  //       toast.success('Xóa người dùng thành công!');
-  //       fetchUsers();
-  //     } else {
-  //       toast.error(res.message || 'Có lỗi xảy ra khi xóa.');
-  //     }
-  //   } catch (error: any) {
-  //     console.error("Delete User Error:", error);
-  //     toast.error(error.message || 'Đã có lỗi xảy ra.');
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
   const handleExportExcel = () => {
     if (!users.length) {
       toast.info('Không có dữ liệu để xuất');
@@ -206,13 +182,11 @@ const ManageUsersPage: React.FC = () => {
 
     setIsLoading(true);
     try {
+
       const res = await callDeleteUser(user._id);
-      if (res && res.data) {
+      if (res?.status || res?.data !== undefined) {
         toast.success('Xóa người dùng thành công!');
-        // const query = meta.current > 1 && users.length === 1
-        //   ? `current=${meta.current - 1}&pageSize=${meta.pageSize}`
-        //   : `current=${meta.current}&pageSize=${meta.pageSize}`;
-        // fetchUsers(query);
+
         const targetPage = meta.current > 1 && users.length === 1
           ? meta.current - 1
           : meta.current;
@@ -243,25 +217,6 @@ const ManageUsersPage: React.FC = () => {
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        {/* ---------- FILTER BAR ----------
-        <TableFilter
-          value={filter}
-          onChange={setFilter}
-          onReset={handleResetFilter}
-          onSearch={handleSearch}
-        />
-        <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
-          <div className="flex-1">
-          </div>
-
-          <button
-            onClick={handleAddNew}
-            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-          >
-            <PlusIcon className="h-5 w-5 mr-2" />
-            Thêm mới
-          </button>
-        </div> */}
         <div className="flex items-start mb-6 pb-4 border-b border-gray-200 gap-4">
           {/* FILTER + BUTTONS */}
           <TableFilter
