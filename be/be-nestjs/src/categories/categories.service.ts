@@ -7,11 +7,12 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { IUser } from 'src/users/users.interface';
 import aqp from 'api-query-params';
 import mongoose from 'mongoose';
+import { ListCategoriesDto } from './dto/list-categories.dto';
 
 @Injectable()
 export class CategoriesService {
   constructor(
-    @InjectModel(Category.name) 
+    @InjectModel(Category.name)
     private categoryModel: SoftDeleteModel<CategoryDocument>
   ) { }
 
@@ -38,48 +39,122 @@ export class CategoriesService {
     };
   }
 
-  async findAll(currentPage: number, limit: number, qs: string) {
-    const { filter, sort, population, projection } = aqp(qs);
-    delete filter.current;
-    delete filter.pageSize;
+  // category.service.ts
+  // async findAll(dto: ListCategoriesDto) {
+  //   const cur = +dto.current || 1;
+  //   const size = +dto.pageSize || 10;
 
-    let offset = (+currentPage - 1) * (+limit);
-    let defaultLimit = +limit ? +limit : 10;
+  //   const match: any = { isDeleted: { $ne: true } };
+  //   if (dto.name) match.name = { $regex: dto.name, $options: 'i' };
+  //   if (dto.description) match.description = { $regex: dto.description, $options: 'i' };
 
-    const totalItems = (await this.categoryModel.find(filter)).length;
-    const totalPages = Math.ceil(totalItems / defaultLimit);
+  //   const pipeline: any[] = [
+  //     { $match: match },
+  //     /* ⭐ join skills để lấy recruitCount */
+  //     {
+  //       $lookup: {
+  //         from: 'skills',
+  //         localField: 'skills',
+  //         foreignField: '_id',
+  //         as: 'skills',
+  //       },
+  //     },
 
-    // Add case-insensitive search for name if present in filter
-    if (filter.name) {
-        filter.name = { $regex: new RegExp(filter.name, 'i') };
+  //     {
+  //       $addFields: {
+  //         recruitCount: { $sum: '$skills.recruitCount' },
+  //       },
+  //     },
+  //     { $sort: { createdAt: -1 } },
+  //   ];
+
+  //   // total
+  //   const [{ total = 0 } = {}] = await this.categoryModel
+  //     .aggregate([...pipeline, { $count: 'total' }]);
+
+  //   // paging
+  //   pipeline.push({ $skip: (cur - 1) * size }, { $limit: size });
+
+  //   const result = await this.categoryModel.aggregate(pipeline);
+
+  //   return { result, meta: { current: cur, pageSize: size, total, pages: Math.ceil(total / size) } };
+  // }
+  async findAll(dto: ListCategoriesDto) {
+    const cur = Number(dto.current) || 1;
+    const size = Number(dto.pageSize) || 10;
+
+    // 1. Match cơ bản
+    const match: any = { isDeleted: { $ne: true } };
+    if (dto.name) match.name = { $regex: dto.name, $options: 'i' };
+    if (dto.description) match.description = { $regex: dto.description, $options: 'i' };
+
+    // 2. Xây pipeline
+    const pipeline: any[] = [
+      { $match: match },
+
+      // 2.1. Join skills
+      {
+        $lookup: {
+          from: 'skills',
+          localField: 'skills',
+          foreignField: '_id',
+          as: 'skills',
+        },
+      },
+    ];
+
+    // 2.2. Nếu có dto.skill, lọc những category có ít nhất một skill khớp tên
+    if (dto.skill) {
+      pipeline.push({
+        $match: {
+          'skills.name': { $regex: dto.skill, $options: 'i' },
+        },
+      });
     }
 
-    const result = await this.categoryModel.find(filter)
-      .skip(offset)
-      .limit(defaultLimit)
-      .sort(sort as any)
-      .populate(population)
-      .select(projection as any)
-      .exec();
-
-    return {
-      meta: {
-        current: currentPage,
-        pageSize: limit,
-        pages: totalPages,
-        total: totalItems
+    // 2.3. Tính recruitCount và sort
+    pipeline.push(
+      {
+        $addFields: {
+          recruitCount: { $sum: '$skills.recruitCount' },
+        },
       },
-      result
+      { $sort: { createdAt: -1 } },
+    );
+
+    // 3. Đếm tổng
+    const [{ total = 0 } = {}] = await this.categoryModel.aggregate([
+      ...pipeline,
+      { $count: 'total' },
+    ]);
+
+    // 4. Pagination
+    pipeline.push(
+      { $skip: (cur - 1) * size },
+      { $limit: size },
+    );
+
+    const result = await this.categoryModel.aggregate(pipeline);
+    return {
+      result,
+      meta: {
+        current: cur,
+        pageSize: size,
+        total,
+        pages: Math.ceil(total / size),
+      },
     };
   }
+
+
 
   async findOne(id: string) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       throw new BadRequestException("Không tìm thấy danh mục.");
     }
     const category = await this.categoryModel.findById(id);
-     if (!category) {
-        throw new BadRequestException("Không tìm thấy danh mục với ID cung cấp.");
+    if (!category) {
+      throw new BadRequestException("Không tìm thấy danh mục với ID cung cấp.");
     }
     return category;
   }
@@ -92,14 +167,14 @@ export class CategoriesService {
     const { name } = updateCategoryDto;
 
     // If name is being updated, check for conflicts (case-insensitive, excluding self)
-     if (name) {
-        const isExist = await this.categoryModel.findOne({
-             name: { $regex: new RegExp(`^${name}$`, 'i') }, 
-             _id: { $ne: id } 
-        });
-        if (isExist) {
-            throw new BadRequestException(`Danh mục với tên "${name}" đã tồn tại.`);
-        }
+    if (name) {
+      const isExist = await this.categoryModel.findOne({
+        name: { $regex: new RegExp(`^${name}$`, 'i') },
+        _id: { $ne: id }
+      });
+      if (isExist) {
+        throw new BadRequestException(`Danh mục với tên "${name}" đã tồn tại.`);
+      }
     }
 
     const updated = await this.categoryModel.updateOne(
@@ -112,15 +187,15 @@ export class CategoriesService {
         }
       }
     );
-     if (updated.modifiedCount === 0) {
-         // Optional: throw error if nothing was modified, or just return success
+    if (updated.modifiedCount === 0) {
+      // Optional: throw error if nothing was modified, or just return success
     }
     return updated;
   }
 
   async remove(id: string, user: IUser) {
-     if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new BadRequestException("ID danh mục không hợp lệ.");
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new BadRequestException("ID danh mục không hợp lệ.");
     }
     await this.categoryModel.updateOne(
       { _id: id },

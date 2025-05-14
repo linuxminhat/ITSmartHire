@@ -5,10 +5,11 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { IUser } from 'src/users/users.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guards';
+import { ListCategoriesDto } from './dto/list-categories.dto';
 
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+  constructor(private readonly categoriesService: CategoriesService) { }
 
   @Post()
   @ResponseMessage("Tạo mới Danh mục thành công")
@@ -18,14 +19,12 @@ export class CategoriesController {
   }
 
   @Get()
-  @Public() // Make category listing public
-  @ResponseMessage("Lấy danh sách Danh mục thành công")
+  @Public()
+  @ResponseMessage('Lấy danh sách Danh mục thành công')
   findAll(
-    @Query("current") currentPage: string,
-    @Query("pageSize") limit: string,
-    @Query() qs: string,
+    @Query() dto: ListCategoriesDto,              // 🆕 nhận toàn bộ query
   ) {
-    return this.categoriesService.findAll(+currentPage, +limit, qs);
+    return this.categoriesService.findAll(dto);   // 🆕 truyền 1 biến
   }
 
   @Get(':id')
@@ -39,10 +38,10 @@ export class CategoriesController {
   @ResponseMessage("Cập nhật Danh mục thành công")
   @UseGuards(JwtAuthGuard)
   update(
-      @Param('id') id: string, 
-      @Body() updateCategoryDto: UpdateCategoryDto, 
-      @User() user: IUser
-    ) {
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+    @User() user: IUser
+  ) {
     return this.categoriesService.update(id, updateCategoryDto, user);
   }
 

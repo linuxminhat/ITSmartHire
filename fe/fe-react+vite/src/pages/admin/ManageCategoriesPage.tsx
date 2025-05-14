@@ -1,120 +1,189 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Breadcrumb from '@/components/shared/Breadcrumb';
-import CategoryTable from '@/components/admin/category/CategoryTable';
-import CategoryModal from '@/components/admin/category/CategoryModal';
-import { callFetchCategory, callDeleteCategory } from '@/services/category.service';
-import { ICategory } from '@/types/backend';
-import { toast } from 'react-toastify';
-import { PlusIcon, RectangleGroupIcon } from '@heroicons/react/24/outline';
+// src/pages/admin/category/ManageCategoriesPage.tsx
+import React, { useState, useEffect, useCallback } from 'react'
+import Breadcrumb from '@/components/shared/Breadcrumb'
+import CategoryFilter, { CategoryFilterState } from './CategoryFilter'
+import CategoryTable from '@/components/admin/category/CategoryTable'
+import CategoryModal from '@/components/admin/category/CategoryModal'
+import { callFetchCategory, callDeleteCategory } from '@/services/category.service'
+import { ICategory } from '@/types/backend'
+import { toast } from 'react-toastify'
+import { PlusIcon, RectangleGroupIcon } from '@heroicons/react/24/outline'
+import * as XLSX from 'xlsx'
+import { saveAs } from 'file-saver'
+import dayjs from 'dayjs'
 
 const ManageCategoriesPage: React.FC = () => {
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [meta, setMeta] = useState<{ current: number; pageSize: number; pages: number; total: number }>({ current: 1, pageSize: 10, pages: 0, total: 0 });
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [dataInit, setDataInit] = useState<ICategory | null>(null);
+  /* -------------------------------------------------------------------------- */
+  /*                                   STATE                                   */
+  /* -------------------------------------------------------------------------- */
+  const [categories, setCategories] = useState<ICategory[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [meta, setMeta] = useState({ current: 1, pageSize: 10, pages: 0, total: 0 })
+  const [filter, setFilter] = useState<CategoryFilterState>({ name: '', skill: '' })
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [dataInit, setDataInit] = useState<ICategory | null>(null)
 
-  const fetchCategories = useCallback(async (query?: string) => {
-    setIsLoading(true);
-    const defaultQuery = `current=${meta.current}&pageSize=${meta.pageSize}`;
-    const finalQuery = query ? query : defaultQuery;
+  /* -------------------------------------------------------------------------- */
+  /*                               API UTILITIES                                */
+  /* -------------------------------------------------------------------------- */
+  const buildQuery = (page = meta.current, size = meta.pageSize, f = filter) => {
+    let q = `current=${page}&pageSize=${size}`
+    if (f.name.trim()) q += `&name=${encodeURIComponent(f.name.trim())}`
+    if (f.skill.trim()) q += `&skill=${encodeURIComponent(f.skill.trim())}`
+    return q
+  }
 
-    try {
-      const res = await callFetchCategory(finalQuery);
-      if (res && res.data) {
-        setCategories(res.data.result);
-        setMeta(res.data.meta);
-      } else {
-        toast.error(res.message || "Không thể tải danh sách danh mục.");
+  const fetchCategories = useCallback(
+    async (q?: string) => {
+      setIsLoading(true)
+      try {
+        const finalQ = q ?? buildQuery()
+        const res = await callFetchCategory(finalQ)
+        if (res?.data) {
+          setCategories(res.data.result)
+          setMeta(res.data.meta)
+        } else {
+          toast.error(res?.message || 'Không thể tải danh mục')
+        }
+      } catch (err: any) {
+        console.error(err)
+        toast.error('Lỗi khi tải danh mục')
+      } finally {
+        setIsLoading(false)
       }
-    } catch (error: any) {
-      console.error("Fetch Categories Error:", error);
-      toast.error(error.message || "Đã có lỗi xảy ra khi tải dữ liệu danh mục.");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [meta.current, meta.pageSize]);
+    },
+    [filter, meta.current, meta.pageSize]
+  )
 
   useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+    fetchCategories()
+  }, [fetchCategories])
 
-  const handleAddNew = () => {
-    setDataInit(null);
-    setIsModalOpen(true);
-  };
+  /* -------------------------------------------------------------------------- */
+  /*                               EVENT HANDLERS                               */
+  /* -------------------------------------------------------------------------- */
+  const handleReset = () => {
+    setFilter({ name: '', skill: '' })
+    setMeta(m => ({ ...m, current: 1 }))
+    fetchCategories(buildQuery(1, meta.pageSize, { name: '', skill: '' }))
+    toast.info('Đã làm mới bộ lọc')
+  }
 
-  const handleEdit = (category: ICategory) => {
-    setDataInit(category);
-    setIsModalOpen(true);
-  };
+  const handleSearch = () => {
+    setMeta(m => ({ ...m, current: 1 }))
+    fetchCategories(buildQuery(1, meta.pageSize))
+  }
 
-  const handleDelete = async (category: ICategory) => {
-    if (!category._id) return;
-    if (!confirm(`Bạn có chắc chắn muốn xóa danh mục "${category.name}" không?`)) return;
+  const handleExport = () => {
+    if (!categories.length) return toast.info('Không có dữ liệu để xuất')
 
-    setIsLoading(true);
+    const data = categories.map((c, i) => ({
+      STT: (meta.current - 1) * meta.pageSize + i + 1,
+      'Tên danh mục': c.name,
+      'Số kỹ năng': c.skills?.length || 0,
+      'Mô tả': c.description || '-',
+      'Trạng thái': c.isActive ? 'ACTIVE' : 'INACTIVE',
+      'Ngày tạo': dayjs(c.createdAt).format('DD/MM/YYYY'),
+      'Lượt tuyển': c.recruitCount || 0,
+    }))
+
+    const ws = XLSX.utils.json_to_sheet(data)
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, 'Categories')
+
+    const blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+    saveAs(new Blob([blob]), `categories_${dayjs().format('YYYYMMDD_HHmmss')}.xlsx`)
+    toast.success(`Đã xuất ${data.length} dòng`)
+  }
+
+  const handleAdd = () => {
+    setDataInit(null)
+    setIsModalOpen(true)
+  }
+
+  const handleEdit = (c: ICategory) => {
+    setDataInit(c)
+    setIsModalOpen(true)
+  }
+
+  const handleDelete = async (c: ICategory) => {
+    if (!confirm(`Bạn có chắc chắn muốn xóa "${c.name}" không?`)) return
+    setIsLoading(true)
     try {
-      const res = await callDeleteCategory(category._id);
-      if (res) {
-        toast.success(res.message || 'Xóa danh mục thành công!');
-        const query = meta.current > 1 && categories.length === 1 ? `current=${meta.current - 1}&pageSize=${meta.pageSize}` : `current=${meta.current}&pageSize=${meta.pageSize}`;
-        fetchCategories(query);
-      } else {
-        toast.error('Có lỗi xảy ra khi xóa danh mục.');
-      }
-    } catch (error: any) {
-      console.error("Delete Category Error:", error);
-      toast.error(error?.response?.data?.message || error.message || 'Đã có lỗi xảy ra khi xóa.');
+      await callDeleteCategory(c._id!)
+      toast.success('Xóa thành công')
+      const newPage = meta.current > 1 && categories.length === 1 ? meta.current - 1 : meta.current
+      fetchCategories(buildQuery(newPage, meta.pageSize))
+    } catch {
+      toast.error('Lỗi khi xóa')
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
-  const handleTableChange = (page: number, pageSize?: number) => {
-    const newPageSize = pageSize || meta.pageSize;
-    setMeta(prevMeta => ({ ...prevMeta, current: page, pageSize: newPageSize }));
-    fetchCategories(`current=${page}&pageSize=${newPageSize}`);
-  };
+  const handlePage = (p: number, sz?: number) => {
+    const newSize = sz ?? meta.pageSize
+    setMeta(m => ({ ...m, current: p, pageSize: newSize }))
+    fetchCategories(buildQuery(p, newSize))
+  }
 
-  const breadcrumbItems = [
-    { label: 'Quản lý Danh mục', icon: RectangleGroupIcon },
-  ];
-
+  /* -------------------------------------------------------------------------- */
+  /*                                   RENDER                                   */
+  /* -------------------------------------------------------------------------- */
   return (
     <div className="p-4 md:p-6 bg-gray-50 min-h-full">
-      <Breadcrumb items={breadcrumbItems} />
+      <Breadcrumb items={[{ label: 'Quản lý Danh mục', icon: RectangleGroupIcon }]} />
 
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
-          <div className="flex-1"></div>
+        {/* FILTER + ACTION BAR */}
+        {/* FILTER + ACTION BAR */}
+        <div className="flex items-center flex-nowrap gap-2 mb-6 pb-4 border-b border-gray-200">
+          {/* Filter inputs + filter buttons (đến từ CategoryFilter) */}
+          <CategoryFilter
+            value={filter}
+            onChange={setFilter}
+            onReset={handleReset}
+            onSearch={handleSearch}
+          />
+
+          {/* Export / Add mới */}
           <button
-            onClick={handleAddNew}
-            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            onClick={handleExport}
+            className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
           >
-            <PlusIcon className="h-5 w-5 mr-2" />
-            Thêm mới
+            <PlusIcon className="w-5 h-5 mr-1" /> Xuất File
+          </button>
+          <button
+            onClick={handleAdd}
+            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            <PlusIcon className="w-5 h-5 mr-1" /> Thêm mới
           </button>
         </div>
 
+
+
+        {/* TABLE */}
         <CategoryTable
           categories={categories}
           meta={meta}
           isLoading={isLoading}
           onEdit={handleEdit}
           onDelete={handleDelete}
-          onPageChange={handleTableChange}
+          onPageChange={handlePage}
+          onSortRecruit={() => { }}
         />
       </div>
 
+      {/* MODAL */}
       <CategoryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         dataInit={dataInit}
-        refetch={fetchCategories}
+        refetch={() => fetchCategories()}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ManageCategoriesPage; 
+export default ManageCategoriesPage;
