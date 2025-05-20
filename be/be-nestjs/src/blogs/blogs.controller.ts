@@ -5,7 +5,7 @@ import { UpdateBlogDto } from './dto/update-blog.dto';
 
 @Controller('blogs')
 export class BlogsController {
-  constructor(private readonly blogsService: BlogsService) {}
+  constructor(private readonly blogsService: BlogsService) { }
 
   @Post()
   create(@Body() createBlogDto: CreateBlogDto, @Request() req) {
@@ -13,8 +13,18 @@ export class BlogsController {
   }
 
   @Get()
-  findAll(@Query() query) {
-    return this.blogsService.findAll(query);
+  async findAll(
+    @Query('current') current = '1',
+    @Query('pageSize') pageSize = '12',
+    @Query('sort') sort = '-createdAt',
+    @Query('search') search?: string,
+  ) {
+    return this.blogsService.findAll({
+      current: +current,
+      pageSize: +pageSize,
+      sort,
+      search,
+    });
   }
 
   @Get('tags/:tags')

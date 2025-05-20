@@ -244,7 +244,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
             <h2 className="text-xl font-semibold text-gray-800">
               {dataInit?._id ? 'Cập nhật Công ty' : 'Thêm mới Công ty'}
             </h2>
-            <button 
+            <button
               type="button"
               onClick={onClose}
               className="p-1 rounded-full text-gray-400 hover:bg-gray-200 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -256,8 +256,8 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
             <div className="md:col-span-2">
               <label htmlFor="company-name" className="block text-sm font-medium text-gray-700 mb-1">Tên công ty</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 id="company-name"
                 required
                 value={name}
@@ -268,8 +268,8 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
             </div>
             <div className="md:col-span-2">
               <label htmlFor="company-address" className="block text-sm font-medium text-gray-700 mb-1">Địa chỉ</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 id="company-address"
                 required
                 value={address}
@@ -341,8 +341,8 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
               )}
               {isUploading && (
                 <div className="mt-2 w-full bg-gray-200 rounded-full h-2.5">
-                  <div 
-                    className="bg-indigo-600 h-2.5 rounded-full transition-all duration-300 ease-out" 
+                  <div
+                    className="bg-indigo-600 h-2.5 rounded-full transition-all duration-300 ease-out"
                     style={{ width: `${uploadProgress}%` }}
                   ></div>
                 </div>
@@ -374,12 +374,12 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">Kỹ năng nổi bật</label>
-              <select 
-                multiple 
-                id="company-skills" 
-                value={selectedSkills} 
-                onChange={handleSkillChange} 
-                disabled={isLoading} 
+              <select
+                multiple
+                id="company-skills"
+                value={selectedSkills}
+                onChange={handleSkillChange}
+                disabled={isLoading}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-gray-100 h-32"
               >
                 {listSkills.map(skill => (
@@ -390,22 +390,22 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">Mô tả chuyên môn</label>
-              <textarea 
-                id="company-specialization" 
-                rows={4} 
-                value={specializationDescription} 
-                onChange={(e) => setSpecializationDescription(e.target.value)} 
-                disabled={isLoading} 
+              <textarea
+                id="company-specialization"
+                rows={4}
+                value={specializationDescription}
+                onChange={(e) => setSpecializationDescription(e.target.value)}
+                disabled={isLoading}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-gray-100"
               />
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">Mô hình công ty</label>
-              <select 
-                id="company-model" 
-                value={companyModel} 
-                onChange={(e) => setCompanyModel(e.target.value)} 
-                disabled={isLoading} 
+              <select
+                id="company-model"
+                value={companyModel}
+                onChange={(e) => setCompanyModel(e.target.value)}
+                disabled={isLoading}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-gray-100"
               >
                 <option value="" disabled>-- Chọn mô hình --</option>
@@ -414,8 +414,8 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">Lĩnh vực</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 id="company-industry"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
@@ -425,8 +425,8 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">Quy mô</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 id="company-size"
                 value={companySize}
                 onChange={(e) => setCompanySize(e.target.value)}
@@ -436,8 +436,8 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">Thời gian làm việc</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 id="company-working-time"
                 value={workingTime}
                 onChange={(e) => setWorkingTime(e.target.value)}
@@ -447,11 +447,11 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">Quốc gia</label>
-              <select 
-                id="company-country" 
-                value={country} 
-                onChange={(e) => setCountry(e.target.value)} 
-                disabled={isLoading} 
+              <select
+                id="company-country"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                disabled={isLoading}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-gray-100"
               >
                 <option value="" disabled>-- Chọn quốc gia --</option>
@@ -461,23 +461,23 @@ const CompanyModal: React.FC<CompanyModalProps> = ({ isOpen, onClose, dataInit, 
           </div>
 
           <div className="pt-5 border-t flex justify-end space-x-3">
-            <button 
-              type="button" 
-              onClick={onClose} 
+            <button
+              type="button"
+              onClick={onClose}
               disabled={isLoading || isUploading}
               className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 disabled:opacity-50"
             >
               Hủy
             </button>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={isSubmitDisabled}
               className="min-w-[100px] px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 flex items-center justify-center"
             >
               {isLoading ? (
-                  isUploading ? `Đang tải lên (${uploadProgress.toFixed(0)}%)...` : 'Đang lưu...'
+                isUploading ? `Đang tải lên (${uploadProgress.toFixed(0)}%)...` : 'Đang lưu...'
               ) : (
-                  dataInit?._id ? 'Cập nhật' : 'Thêm mới'
+                dataInit?._id ? 'Cập nhật' : 'Thêm mới'
               )}
             </button>
           </div>

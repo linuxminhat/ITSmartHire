@@ -19,12 +19,20 @@ export interface IBlog {
 }
 
 export interface ICreateBlog {
-  title: string;
-  description: string;
-  content: string;
-  thumbnail?: string;
-  tags?: string[];
-  status?: 'draft' | 'published';
+  title: string
+  description: string
+  content: string
+  thumbnail?: string
+  status: 'draft' | 'published'
+  tags: string[]
+}
+export interface IBlogPayload {
+  title: string
+  description: string
+  content: string
+  thumbnail?: string
+  status: 'draft' | 'published'
+  tags: string[]
 }
 
-export interface IUpdateBlog extends Partial<ICreateBlog> {} 
+export interface IUpdateBlog extends Partial<ICreateBlog> { } 

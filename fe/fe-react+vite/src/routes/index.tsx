@@ -32,6 +32,7 @@ import AppliedJobsPage from "@/pages/AppliedJobsPage";
 import BlogListPage from '@/pages/BlogListPage';
 import BlogDetailPage from '@/pages/BlogDetailPage';
 import HRPage from "@/pages/admin/HRPage";
+import BlogEditorPage from "@/components/admin/blog/BlogEditorPage";
 
 //component root 
 const Root = () => (
@@ -102,6 +103,9 @@ export const router = createBrowserRouter([
               { path: "categories", element: <ManageCategoriesPage /> },
               { path: "jobs", element: <ManageJobsPage /> },
               { path: "blogs", element: <ManageBlogsPage /> },
+              { path: "blogs/new", element: <BlogEditorPage /> },
+              { path: "blogs/:id/edit", element: <BlogEditorPage /> },
+
             ]
           }
         ]
