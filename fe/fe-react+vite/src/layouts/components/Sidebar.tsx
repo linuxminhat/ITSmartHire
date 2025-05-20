@@ -1,4 +1,5 @@
-import React from 'react';
+// import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import {
@@ -10,17 +11,21 @@ import {
   TagIcon,
   AcademicCapIcon,
   RectangleGroupIcon,
-  NewspaperIcon
+  NewspaperIcon,
+  ChevronDownIcon
 } from '@heroicons/react/24/outline';
 
 const Sidebar: React.FC = () => {
+
   const { user } = useAuth();
   const role = user?.role?.name;
+  const [blogsOpen, setBlogsOpen] = useState(false);
 
   const basePath = role === 'ADMIN' ? '/admin' : role === 'HR' ? '/hr' : '/';
 
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
     `flex items-center py-2.5 px-4 rounded-lg text-gray-300 transition duration-200 hover:bg-gray-700 hover:text-white ${isActive ? 'bg-gray-700 text-white' : ''}`;
+
 
   return (
     <aside className="w-64 flex-shrink-0" aria-label="Sidebar">
@@ -32,6 +37,7 @@ const Sidebar: React.FC = () => {
         </div>
 
         <ul className="space-y-2 font-medium">
+          {/* Bảng điều khiển */}
           <li>
             <NavLink to={basePath} className={navLinkClasses} end>
               <HomeIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
@@ -65,11 +71,47 @@ const Sidebar: React.FC = () => {
                   <span className="flex-1 whitespace-nowrap">Quản lý Danh mục</span>
                 </NavLink>
               </li>
+              {/* Dropdown Quản lý Bài viết */}
               <li>
-                <NavLink to={`${basePath}/blogs`} className={navLinkClasses}>
-                  <NewspaperIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                  <span className="flex-1 whitespace-nowrap">Quản lý Bài viết</span>
-                </NavLink>
+                <button
+                  onClick={() => setBlogsOpen(o => !o)}
+                  className="group w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200"
+                >
+                  <div className="flex items-center">
+                    <NewspaperIcon
+                      className="h-5 w-5 mr-3 text-gray-400 group-hover:text-white"
+                    />
+                    <span className="flex-1 whitespace-nowrap">
+                      Quản lý Bài viết
+                    </span>
+                  </div>
+                  <ChevronDownIcon
+                    className={` h-5 w-5 transition-transform  ${blogsOpen ? 'rotate-180' : 'rotate-0'} `}
+                  />
+                </button>
+
+                {blogsOpen && (
+                  <ul className="mt-1 space-y-1 pl-8">
+                    <li>
+                      <NavLink
+                        to={`${basePath}/blogs`}
+                        end
+                        className={navLinkClasses}
+                      >
+                        Danh sách bài viết
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to={`${basePath}/blogs/new`}
+                        end
+                        className={navLinkClasses}
+                      >
+                        Thêm bài viết mới
+                      </NavLink>
+                    </li>
+                  </ul>
+                )}
               </li>
             </>
           )}

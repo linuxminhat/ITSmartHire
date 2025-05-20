@@ -9,7 +9,7 @@ import { UpdateBlogDto } from './dto/update-blog.dto';
 export class BlogsService {
   constructor(
     @InjectModel(Blog.name) private blogModel: Model<BlogDocument>
-  ) {}
+  ) { }
 
   async create(createBlogDto: CreateBlogDto, userId: string): Promise<Blog> {
     const createdBlog = new this.blogModel({
@@ -20,49 +20,52 @@ export class BlogsService {
   }
 
   async findAll(query: any = {}): Promise<any> {
-    const { current = 1, pageSize = 10, sort = '-createdAt', ...rest } = query;
+    const {
+      current = 1,
+      pageSize = 6,
+      sort = '-createdAt',
+      search,
+      ...rest
+    } = query;
 
-    // Xử lý điều kiện tìm kiếm
-    const conditions = { isDeleted: false, ...rest };
-    
-    // Xử lý sort
-    const sortObject = {};
+    const conditions: any = { isDeleted: false, ...rest };
+    if (search) {
+      conditions.title = { $regex: search, $options: 'i' };
+    }
+    const sortObject: Record<string, 1 | -1> = {};
     if (sort.startsWith('-')) {
       sortObject[sort.slice(1)] = -1;
     } else {
       sortObject[sort] = 1;
     }
-
-    // Tính skip cho phân trang
     const skip = (Number(current) - 1) * Number(pageSize);
+    const limit = Number(pageSize);
 
-    // Đếm tổng số bản ghi thỏa mãn điều kiện
     const total = await this.blogModel.countDocuments(conditions);
-
-    // Lấy dữ liệu theo trang
     const result = await this.blogModel.find(conditions)
       .populate('author', 'name email')
       .sort(sortObject)
       .skip(skip)
-      .limit(Number(pageSize))
+      .limit(limit)
       .exec();
 
     return {
       meta: {
         current: Number(current),
-        pageSize: Number(pageSize),
-        pages: Math.ceil(total / Number(pageSize)),
-        total
+        pageSize: limit,
+        pages: Math.ceil(total / limit),
+        total,
       },
-      result
+      result,
     };
   }
+
 
   async findOne(id: string): Promise<Blog> {
     const blog = await this.blogModel.findOne({ _id: id, isDeleted: false })
       .populate('author', 'name email')
       .exec();
-    
+
     if (!blog) {
       throw new NotFoundException(`Blog with ID ${id} not found`);
     }
@@ -77,7 +80,7 @@ export class BlogsService {
 
     // Cập nhật các trường được cung cấp
     Object.assign(blog, updateBlogDto);
-    
+
     // Lưu thay đổi
     return blog.save();
   }
@@ -105,8 +108,8 @@ export class BlogsService {
       tags: { $in: tags },
       isDeleted: false
     })
-    .populate('author', 'name email')
-    .sort({ createdAt: -1 })
-    .exec();
+      .populate('author', 'name email')
+      .sort({ createdAt: -1 })
+      .exec();
   }
 } 
