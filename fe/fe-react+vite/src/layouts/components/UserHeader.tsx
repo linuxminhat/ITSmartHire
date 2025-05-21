@@ -20,8 +20,10 @@ import {
   Cog6ToothIcon,
   BuildingOffice2Icon,
   TagIcon,
-  RectangleStackIcon
+  RectangleStackIcon,
+  BellIcon
 } from '@heroicons/react/24/outline';
+import NotificationIcon from '@/components/user/notifications/NotificationIcon';
 
 const UserHeader: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
@@ -242,6 +244,13 @@ const UserHeader: React.FC = () => {
                           <Link to="/jobs/applied" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
                             <BriefcaseIcon className={userMenuIconClass} /> Việc làm của tôi
                           </Link>
+                          <Link to="/notifications" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                            <div className="flex items-center">
+                              <BellIcon className={userMenuIconClass} />
+                              <span className="flex-grow">Thông báo</span>
+                              <NotificationIcon showBadgeOnly={true} showIconOnly={false} />
+                            </div>
+                          </Link>
                         </>
                       )}
                       {!isStandardUser && (
@@ -251,7 +260,7 @@ const UserHeader: React.FC = () => {
                           role="menuitem"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
-                          <UserCircleIcon className={userMenuIconClass} /> Hồ sơ
+                          <UserCircleIcon className={userMenuIconClass} /> Hồ sơ người dùng
                         </Link>
                       )}
                       {!isStandardUser && <div className="my-1 border-t border-gray-100"></div>}

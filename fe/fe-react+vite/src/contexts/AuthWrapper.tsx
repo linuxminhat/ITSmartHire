@@ -7,11 +7,11 @@ import { AuthActionProvider } from './AuthActionContext'; // Import Action Provi
 
 // Component này wrap nội dung chính của RouterProvider
 const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { 
-    isAuthenticated, 
-    setIsAuthenticated, 
-    setUser, 
-    setIsLoading 
+  const {
+    isAuthenticated,
+    setIsAuthenticated,
+    setUser,
+    setIsLoading
   } = useAuth();
   const navigate = useNavigate();
 
@@ -42,10 +42,10 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           setUser(null);
         }
       } else {
-         // Không có token, đảm bảo trạng thái là chưa đăng nhập
-         setIsAuthenticated(false);
-         setUser(null);
-         delete axiosInstance.defaults.headers.common['Authorization'];
+        // Không có token, đảm bảo trạng thái là chưa đăng nhập
+        setIsAuthenticated(false);
+        setUser(null);
+        delete axiosInstance.defaults.headers.common['Authorization'];
       }
       setIsLoading(false);
     };
@@ -63,16 +63,16 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         const token = res.data.access_token;
         localStorage.setItem('access_token', token);
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        
+
         // Fetch lại account để cập nhật state
         const accountRes = await callFetchAccount();
         if (accountRes && accountRes.data) {
           setIsAuthenticated(true);
           setUser(accountRes.data.user);
-          
+
           // --- Navigation Logic --- 
           const roleName = accountRes.data.user.role?.name;
-          if (roleName === 'ADMIN') { 
+          if (roleName === 'ADMIN') {
             navigate('/admin'); // Navigate ADMIN to /admin
           } else if (roleName === 'HR') {
             navigate('/hr'); // Navigate HR to /hr
@@ -80,7 +80,7 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             navigate('/'); // Navigate other roles (like USER) to homepage
           }
           // ------------------------
-          
+
           return accountRes.data; // Trả về dữ liệu nếu cần
         } else {
           // Clear token and state if fetching account after login fails
@@ -91,7 +91,7 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           throw new Error('Failed to fetch account details after login.');
         }
       } else {
-         // Use message from API response if available
+        // Use message from API response if available
         throw new Error(res?.message || 'Login failed');
       }
     } catch (error) {
@@ -108,19 +108,19 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   };
 
   const handleLogout = async () => {
-     setIsLoading(true);
-     try {
-       // await callLogout(); // Gọi API logout nếu cần
-     } catch (error) {
-       console.error("AuthWrapper: Logout API call failed:", error);
-     } finally {
-       localStorage.removeItem('access_token');
-       delete axiosInstance.defaults.headers.common['Authorization'];
-       setIsAuthenticated(false);
-       setUser(null);
-       setIsLoading(false);
-       navigate('/login');
-     }
+    setIsLoading(true);
+    try {
+      // await callLogout(); // Gọi API logout nếu cần
+    } catch (error) {
+      console.error("AuthWrapper: Logout API call failed:", error);
+    } finally {
+      localStorage.removeItem('access_token');
+      delete axiosInstance.defaults.headers.common['Authorization'];
+      setIsAuthenticated(false);
+      setUser(null);
+      setIsLoading(false);
+      navigate('/login');
+    }
   };
 
   // Wrap children bằng AuthActionProvider và truyền các hàm vào

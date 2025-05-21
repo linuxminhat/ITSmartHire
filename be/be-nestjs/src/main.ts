@@ -48,8 +48,6 @@ async function bootstrap() {
         // prefix: 'api/v',
         defaultVersion: ['1', '2']
     });
-    // await app.listen(process.env.PORT);
     await app.listen(configService.get<string>('PORT'));
-    // await app.listen(3000);
 }
 bootstrap();
