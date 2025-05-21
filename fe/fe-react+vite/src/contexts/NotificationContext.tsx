@@ -6,10 +6,19 @@ import { requestNotificationPermission, setupForegroundNotifications } from '@/s
 interface NotificationContextType {
     notifications: INotification[];
     unreadCount: number;
+    totalNotifications: number;
     loading: boolean;
-    fetchNotifications: () => void;
+    meta: {
+        current: number;
+        pageSize: number;
+        pages: number;
+        total: number;
+    };
+
+    fetchNotifications: (page?: number, pageSize?: number) => Promise<void>;
     markAsRead: (id: string) => void;
     markAllAsRead: () => void;
+
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -21,20 +30,37 @@ interface NotificationProviderProps {
 export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
     const [notifications, setNotifications] = useState<INotification[]>([]);
     const [unreadCount, setUnreadCount] = useState<number>(0);
+    const [totalNotifications, setTotalNotifications] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
+    const [meta, setMeta] = useState({ current: 1, pageSize: 10, pages: 0, total: 0 });
     //Lấy thông tin Auth
     const { isAuthenticated } = useAuth();
 
-    const fetchNotifications = async () => {
+    const fetchNotifications = async (page: number = 1, pageSize: number = 10) => {
         if (!isAuthenticated) return;
 
         setLoading(true);
         try {
-            const query = 'current=1&pageSize=10&sort=-createdAt';
+            const query = `current=${page}&pageSize=${meta.pageSize}&sort=-createdAt`;
             const res = await fetchUserNotifications(query);
-            setNotifications(res.data.result);
+
+            if (res.data) {
+                setNotifications(res.data.result);
+                setMeta(res.data.meta);
+
+                // Set total count from pagination metadata
+                if (res.data.meta) {
+                    setTotalNotifications(res.data.meta.total);
+                } else {
+                    // Fallback if meta is not available
+                    setTotalNotifications(res.data.result.length);
+                }
+            }
+
             const countRes = await getUnreadNotificationCount();
-            setUnreadCount(countRes.data.count);
+            if (countRes.data) {
+                setUnreadCount(countRes.data.count);
+            }
         } catch (error) {
             console.error('Error fetching notifications:', error);
         } finally {
@@ -59,7 +85,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     const markAllAsRead = async () => {
         try {
             const res = await markAllNotificationsAsRead();
-            if (res.data?.success) {
+            if (res && res.statusCode === 200) {
                 // Update all local notifications to be read
                 const updatedNotifications = notifications.map(notif => ({ ...notif, isRead: true }));
                 setNotifications(updatedNotifications);
@@ -109,6 +135,8 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
             value={{
                 notifications,
                 unreadCount,
+                meta,
+                totalNotifications,
                 loading,
                 fetchNotifications,
                 markAsRead,

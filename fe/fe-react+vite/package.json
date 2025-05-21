@@ -23,6 +23,7 @@
     "dompurify": "^3.2.5",
     "file-saver": "^2.0.5",
     "firebase": "^11.6.0",
+    "lucide-react": "^0.511.0",
     "pnpm": "^10.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
