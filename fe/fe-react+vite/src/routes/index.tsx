@@ -7,6 +7,7 @@ import UserLayout from "@/layouts/UserLayout";
 import AdminPage from "@/pages/admin/AdminPage";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { NotificationProvider } from "@/contexts/NotificationContext";
 import AuthWrapper from "@/contexts/AuthWrapper";
 import HomePage from "@/pages/HomePage";
 import ProfilePage from "@/pages/admin/ProfilePage";
@@ -29,6 +30,7 @@ import JobsBySkillPage from '@/pages/JobsBySkillPage';
 import JobsByCategoryPage from '@/pages/JobsByCategoryPage';
 import JobSearchResultsPage from '@/pages/JobSearchResultsPage';
 import AppliedJobsPage from "@/pages/AppliedJobsPage";
+import NotificationsPage from "@/pages/NotificationsPage";
 import BlogListPage from '@/pages/BlogListPage';
 import BlogDetailPage from '@/pages/BlogDetailPage';
 import HRPage from "@/pages/admin/HRPage";
@@ -37,9 +39,11 @@ import BlogEditorPage from "@/components/admin/blog/BlogEditorPage";
 //component root 
 const Root = () => (
   <AuthProvider>
-    <AuthWrapper>
-      <App />
-    </AuthWrapper>
+    <NotificationProvider>
+      <AuthWrapper>
+        <App />
+      </AuthWrapper>
+    </NotificationProvider>
   </AuthProvider>
 );
 
@@ -71,6 +75,7 @@ export const router = createBrowserRouter([
           { path: "dashboard", element: <UserDashboardPage /> },
           { path: "profile", element: <UserProfilePage /> },
           { path: "resumes/attached", element: <AttachedResumesPage /> },
+          { path: "notifications", element: <NotificationsPage /> },
           {
             path: "blog",
             element: <BlogListPage />,

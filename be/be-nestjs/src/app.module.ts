@@ -16,6 +16,7 @@ import { SkillsModule } from './skills/skills.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ApplicationsModule } from './applications/applications.module';
 import { BlogsModule } from './blogs/blogs.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { BlogsModule } from './blogs/blogs.module';
     CategoriesModule,
     ApplicationsModule,
     BlogsModule,
+    NotificationsModule,
   ],
 
   controllers: [AppController],
