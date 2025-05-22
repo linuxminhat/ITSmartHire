@@ -35,6 +35,7 @@ import BlogListPage from '@/pages/BlogListPage';
 import BlogDetailPage from '@/pages/BlogDetailPage';
 import HRPage from "@/pages/admin/HRPage";
 import BlogEditorPage from "@/components/admin/blog/BlogEditorPage";
+import HRNotificationsPage from "@/pages/admin/HRNotificationsPage";
 
 //component root 
 const Root = () => (
@@ -128,7 +129,9 @@ export const router = createBrowserRouter([
               { path: "profile", element: <ProfilePage /> },
               { path: "companies", element: <ManageCompaniesPage /> },
               { path: "jobs", element: <ManageJobsPage /> },
-              { path: "resumes", element: <ManageResumesPage /> }
+              { path: "resumes", element: <ManageResumesPage /> },
+              { path: "notifications", element: <HRNotificationsPage /> }
+
             ]
           }
         ]

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { JobsService } from './jobs.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
@@ -7,6 +7,9 @@ import { IUser } from 'src/users/users.interface';
 import { userInfo } from 'os';
 import { CompaniesService } from 'src/companies/companies.service';
 import { FindJobsBySkillsDto } from './dto/find-jobs-by-skills.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guards';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/decorator/roles.decorator';
 
 @Controller('jobs')
 export class JobsController {
@@ -80,13 +83,13 @@ export class JobsController {
   findSimilar(@Param('id') id: string, @Query('limit') limit: string) {
     return this.jobsService.findSimilar(id, +limit || 5);
   }
-  
+
   @Post('/by-skills')
   @Public()
   @ResponseMessage("Fetch jobs by skills with pagination")
   findBySkills(
     @Body() findJobsBySkillsDto: FindJobsBySkillsDto,
-    @Query("current") currentPage: string, 
+    @Query("current") currentPage: string,
     @Query("pageSize") limit: string,
   ) {
     const current = +currentPage || 1;
@@ -99,11 +102,18 @@ export class JobsController {
   @ResponseMessage("Fetch jobs by category with pagination")
   findByCategory(
     @Param('categoryId') categoryId: string,
-    @Query("current") currentPage: string, 
+    @Query("current") currentPage: string,
     @Query("pageSize") limit: string,
   ) {
     const current = +currentPage || 1;
     const pageSize = +limit || 10;
     return this.jobsService.findByCategory(categoryId, current, pageSize);
+  }
+
+  @Post('fix-hr-ids')
+  @Public()
+  @ResponseMessage('Fix missing hrId fields')
+  fixMissingHrIds() {
+    return this.jobsService.fixMissingHrIds();
   }
 }

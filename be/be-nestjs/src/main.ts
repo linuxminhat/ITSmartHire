@@ -7,7 +7,8 @@ import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { JwtAuthGuard } from './auth/jwt-auth-guards';
 import { TransformInterceptor } from './core/transform.interceptor';
 import cookieParser from 'cookie-parser';
-
+import * as express from 'express';
+import { JobsService } from './jobs/jobs.service';
 
 require('dotenv').config();
 async function bootstrap() {
@@ -48,6 +49,20 @@ async function bootstrap() {
         // prefix: 'api/v',
         defaultVersion: ['1', '2']
     });
+
+    app.use(express.json({ limit: '50mb' }));
+    app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+    // Run the job migrations
+    try {
+        console.log('[STARTUP] Running job migrations to fix missing hrId fields');
+        const jobsService = app.get(JobsService);
+        const result = await jobsService.fixMissingHrIds();
+        console.log('[STARTUP] Migration result:', result);
+    } catch (error) {
+        console.error('[STARTUP] Error running migrations:', error);
+    }
+
     await app.listen(configService.get<string>('PORT'));
 }
 bootstrap();

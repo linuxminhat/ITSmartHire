@@ -4,18 +4,23 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Application, ApplicationDocument } from './schemas/application.schema';
 import { CreateApplicationDto } from './dto/create-application.dto';
 import { IUser } from 'src/users/users.interface';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { Job, JobDocument } from 'src/jobs/schemas/job.schema';
 import aqp from 'api-query-params';
 import { UpdateApplicationStatusDto } from './dto/update-application-status.dto';
 import { NotificationsService } from 'src/notifications/notifications.service';
+import { Model } from 'mongoose';
+import { HRNotificationsService } from 'src/hr-notifications/hr-notifications.service';
 
 @Injectable()
 export class ApplicationsService {
   constructor(
     @InjectModel(Application.name)
     private applicationModel: SoftDeleteModel<ApplicationDocument>,
-    private readonly notificationsService: NotificationsService,   // <─ inject
+    @InjectModel(Job.name)
+    private readonly jobModel: Model<JobDocument>,
+    private readonly notificationsService: NotificationsService,
+    private readonly hrNotificationsService: HRNotificationsService,
   ) { }
 
   async create(createApplicationDto: CreateApplicationDto, user: IUser) {
@@ -32,17 +37,49 @@ export class ApplicationsService {
       throw new BadRequestException('Bạn đã ứng tuyển vào công việc này với CV này rồi.');
     }
 
+    console.log(`[DEBUG] Creating application for User ${user.name} (${user._id}), Job ID: ${jobId}`);
+
     // Create new application
     const newApp = await this.applicationModel.create({
       userId: user._id,
       jobId: jobId,
       cvUrl: cvUrl,
-      status: 'pending', // Initial status
+      status: 'pending',
       createdBy: {
         _id: user._id,
         email: user.email
       }
     });
+    
+    console.log(`[DEBUG] Application created: ${newApp._id}`);
+    
+    const job = await this.jobModel
+      .findById(jobId)
+      .select('hrId name')
+      .lean<{
+        _id: Types.ObjectId;
+        hrId: Types.ObjectId;
+        name: string;
+      }>();
+
+    console.log(`[DEBUG] Retrieved job:`, job);
+
+    if (job?.hrId) {
+      console.log(`[DEBUG] Found hrId: ${job.hrId}, sending notification`);
+      
+      await this.hrNotificationsService.createHRNotification(
+        newApp._id.toString(),
+        job._id.toString(),
+        job.hrId.toString(),
+        job.name,
+        user.name,
+        user.email,
+      );
+      
+      console.log(`[DEBUG] Notification sent to HR (${job.hrId})`);
+    } else {
+      console.log(`[DEBUG] No hrId found for job ${jobId}, notification not sent`);
+    }
 
     return {
       _id: newApp._id,
@@ -140,29 +177,6 @@ export class ApplicationsService {
 
   //   // Optionally, you could return the updated document if needed
   //   // return this.applicationModel.findById(id);
-
-  //   return { message: 'Cập nhật trạng thái ứng tuyển thành công.' };
-  //   const application = await this.applicationModel.findById(id)
-  //     .populate({
-  //       path: 'jobId',
-  //       populate: {
-  //         path: 'company'
-  //       }
-  //     });
-
-  //   if (application) {
-  //     const job = application.jobId as any;
-  //     const companyName = job.company?.name || 'Nhà tuyển dụng';
-
-  //     // Tạo thông báo
-  //     await this.notificationsService.createNotificationForApplication(
-  //       id,
-  //       job._id.toString(),
-  //       application.userId.toString(),
-  //       companyName,
-  //       updateDto.status
-  //     );
-  //   }
 
   //   return { message: 'Cập nhật trạng thái ứng tuyển thành công.' };
   // }
