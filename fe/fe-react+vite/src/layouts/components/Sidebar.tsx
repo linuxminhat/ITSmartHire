@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useHRNotification } from '@/contexts/HRNotificationContext';
 import {
   HomeIcon,
   UsersIcon,
@@ -12,20 +13,26 @@ import {
   AcademicCapIcon,
   RectangleGroupIcon,
   NewspaperIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
+  BellIcon
 } from '@heroicons/react/24/outline';
 
 const Sidebar: React.FC = () => {
-
   const { user } = useAuth();
   const role = user?.role?.name;
   const [blogsOpen, setBlogsOpen] = useState(false);
+  
+  // Only use HR notification hook if the user is HR
+  const hrNotifications = role === 'HR' 
+    ? useHRNotification() 
+    : { unreadCount: 0 };
+  
+  const { unreadCount } = hrNotifications;
 
   const basePath = role === 'ADMIN' ? '/admin' : role === 'HR' ? '/hr' : '/';
 
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
     `flex items-center py-2.5 px-4 rounded-lg text-gray-300 transition duration-200 hover:bg-gray-700 hover:text-white ${isActive ? 'bg-gray-700 text-white' : ''}`;
-
 
   return (
     <aside className="w-64 flex-shrink-0" aria-label="Sidebar">
@@ -118,6 +125,26 @@ const Sidebar: React.FC = () => {
 
           {(role === 'ADMIN' || role === 'HR') && (
             <>
+              {role === 'HR' && (
+                <>
+                  <li>
+                    <NavLink to={`${basePath}/notifications`} className={navLinkClasses}>
+                      <div className="relative">
+                        <BellIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
+                        {unreadCount > 0 && (
+                          <span className="absolute -top-1 -right-1 flex h-5 w-5">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                            <span className="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                              {unreadCount > 9 ? '9+' : unreadCount}
+                            </span>
+                          </span>
+                        )}
+                      </div>
+                      <span className="flex-1 whitespace-nowrap">Quản lý thông báo</span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
               <li>
                 <NavLink to={`${basePath}/companies`} className={navLinkClasses}>
                   <BuildingOffice2Icon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />

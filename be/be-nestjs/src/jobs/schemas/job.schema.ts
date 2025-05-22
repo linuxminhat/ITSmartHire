@@ -10,6 +10,9 @@ export type JobDocument = HydratedDocument<Job>;
 export class Job {
     @Prop()
     name: string;
+    //Cập nhật prop mới 
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+    hrId: mongoose.Schema.Types.ObjectId;
     @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Skill' })
     skills: Skill[];
 

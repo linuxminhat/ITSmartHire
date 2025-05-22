@@ -26,6 +26,7 @@ export class JobsService {
       level, description, startDate, endDate,
       isActive, location,
       category,
+      hrId: user._id,
       createdBy: {
         _id: user._id,
         email: user.email
@@ -98,10 +99,13 @@ export class JobsService {
        throw new NotFoundException("Không tìm thấy việc làm với ID này.");
     }
     
+    // Không cho phép cập nhật trường hrId để đảm bảo thông báo hoạt động đúng
+    const { hrId, ...updateData } = updateJobDto as any;
+    
     const updated = await this.jobModel.updateOne(
       { _id },
       {
-        ...updateJobDto,
+        ...updateData,
         updatedBy: {
           _id: user._id,
           email: user.email
@@ -355,5 +359,49 @@ export class JobsService {
       },
       result
     }
+  }
+
+  // Migration function to update existing jobs with hrId
+  async fixMissingHrIds() {
+    console.log('[DEBUG] Running fixMissingHrIds migration');
+    
+    // Lấy tất cả các công việc chưa có hrId
+    const jobsWithoutHrId = await this.jobModel.find({ hrId: { $exists: false } });
+    console.log(`[DEBUG] Found ${jobsWithoutHrId.length} jobs without hrId`);
+    
+    // Lấy tất cả các công việc có hrId để kiểm tra
+    const jobsWithHrId = await this.jobModel.find({ hrId: { $exists: true } })
+      .select('_id name hrId');
+    console.log(`[DEBUG] Found ${jobsWithHrId.length} jobs with hrId already set`);
+    
+    if (jobsWithHrId.length > 0) {
+      console.log('[DEBUG] Sample job with hrId:', jobsWithHrId[0]);
+    }
+    
+    let updated = 0;
+    let failed = 0;
+    
+    // Cập nhật các công việc với hrId từ trường createdBy._id
+    for (const job of jobsWithoutHrId) {
+      console.log(`[DEBUG] Processing job: ${job._id}, name: ${job.name}`);
+      
+      if (job.createdBy && job.createdBy._id) {
+        console.log(`[DEBUG] Setting hrId to ${job.createdBy._id} for job ${job._id}`);
+        await this.jobModel.updateOne(
+          { _id: job._id },
+          { $set: { hrId: job.createdBy._id } }
+        );
+        updated++;
+      } else {
+        console.log(`[DEBUG] No createdBy._id found for job ${job._id}`);
+        failed++;
+      }
+    }
+    
+    return {
+      message: `Đã cập nhật ${updated} công việc, ${failed} công việc thất bại`,
+      updatedJobs: updated,
+      failedJobs: failed
+    };
   }
 }
