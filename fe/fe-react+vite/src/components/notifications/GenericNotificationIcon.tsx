@@ -13,8 +13,12 @@ const GenericNotificationIcon: React.FC<Props> = ({ unreadCount, fetch, Panel, c
     const btnRef = useRef<HTMLButtonElement>(null);
     const pnlRef = useRef<HTMLDivElement>(null);
 
-    /* poll every 5 minutes instead of every 60s to reduce UI lag */
-    useEffect(() => { fetch(); const id = setInterval(fetch, 300_000); return () => clearInterval(id); }, [fetch]);
+    /* Chỉ fetch data khi component mount, không tự polling vì context đã xử lý */
+    useEffect(() => { 
+        // Chỉ fetch lần đầu khi component mount
+        fetch(); 
+        // Không cần interval ở đây nữa vì đã xử lý trong context
+    }, [fetch]);
 
     /* click outside */
     useEffect(() => {

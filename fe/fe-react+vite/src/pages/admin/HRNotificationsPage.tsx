@@ -1,24 +1,49 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHRNotification } from '@/contexts/HRNotificationContext';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
 import { Link } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const HRNotificationsPage: React.FC = () => {
     const { notifications, fetchNotifications, meta, markAllAsRead, loading, markAsRead } = useHRNotification();
+    const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => { fetchNotifications(); }, []);
+    useEffect(() => {
+        loadNotifications(currentPage);
+    }, [currentPage]);
+
+    const loadNotifications = async (page: number) => {
+        await fetchNotifications(page);
+    };
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < meta.pages) setCurrentPage(currentPage + 1);
+    };
 
     return (
         <section className="bg-white p-6 rounded-lg shadow">
             <header className="flex items-center justify-between mb-6 border-b pb-4">
                 <h1 className="text-2xl font-semibold text-gray-800">Quản lý thông báo</h1>
-                <button
-                    className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors"
-                    onClick={markAllAsRead}
-                >
-                    Đánh dấu tất cả đã đọc
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium transition-colors"
+                        onClick={() => loadNotifications(currentPage)}
+                    >
+                        Làm mới
+                    </button>
+                    <button
+                        className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors"
+                        onClick={markAllAsRead}
+                        disabled={loading || notifications.length === 0 || notifications.every(n => n.isRead)}
+                    >
+                        Đánh dấu tất cả đã đọc
+                    </button>
+                </div>
             </header>
 
             <div className="mb-4">
@@ -89,24 +114,82 @@ const HRNotificationsPage: React.FC = () => {
                         ))}
                     </div>
 
-                    {meta.pages > 1 && (
-                        <div className="flex justify-center items-center mt-6">
-                            <nav className="flex items-center space-x-2">
-                                {Array.from({ length: meta.pages }, (_, i) => i + 1).map(page => (
-                                    <button
-                                        key={page}
-                                        onClick={() => fetchNotifications(page)}
-                                        className={`px-4 py-2 rounded ${meta.current === page
-                                            ? 'bg-blue-600 text-white'
-                                            : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
-                                            }`}
-                                    >
-                                        {page}
-                                    </button>
-                                ))}
-                            </nav>
+                    {/* Pagination Controls */}
+                    <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-t border-gray-200 mt-4 rounded-b-lg">
+                        {/* Mobile */}
+                        <div className="flex-1 flex justify-between sm:hidden">
+                            <button
+                                onClick={handlePrevPage}
+                                disabled={currentPage <= 1}
+                                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400"
+                            >
+                                Trước
+                            </button>
+                            <button
+                                onClick={handleNextPage}
+                                disabled={currentPage >= meta.pages}
+                                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400"
+                            >
+                                Tiếp
+                            </button>
                         </div>
-                    )}
+
+                        {/* Desktop */}
+                        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                            <div>
+                                <p className="text-sm text-gray-700">
+                                    Hiển thị{' '}
+                                    <span className="font-medium">
+                                        {1 + (currentPage - 1) * meta.pageSize}
+                                    </span>{' '}
+                                    –{' '}
+                                    <span className="font-medium">
+                                        {Math.min(currentPage * meta.pageSize, meta.total)}
+                                    </span>{' '}
+                                    trong{' '}
+                                    <span className="font-medium">{meta.total}</span> kết quả
+                                </p>
+                            </div>
+                            <div>
+                                <nav
+                                    className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                                    aria-label="Pagination"
+                                >
+                                    <button
+                                        onClick={handlePrevPage}
+                                        disabled={currentPage <= 1}
+                                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400"
+                                    >
+                                        <span className="sr-only">Trang trước</span>
+                                        <ChevronLeft className="h-5 w-5" />
+                                    </button>
+
+                                    {Array.from({ length: meta.pages }, (_, i) => i + 1).map(page => (
+                                        <button
+                                            key={page}
+                                            onClick={() => setCurrentPage(page)}
+                                            className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                                                page === currentPage
+                                                ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
+                                                : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            {page}
+                                        </button>
+                                    ))}
+
+                                    <button
+                                        onClick={handleNextPage}
+                                        disabled={currentPage >= meta.pages}
+                                        className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400"
+                                    >
+                                        <span className="sr-only">Trang sau</span>
+                                        <ChevronRight className="h-5 w-5" />
+                                    </button>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
                 </>
             )}
         </section>

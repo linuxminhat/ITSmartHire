@@ -6,6 +6,7 @@ import React, {
     useEffect,
     ReactNode,
     useCallback,
+    useRef,
 } from 'react';
 
 import {
@@ -35,6 +36,9 @@ interface CtxType {
 
 const Ctx = createContext<CtxType | undefined>(undefined);
 
+// Cấu hình thời gian tối thiểu giữa các lần gọi API (mili giây)
+const MIN_FETCH_INTERVAL = 120000; // 2 phút
+
 export const HRNotificationProvider = ({ children }: { children: ReactNode }) => {
     const { isAuthenticated, user } = useAuth();
     const isHR = user?.role?.name === 'HR';
@@ -49,17 +53,34 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
         total: 0,
     });
     
-    // Track last fetch time to prevent excessive API calls
-    const [lastFetchTime, setLastFetchTime] = useState(0);
+    // Sử dụng useRef để lưu trữ thời gian gọi API cuối cùng
+    // useRef sẽ giữ giá trị qua các lần render mà không gây render lại
+    const lastFetchTimeRef = useRef<number>(0);
+    const fetchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const fetchNotifications = useCallback(async (page = 1) => {
+    const fetchNotifications = useCallback(async (page = 1, force = false) => {
         if (!isHR) return;
         
-        // Prevent fetching too frequently (minimum 5 seconds between fetches)
+        // Chỉ cho phép fetch khi:
+        // 1. Force = true (ví dụ: người dùng tự refresh)
+        // 2. Hoặc đã qua khoảng thời gian MIN_FETCH_INTERVAL
+        // 3. Hoặc chưa có dữ liệu notifications
         const now = Date.now();
-        if (now - lastFetchTime < 5000 && notifications.length > 0) return;
+        if (
+            !force && 
+            now - lastFetchTimeRef.current < MIN_FETCH_INTERVAL && 
+            notifications.length > 0
+        ) {
+            console.log('[HR Notifications] Skipping fetch - too frequent');
+            return;
+        }
         
-        setLastFetchTime(now);
+        // Hủy timeout fetch trước đó nếu có
+        if (fetchTimeoutRef.current) {
+            clearTimeout(fetchTimeoutRef.current);
+        }
+        
+        lastFetchTimeRef.current = now;
         setLoading(true);
         
         try {
@@ -80,7 +101,7 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
         } finally {
             setLoading(false);
         }
-    }, [isHR, lastFetchTime, meta.pageSize, notifications.length]);
+    }, [isHR, meta.pageSize, notifications.length]);
 
     const markAsRead = async (id: string) => {
         try {
@@ -104,20 +125,31 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
         }
     };
 
+    // Handler cho Firebase notifications
     useEffect(() => {
         if (!isHR) return;
         requestNotificationPermission();
 
-        const unsub = setupForegroundNotifications(() => fetchNotifications());
+        const unsub = setupForegroundNotifications(() => fetchNotifications(1, true));
 
         return () => {
             typeof unsub === 'function' && unsub();
+            if (fetchTimeoutRef.current) {
+                clearTimeout(fetchTimeoutRef.current);
+            }
         };
     }, [isHR, fetchNotifications]);
 
     /* initial load */
     useEffect(() => {
-        if (isHR) fetchNotifications();
+        if (isHR) fetchNotifications(1, true);
+        
+        // Thiết lập polling với interval tăng lên (5 phút)
+        const intervalId = setInterval(() => {
+            fetchNotifications(1, true);
+        }, 300000); // 5 phút
+        
+        return () => clearInterval(intervalId);
     }, [isHR, fetchNotifications]);
 
     return (
