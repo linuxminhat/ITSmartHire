@@ -17,7 +17,6 @@ const RegisterPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Define default role ID
   const defaultRoleId = '680125b048ebc6dc41503f15';
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -199,12 +198,30 @@ const RegisterPage: React.FC = () => {
             </div>
           </form>
 
-          <p className="mt-8 text-sm text-center text-gray-600">
-            Đã có tài khoản? {' '}
-            <Link to="/login" className={`font-medium text-cyan-600 hover:text-cyan-500 ${isLoading ? 'pointer-events-none opacity-50' : ''}`}>
-              Đăng nhập
+          <div className="mt-8 space-y-4 text-center">
+            <p className="text-sm text-gray-600">
+              Đã có tài khoản? {' '}
+              <Link to="/login" className={`font-medium text-cyan-600 hover:text-cyan-500 ${isLoading ? 'pointer-events-none opacity-50' : ''}`}>
+                Đăng nhập
+              </Link>
+            </p>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-gray-50 text-gray-500">Bạn là nhà tuyển dụng?</span>
+              </div>
+            </div>
+
+            <Link
+              to="/recruiter-register"
+              className={`block w-full text-center py-2.5 px-4 border border-cyan-600 text-sm font-medium rounded-lg text-cyan-600 bg-white hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition duration-200 shadow-sm ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
+            >
+              Đăng ký dành cho Nhà tuyển dụng
             </Link>
-          </p>
+          </div>
         </div>
       </div>
     </div>
