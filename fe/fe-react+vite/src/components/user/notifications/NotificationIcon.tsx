@@ -20,18 +20,16 @@ const NotificationIcon: React.FC<NotificationIconProps> = ({
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
-
+        // Fetch khi component mount
         fetchNotifications();
 
-
+        // Tăng interval lên 5 phút thay vì 60 giây
         const intervalId = setInterval(() => {
             fetchNotifications();
-        }, 60000);
-
+        }, 300000); // 5 phút = 300,000ms
 
         return () => clearInterval(intervalId);
     }, [fetchNotifications]);
-
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
