@@ -5,14 +5,13 @@ import { callRegister } from '@/services/auth.service';
 
 const backgroundImageUrl = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80';
 
-// Hàm chuẩn hóa tên công ty để đối chiếu với email
 const normalizeCompanyName = (companyName: string): string => {
     return companyName
         .toLowerCase()
-        .replace(/\s+/g, '') // Loại bỏ khoảng trắng
-        .normalize("NFD") // Chuyển về dạng không dấu
-        .replace(/[\u0300-\u036f]/g, "") // Loại bỏ các dấu
-        .replace(/[^a-z0-9]/g, ''); // Chỉ giữ lại ký tự và số
+        .replace(/\s+/g, '')
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, '');
 };
 
 const HRRegisterPage: React.FC = () => {
@@ -23,8 +22,6 @@ const HRRegisterPage: React.FC = () => {
     const [age, setAge] = useState<number | string>('');
     const [gender, setGender] = useState<string>('');
     const [address, setAddress] = useState<string>('');
-    
-    // State cho các thông báo lỗi validation
     const [nameError, setNameError] = useState<string>('');
     const [emailError, setEmailError] = useState<string>('');
     const [extractedCompany, setExtractedCompany] = useState<string>('');
@@ -33,12 +30,11 @@ const HRRegisterPage: React.FC = () => {
     const navigate = useNavigate();
 
     const defaultUserRoleId = '680125b048ebc6dc41503f15';
-    
-    // Hàm kiểm tra cú pháp tên HR và trích xuất tên công ty
+
     const validateHRName = (value: string): boolean => {
-        const hrNameRegex = /^HR công ty\s+(.+)/i; // Bắt đầu bằng "HR công ty" (không phân biệt hoa thường)
+        const hrNameRegex = /^HR công ty\s+(.+)/i;
         const match = value.match(hrNameRegex);
-        
+
         if (match && match[1]) {
             const companyName = match[1].trim();
             setExtractedCompany(companyName);
@@ -48,36 +44,28 @@ const HRRegisterPage: React.FC = () => {
             return false;
         }
     };
-    
-    // Hàm kiểm tra cú pháp email HR và xem có khớp với tên công ty không
+
     const validateHREmail = (value: string): boolean => {
-        // Kiểm tra cú pháp cơ bản email HR
         const hrEmailRegex = /^hr[a-z0-9_.]+@gmail\.com$/i;
         if (!hrEmailRegex.test(value)) return false;
-        
-        // Nếu đã có tên công ty, kiểm tra xem email có khớp không
+
         if (extractedCompany) {
             const normalizedCompany = normalizeCompanyName(extractedCompany);
-            // Lấy phần tên email (phần giữa hr và @gmail.com)
             const emailNameMatch = value.match(/^hr([a-z0-9_.]+)@gmail\.com$/i);
-            
+
             if (emailNameMatch) {
                 const emailName = emailNameMatch[1].toLowerCase();
-                // So sánh chuỗi trong email có chứa tên công ty đã chuẩn hóa không
-                const isMatched = emailName.includes(normalizedCompany) || 
-                                   normalizedCompany.includes(emailName);
-                
+                const isMatched = emailName.includes(normalizedCompany) || normalizedCompany.includes(emailName);
                 return isMatched;
             }
         }
-        
-        return true; // Nếu chưa có tên công ty để so sánh, tạm thời coi là hợp lệ
+
+        return true;
     };
-    
-    // Cập nhật validation khi tên công ty thay đổi
+
     useEffect(() => {
         if (extractedCompany && email) {
-            // Kiểm tra lại email khi tên công ty thay đổi
+
             if (!validateHREmail(email)) {
                 setEmailError(`Email không khớp với tên công ty "${extractedCompany}". Vui lòng sử dụng email chứa tên công ty (vd: hr${normalizeCompanyName(extractedCompany)}@gmail.com)`);
             } else {
@@ -85,17 +73,15 @@ const HRRegisterPage: React.FC = () => {
             }
         }
     }, [extractedCompany, email]);
-    
-    // Xử lý thay đổi tên
+
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setName(value);
-        
+
         if (value && !validateHRName(value)) {
             setNameError('Tên không đúng cú pháp. Vui lòng sử dụng định dạng "HR công ty [tên công ty]"');
         } else {
             setNameError('');
-            // Kiểm tra lại email để đảm bảo phù hợp với tên công ty mới
             if (email) {
                 if (!validateHREmail(email)) {
                     setEmailError(`Email không khớp với tên công ty "${extractedCompany}". Vui lòng sử dụng email chứa tên công ty (vd: hr${normalizeCompanyName(extractedCompany)}@gmail.com)`);
@@ -105,12 +91,11 @@ const HRRegisterPage: React.FC = () => {
             }
         }
     };
-    
-    // Xử lý thay đổi email
+
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setEmail(value);
-        
+
         if (!value) {
             setEmailError('');
             return;
@@ -121,8 +106,7 @@ const HRRegisterPage: React.FC = () => {
             setEmailError('Email không đúng cú pháp. Vui lòng sử dụng định dạng "hr[tencongtycuaban]@gmail.com"');
             return;
         }
-        
-        // Nếu đã có tên công ty, kiểm tra xem email có khớp không
+
         if (extractedCompany && !validateHREmail(value)) {
             setEmailError(`Email không khớp với tên công ty "${extractedCompany}". Vui lòng sử dụng email chứa tên công ty (vd: hr${normalizeCompanyName(extractedCompany)}@gmail.com)`);
         } else {
@@ -132,14 +116,11 @@ const HRRegisterPage: React.FC = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
-        // Validate các trường trước khi submit
         if (!validateHRName(name)) {
             toast.error('Tên không đúng cú pháp yêu cầu');
             return;
         }
-        
-        // Kiểm tra cả cú pháp email và tính tương thích với tên công ty
+
         if (!validateHREmail(email)) {
             if (extractedCompany) {
                 toast.error(`Email không khớp với tên công ty "${extractedCompany}". Vui lòng sử dụng email chứa tên công ty.`);
@@ -148,7 +129,7 @@ const HRRegisterPage: React.FC = () => {
             }
             return;
         }
-        
+
         setIsLoading(true);
 
         if (!name || !email || !password || !confirmPassword || !age || !gender || !address) {
@@ -175,19 +156,19 @@ const HRRegisterPage: React.FC = () => {
 
         try {
             const res = await callRegister(
-                name, 
-                email, 
-                password, 
-                parsedAge, 
-                gender, 
-                address, 
+                name,
+                email,
+                password,
+                parsedAge,
+                gender,
+                address,
                 defaultUserRoleId
             );
 
             if (res && res.data) {
                 toast.success('Đăng ký tài khoản nhà tuyển dụng thành công! Vui lòng đăng nhập.');
                 toast.info(
-                    'Để được nâng cấp lên tài khoản HR, vui lòng liên hệ itsmarthire.team@gmail.com kèm thông tin công ty', 
+                    'Để được nâng cấp lên tài khoản HR, vui lòng liên hệ itsmarthire.team@gmail.com kèm thông tin công ty',
                     { autoClose: 10000 }
                 );
                 navigate('/login?registered=hr');
@@ -243,7 +224,7 @@ const HRRegisterPage: React.FC = () => {
 
                     <div className="bg-blue-50 p-5 rounded-lg border border-blue-100 mb-6">
                         <h3 className="font-semibold text-blue-800 text-base mb-3">Quy trình đăng ký tài khoản nhà tuyển dụng</h3>
-                        
+
                         <div className="space-y-3">
                             <div className="flex">
                                 <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 mt-0.5">
@@ -253,7 +234,7 @@ const HRRegisterPage: React.FC = () => {
                                     <span className="font-medium">Đăng ký</span> tài khoản với vai trò người dùng
                                 </p>
                             </div>
-                            
+
                             <div className="flex">
                                 <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 mt-0.5">
                                     <span className="text-xs font-bold">2</span>
@@ -262,7 +243,7 @@ const HRRegisterPage: React.FC = () => {
                                     <span className="font-medium">Gửi email</span> đến <span className="font-semibold">itsmarthire.team@gmail.com</span> với tiêu đề "Đăng ký HR + tên công ty"
                                 </p>
                             </div>
-                            
+
                             <div className="flex">
                                 <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 mt-0.5">
                                     <span className="text-xs font-bold">3</span>
@@ -348,7 +329,7 @@ const HRRegisterPage: React.FC = () => {
                             />
                             <p className="text-xs text-gray-500 mt-1">Cú pháp: Sử dụng định dạng "hr + tên công ty + @gmail.com" (Ví dụ: hr.fptsoft@gmail.com)</p>
                             {emailError && <p className="text-xs text-red-600 mt-1">{emailError}</p>}
-                            {extractedCompany && !emailError && 
+                            {extractedCompany && !emailError &&
                                 <p className="text-xs text-green-600 mt-1">
                                     Gợi ý email: hr{normalizeCompanyName(extractedCompany)}@gmail.com
                                 </p>
