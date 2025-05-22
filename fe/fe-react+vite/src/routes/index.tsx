@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import App from "@/App";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
+import HRRegisterPage from "@/pages/HRRegisterPage";
 import AdminLayout from "@/layouts/AdminLayout";
 import UserLayout from "@/layouts/UserLayout";
 import AdminPage from "@/pages/admin/AdminPage";
@@ -65,6 +66,7 @@ export const router = createBrowserRouter([
           { index: true, element: <HomePage /> },
           { path: "login", element: <LoginPage /> },
           { path: "register", element: <RegisterPage /> },
+          { path: "recruiter-register", element: <HRRegisterPage /> },
           { path: "companies", element: <AllCompaniesPage /> },
           { path: "company/:id", element: <CompanyDetailsPage /> },
           { path: "jobs", element: <AllJobsPage /> },

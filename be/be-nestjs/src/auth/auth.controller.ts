@@ -1,4 +1,3 @@
-
 import { Get, Controller, Render, Post, UseGuards, Body, Res, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public, ResponseMessage, User } from 'src/decorator/customize';
@@ -35,9 +34,22 @@ export class AuthController {
     @ResponseMessage("Get user information")
     @Get('/account')
     async handleGetAccount(@User() user: IUser) { //Get from req.user
-        const temp = await this.rolesService.findOne(user.role._id) as any;
-        user.permissions = temp.permissions;
-        return { user };
+        // Kiểm tra nếu user.role không tồn tại hoặc null
+        if (!user.role) {
+            console.error("User role is null or undefined", user._id);
+            // Trả về thông tin user nhưng không có permissions
+            return { user: { ...user, permissions: [] } };
+        }
+        
+        try {
+            const temp = await this.rolesService.findOne(user.role._id) as any;
+            user.permissions = temp?.permissions || [];
+            return { user };
+        } catch (error) {
+            console.error("Error getting role permissions:", error);
+            // Fallback trả về user không có permissions
+            return { user: { ...user, permissions: [] } };
+        }
     }
 
     @Public()
