@@ -3,6 +3,7 @@ export const ALLOWED_BLOG_TAGS = [
   'Ứng tuyển và thăng tiến',
   'Chuyên môn IT',
   'Chuyện IT',
+  'Quảng bá công ty',
 ] as const;
 export type BlogTag = typeof ALLOWED_BLOG_TAGS[number];
 
