@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAuthActions } from '@/contexts/AuthActionContext';
 import { callFetchAllSkills } from '@/services/skill.service';
 import { callFetchAllCategories } from '@/services/category.service';
 import { ISkill, ICategory } from '@/types/backend';
+import { createPortal } from 'react-dom';
 import {
   Bars3Icon,
   XMarkIcon,
@@ -24,6 +25,7 @@ import {
   BellIcon
 } from '@heroicons/react/24/outline';
 import NotificationIcon from '@/components/user/notifications/NotificationIcon';
+import { Transition } from '@headlessui/react';
 
 const UserHeader: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
@@ -35,6 +37,8 @@ const UserHeader: React.FC = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [isLoadingSkills, setIsLoadingSkills] = useState<boolean>(false);
   const [isLoadingCategories, setIsLoadingCategories] = useState<boolean>(false);
+  const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,6 +101,96 @@ const UserHeader: React.FC = () => {
   const jobMenuItemClass = "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100";
   const jobSubMenuItemClass = "block px-2 py-1.5 text-sm text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 rounded-md truncate";
 
+  const updateMenuPosition = () => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setMenuPosition({
+        top: rect.bottom + window.scrollY,
+        right: window.innerWidth - rect.right
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (isUserMenuOpen) {
+      updateMenuPosition();
+      window.addEventListener('scroll', updateMenuPosition);
+      window.addEventListener('resize', updateMenuPosition);
+    }
+    return () => {
+      window.removeEventListener('scroll', updateMenuPosition);
+      window.removeEventListener('resize', updateMenuPosition);
+    };
+  }, [isUserMenuOpen]);
+
+  const renderUserMenu = () => {
+    if (!isUserMenuOpen) return null;
+
+    return createPortal(
+      <div
+        className="fixed z-[9999] shadow-lg"
+        style={{
+          top: `${menuPosition.top}px`,
+          right: `${menuPosition.right}px`,
+          maxHeight: 'calc(100vh - ${menuPosition.top}px)',
+          overflowY: 'auto'
+        }}
+      >
+        <div
+          className="w-56 rounded-md bg-white py-1 ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="user-menu-button"
+          onMouseLeave={() => setIsUserMenuOpen(false)}
+        >
+          {isStandardUser && (
+            <>
+              <Link to="/dashboard" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <Squares2X2Icon className={userMenuIconClass} /> Tổng quan
+              </Link>
+              <Link to="/resumes/attached" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <DocumentArrowUpIcon className={userMenuIconClass} /> Hồ sơ đính kèm
+              </Link>
+              <Link to="/profile" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <IdentificationIcon className={userMenuIconClass} /> Hồ sơ
+              </Link>
+              <Link to="/jobs/applied" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <BriefcaseIcon className={userMenuIconClass} /> Việc làm của tôi
+              </Link>
+              <Link to="/notifications" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <div className="flex items-center">
+                  <BellIcon className={userMenuIconClass} />
+                  <span className="flex-grow">Thông báo</span>
+                  <NotificationIcon showBadgeOnly={true} showIconOnly={false} />
+                </div>
+              </Link>
+            </>
+          )}
+          {!isStandardUser && (
+            <Link
+              to={profilePath}
+              className={userMenuItemClass}
+              role="menuitem"
+              onClick={() => setIsUserMenuOpen(false)}
+            >
+              <UserCircleIcon className={userMenuIconClass} /> Hồ sơ người dùng
+            </Link>
+          )}
+          {!isStandardUser && <div className="my-1 border-t border-gray-100"></div>}
+          <button
+            onClick={() => { handleLogout(); setIsUserMenuOpen(false); }}
+            className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+            role="menuitem"
+          >
+            <ArrowRightOnRectangleIcon className="h-5 w-5 mr-3 text-red-500" />
+            Đăng xuất
+          </button>
+        </div>
+      </div>,
+      document.body
+    );
+  };
+
   return (
     <nav className="bg-gray-800 shadow-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -124,9 +218,10 @@ const UserHeader: React.FC = () => {
                 </button>
                 {isJobMenuOpen && (
                   <div
-                    className="absolute left-0 mt-2 w-80 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10 flex"
+                    className="absolute left-0 mt-2 w-80 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-[9999] flex"
                     role="menu"
                     aria-orientation="vertical"
+                    style={{ position: 'absolute' }}
                   >
                     <div className="w-1/2 border-r border-gray-100">
                       <NavLink
@@ -209,6 +304,7 @@ const UserHeader: React.FC = () => {
               {isAuthenticated && user ? (
                 <div className="relative ml-3">
                   <button
+                    ref={buttonRef}
                     type="button"
                     className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     id="user-menu-button"
@@ -221,59 +317,7 @@ const UserHeader: React.FC = () => {
                     <span className='text-white ml-2 mr-1 text-sm hidden sm:inline'>{user.name}</span>
                     <ChevronDownIcon className='h-4 w-4 text-gray-400' />
                   </button>
-
-                  {isUserMenuOpen && (
-                    <div
-                      className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="user-menu-button"
-                      onMouseLeave={() => setIsUserMenuOpen(false)}
-                    >
-                      {isStandardUser && (
-                        <>
-                          <Link to="/dashboard" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <Squares2X2Icon className={userMenuIconClass} /> Tổng quan
-                          </Link>
-                          <Link to="/resumes/attached" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <DocumentArrowUpIcon className={userMenuIconClass} /> Hồ sơ đính kèm
-                          </Link>
-                          <Link to="/profile" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <IdentificationIcon className={userMenuIconClass} /> Hồ sơ
-                          </Link>
-                          <Link to="/jobs/applied" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <BriefcaseIcon className={userMenuIconClass} /> Việc làm của tôi
-                          </Link>
-                          <Link to="/notifications" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <div className="flex items-center">
-                              <BellIcon className={userMenuIconClass} />
-                              <span className="flex-grow">Thông báo</span>
-                              <NotificationIcon showBadgeOnly={true} showIconOnly={false} />
-                            </div>
-                          </Link>
-                        </>
-                      )}
-                      {!isStandardUser && (
-                        <Link
-                          to={profilePath}
-                          className={userMenuItemClass}
-                          role="menuitem"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          <UserCircleIcon className={userMenuIconClass} /> Hồ sơ người dùng
-                        </Link>
-                      )}
-                      {!isStandardUser && <div className="my-1 border-t border-gray-100"></div>}
-                      <button
-                        onClick={() => { handleLogout(); setIsUserMenuOpen(false); }}
-                        className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                        role="menuitem"
-                      >
-                        <ArrowRightOnRectangleIcon className="h-5 w-5 mr-3 text-red-500" />
-                        Đăng xuất
-                      </button>
-                    </div>
-                  )}
+                  {renderUserMenu()}
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
