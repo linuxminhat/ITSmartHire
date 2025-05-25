@@ -5,6 +5,7 @@ import { IBlog } from '@/types/blog.type';
 import Spinner from '@/components/Spinner';
 import dayjs from 'dayjs';
 import { TagIcon, EyeIcon, CalendarIcon } from '@heroicons/react/24/outline';
+import blogBanner from '@/assets/images/blog-banner.jpg';
 
 interface IPagination {
   current: number;
@@ -157,16 +158,19 @@ const BlogListPage: React.FC = () => {
 
   return (
     <>
-      <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 px-4 text-center">
-        <div className="container mx-auto px-4">
-          {/* 2) Heading */}
+      <section className="relative h-[250px] text-white text-center shadow-md overflow-hidden">
+        <img 
+          src={blogBanner} 
+          alt="Blog Banner"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="relative z-10 container mx-auto px-4 py-12">
+          {/* Heading */}
           <h1 className="text-3xl md:text-4xl font-bold whitespace-nowrap mb-8">
             ITSmartHire Blog&nbsp;–&nbsp;Ý tưởng phát triển sự nghiệp IT của bạn
           </h1>
-          {/* wrapper chung max-w-4xl để search + title + subtitle cùng độ rộng */}
+          {/* Search form wrapper */}
           <div className="mx-auto w-full max-w-4xl space-y-6">
-
-            {/* 1) Search form rộng full */}
             <form onSubmit={handleSearch} className="flex w-full">
               <input
                 type="text"
@@ -182,13 +186,12 @@ const BlogListPage: React.FC = () => {
                 Tìm kiếm
               </button>
             </form>
-
           </div>
         </div>
       </section>
-      {/* === PAGE BODY: giữ nguyên background trắng/xám như cũ === */}
+      {/* === PAGE BODY === */}
       <div className="min-h-screen bg-gray-50 py-12">
-        <div className="container mx-auto max-w-6xl px-4 mt-[-40px] pb-12">
+        <div className="container mx-auto max-w-6xl px-4">
           <div className="bg-white rounded-lg shadow-xl p-6 md:p-8">
             {loading ? (
               <div className="flex justify-center py-12">

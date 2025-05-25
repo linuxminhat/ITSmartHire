@@ -40,7 +40,7 @@ const BlogFilter: React.FC<BlogFilterProps> = ({ value, onChange, onSearch, onRe
 
         {/* Tags */}
         <div className="flex items-center gap-1">
-          <span className="whitespace-nowrap text-sm">Bộ kỹ năng:</span>
+          <span className="whitespace-nowrap text-sm">Tags:</span>
           <input
             type="text"
             className={inputCls}
