@@ -10,9 +10,10 @@ interface CompanyTableProps {
   isLoading: boolean;
   onEdit: (company: ICompany) => void;
   onDelete: (company: ICompany) => void;
+  onPageChange?: (page: number, pageSize?: number) => void;
 }
 
-const CompanyTable: React.FC<CompanyTableProps> = ({ companies, meta, isLoading, onEdit, onDelete }) => {
+const CompanyTable: React.FC<CompanyTableProps> = ({ companies, meta, isLoading, onEdit, onDelete, onPageChange }) => {
 
   const handleDeleteClick = (company: ICompany) => {
     if (window.confirm(`Bạn có chắc chắn muốn xóa công ty "${company.name}"?`)) {

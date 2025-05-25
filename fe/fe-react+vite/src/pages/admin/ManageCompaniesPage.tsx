@@ -157,9 +157,108 @@ const ManageCompaniesPage: React.FC = () => {
     toast.success(`Đã xuất ${data.length} dòng`);
   };
 
+  const handlePage = (p: number, sz?: number) => {
+    const newSize = sz ?? meta.pageSize;
+    setMeta(m => ({ ...m, current: p, pageSize: newSize }));
+    fetchCompanies(buildQuery(p, newSize));
+  };
+
   const breadcrumbItems = [
     { label: 'Quản lý Công ty', icon: BuildingOffice2Icon },
   ];
+
+  const renderPagination = () => {
+    const totalPages = meta.pages;
+    const currentPage = meta.current;
+    
+    // Giới hạn hiển thị tối đa 5 nút số trang
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, startPage + 4);
+    
+    if (endPage - startPage < 4) {
+      startPage = Math.max(1, endPage - 4);
+    }
+    
+    const pageNumbers = [];
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    
+    return (
+      <div className="flex justify-between items-center mt-4">
+        <div className="text-sm text-gray-700">
+          Tổng: <span className="font-medium">{meta.total}</span> công ty
+        </div>
+        <div className="flex items-center space-x-1">
+          <button
+            onClick={() => handlePage(currentPage - 1)}
+            disabled={currentPage <= 1}
+            className={`px-3 py-1 rounded border ${currentPage <= 1 
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+              : 'bg-white text-blue-600 hover:bg-blue-50 border-blue-600'}`}
+          >
+            Trước
+          </button>
+          
+          {startPage > 1 && (
+            <>
+              <button 
+                onClick={() => handlePage(1)}
+                className="px-3 py-1 rounded border bg-white text-blue-600 hover:bg-blue-50"
+              >
+                1
+              </button>
+              {startPage > 2 && <span className="px-2">...</span>}
+            </>
+          )}
+          
+          {pageNumbers.map(number => (
+            <button
+              key={number}
+              onClick={() => handlePage(number)}
+              className={`px-3 py-1 rounded border ${number === currentPage 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-white text-blue-600 hover:bg-blue-50'}`}
+            >
+              {number}
+            </button>
+          ))}
+          
+          {endPage < totalPages && (
+            <>
+              {endPage < totalPages - 1 && <span className="px-2">...</span>}
+              <button 
+                onClick={() => handlePage(totalPages)}
+                className="px-3 py-1 rounded border bg-white text-blue-600 hover:bg-blue-50"
+              >
+                {totalPages}
+              </button>
+            </>
+          )}
+          
+          <button
+            onClick={() => handlePage(currentPage + 1)}
+            disabled={currentPage >= totalPages}
+            className={`px-3 py-1 rounded border ${currentPage >= totalPages 
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+              : 'bg-white text-blue-600 hover:bg-blue-50 border-blue-600'}`}
+          >
+            Sau
+          </button>
+          
+          <select
+            value={meta.pageSize}
+            onChange={(e) => handlePage(1, Number(e.target.value))}
+            className="ml-4 border rounded px-2 py-1 bg-white text-gray-700"
+          >
+            <option value={10}>10 / trang</option>
+            <option value={20}>20 / trang</option>
+            <option value={50}>50 / trang</option>
+          </select>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="p-4 md:p-6 bg-gray-50 min-h-full">
@@ -222,7 +321,11 @@ const ManageCompaniesPage: React.FC = () => {
           isLoading={isLoading}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          onPageChange={handlePage}
         />
+
+        {/* Pagination */}
+        {!isLoading && renderPagination()}
       </div>
 
       <CompanyModal

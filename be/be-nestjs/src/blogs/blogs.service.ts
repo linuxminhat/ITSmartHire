@@ -25,12 +25,16 @@ export class BlogsService {
       pageSize = 6,
       sort = '-createdAt',
       search,
+      tag,
       ...rest
     } = query;
 
     const conditions: any = { isDeleted: false, ...rest };
     if (search) {
       conditions.title = { $regex: search, $options: 'i' };
+    }
+    if (tag) {
+      conditions.tags = { $in: [tag] };
     }
     const sortObject: Record<string, 1 | -1> = {};
     if (sort.startsWith('-')) {

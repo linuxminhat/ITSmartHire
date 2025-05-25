@@ -9,8 +9,12 @@ import { callFetchCategory } from '@/services/category.service';
 import { callFetchCompany } from '@/services/company.service';
 import { IJob, ISkill, ICategory, ICompany, IBackendRes } from '@/types/backend';
 import { toast } from 'react-toastify';
-import { PlusIcon, BriefcaseIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, BriefcaseIcon, ArrowPathIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
+import JobFilter, { JobFilterState } from './JobFilter';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import dayjs from 'dayjs';
 
 interface IProvince {
   name: string;
@@ -31,13 +35,42 @@ const ManageJobsPage: React.FC = () => {
   const [isApplicationsModalOpen, setIsApplicationsModalOpen] = useState<boolean>(false);
   const [selectedJob, setSelectedJob] = useState<IJob | null>(null);
 
+  const [filter, setFilter] = useState<JobFilterState>({
+    name: '',
+    category: '',
+    skill: '',
+    company: '',
+    location: ''
+  });
+
+  const buildQuery = (
+    page = meta.current,
+    size = meta.pageSize,
+    f = filter
+  ) => {
+    let q = `current=${page}&pageSize=${size}`;
+    
+    if (f.name?.trim()) q += `&search=${encodeURIComponent(f.name.trim())}`;
+    if (f.category?.trim()) q += `&category=${encodeURIComponent(f.category.trim())}`;
+    if (f.skill?.trim()) q += `&skill=${encodeURIComponent(f.skill.trim())}`;
+    if (f.company?.trim()) q += `&company=${encodeURIComponent(f.company.trim())}`;
+    if (f.location?.trim()) q += `&location=${encodeURIComponent(f.location.trim())}`;
+    
+    console.log('Building query with filter:', f);
+    console.log('Final query string:', q);
+    return q;
+  };
+
   const fetchJobs = useCallback(async (query?: string) => {
     setIsLoading(true);
     const defaultQuery = `current=${meta.current}&pageSize=${meta.pageSize}`;
     const finalQuery = query ? query : defaultQuery;
 
+    console.log('Fetching jobs with query:', finalQuery);
+
     try {
       const res = await callFetchJob(finalQuery);
+      console.log('API Response:', res.data);
       if (res && res.data) {
         setJobs(res.data.result);
         setMeta(res.data.meta);
@@ -134,12 +167,56 @@ const ManageJobsPage: React.FC = () => {
   const handleTableChange = (page: number, pageSize?: number) => {
     const newPageSize = pageSize || meta.pageSize;
     setMeta(prevMeta => ({ ...prevMeta, current: page, pageSize: newPageSize }));
-    fetchJobs(`current=${page}&pageSize=${newPageSize}`);
+    fetchJobs(buildQuery(page, newPageSize));
   };
 
   const handleViewApplicants = (job: IJob) => {
     setSelectedJob(job);
     setIsApplicationsModalOpen(true);
+  };
+
+  const handleSearch = useCallback(() => {
+    console.log('Search triggered with filter:', filter);
+    const query = buildQuery(1, meta.pageSize, filter);
+    fetchJobs(query);
+  }, [filter, meta.pageSize, fetchJobs]);
+
+  const handleReset = () => {
+    const emptyFilter = {
+      name: '',
+      category: '',
+      skill: '',
+      company: '',
+      location: ''
+    };
+    setFilter(emptyFilter);
+    setMeta(prev => ({ ...prev, current: 1 }));
+    fetchJobs(buildQuery(1, meta.pageSize, emptyFilter));
+    toast.success('Đã làm mới bộ lọc');
+  };
+
+  const handleExport = () => {
+    if (!jobs.length) return toast.info('Không có dữ liệu để xuất');
+
+    const data = jobs.map((job, idx) => ({
+      STT: (meta.current - 1) * meta.pageSize + idx + 1,
+      'Tên việc làm': job.name,
+      'Danh mục': typeof job.category === 'object' && job.category ? job.category.name : '-',
+      'Kỹ năng': Array.isArray(job.skills) ? job.skills.map(s => typeof s === 'object' ? s.name : '').join(', ') : '-',
+      'Công ty': job.company?.name || '-',
+      'Địa điểm': job.location || '-',
+      'Lương': job.salary || '-',
+      'Số lượng': job.quantity || '-',
+      'Ngày tạo': dayjs(job.createdAt).format('DD/MM/YYYY')
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Jobs');
+
+    const blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    saveAs(new Blob([blob]), `jobs_${dayjs().format('YYYYMMDD_HHmmss')}.xlsx`);
+    toast.success(`Đã xuất ${data.length} dòng`);
   };
 
   const breadcrumbItems = [
@@ -151,16 +228,43 @@ const ManageJobsPage: React.FC = () => {
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+        <div className="flex flex-col mb-6 pb-4 border-b border-gray-200 gap-4">
           <div className="flex-1">
+            <JobFilter
+              value={filter}
+              onChange={setFilter}
+              onReset={handleReset}
+              onSearch={handleSearch}
+            />
           </div>
-          <button
-            onClick={handleAddNew}
-            className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            <PlusIcon className="h-5 w-5 mr-2" />
-            Thêm mới
-          </button>
+
+          <div className="flex items-center justify-end gap-2">
+            <button
+              onClick={handleReset}
+              className="flex items-center px-3 py-1.5 border border-gray-300 bg-white rounded text-sm text-gray-700 hover:bg-gray-50"
+            >
+              <ArrowPathIcon className="h-4 w-4 mr-1" />
+              Làm lại
+            </button>
+
+            <button
+              onClick={handleExport}
+              className="flex items-center px-3 py-1.5 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Xuất File
+            </button>
+
+            <button
+              onClick={handleAddNew}
+              className="flex items-center px-3 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              <PlusIcon className="h-4 w-4 mr-1" />
+              Thêm mới
+            </button>
+          </div>
         </div>
 
         <JobTable

@@ -177,7 +177,7 @@ const UserHeader: React.FC = () => {
                               {skills.map(skill => (
                                 <Link
                                   key={skill._id}
-                                  to={`/jobs/by-skill/${skill._id}`}
+                                  to={`/jobs/skill/${skill._id}`}
                                   className={jobSubMenuItemClass}
                                   title={skill.name}
                                   role="menuitem"
