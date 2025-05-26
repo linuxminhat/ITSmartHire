@@ -1,1 +1,3 @@
 BERT/models/pytorch_model.bin
+ResumeAI/
+**/node_modules/
