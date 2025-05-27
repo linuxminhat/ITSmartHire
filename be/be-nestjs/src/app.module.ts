@@ -17,6 +17,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { ApplicationsModule } from './applications/applications.module';
 import { BlogsModule } from './blogs/blogs.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     ApplicationsModule,
     BlogsModule,
     NotificationsModule,
+    DashboardModule
   ],
 
   controllers: [AppController],

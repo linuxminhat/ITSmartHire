@@ -32,25 +32,31 @@ export interface UserGrowth {
 }
 
 // Các hàm gọi API
-const getDashboardStats = () => {
-    return axios.get<DashboardStats>('/dashboard/stats');
-};
 
-const getTopSkills = () => {
-    return axios.get<TopSkill[]>('/dashboard/top-skills');
-};
+export const getDashboardStats = () =>
+    axios
+        .get<DashboardStats>('/api/v1/dashboard/stats')
+        .then(res => res.data);
 
-const getTopCompanies = () => {
-    return axios.get<TopCompany[]>('/dashboard/top-companies');
-};
+export const getTopSkills = () =>
+    axios
+        .get<TopSkill[]>('/api/v1/dashboard/top-skills')
+        .then(res => res.data);
 
-const getTopCategories = () => {
-    return axios.get<TopCategory[]>('/dashboard/top-categories');
-};
+export const getTopCompanies = () =>
+    axios
+        .get<TopCompany[]>('/api/v1/dashboard/top-companies')
+        .then(res => res.data);
 
-const getUserGrowth = () => {
-    return axios.get<UserGrowth[]>('/dashboard/user-growth');
-};
+export const getTopCategories = () =>
+    axios
+        .get<TopCategory[]>('/api/v1/dashboard/top-categories')
+        .then(res => res.data);
+
+export const getUserGrowth = () =>
+    axios
+        .get<UserGrowth[]>('/api/v1/dashboard/user-growth')
+        .then(res => res.data);
 
 export const dashboardService = {
     getDashboardStats,

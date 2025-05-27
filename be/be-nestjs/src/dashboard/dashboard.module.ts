@@ -1,16 +1,19 @@
-// dashboard.module.ts
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+
 import { DashboardController } from './dashboard.controller';
 import { DashboardService } from './dashboard.service';
-import { DatabasesModule } from 'src/databases/databases.module';
-import { Job, JobSchema } from 'src/jobs/schemas/job.schema';
+import { Role, RoleSchema } from '../roles/schemas/role.schema';
+import { User, UserSchema } from '../users/schemas/user.shema';
+import { Job, JobSchema } from '../jobs/schemas/job.schema';
 
 @Module({
   imports: [
-    DatabasesModule,                             // đã có User & Role
+    // Đăng ký cả UserModel và JobModel cho DashboardModule
     MongooseModule.forFeature([
-      { name: Job.name, schema: JobSchema },    // chỉ register Job thôi
+      { name: User.name, schema: UserSchema },
+      { name: Job.name, schema: JobSchema },
+      { name: Role.name, schema: RoleSchema },
     ]),
   ],
   controllers: [DashboardController],
