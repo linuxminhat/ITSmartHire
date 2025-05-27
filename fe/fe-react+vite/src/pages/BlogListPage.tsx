@@ -6,6 +6,8 @@ import Spinner from '@/components/Spinner';
 import dayjs from 'dayjs';
 import { TagIcon, EyeIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import blogBanner from '@/assets/images/blog-banner.jpg';
+import { useSearchParams } from 'react-router-dom';
+
 
 interface IPagination {
   current: number;
@@ -26,6 +28,8 @@ const BlogListPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('');
+  const [searchParams] = useSearchParams();
+  const urlTag = searchParams.get('tag') || '';
   const [meta, setMeta] = useState<IPagination>({
     current: 1,
     pageSize: 6,   // mỗi trang 6 bài
@@ -34,7 +38,11 @@ const BlogListPage: React.FC = () => {
   });
 
   useEffect(() => {
-    const fetchBlogs = async (page = meta.current, keyword = searchTerm) => {
+    const fetchBlogs = async (
+      page: number = meta.current,
+      keyword: string = searchTerm,
+      tag: string = urlTag
+    ) => {
       try {
         setLoading(true);
         setError(null);
@@ -46,7 +54,8 @@ const BlogListPage: React.FC = () => {
           `sort=-createdAt`,
         ];
         if (keyword) parts.push(`search=${encodeURIComponent(keyword)}`);
-        if (selectedTag) parts.push(`tag=${encodeURIComponent(selectedTag)}`);
+        if (tag) parts.push(`tag=${encodeURIComponent(tag)}`);
+
         const q = parts.join('&');
         console.log('[DEBUG] GET /api/v1/blogs?', q);
 
@@ -65,9 +74,11 @@ const BlogListPage: React.FC = () => {
       }
     };
 
-    // mỗi khi meta.current hoặc searchTerm đổi, reload
-    fetchBlogs(meta.current, searchTerm);
-  }, [meta.current, searchTerm, selectedTag]);
+    // reset về page 1 khi tag/search thay đổi
+    setMeta(prev => ({ ...prev, current: 1 }));
+    fetchBlogs(meta.current, searchTerm, urlTag);
+  }, [meta.current, searchTerm, urlTag]);
+
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

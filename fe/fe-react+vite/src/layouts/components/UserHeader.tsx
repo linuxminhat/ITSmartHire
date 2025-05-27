@@ -39,7 +39,26 @@ const UserHeader: React.FC = () => {
   const [isLoadingCategories, setIsLoadingCategories] = useState<boolean>(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
   const buttonRef = React.useRef<HTMLButtonElement>(null);
-  const closeTimer = React.useRef<number | null>(null)
+  const closeTimer = React.useRef<number | null>(null);
+  const [isBlogMenuOpen, setIsBlogMenuOpen] = useState(false);
+  const blogCloseTimer = React.useRef<number | null>(null);
+  const openBlogMenu = () => {
+    if (blogCloseTimer.current) clearTimeout(blogCloseTimer.current);
+    setIsBlogMenuOpen(true);
+  };
+
+  const closeBlogMenu = () => {
+    blogCloseTimer.current = window.setTimeout(() => {
+      setIsBlogMenuOpen(false);
+    }, 200);
+  };
+  const BLOG_TAGS = [
+    'Sự nghiệp IT',
+    'Ứng tuyển và thăng tiến',
+    'Chuyên môn IT',
+    'Chuyện IT',
+    'Quảng bá công ty'
+  ];
   const openMenu = () => {
     if (closeTimer.current) {
       clearTimeout(closeTimer.current)
@@ -311,9 +330,45 @@ const UserHeader: React.FC = () => {
               </div>
 
               <NavLink to="/companies" className={navLinkClasses}>Công ty</NavLink>
-              <NavLink to="/blog" className={navLinkClasses}>Blog về IT</NavLink>
-              <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn giả lập</NavLink>
-              <NavLink to="/mockinterview" className={navLinkClasses}>Hỗ trợ viết CV</NavLink>
+              <div
+                className="relative"
+                onMouseEnter={openBlogMenu}
+                onMouseLeave={closeBlogMenu}
+              >
+                <button
+                  type="button"
+                  onClick={() => setIsBlogMenuOpen(!isBlogMenuOpen)}
+                  className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none"
+                >
+                  Blog về IT
+                  <ChevronDownIcon
+                    className={`h-4 w-4 ml-1 transition-transform ${isBlogMenuOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                {isBlogMenuOpen && (
+                  <div
+                    className="absolute left-0 mt-2 w-48 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-[9999]"
+                    role="menu"
+                    aria-orientation="vertical"
+                    onMouseEnter={openBlogMenu}
+                    onMouseLeave={closeBlogMenu}
+                  >
+                    {BLOG_TAGS.map(tag => (
+                      <Link
+                        key={tag}
+                        to={`/blog?tag=${encodeURIComponent(tag)}`}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                      >
+                        {tag}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn bằng AI</NavLink>
+              <NavLink to="/mockinterview" className={navLinkClasses}>Viết CV bằng AI</NavLink>
             </div>
           </div>
 
