@@ -39,7 +39,19 @@ const UserHeader: React.FC = () => {
   const [isLoadingCategories, setIsLoadingCategories] = useState<boolean>(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
   const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const closeTimer = React.useRef<number | null>(null)
+  const openMenu = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+    }
+    setIsJobMenuOpen(true)
+  }
 
+  const closeMenu = () => {
+    closeTimer.current = window.setTimeout(() => {
+      setIsJobMenuOpen(false)
+    }, 200)
+  }
   useEffect(() => {
     const fetchData = async () => {
       // Fetch Skills
@@ -206,10 +218,14 @@ const UserHeader: React.FC = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {/* Job Menu Dropdown */}
-              <div className="relative" onMouseLeave={() => setIsJobMenuOpen(false)}>
+              <div
+                className="relative"
+                onMouseEnter={openMenu}
+                onMouseLeave={closeMenu}
+              >
                 <button
                   type="button"
-                  onMouseEnter={() => setIsJobMenuOpen(true)}
+                  onMouseEnter={openMenu}
                   onClick={() => setIsJobMenuOpen(!isJobMenuOpen)}
                   className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none"
                 >
@@ -218,10 +234,12 @@ const UserHeader: React.FC = () => {
                 </button>
                 {isJobMenuOpen && (
                   <div
-                    className="absolute left-0 mt-2 w-80 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-[9999] flex"
+                    className="absolute left-0 mt-2 w-[32rem] origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-[9999] flex"
                     role="menu"
                     aria-orientation="vertical"
                     style={{ position: 'absolute' }}
+                    onMouseEnter={openMenu}
+                    onMouseLeave={closeMenu}
                   >
                     <div className="w-1/2 border-r border-gray-100">
                       <NavLink
@@ -239,7 +257,7 @@ const UserHeader: React.FC = () => {
                         {isLoadingCategories ? (
                           <div className="px-4 py-2 text-sm text-gray-500">Đang tải...</div>
                         ) : categories.length > 0 ? (
-                          <div className="max-h-60 overflow-y-auto px-2 py-1">
+                          <div className="max-h-[60vh] overflow-y-auto px-2 py-1">
                             {categories.map(category => (
                               <Link
                                 key={category._id}
@@ -267,7 +285,7 @@ const UserHeader: React.FC = () => {
                         {isLoadingSkills ? (
                           <div className="px-4 py-2 text-sm text-gray-500">Đang tải...</div>
                         ) : skills.length > 0 ? (
-                          <div className="max-h-[16.5rem] overflow-y-auto px-2 py-1">
+                          <div className="max-h-[60vh] overflow-y-auto px-2 py-1">
                             <div className="grid grid-cols-2 gap-x-2 gap-y-1">
                               {skills.map(skill => (
                                 <Link
@@ -295,7 +313,7 @@ const UserHeader: React.FC = () => {
               <NavLink to="/companies" className={navLinkClasses}>Công ty</NavLink>
               <NavLink to="/blog" className={navLinkClasses}>Blog về IT</NavLink>
               <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn giả lập</NavLink>
-              <NavLink to="/mockinterview" className={navLinkClasses}>AI hỗ trợ viết CV</NavLink>
+              <NavLink to="/mockinterview" className={navLinkClasses}>Hỗ trợ viết CV</NavLink>
             </div>
           </div>
 

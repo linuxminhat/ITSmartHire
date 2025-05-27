@@ -236,9 +236,9 @@ const HomePage: React.FC = () => {
               className="w-full h-64 object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-white">
+              <div className="text-center text-black">
                 <h3 className="text-2xl font-bold mb-2">Tạo CV Ấn Tượng</h3>
-                <p className="text-lg">Công cụ chuyên nghiệp giúp bạn nổi bật</p>
+                <p className="text-lg font-bold">Công cụ chuyên nghiệp giúp bạn nổi bật</p>
               </div>
             </div>
           </div>
