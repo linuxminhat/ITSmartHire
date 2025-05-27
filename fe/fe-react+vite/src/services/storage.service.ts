@@ -57,7 +57,7 @@ export const uploadFile = (
       () => {
         // Handle successful uploads on complete
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        //   console.log("File available at", downloadURL);
+          //   console.log("File available at", downloadURL);
           resolve(downloadURL);
         }).catch(reject); // Thêm catch ở đây nếu getDownloadURL lỗi
       }
