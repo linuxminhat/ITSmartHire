@@ -225,7 +225,7 @@ const HomePage: React.FC = () => {
 
       {/* Resume Tools section */}
       <section className="py-12 px-4 bg-white">
-        <div className="container mx-auto max-w-6xl">
+        <div className="container mx-auto max-w-7xl">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">Công cụ tốt nhất cho hành trang ứng tuyển của bạn</h2>
 
           {/* Banner image */}
@@ -243,27 +243,100 @@ const HomePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center">
-              <img src="https://img.icons8.com/plasticine/100/resume.png" alt="Hồ sơ cá nhân" className="h-20 w-20 mb-4 object-contain" />
-              <h3 className="text-lg font-semibold mb-2">Hồ sơ cá nhân</h3>
-              <p className="text-sm text-gray-600 mb-4 flex-grow">Kiến tạo hồ sơ ITviec với cấu trúc chuẩn mực cùng các gợi ý chi tiết</p>
-              <Link to="/profile" className="mt-auto inline-block px-5 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-50 transition duration-200 text-sm font-medium">Cập nhật hồ sơ</Link>
+          {/* Cards Grid - Điều chỉnh grid và gap */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+            {/* Card 1 - Hồ sơ cá nhân */}
+            <div className="bg-white p-8 rounded-lg shadow-md text-center flex flex-col items-center transform transition duration-300 hover:shadow-lg">
+              <img
+                src="https://img.icons8.com/plasticine/100/resume.png"
+                alt="Hồ sơ cá nhân"
+                className="h-24 w-24 mb-6 object-contain" // Tăng kích thước icon
+              />
+              <h3 className="text-xl font-semibold mb-4">Hồ sơ cá nhân</h3>
+              <p className="text-base text-gray-600 mb-6 flex-grow">Kiến tạo hồ sơ ITviec với cấu trúc chuẩn mực cùng các gợi ý chi tiết</p>
+              <Link
+                to="/profile"
+                className="w-full py-3 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50 transition duration-200 text-base font-medium"
+              >
+                Cập nhật hồ sơ
+              </Link>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center">
-              <img src="https://img.icons8.com/plasticine/100/document.png" alt="Mẫu CV" className="h-20 w-20 mb-4 object-contain" />
-              <h3 className="text-lg font-semibold mb-2 flex items-center">
+
+            {/* Card 2 - Mẫu CV */}
+            <div className="bg-white p-8 rounded-lg shadow-md text-center flex flex-col items-center transform transition duration-300 hover:shadow-lg">
+              <img
+                src="https://img.icons8.com/plasticine/100/document.png"
+                alt="Mẫu CV"
+                className="h-24 w-24 mb-6 object-contain"
+              />
+              <h3 className="text-xl font-semibold mb-4 flex items-center">
                 Mẫu CV
                 <span className="ml-2 bg-green-100 text-green-600 text-xs font-semibold px-2 py-0.5 rounded">MỚI</span>
               </h3>
-              <p className="text-sm text-gray-600 mb-4 flex-grow">Nâng cấp CV với các mẫu CV IT chuyên nghiệp - được nhà tuyển dụng đề xuất</p>
-              <Link to="/profile" className="mt-auto inline-block px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 text-sm font-medium">Xem mẫu CV</Link>
+              <p className="text-base text-gray-600 mb-6 flex-grow">Chỉnh sửa hồ sơ và khám phá 4 mẫu CV đa phong cách.</p>
+              <Link
+                to="/profile"
+                className="w-full py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 text-base font-medium"
+              >
+                Xem mẫu CV
+              </Link>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center">
-              <img src="https://img.icons8.com/plasticine/100/news.png" alt="Blog IT" className="h-20 w-20 mb-4 object-contain" />
-              <h3 className="text-lg font-semibold mb-2">Blog về IT</h3>
-              <p className="text-sm text-gray-600 mb-4 flex-grow">Cập nhật thông tin lương thưởng, nghề nghiệp và kiến thức ngành IT</p>
-              <Link to="/blog" className="mt-auto inline-block px-5 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-50 transition duration-200 text-sm font-medium">Khám phá blog</Link>
+
+            {/* Card 3 - Blog về IT */}
+            <div className="bg-white p-8 rounded-lg shadow-md text-center flex flex-col items-center transform transition duration-300 hover:shadow-lg">
+              <img
+                src="https://img.icons8.com/plasticine/100/news.png"
+                alt="Blog IT"
+                className="h-24 w-24 mb-6 object-contain"
+              />
+              <h3 className="text-xl font-semibold mb-4">Blog về IT</h3>
+              <p className="text-base text-gray-600 mb-6 flex-grow">Cập nhật thông tin lương thưởng, nghề nghiệp và kiến thức ngành IT</p>
+              <Link
+                to="/blog"
+                className="w-full py-3 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50 transition duration-200 text-base font-medium"
+              >
+                Khám phá blog
+              </Link>
+            </div>
+
+            {/* Card 4 - Phỏng vấn giả lập */}
+            <div className="bg-white p-8 rounded-lg shadow-md text-center flex flex-col items-center transform transition duration-300 hover:shadow-lg">
+              <img
+                src="https://img.icons8.com/plasticine/100/communication.png"
+                alt="Phỏng vấn giả lập"
+                className="h-24 w-24 mb-6 object-contain"
+              />
+              <h3 className="text-xl font-semibold mb-4 flex items-center">
+                Phỏng vấn giả lập
+                <span className="ml-2 bg-green-100 text-green-600 text-xs font-semibold px-2 py-0.5 rounded">MỚI</span>
+              </h3>
+              <p className="text-base text-gray-600 mb-6 flex-grow">Mô phỏng phỏng vấn chuyên môn với AI</p>
+              <Link
+                to="/mock-interview"
+                className="w-full py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 text-base font-medium"
+              >
+                Bắt đầu phỏng vấn
+              </Link>
+            </div>
+
+            {/* Card 5 - Hỗ trợ viết CV */}
+            <div className="bg-white p-8 rounded-lg shadow-md text-center flex flex-col items-center transform transition duration-300 hover:shadow-lg">
+              <img
+                src="https://img.icons8.com/plasticine/100/edit-file.png"
+                alt="Hỗ trợ viết CV"
+                className="h-24 w-24 mb-6 object-contain"
+              />
+              <h3 className="text-xl font-semibold mb-4 flex items-center">
+                Hỗ trợ viết CV
+                <span className="ml-2 bg-green-100 text-green-600 text-xs font-semibold px-2 py-0.5 rounded">MỚI</span>
+              </h3>
+              <p className="text-base text-gray-600 mb-6 flex-grow">Viết CV chuẩn nội dung ATS theo gợi ý AI</p>
+              <Link
+                to="/cv-assistant"
+                className="w-full py-3 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50 transition duration-200 text-base font-medium"
+              >
+                Tạo CV ngay
+              </Link>
             </div>
           </div>
         </div>
