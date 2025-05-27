@@ -295,6 +295,7 @@ const UserHeader: React.FC = () => {
               <NavLink to="/companies" className={navLinkClasses}>Công ty</NavLink>
               <NavLink to="/blog" className={navLinkClasses}>Blog về IT</NavLink>
               <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn giả lập</NavLink>
+              <NavLink to="/mockinterview" className={navLinkClasses}>AI hỗ trợ viết CV</NavLink>
             </div>
           </div>
 
