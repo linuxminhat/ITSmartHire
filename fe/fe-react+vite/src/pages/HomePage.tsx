@@ -309,7 +309,7 @@ const HomePage: React.FC = () => {
                 className="h-24 w-24 mb-6 object-contain"
               />
               <h3 className="text-xl font-semibold mb-4 flex items-center">
-                Phỏng vấn giả lập
+                Phỏng vấn bằng AI
                 <span className="ml-2 inline-flex items-center bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
                   <FireIcon className="h-4 w-4 mr-1" />
                   HOT
@@ -332,7 +332,7 @@ const HomePage: React.FC = () => {
                 className="h-24 w-24 mb-6 object-contain"
               />
               <h3 className="text-xl font-semibold mb-4 flex items-center">
-                Hỗ trợ viết CV
+                Viết CV bằng AI
                 <span className="ml-2 inline-flex items-center bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
                   <FireIcon className="h-4 w-4 mr-1" />
                   HOT
