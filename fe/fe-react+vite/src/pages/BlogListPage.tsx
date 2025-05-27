@@ -13,12 +13,19 @@ interface IPagination {
   pages: number;
   total: number;
 }
-
+const BLOG_TAGS = [
+  'Sự nghiệp IT',
+  'Ứng tuyển và thăng tiến',
+  'Chuyên môn IT',
+  'Chuyện IT',
+  'Quảng bá công ty'
+];
 const BlogListPage: React.FC = () => {
   const [blogs, setBlogs] = useState<IBlog[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedTag, setSelectedTag] = useState('');
   const [meta, setMeta] = useState<IPagination>({
     current: 1,
     pageSize: 6,   // mỗi trang 6 bài
@@ -39,12 +46,13 @@ const BlogListPage: React.FC = () => {
           `sort=-createdAt`,
         ];
         if (keyword) parts.push(`search=${encodeURIComponent(keyword)}`);
+        if (selectedTag) parts.push(`tag=${encodeURIComponent(selectedTag)}`);
         const q = parts.join('&');
+        console.log('[DEBUG] GET /api/v1/blogs?', q);
 
         const response = await blogService.getAll(q);
         if (response?.data?.result) {
           setBlogs(response.data.result);
-          // áp dụng meta từ response
           setMeta(response.data.meta);
         } else {
           setError('Không thể tải danh sách bài viết');
@@ -59,12 +67,13 @@ const BlogListPage: React.FC = () => {
 
     // mỗi khi meta.current hoặc searchTerm đổi, reload
     fetchBlogs(meta.current, searchTerm);
-  }, [meta.current, searchTerm]);
+  }, [meta.current, searchTerm, selectedTag]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setMeta(prev => ({ ...prev, current: 1 }));
   };
+
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= meta.pages) {
       setMeta(prev => ({ ...prev, current: newPage }));
@@ -159,8 +168,8 @@ const BlogListPage: React.FC = () => {
   return (
     <>
       <section className="relative h-[250px] text-white text-center shadow-md overflow-hidden">
-        <img 
-          src={blogBanner} 
+        <img
+          src={blogBanner}
           alt="Blog Banner"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -171,17 +180,31 @@ const BlogListPage: React.FC = () => {
           </h1>
           {/* Search form wrapper */}
           <div className="mx-auto w-full max-w-4xl space-y-6">
-            <form onSubmit={handleSearch} className="flex w-full">
+            <form onSubmit={handleSearch} className="flex w-full space-x-2">
+              {/* dropdown tag */}
+              <select
+                value={selectedTag}
+                onChange={e => setSelectedTag(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none text-gray-900 text-sm"
+              >
+                <option value="">Tất cả chuyên mục</option>
+                {BLOG_TAGS.map(tag => (
+                  <option key={tag} value={tag}>{tag}</option>
+                ))}
+              </select>
+
+              {/* input keyword */}
               <input
                 type="text"
                 placeholder="Nhập từ khóa tìm kiếm"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className="flex-1 w-full px-4 py-2 rounded-l-lg focus:outline-none text-gray-900"
+                className="flex-1 px-4 py-2 border-t border-b border-gray-300 focus:outline-none text-gray-900 text-sm"
               />
+              {/* nút submit */}
               <button
                 type="submit"
-                className="px-6 bg-red-600 text-white rounded-r-lg hover:bg-red-700 transition"
+                className="px-6 bg-red-600 text-white rounded-r-lg hover:bg-red-700 transition text-sm"
               >
                 Tìm kiếm
               </button>
