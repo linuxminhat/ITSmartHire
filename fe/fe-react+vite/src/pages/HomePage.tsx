@@ -16,6 +16,8 @@ import { IBlog } from '@/types/blog.type';
 import blogSectionBanner from '@/assets/images/blog-section-banner.jpg';
 import { ISkill } from '@/types/backend';
 import { callFetchSkill } from '@/services/skill.service';
+import { FireIcon } from '@heroicons/react/24/solid';
+
 // Define interface for province data
 interface IProvince {
   name: string;
@@ -308,7 +310,10 @@ const HomePage: React.FC = () => {
               />
               <h3 className="text-xl font-semibold mb-4 flex items-center">
                 Phỏng vấn giả lập
-                <span className="ml-2 bg-green-100 text-green-600 text-xs font-semibold px-2 py-0.5 rounded">MỚI</span>
+                <span className="ml-2 inline-flex items-center bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
+                  <FireIcon className="h-4 w-4 mr-1" />
+                  HOT
+                </span>
               </h3>
               <p className="text-base text-gray-600 mb-6 flex-grow">Mô phỏng phỏng vấn chuyên môn với AI</p>
               <Link
@@ -328,7 +333,10 @@ const HomePage: React.FC = () => {
               />
               <h3 className="text-xl font-semibold mb-4 flex items-center">
                 Hỗ trợ viết CV
-                <span className="ml-2 bg-green-100 text-green-600 text-xs font-semibold px-2 py-0.5 rounded">MỚI</span>
+                <span className="ml-2 inline-flex items-center bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
+                  <FireIcon className="h-4 w-4 mr-1" />
+                  HOT
+                </span>
               </h3>
               <p className="text-base text-gray-600 mb-6 flex-grow">Viết CV chuẩn nội dung ATS theo gợi ý AI</p>
               <Link
