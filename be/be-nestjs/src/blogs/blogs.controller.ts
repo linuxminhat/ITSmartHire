@@ -18,12 +18,14 @@ export class BlogsController {
     @Query('pageSize') pageSize = '12',
     @Query('sort') sort = '-createdAt',
     @Query('search') search?: string,
+    @Query('tag') tag?: string,
   ) {
     return this.blogsService.findAll({
       current: +current,
       pageSize: +pageSize,
       sort,
       search,
+      tag
     });
   }
 

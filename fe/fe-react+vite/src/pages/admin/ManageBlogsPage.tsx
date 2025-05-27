@@ -91,7 +91,7 @@ const ManageBlogsPage: React.FC = () => {
   }
 
   const handleEdit = (id: string) => navigate(`${id}/edit`)
-  
+
   const handleDelete = async (id: string) => {
     if (!window.confirm('Xác nhận xóa bài viết này?')) return
     await blogService.delete(id)
@@ -105,35 +105,35 @@ const ManageBlogsPage: React.FC = () => {
   const renderPagination = () => {
     const totalPages = pagination.pages;
     const currentPage = pagination.current;
-    
+
     // Giới hạn hiển thị tối đa 5 nút số trang
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, startPage + 4);
-    
+
     if (endPage - startPage < 4) {
       startPage = Math.max(1, endPage - 4);
     }
-    
+
     const pageNumbers = [];
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
     }
-    
+
     return (
       <div className="flex items-center space-x-1">
         <button
           onClick={() => setPagination(p => ({ ...p, current: p.current - 1 }))}
           disabled={currentPage <= 1}
-          className={`px-3 py-1 rounded border ${currentPage <= 1 
-            ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+          className={`px-3 py-1 rounded border ${currentPage <= 1
+            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
             : 'bg-white text-blue-600 hover:bg-blue-50 border-blue-600'}`}
         >
           Trước
         </button>
-        
+
         {startPage > 1 && (
           <>
-            <button 
+            <button
               onClick={() => setPagination(p => ({ ...p, current: 1 }))}
               className="px-3 py-1 rounded border bg-white text-blue-600 hover:bg-blue-50"
             >
@@ -142,23 +142,23 @@ const ManageBlogsPage: React.FC = () => {
             {startPage > 2 && <span className="px-2">...</span>}
           </>
         )}
-        
+
         {pageNumbers.map(number => (
           <button
             key={number}
             onClick={() => setPagination(p => ({ ...p, current: number }))}
-            className={`px-3 py-1 rounded border ${number === currentPage 
-              ? 'bg-blue-600 text-white' 
+            className={`px-3 py-1 rounded border ${number === currentPage
+              ? 'bg-blue-600 text-white'
               : 'bg-white text-blue-600 hover:bg-blue-50'}`}
           >
             {number}
           </button>
         ))}
-        
+
         {endPage < totalPages && (
           <>
             {endPage < totalPages - 1 && <span className="px-2">...</span>}
-            <button 
+            <button
               onClick={() => setPagination(p => ({ ...p, current: totalPages }))}
               className="px-3 py-1 rounded border bg-white text-blue-600 hover:bg-blue-50"
             >
@@ -166,17 +166,17 @@ const ManageBlogsPage: React.FC = () => {
             </button>
           </>
         )}
-        
+
         <button
           onClick={() => setPagination(p => ({ ...p, current: p.current + 1 }))}
           disabled={currentPage >= totalPages}
-          className={`px-3 py-1 rounded border ${currentPage >= totalPages 
-            ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+          className={`px-3 py-1 rounded border ${currentPage >= totalPages
+            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
             : 'bg-white text-blue-600 hover:bg-blue-50 border-blue-600'}`}
         >
           Sau
         </button>
-        
+
         <select
           value={pagination.pageSize}
           onChange={(e) => setPagination(p => ({ ...p, current: 1, pageSize: Number(e.target.value) }))}
@@ -193,7 +193,7 @@ const ManageBlogsPage: React.FC = () => {
   return (
     <div className="p-6 bg-gray-50 min-h-full">
       <Breadcrumb items={[{ label: 'Quản lý Bài viết', icon: DocumentTextIcon }]} />
-      
+
       <div className="bg-white p-6 rounded-lg shadow-sm">
         {/* Filter + Action Bar */}
         <div className="flex items-center mb-6 pb-4 border-b border-gray-200 gap-2">
@@ -216,7 +216,7 @@ const ManageBlogsPage: React.FC = () => {
               <ArrowPathIcon className="h-4 w-4 mr-1" />
               Làm lại
             </button>
-            
+
             <button
               onClick={handleSearch}
               className="flex items-center px-3 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700"
@@ -224,7 +224,7 @@ const ManageBlogsPage: React.FC = () => {
               <MagnifyingGlassIcon className="h-4 w-4 mr-1" />
               Tìm kiếm
             </button>
-            
+
             <button
               onClick={handleExport}
               className="flex items-center px-3 py-1.5 bg-green-600 text-white rounded hover:bg-green-700"
@@ -268,9 +268,9 @@ const ManageBlogsPage: React.FC = () => {
                       <td className="px-6 py-4">
                         <div className="flex items-center">
                           {blog.thumbnail && (
-                            <img 
-                              src={blog.thumbnail} 
-                              alt={blog.title} 
+                            <img
+                              src={blog.thumbnail}
+                              alt={blog.title}
                               className="h-10 w-10 object-cover rounded mr-3"
                             />
                           )}
@@ -279,11 +279,10 @@ const ManageBlogsPage: React.FC = () => {
                       </td>
                       <td className="px-6 py-4">
                         <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            blog.status === 'published'
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${blog.status === 'published'
                               ? 'bg-green-100 text-green-800'
                               : 'bg-yellow-100 text-yellow-800'
-                          }`}
+                            }`}
                         >
                           {blog.status === 'published' ? 'Đã đăng' : 'Nháp'}
                         </span>
@@ -292,8 +291,8 @@ const ManageBlogsPage: React.FC = () => {
                         <div className="flex flex-wrap gap-1.5">
                           {blog.tags && blog.tags.length > 0 ? (
                             blog.tags.map((tag, idx) => (
-                              <span 
-                                key={idx} 
+                              <span
+                                key={idx}
                                 className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200"
                               >
                                 {tag}
@@ -344,7 +343,7 @@ const ManageBlogsPage: React.FC = () => {
               <div className="text-sm text-gray-600">
                 Tổng: <span className="font-medium">{pagination.total}</span> bài viết
               </div>
-              
+
               {renderPagination()}
             </div>
           </>
