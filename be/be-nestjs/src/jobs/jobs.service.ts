@@ -6,7 +6,7 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Job, JobDocument } from './schemas/job.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import aqp from 'api-query-params';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { FindJobsBySkillsDto } from './dto/find-jobs-by-skills.dto';
 
 
@@ -51,7 +51,7 @@ export class JobsService {
     let finalFilter: any = {
       isDeleted: false // Always include non-deleted items
     };
-    
+
     // Add HR filter if applicable
     if (user?.role?.name === 'HR') {
       finalFilter['createdBy._id'] = user._id;
@@ -71,26 +71,26 @@ export class JobsService {
 
     // Handle category search
     if (filter.category?.trim()) {
-      const categorySearch = this.escapeRegExp(filter.category.trim());
-      searchConditions.push({
-        $or: [
-          { 'category.name': { $regex: categorySearch, $options: 'i' } },
-          { level: { $regex: categorySearch, $options: 'i' } } // Also search in level field
-        ]
-      });
+      const id = new Types.ObjectId(filter.category.trim());
+      searchConditions.push({ category: id });
     }
 
     // Handle skills search
     if (filter.skill?.trim()) {
-      searchConditions.push({
-        'skills.name': { $regex: this.escapeRegExp(filter.skill.trim()), $options: 'i' }
-      });
+      const id = new Types.ObjectId(filter.skill.trim());
+      searchConditions.push({ skills: id });          // 1 skill
     }
 
     // Handle company search
     if (filter.company?.trim()) {
+      const idStr = filter.company.trim();
+      const idObj = new Types.ObjectId(idStr);
+
       searchConditions.push({
-        'company.name': { $regex: this.escapeRegExp(filter.company.trim()), $options: 'i' }
+        $or: [
+          { 'company._id': idObj },
+          { 'company._id': idStr }
+        ]
       });
     }
 

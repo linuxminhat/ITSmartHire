@@ -49,13 +49,13 @@ const ManageJobsPage: React.FC = () => {
     f = filter
   ) => {
     let q = `current=${page}&pageSize=${size}`;
-    
+
     if (f.name?.trim()) q += `&search=${encodeURIComponent(f.name.trim())}`;
-    if (f.category?.trim()) q += `&category=${encodeURIComponent(f.category.trim())}`;
-    if (f.skill?.trim()) q += `&skill=${encodeURIComponent(f.skill.trim())}`;
-    if (f.company?.trim()) q += `&company=${encodeURIComponent(f.company.trim())}`;
+    if (f.category) q += `&category=${f.category}`;
+    if (f.skill) q += `&skill=${f.skill}`;
+    if (f.company) q += `&company=${f.company}`;
     if (f.location?.trim()) q += `&location=${encodeURIComponent(f.location.trim())}`;
-    
+
     console.log('Building query with filter:', f);
     console.log('Final query string:', q);
     return q;
@@ -235,6 +235,9 @@ const ManageJobsPage: React.FC = () => {
               onChange={setFilter}
               onReset={handleReset}
               onSearch={handleSearch}
+              categories={listCategories}
+              skills={listSkills}
+              companies={listCompanies}
             />
           </div>
 
