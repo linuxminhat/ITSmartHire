@@ -1,13 +1,14 @@
 import React, { useCallback } from 'react';
 import { ArrowPathIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import debounce from 'lodash/debounce';
+import { ICategory, ICompany, ISkill } from '@/types/backend';
 
 export interface JobFilterState {
   name: string;
-  category: string;
-  skill: string;
-  company: string;
   location: string;
+  category: string;  // lưu _id
+  skill: string;     // lưu _id (hoặc mảng _ids nếu đa chọn)
+  company: string;   // lưu _id
 }
 
 interface JobFilterProps {
@@ -15,6 +16,9 @@ interface JobFilterProps {
   onChange: (value: JobFilterState) => void;
   onSearch: () => void;
   onReset: () => void;
+  categories: ICategory[];
+  skills: ISkill[];
+  companies: ICompany[];
 }
 
 const JobFilter: React.FC<JobFilterProps> = ({
@@ -22,6 +26,9 @@ const JobFilter: React.FC<JobFilterProps> = ({
   onChange,
   onSearch,
   onReset,
+  categories,
+  skills,
+  companies,
 }) => {
   // Debounced search function with shorter delay
   const debouncedSearch = useCallback(
@@ -64,40 +71,52 @@ const JobFilter: React.FC<JobFilterProps> = ({
         {/* Danh mục */}
         <div className="flex items-center gap-1">
           <span className="whitespace-nowrap text-sm">Danh mục:</span>
-          <input
-            type="text"
+          <select
             className={inputCls}
-            placeholder="Tìm danh mục"
             value={value.category}
             onChange={e => handleChange('category', e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
+          >
+            <option value="">-- tất cả --</option>
+            {categories.map(c => (
+              <option key={c._id} value={c._id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Kỹ năng */}
         <div className="flex items-center gap-1">
           <span className="whitespace-nowrap text-sm">Kỹ năng:</span>
-          <input
-            type="text"
+          <select
             className={inputCls}
-            placeholder="Tìm kỹ năng"
             value={value.skill}
             onChange={e => handleChange('skill', e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
+          >
+            <option value="">-- tất cả --</option>
+            {skills.map(s => (
+              <option key={s._id} value={s._id}>
+                {s.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Công ty */}
         <div className="flex items-center gap-1">
           <span className="whitespace-nowrap text-sm">Công ty:</span>
-          <input
-            type="text"
+          <select
             className={inputCls}
-            placeholder="Tìm công ty"
             value={value.company}
             onChange={e => handleChange('company', e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
+          >
+            <option value="">-- tất cả --</option>
+            {companies.map(co => (
+              <option key={co._id} value={co._id}>
+                {co.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Địa điểm */}
