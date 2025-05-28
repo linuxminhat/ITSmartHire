@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.gitignore
+Dockerfile
+.env
+Dockerfile*
+README.md
+
+# ⬇️  Ignore mọi lockfile nằm trong sub-folder …
+**/package-lock.json
+# ⬇️  … nhưng giữ lockfile ở thư mục gốc backend (được copy)
+!package-lock.json
