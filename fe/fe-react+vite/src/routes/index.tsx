@@ -58,7 +58,6 @@ export const router = createBrowserRouter([
       {
         element: <UserLayout />,
         children: [
-          //route mặc định khi truy cập vào path cha 
           { index: true, element: <HomePage /> },
           { path: "login", element: <LoginPage /> },
           { path: "register", element: <RegisterPage /> },
@@ -84,10 +83,6 @@ export const router = createBrowserRouter([
             path: "blog/:id",
             element: <BlogDetailPage />,
           },
-          // {
-          //   path: "mockinterview",
-          //   element: <MockInterviewPage />,
-          // },
         ]
       },
 
@@ -129,8 +124,10 @@ export const router = createBrowserRouter([
               { path: "companies", element: <ManageCompaniesPage /> },
               { path: "jobs", element: <ManageJobsPage /> },
               { path: "resumes", element: <ManageResumesPage /> },
-              { path: "notifications", element: <HRNotificationsPage /> }
-
+              { path: "notifications", element: <HRNotificationsPage /> },
+              { path: "blogs", element: <ManageBlogsPage /> },
+              { path: "blogs/new", element: <BlogEditorPage /> },
+              { path: "blogs/:id/edit", element: <BlogEditorPage /> }
             ]
           }
         ]

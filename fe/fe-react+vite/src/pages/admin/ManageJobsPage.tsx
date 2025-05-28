@@ -147,7 +147,8 @@ const ManageJobsPage: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const res: IBackendRes<any> = await callDeleteJob(job._id);
+      // const res = await callDeleteJob(job._id);
+      const res = await callDeleteJob(job._id) as IBackendRes<any>;
       if (res && res.data) {
         toast.success('Xóa việc làm thành công!');
         const query = meta.current > 1 && jobs.length === 1 ? `current=${meta.current - 1}&pageSize=${meta.pageSize}` : `current=${meta.current}&pageSize=${meta.pageSize}`;
