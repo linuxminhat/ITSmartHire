@@ -21,12 +21,12 @@ const Sidebar: React.FC = () => {
   const { user } = useAuth();
   const role = user?.role?.name;
   const [blogsOpen, setBlogsOpen] = useState(false);
-  
+
   // Only use HR notification hook if the user is HR
-  const hrNotifications = role === 'HR' 
-    ? useHRNotification() 
+  const hrNotifications = role === 'HR'
+    ? useHRNotification()
     : { unreadCount: 0 };
-  
+
   const { unreadCount } = hrNotifications;
 
   const basePath = role === 'ADMIN' ? '/admin' : role === 'HR' ? '/hr' : '/';
@@ -142,6 +142,47 @@ const Sidebar: React.FC = () => {
                       </div>
                       <span className="flex-1 whitespace-nowrap">Quản lý thông báo</span>
                     </NavLink>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => setBlogsOpen(o => !o)}
+                      className="group w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200"
+                    >
+                      <div className="flex items-center">
+                        <NewspaperIcon
+                          className="h-5 w-5 mr-3 text-gray-400 group-hover:text-white"
+                        />
+                        <span className="flex-1 whitespace-nowrap">
+                          Quản lý Bài viết
+                        </span>
+                      </div>
+                      <ChevronDownIcon
+                        className={` h-5 w-5 transition-transform  ${blogsOpen ? 'rotate-180' : 'rotate-0'} `}
+                      />
+                    </button>
+
+                    {blogsOpen && (
+                      <ul className="mt-1 space-y-1 pl-8">
+                        <li>
+                          <NavLink
+                            to={`${basePath}/blogs`}
+                            end
+                            className={navLinkClasses}
+                          >
+                            Danh sách bài viết
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to={`${basePath}/blogs/new`}
+                            end
+                            className={navLinkClasses}
+                          >
+                            Thêm bài viết mới
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
                   </li>
                 </>
               )}

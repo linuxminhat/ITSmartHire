@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, Fragment } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
 import { useNavigate } from 'react-router-dom'
+import useBasePath from '@/hooks/useBasePath'
+import { useAuth } from '@/contexts/AuthContext'
 import { blogService } from '@/services/blog.service'
 import type { IBlog } from '@/types/blog.type'
 import Spinner from '@/components/Spinner'
@@ -19,6 +22,9 @@ interface IPagination {
 
 const ManageBlogsPage: React.FC = () => {
   const navigate = useNavigate()
+  const basePath = useBasePath()
+  const { user } = useAuth()
+  const isAdmin = user?.role?.name === 'ADMIN'
   const [blogs, setBlogs] = useState<IBlog[]>([])
   const [loading, setLoading] = useState(false)
   const [pagination, setPagination] = useState<IPagination>({
@@ -28,6 +34,8 @@ const ManageBlogsPage: React.FC = () => {
     total: 0,
   })
   const [filter, setFilter] = useState<BlogFilterState>({ title: '', tag: '' })
+  const [noPermOpen, setNoPermOpen] = useState(false)
+  const showNoPermModal = () => setNoPermOpen(true)
 
   const buildQuery = (page = pagination.current, size = pagination.pageSize, f = filter) => {
     let q = `current=${page}&pageSize=${size}&sort=-updatedAt`
@@ -91,15 +99,20 @@ const ManageBlogsPage: React.FC = () => {
   }
 
   const handleEdit = (id: string) => navigate(`${id}/edit`)
-
-  const handleDelete = async (id: string) => {
+  // const handleDelete = async (id: string) => {
+  //   if (!window.confirm('Xác nhận xóa bài viết này?')) return
+  //   await blogService.delete(id)
+  //   fetchBlogs()
+  // }
+  const handleDelete = async (id: string, canModify: boolean) => {
+    if (!canModify) return showNoPermModal();
     if (!window.confirm('Xác nhận xóa bài viết này?')) return
     await blogService.delete(id)
     fetchBlogs()
   }
 
   const handleAddNew = () => {
-    navigate('/admin/blogs/new')
+    navigate(`${basePath}/blogs/new`)
   }
 
   const renderPagination = () => {
@@ -191,124 +204,125 @@ const ManageBlogsPage: React.FC = () => {
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
-      <Breadcrumb items={[{ label: 'Quản lý Bài viết', icon: DocumentTextIcon }]} />
+    <Fragment>
+      <div className="p-6 bg-gray-50 min-h-full">
+        <Breadcrumb items={[{ label: 'Quản lý Bài viết', icon: DocumentTextIcon }]} />
 
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        {/* Filter + Action Bar */}
-        <div className="flex items-center mb-6 pb-4 border-b border-gray-200 gap-2">
-          {/* Left side - Filter inputs */}
-          <div className="flex-1">
-            <BlogFilter
-              value={filter}
-              onChange={setFilter}
-              onReset={handleReset}
-              onSearch={handleSearch}
-            />
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          {/* Filter + Action Bar */}
+          <div className="flex items-center mb-6 pb-4 border-b border-gray-200 gap-2">
+            {/* Left side - Filter inputs */}
+            <div className="flex-1">
+              <BlogFilter
+                value={filter}
+                onChange={setFilter}
+                onReset={handleReset}
+                onSearch={handleSearch}
+              />
+            </div>
+
+            {/* Right side - Action buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleReset}
+                className="flex items-center px-3 py-1.5 border border-gray-300 bg-white rounded text-sm text-gray-700 hover:bg-gray-50"
+              >
+                <ArrowPathIcon className="h-4 w-4 mr-1" />
+                Làm lại
+              </button>
+
+              <button
+                onClick={handleSearch}
+                className="flex items-center px-3 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+              >
+                <MagnifyingGlassIcon className="h-4 w-4 mr-1" />
+                Tìm kiếm
+              </button>
+
+              <button
+                onClick={handleExport}
+                className="flex items-center px-3 py-1.5 bg-green-600 text-white rounded hover:bg-green-700"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Xuất File
+              </button>
+
+              <button
+                onClick={handleAddNew}
+                className="flex items-center px-3 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                <PlusIcon className="h-4 w-4 mr-1" />
+                Thêm mới
+              </button>
+            </div>
           </div>
 
-          {/* Right side - Action buttons */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleReset}
-              className="flex items-center px-3 py-1.5 border border-gray-300 bg-white rounded text-sm text-gray-700 hover:bg-gray-50"
-            >
-              <ArrowPathIcon className="h-4 w-4 mr-1" />
-              Làm lại
-            </button>
-
-            <button
-              onClick={handleSearch}
-              className="flex items-center px-3 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-            >
-              <MagnifyingGlassIcon className="h-4 w-4 mr-1" />
-              Tìm kiếm
-            </button>
-
-            <button
-              onClick={handleExport}
-              className="flex items-center px-3 py-1.5 bg-green-600 text-white rounded hover:bg-green-700"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Xuất File
-            </button>
-
-            <button
-              onClick={handleAddNew}
-              className="flex items-center px-3 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              <PlusIcon className="h-4 w-4 mr-1" />
-              Thêm mới
-            </button>
-          </div>
-        </div>
-
-        {loading ? (
-          <div className="flex justify-center p-8">
-            <Spinner />
-          </div>
-        ) : (
-          <>
-            <div className="overflow-x-auto">
-              <table className="min-w-full bg-white rounded-lg overflow-hidden">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiêu đề</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày cập nhật</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {blogs.map((blog) => (
-                    <tr key={blog._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          {blog.thumbnail && (
-                            <img
-                              src={blog.thumbnail}
-                              alt={blog.title}
-                              className="h-10 w-10 object-cover rounded mr-3"
-                            />
-                          )}
-                          <div className="line-clamp-1 font-medium text-gray-900 max-w-md">{blog.title}</div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${blog.status === 'published'
+          {loading ? (
+            <div className="flex justify-center p-8">
+              <Spinner />
+            </div>
+          ) : (
+            <>
+              <div className="overflow-x-auto">
+                <table className="min-w-full bg-white rounded-lg overflow-hidden">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiêu đề</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày cập nhật</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {blogs.map((blog) => (
+                      <tr key={blog._id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            {blog.thumbnail && (
+                              <img
+                                src={blog.thumbnail}
+                                alt={blog.title}
+                                className="h-10 w-10 object-cover rounded mr-3"
+                              />
+                            )}
+                            <div className="line-clamp-1 font-medium text-gray-900 max-w-md">{blog.title}</div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${blog.status === 'published'
                               ? 'bg-green-100 text-green-800'
                               : 'bg-yellow-100 text-yellow-800'
-                            }`}
-                        >
-                          {blog.status === 'published' ? 'Đã đăng' : 'Nháp'}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex flex-wrap gap-1.5">
-                          {blog.tags && blog.tags.length > 0 ? (
-                            blog.tags.map((tag, idx) => (
-                              <span
-                                key={idx}
-                                className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200"
-                              >
-                                {tag}
-                              </span>
-                            ))
-                          ) : (
-                            <span className="text-xs text-gray-400">Chưa có tag</span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {blog.updatedAt ? new Date(blog.updatedAt).toLocaleDateString('vi-VN') : '-'}
-                      </td>
-                      <td className="px-6 py-4 text-sm whitespace-nowrap">
-                        <div className="flex space-x-2">
-                          <button
+                              }`}
+                          >
+                            {blog.status === 'published' ? 'Đã đăng' : 'Nháp'}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex flex-wrap gap-1.5">
+                            {blog.tags && blog.tags.length > 0 ? (
+                              blog.tags.map((tag, idx) => (
+                                <span
+                                  key={idx}
+                                  className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200"
+                                >
+                                  {tag}
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-xs text-gray-400">Chưa có tag</span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-500">
+                          {blog.updatedAt ? new Date(blog.updatedAt).toLocaleDateString('vi-VN') : '-'}
+                        </td>
+                        <td className="px-6 py-4 text-sm whitespace-nowrap">
+                          <div className="flex space-x-2">
+                            {/* <button
                             onClick={() => handleEdit(blog._id)}
                             className="text-blue-600 hover:text-blue-900 flex items-center"
                             title="Chỉnh sửa"
@@ -321,35 +335,133 @@ const ManageBlogsPage: React.FC = () => {
                             title="Xóa"
                           >
                             <TrashIcon className="h-5 w-5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                          </button> */}
+                            +                          {/* ➡️ kiểm quyền */}
+                            {(() => {
+                              const canModify =
+                                isAdmin ||
+                                blog.author?._id === user?._id;
+                              return (
+                                <>
+                                  {canModify ? (
+                                    <button
+                                      onClick={() => handleEdit(blog._id)}
+                                      className="text-blue-600 hover:text-blue-900 flex items-center"
+                                      title="Chỉnh sửa"
+                                    >
+                                      <PencilIcon className="h-5 w-5" />
+                                    </button>
+                                  ) : (
+                                    <button
+                                      onClick={showNoPermModal}
+                                      className="text-gray-400 cursor-not-allowed flex items-center"
+                                      title="Không đủ quyền"
+                                    >
+                                      <PencilIcon className="h-5 w-5" />
+                                    </button>
+                                  )}
 
-                  {blogs.length === 0 && (
-                    <tr>
-                      <td colSpan={5} className="px-6 py-4 text-center text-gray-500">
-                        Không có bài viết nào
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                                  {canModify ? (
+                                    <button
+                                      onClick={() => handleDelete(blog._id, true)}
+                                      className="text-red-600 hover:text-red-900 flex items-center"
+                                      title="Xóa"
+                                    >
+                                      <TrashIcon className="h-5 w-5" />
+                                    </button>
+                                  ) : (
+                                    <button
+                                      onClick={showNoPermModal}
+                                      className="text-gray-400 cursor-not-allowed flex items-center"
+                                      title="Không đủ quyền"
+                                    >
+                                      <TrashIcon className="h-5 w-5" />
+                                    </button>
+                                  )}
+                                </>
+                              );
+                            })()}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
 
-            {/* Footer with pagination */}
-            <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-200">
-              <div className="text-sm text-gray-600">
-                Tổng: <span className="font-medium">{pagination.total}</span> bài viết
+                    {blogs.length === 0 && (
+                      <tr>
+                        <td colSpan={5} className="px-6 py-4 text-center text-gray-500">
+                          Không có bài viết nào
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
 
-              {renderPagination()}
-            </div>
-          </>
-        )}
+              {/* Footer with pagination */}
+              <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-200">
+                <div className="text-sm text-gray-600">
+                  Tổng: <span className="font-medium">{pagination.total}</span> bài viết
+                </div>
+
+                {renderPagination()}
+              </div>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+
+
+      {/* ---------- Modal không đủ quyền ---------- */}
+      <Transition appear show={noPermOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50" onClose={() => setNoPermOpen(false)}>
+          {/* backdrop */}
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          {/* panel */}
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title className="text-lg font-semibold">
+                    Không đủ quyền
+                  </Dialog.Title>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Bạn chỉ có thể chỉnh sửa hoặc xoá những bài viết do chính bạn tạo.
+                  </p>
+
+                  <div className="mt-4 text-right">
+                    <button
+                      onClick={() => setNoPermOpen(false)}
+                      className="inline-flex justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                    >
+                      Đã hiểu
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+    </Fragment >
   )
 }
 

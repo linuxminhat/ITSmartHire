@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Blog, BlogDocument } from './schemas/blog.schema';
@@ -76,12 +76,14 @@ export class BlogsService {
     return blog;
   }
 
-  async update(id: string, updateBlogDto: UpdateBlogDto): Promise<Blog> {
+  async update(id: string, updateBlogDto: UpdateBlogDto, user: any): Promise<Blog> {
     const blog = await this.blogModel.findById(id).exec();
     if (!blog || blog.isDeleted) {
       throw new NotFoundException(`Blog with ID ${id} not found`);
     }
-
+    if (user.role.name === 'HR' && blog.author.toString() !== user._id.toString()) {
+      throw new ForbiddenException('Bạn không có quyền chỉnh sửa bài viết này');
+    }
     // Cập nhật các trường được cung cấp
     Object.assign(blog, updateBlogDto);
 
@@ -89,15 +91,34 @@ export class BlogsService {
     return blog.save();
   }
 
-  async remove(id: string): Promise<void> {
-    const result = await this.blogModel.findOneAndUpdate(
-      { _id: id, isDeleted: false },
-      { $set: { isDeleted: true, deletedAt: new Date() } }
-    ).exec();
+  // async remove(id: string, user: any): Promise<void> {
+  //   const result = await this.blogModel.findOneAndUpdate(
+  //     { _id: id, isDeleted: false },
+  //     { $set: { isDeleted: true, deletedAt: new Date() } }
+  //   ).exec();
 
-    if (!result) {
-      throw new NotFoundException(`Blog with ID ${id} not found`);
+  //   if (!result) {
+  //     throw new NotFoundException(`Blog with ID ${id} not found`);
+  //   }
+  // }
+
+  async remove(id: string, user: any): Promise<void> {
+    const blog = await this.blogModel.findById(id).exec();
+    if (!blog || blog.isDeleted) {
+      throw new NotFoundException(`Blog với ID ${id} không tồn tại`);
     }
+
+    if (
+      user.role?.name === 'HR' &&
+      blog.author.toString() !== user._id.toString()
+    ) {
+      throw new ForbiddenException(
+        'Bạn không có quyền xoá bài viết này',
+      );
+    }
+    blog.isDeleted = true;
+    // blog.deletedAt = new Date();
+    await blog.save();
   }
 
   async incrementViews(id: string): Promise<void> {

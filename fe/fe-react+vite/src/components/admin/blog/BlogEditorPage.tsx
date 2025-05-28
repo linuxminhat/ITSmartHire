@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import useBasePath from '@/hooks/useBasePath'
 import { blogService } from '@/services/blog.service'
 import BlogForm from '@/components/admin/blog/BlogForm'
 import type { IBlog, IBlogPayload } from '@/types/blog.type'
@@ -8,6 +9,7 @@ import Spinner from '@/components/Spinner'
 const BlogEditorPage: React.FC = () => {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
+    const basePath = useBasePath()
     const [initialData, setInitialData] = useState<IBlog | undefined>(undefined)
     const [loading, setLoading] = useState(!!id)
     const [submitting, setSubmitting] = useState(false)
@@ -36,14 +38,12 @@ const BlogEditorPage: React.FC = () => {
             console.log('Final payload:', payload);
 
             if (id) {
-                // cập nhật
                 await blogService.update(id, payload)
             } else {
-                // tạo mới
                 await blogService.create(payload)
             }
-            // sau khi thành công, quay về list
-            navigate('/admin/blogs')
+
+            navigate(`${basePath}/blogs`)
         } catch (err) {
             console.error(err)
         } finally {

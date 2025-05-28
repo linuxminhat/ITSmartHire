@@ -16,7 +16,7 @@ export class DashboardService {
   ) { }
 
   async getStats(): Promise<DashboardStats> {
-    // 1. Tìm ObjectId của role USER/HR
+    const base = { isDeleted: false };
     const [userRole, hrRole] = await Promise.all([
       this.roleModel.findOne({ name: 'USER' }).exec(),
       this.roleModel.findOne({ name: 'HR' }).exec(),
@@ -24,13 +24,10 @@ export class DashboardService {
 
     // 2. Đếm số user dựa vào ObjectId
     const [totalUsers, totalRecruiters, totalJobs, activeJobs] = await Promise.all([
-      // Chỉ đếm users chưa bị soft-delete
       this.userModel.countDocuments({ role: userRole._id, isDeleted: false }),
-      // Chỉ đếm HR chưa bị soft-delete
       this.userModel.countDocuments({ role: hrRole._id, isDeleted: false }),
-      // Nếu bạn đã soft-delete job cũng lưu flag, thêm điều kiện tương tự
-      this.jobModel.countDocuments({ /* nếu có isDeleted: false */ }),
-      this.jobModel.countDocuments({ isActive: true /*, isDeleted: false */ }),
+      this.jobModel.countDocuments(base),
+      this.jobModel.countDocuments({ ...base, isActive: true }),
     ]);
 
     return { totalUsers, totalRecruiters, totalJobs, activeJobs };
@@ -39,7 +36,7 @@ export class DashboardService {
   async getTopSkills(): Promise<TopSkill[]> {
     return this.jobModel.aggregate([
       // 1. Chỉ lấy jobs chưa bị xóa
-      { $match: { isDeleted: { $ne: true } } },
+      { $match: { isDeleted: false } },
 
       // 2. Phần còn lại như cũ:
       { $unwind: '$skills' },
@@ -72,7 +69,7 @@ export class DashboardService {
 
   async getTopCompanies(): Promise<TopCompany[]> {
     return this.jobModel.aggregate([
-      { $match: { isDeleted: { $ne: true } } },
+      { $match: { isDeleted: false } },
       {
         $group: {
           _id: '$company._id',
@@ -87,7 +84,7 @@ export class DashboardService {
 
   async getTopCategories(): Promise<TopCategory[]> {
     return this.jobModel.aggregate([
-      { $match: { isDeleted: { $ne: true } } },
+      { $match: { isDeleted: false } },
       {
         $group: {
           _id: '$category',
