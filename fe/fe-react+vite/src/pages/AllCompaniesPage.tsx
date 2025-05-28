@@ -4,7 +4,7 @@ import { callFetchCompany } from '@/services/company.service';
 import { ICompany } from '@/types/backend';
 import Spinner from '@/components/Spinner';
 import { MapPinIcon, BuildingOffice2Icon, ArrowRightIcon } from '@heroicons/react/24/outline';
-
+import companiesBanner from '@/assets/images/companies-banner.jpg';
 interface IPagination {
   current: number;
   pageSize: number;
@@ -113,14 +113,21 @@ const AllCompaniesPage: React.FC = () => {
 
   return (
     <div className="bg-gray-50 pb-12">
-      <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 px-4 text-center shadow-md">
-          <div className="container mx-auto max-w-4xl">
-              <h1 className="text-4xl font-bold mb-3">Khám phá Các Công ty IT Hàng đầu</h1>
-              <p className="text-lg text-indigo-100">Tìm hiểu về văn hóa, phúc lợi và cơ hội việc làm tại các công ty IT nổi bật.</p>
-          </div>
+      <section 
+        className="relative h-[200px] text-white py-8 px-4 text-center shadow-md overflow-hidden mb-12"
+      >
+        <img 
+          src={companiesBanner} 
+          alt="Companies Banner"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="relative container mx-auto max-w-4xl z-10">
+            <h1 className="text-4xl font-bold mb-3">Khám phá Các Công ty IT Hàng đầu</h1>
+            <p className="text-lg text-white">Tìm hiểu về văn hóa, phúc lợi và cơ hội việc làm tại các công ty IT nổi bật.</p>
+        </div>
       </section>
 
-      <div className="container mx-auto max-w-6xl mt-[-40px] px-4">
+      <div className="container mx-auto max-w-6xl px-4">
          <div className="bg-white rounded-lg shadow-xl p-6 md:p-8">
             {isLoading && (
                <div className="text-center py-10"><Spinner /></div>

@@ -16,17 +16,18 @@ const TAG_OPTIONS = [
     'Ứng tuyển và thăng tiến',
     'Chuyên môn IT',
     'Chuyện IT',
+    'Quảng bá công ty',
 ]
 const tagOptions = TAG_OPTIONS.map(tag => ({ value: tag, label: tag }))
 
 const BlogForm: React.FC<BlogFormProps> = ({ initialData, onSubmit, submitting }) => {
     const fileInputRef = useRef<HTMLInputElement>(null)
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<IBlogPayload>({
         title: '',
         description: '',
         content: '',
         thumbnail: '',
-        status: 'draft',
+        status: 'draft' as 'draft' | 'published',
         tags: [] as string[],
     })
     const [uploading, setUploading] = useState(false)
@@ -39,7 +40,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData, onSubmit, submitting }
                 description: initialData.description,
                 content: initialData.content,
                 thumbnail: initialData.thumbnail || '',
-                status: initialData.status,
+                status: initialData.status as 'draft' | 'published',
                 tags: initialData.tags || [],
             })
         }
@@ -73,12 +74,14 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData, onSubmit, submitting }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        // Debug tạm thời
+        console.log('Submitting form data:', formData);
+        console.log('Tags being submitted:', formData.tags);
         onSubmit(formData)
     }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            {/* 1. Tiêu đề */}
             <div>
                 <label className="block text-sm font-medium mb-1">Tiêu đề</label>
                 <div className="relative">
@@ -97,8 +100,6 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData, onSubmit, submitting }
                     </div>
                 </div>
             </div>
-
-            {/* 2. Mô tả */}
             <div>
                 <label className="block text-sm font-medium mb-1">Mô tả</label>
                 <div className="relative">
@@ -116,11 +117,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData, onSubmit, submitting }
                     </div>
                 </div>
             </div>
-
-            {/* 3. Ảnh đại diện */}
-            {/* 3-5. Avatar, Trạng thái, Tags in one row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Avatar upload */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Ảnh đại diện</label>
                     <input
@@ -142,7 +139,6 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData, onSubmit, submitting }
                     </div>
                 </div>
 
-                {/* Status select */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Trạng thái</label>
                     <select
@@ -156,7 +152,6 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData, onSubmit, submitting }
                     </select>
                 </div>
 
-                {/* Tags select */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Tags</label>
                     <Select
@@ -165,67 +160,98 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData, onSubmit, submitting }
                         isSearchable
                         closeMenuOnSelect={false}
                         placeholder="Chọn tag..."
-                        // render menu lên body, tránh bị che
                         menuPortalTarget={typeof document !== 'undefined' ? document.body : null}
                         styles={{
-                            // đảm bảo menu portal có z-index cao
                             menuPortal: base => ({ ...base, zIndex: 9999 }),
                             menuList: base => ({
                                 ...base,
-                                // giới hạn chiều cao, sẽ tự hiện scrollbar
                                 maxHeight: '150px',
                             }),
                         }}
+                        value={tagOptions.filter(option => formData.tags.includes(option.value))}
+                        onChange={(selectedOptions) => {
+                            const selectedTags = selectedOptions ? (selectedOptions as {value: string, label: string}[]).map(option => option.value) : [];
+                            setFormData(prev => ({ ...prev, tags: selectedTags }));
+                        }}
                     />
+                    <p className="text-xs text-gray-500 mt-1">Chọn ít nhất một tag phù hợp với nội dung bài viết</p>
                 </div>
             </div>
-
-            {/* 6. Nội dung với TinyMCE */}
             <Editor
                 apiKey="nxdd2bqfluksusq6r978zthgxs1fy7u37qyu343ew2r05qiq"
                 value={formData.content}
                 init={{
-                    height: 400,
-                    menubar: 'file edit view insert format table tools help',
+                    height: 500,
+                    menubar: 'file edit view insert format tools table help',
                     plugins: [
-                        'undo redo | styles | bold italic underline | ' +
-                        'alignleft aligncenter alignright | bullist numlist | image | code',
-                        'advlist autolink lists link image imagetools charmap',
-                        'print preview anchor searchreplace visualblocks code fullscreen',
-                        'table',
-                        'insertdatetime media paste help wordcount textpattern colorpicker'
+                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                        'insertdatetime', 'media', 'table', 'help', 'wordcount',
+                        'imagetools'
                     ],
+                    toolbar: 'undo redo | formatselect | ' +
+                        'bold italic underline | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'image link | table | code',
                     automatic_uploads: true,
-                    remove_plugins: 'dragdrop',
-                    toolbar:
-                        'undo redo | formatselect fontselect  | bold italic underline | ' +
-                        'alignleft aligncenter alignright alignjustify | ' +
-                        'bullist numlist outdent indent | forecolor backcolor | ' +
-                        'image link media table | code',
-                    extended_valid_elements:
-                        'table[border|cellspacing|cellpadding|width|frame|rules|style|summary],thead[style],input[type|name|value|checked|disabled|class|id|style],tbody[style],tr[style],td[colspan|rowspan|width|height|style],th[colspan|rowspan|width|height|style]',
+                    images_reuse_filename: true,
+                    images_upload_handler: function (blobInfo, progress) {
+                        return new Promise((resolve, reject) => {
+                            const file = new File([blobInfo.blob()], blobInfo.filename());
+
+                            uploadFile(file, 'blog-images', (p) => {
+                                progress(p);
+                            })
+                                .then(url => {
+                                    resolve(url);
+                                })
+                                .catch(err => {
+                                    reject('Upload thất bại: ' + err.message);
+                                });
+                        });
+                    },
+
+                    paste_data_images: true,
+                    file_picker_types: 'image',
+                    image_title: true,
+                    image_caption: true,
+
                     font_formats:
                         'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier;' +
                         'Georgia=georgia,palatino;Tahoma=tahoma,arial,helvetica,sans-serif;' +
                         'Times New Roman=times new roman,times;Verdana=verdana,geneva;',
                     fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-                    file_picker_types: 'image',
 
-                    // Hàm upload thực tế
-                    images_upload_handler: async (blobInfo, success, failure, progress) => {
-                        try {
-                            const file = new File([blobInfo.blob()], blobInfo.filename());
-                            const url = await uploadFile(file, 'blog-images', progress); // Đảm bảo thư mục upload đúng
-                            success(url);          // Trả về URL của ảnh sau khi upload
-                        } catch (err: any) {
-                            failure('Upload thất bại: ' + err.message);
+                    file_picker_callback: function (callback, value, meta) {
+                        if (meta.filetype === 'image') {
+                            const input = document.createElement('input');
+                            input.setAttribute('type', 'file');
+                            input.setAttribute('accept', 'image/*');
+
+                            input.onchange = function () {
+                                if (input.files?.[0]) {
+                                    const file = input.files[0];
+                                    const uploadingText = `Đang tải lên ${file.name}...`;
+                                    callback(uploadingText, { title: file.name });
+
+                                    uploadFile(file, 'blog-images', (p) => {
+                                    })
+                                        .then(url => {
+                                            callback(url, { title: file.name });
+                                        })
+                                        .catch(err => {
+                                            console.error('Lỗi upload ảnh:', err);
+                                            callback('', { title: 'Upload thất bại' });
+                                        });
+                                }
+                            };
+
+                            input.click();
                         }
-                    },
+                    }
                 }}
                 onEditorChange={content => setFormData(prev => ({ ...prev, content }))}
             />
-
-            {/* Submit */}
             <div className="flex justify-end">
                 <button
                     type="submit"
