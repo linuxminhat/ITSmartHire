@@ -24,24 +24,31 @@ export class CompaniesService {
     });
   }
 
-  //logic pagination query ! 
   async findAll(currentPage: number, limit: number, qs: string, user: IUser) {
     const { filter, skip, sort, projection, population } = aqp(qs);
-
     delete filter.current;
     delete filter.pageSize;
 
     let offset = (+currentPage - 1) * (+limit);
     let defaultLimit = +limit ? +limit : 10;
 
-    // --- Role-based Filter --- 
-    let finalFilter = { ...filter }; // Start with query string filters
-    if (user?.role?.name === 'HR') {
-        // If user is HR, add filter to only show companies created by them
-        finalFilter['createdBy._id'] = user._id;
+    let finalFilter = { ...filter, isDeleted: false };
+
+    const searchFields = ['name', 'address', 'country', 'industry'];
+    for (const field of searchFields) {
+      if (finalFilter[field] && typeof finalFilter[field] === 'string') {
+        finalFilter[field] = {
+          $regex: finalFilter[field],
+          $options: 'i'
+        };
+      }
     }
-    // Admins (or other roles) will use the original filter without the createdBy condition
-    // --- End Role-based Filter ---
+
+    console.log("Final filter:", finalFilter);
+
+    if (user?.role?.name === 'HR') {
+      finalFilter['createdBy._id'] = user._id;
+    }
 
     const totalItems = (await this.companyModel.find(finalFilter)).length;
     const totalPages = Math.ceil(totalItems / defaultLimit);
@@ -60,29 +67,22 @@ export class CompaniesService {
         pages: totalPages,
         total: totalItems
       },
-      result //kết quả query
+      result
     }
-
   }
   async findOne(id: string) {
     const company = await this.companyModel.findById(id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
       throw new NotFoundException(`Không tìm thấy công ty với id = ${id} hoặc định dạng ID không hợp lệ`);
-      // Hoặc trả về thông báo: return "Không tìm thấy công ty";
     }
-    // Kiểm tra nếu không thấy
     if (!company) {
       throw new NotFoundException(`Company with id = ${id} not found`);
     }
 
-    // Populate skills when finding one company
     await company.populate({ path: 'skills', select: 'name' });
 
     return company;
   }
-  // async findOne(id: string) {
-  //   return `This action returns a #${id} company`;
-  // }
 
   async update(id: string, updateCompanyDto: UpdateCompanyDto, user: IUser) {
     const { skills, ...restOfDto } = updateCompanyDto;

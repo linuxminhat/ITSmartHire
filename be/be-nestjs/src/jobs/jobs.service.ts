@@ -6,7 +6,7 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Job, JobDocument } from './schemas/job.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import aqp from 'api-query-params';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { FindJobsBySkillsDto } from './dto/find-jobs-by-skills.dto';
 
 
@@ -20,7 +20,7 @@ export class JobsService {
       isActive, location,
       category
     } = createJobDto;
-    
+
     await this.jobModel.create({
       name, skills, company, salary, quantity,
       level, description, startDate, endDate,
@@ -32,42 +32,121 @@ export class JobsService {
         email: user.email
       }
     });
-    
+
     return {
-        statusCode: 201,
-        message: "Tạo việc làm thành công"
+      statusCode: 201,
+      message: "Tạo việc làm thành công"
     }
   }
 
   async findAll(currentPage: number, limit: number, qs: string, user: IUser) {
-    const { filter, sort, population, projection } = aqp(qs);
+    const { filter, sort, population } = aqp(qs);
     delete filter.current;
     delete filter.pageSize;
-    
+
     let offset = (+currentPage - 1) * (+limit);
     let defaultLimit = +limit ? +limit : 10;
-    
-    let finalFilter = { ...filter };
+
+    // Build the search filter
+    let finalFilter: any = {
+      isDeleted: false // Always include non-deleted items
+    };
+
+    // Add HR filter if applicable
     if (user?.role?.name === 'HR') {
-        finalFilter['createdBy._id'] = user._id;
+      finalFilter['createdBy._id'] = user._id;
     }
-    
-    const totalItems = (await this.jobModel.find(finalFilter)).length;
+
+    const searchConditions = [];
+
+    // Handle name/search
+    if (filter.name || filter.search) {
+      const searchTerm = filter.name || filter.search;
+      if (searchTerm?.trim()) {
+        searchConditions.push({
+          name: { $regex: this.escapeRegExp(searchTerm.trim()), $options: 'i' }
+        });
+      }
+    }
+
+    // Handle category search
+    if (filter.category?.trim()) {
+      const id = new Types.ObjectId(filter.category.trim());
+      searchConditions.push({ category: id });
+    }
+
+    // Handle skills search
+    if (filter.skill?.trim()) {
+      const id = new Types.ObjectId(filter.skill.trim());
+      searchConditions.push({ skills: id });          // 1 skill
+    }
+
+    // Handle company search
+    if (filter.company?.trim()) {
+      const idStr = filter.company.trim();
+      const idObj = new Types.ObjectId(idStr);
+
+      searchConditions.push({
+        $or: [
+          { 'company._id': idObj },
+          { 'company._id': idStr }
+        ]
+      });
+    }
+
+    // Handle location search
+    if (filter.location?.trim()) {
+      searchConditions.push({
+        location: { $regex: this.escapeRegExp(filter.location.trim()), $options: 'i' }
+      });
+    }
+
+    // Combine all search conditions with AND if there are any conditions
+    if (searchConditions.length > 0) {
+      finalFilter.$and = searchConditions;
+    }
+
+    // Remove unused filter properties
+    delete filter.name;
+    delete filter.search;
+    delete filter.category;
+    delete filter.skill;
+    delete filter.company;
+    delete filter.location;
+
+    // Add remaining filter properties
+    finalFilter = { ...finalFilter, ...filter };
+
+    console.log('Search conditions:', JSON.stringify(searchConditions, null, 2));
+    console.log('Final filter:', JSON.stringify(finalFilter, null, 2));
+
+    // First populate the references
+    const populatedQuery = this.jobModel.find(finalFilter)
+      .skip(offset)
+      .limit(defaultLimit)
+      .sort(sort as any)
+      .populate([
+        {
+          path: 'category',
+          select: 'name',
+        },
+        {
+          path: 'skills',
+          select: 'name',
+        },
+        {
+          path: 'company',
+          select: 'name logo',
+        }
+      ]);
+
+    const [totalItems, result] = await Promise.all([
+      this.jobModel.countDocuments(finalFilter),
+      populatedQuery.exec()
+    ]);
+
     const totalPages = Math.ceil(totalItems / defaultLimit);
 
-    let defaultPopulation = [
-        { path: 'company', select: 'name logo' },
-        { path: 'category', select: 'name' },
-        { path: 'skills', select: 'name' }
-    ];
-
-    const result = await this.jobModel.find(finalFilter)
-        .skip(offset)
-        .limit(defaultLimit)
-        .sort(sort as any)
-        .select(projection as any)
-        .populate(population && population.length > 0 ? population : defaultPopulation)
-        .exec();
     return {
       meta: {
         current: currentPage,
@@ -84,24 +163,24 @@ export class JobsService {
       throw new NotFoundException("Không tìm thấy việc làm với ID này.");
     }
     const job = await this.jobModel.findById(id)
-        .populate({ path: 'category', select: 'name' })
-        .populate({ path: 'skills', select: 'name' })
-        .populate({ path: 'company', select: 'name logo' });
-        
+      .populate({ path: 'category', select: 'name' })
+      .populate({ path: 'skills', select: 'name' })
+      .populate({ path: 'company', select: 'name logo' });
+
     if (!job) {
-        throw new NotFoundException("Không tìm thấy việc làm với ID này.");
+      throw new NotFoundException("Không tìm thấy việc làm với ID này.");
     }
     return job;
   }
 
   async update(_id: string, updateJobDto: UpdateJobDto, user: IUser) {
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-       throw new NotFoundException("Không tìm thấy việc làm với ID này.");
+      throw new NotFoundException("Không tìm thấy việc làm với ID này.");
     }
-    
+
     // Không cho phép cập nhật trường hrId để đảm bảo thông báo hoạt động đúng
     const { hrId, ...updateData } = updateJobDto as any;
-    
+
     const updated = await this.jobModel.updateOne(
       { _id },
       {
@@ -112,14 +191,14 @@ export class JobsService {
         }
       }
     );
-    
+
     if (updated.matchedCount === 0) {
-        throw new NotFoundException(`Không tìm thấy việc làm với ID: ${_id}`);
+      throw new NotFoundException(`Không tìm thấy việc làm với ID: ${_id}`);
     }
-    
+
     return {
-        statusCode: 200,
-        message: "Cập nhật việc làm thành công"
+      statusCode: 200,
+      message: "Cập nhật việc làm thành công"
     }
   }
 
@@ -127,42 +206,42 @@ export class JobsService {
 
   async remove(_id: string, user: IUser) {
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-       throw new NotFoundException("Không tìm thấy việc làm với ID này.");
+      throw new NotFoundException("Không tìm thấy việc làm với ID này.");
     }
     await this.jobModel.updateOne(
       { _id },
-      { 
+      {
         deletedBy: {
           _id: user._id,
           email: user.email
         }
       }
     );
-    
+
     const result = await this.jobModel.softDelete({ _id });
-    
+
     if (result.deleted === 0) {
-        throw new NotFoundException(`Không tìm thấy hoặc không thể xóa việc làm với ID: ${_id}`);
+      throw new NotFoundException(`Không tìm thấy hoặc không thể xóa việc làm với ID: ${_id}`);
     }
 
     return {
-        statusCode: 200, 
-        message: "Xóa việc làm thành công"
+      statusCode: 200,
+      message: "Xóa việc làm thành công"
     }
   }
   // jobs/jobs.service.ts
   // Sửa lại findByCompany trong jobs.service.ts
   async findByCompany(companyId: string) {
     if (!mongoose.Types.ObjectId.isValid(companyId)) {
-       throw new NotFoundException("Company ID không hợp lệ.");
+      throw new NotFoundException("Company ID không hợp lệ.");
     }
     console.log(companyId);
-    
+
     const jobs = await this.jobModel.find({
       'company._id': companyId,
       isActive: true,
     })
-    .exec();
+      .exec();
 
     return {
       statusCode: 200,
@@ -196,14 +275,14 @@ export class JobsService {
     if (category) {
       query.$or.push({ category: category }); // Jobs in the same category
     }
-    
+
     // Find similar jobs
     const similarJobs = await this.jobModel.find(query)
       .limit(limit)
       .select('_id name salary location company') // Select relevant fields
       .populate({
-          path: "company", // Populate company details
-          select: { _id: 1, name: 1, logo: 1 } // Select specific company fields
+        path: "company", // Populate company details
+        select: { _id: 1, name: 1, logo: 1 } // Select specific company fields
       })
       .sort({ createdAt: -1 }) // Sort by newest first (optional)
       .lean() // Use lean for performance if full Mongoose documents aren't needed
@@ -211,11 +290,11 @@ export class JobsService {
 
     return similarJobs;
   }
-  
+
   // New method to find jobs by skills
   async findBySkills(findJobsBySkillsDto: FindJobsBySkillsDto, currentPage: number, limit: number) {
     const { skills } = findJobsBySkillsDto;
-    
+
     // Convert string IDs to ObjectId
     const skillObjectIds = skills.map(id => new mongoose.Types.ObjectId(id));
 
@@ -238,7 +317,7 @@ export class JobsService {
       .select('_id name salary location company isActive isHot createdAt') // Select fields for listing
       .populate({
         path: "company",
-        select: { _id: 1, name: 1, logo: 1 } 
+        select: { _id: 1, name: 1, logo: 1 }
       })
       .exec();
 
@@ -278,7 +357,7 @@ export class JobsService {
       .select('_id name salary location company isActive isHot createdAt') // Select fields for listing
       .populate({
         path: "company",
-        select: { _id: 1, name: 1, logo: 1 } 
+        select: { _id: 1, name: 1, logo: 1 }
       })
       .populate({ // Also populate category name for context if needed later
         path: "category",
@@ -312,8 +391,8 @@ export class JobsService {
 
     // Build the final search query first
     const searchQuery: mongoose.FilterQuery<JobDocument> = {
-       ...filter,
-       isActive: true // Ensure only active jobs are searched by default
+      ...filter,
+      isActive: true // Ensure only active jobs are searched by default
     };
 
     if (name) {
@@ -334,9 +413,9 @@ export class JobsService {
 
     // Define default population if not provided by qs
     let defaultPopulation = [
-        { path: 'company', select: 'name logo' },
-        { path: 'category', select: 'name' },
-        { path: 'skills', select: 'name' }
+      { path: 'company', select: 'name logo' },
+      { path: 'category', select: 'name' },
+      { path: 'skills', select: 'name' }
     ];
 
     const result = await this.jobModel.find(searchQuery)
@@ -364,27 +443,27 @@ export class JobsService {
   // Migration function to update existing jobs with hrId
   async fixMissingHrIds() {
     console.log('[DEBUG] Running fixMissingHrIds migration');
-    
+
     // Lấy tất cả các công việc chưa có hrId
     const jobsWithoutHrId = await this.jobModel.find({ hrId: { $exists: false } });
     console.log(`[DEBUG] Found ${jobsWithoutHrId.length} jobs without hrId`);
-    
+
     // Lấy tất cả các công việc có hrId để kiểm tra
     const jobsWithHrId = await this.jobModel.find({ hrId: { $exists: true } })
       .select('_id name hrId');
     console.log(`[DEBUG] Found ${jobsWithHrId.length} jobs with hrId already set`);
-    
+
     if (jobsWithHrId.length > 0) {
       console.log('[DEBUG] Sample job with hrId:', jobsWithHrId[0]);
     }
-    
+
     let updated = 0;
     let failed = 0;
-    
+
     // Cập nhật các công việc với hrId từ trường createdBy._id
     for (const job of jobsWithoutHrId) {
       console.log(`[DEBUG] Processing job: ${job._id}, name: ${job.name}`);
-      
+
       if (job.createdBy && job.createdBy._id) {
         console.log(`[DEBUG] Setting hrId to ${job.createdBy._id} for job ${job._id}`);
         await this.jobModel.updateOne(
@@ -397,7 +476,7 @@ export class JobsService {
         failed++;
       }
     }
-    
+
     return {
       message: `Đã cập nhật ${updated} công việc, ${failed} công việc thất bại`,
       updatedJobs: updated,

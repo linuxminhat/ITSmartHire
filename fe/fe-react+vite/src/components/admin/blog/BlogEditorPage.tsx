@@ -1,4 +1,3 @@
-// src/pages/admin/blog/BlogEditorPage.tsx
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { blogService } from '@/services/blog.service'
@@ -9,19 +8,14 @@ import Spinner from '@/components/Spinner'
 const BlogEditorPage: React.FC = () => {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
-
-    // Dữ liệu ban đầu (chỉ dùng khi đang edit)
     const [initialData, setInitialData] = useState<IBlog | undefined>(undefined)
     const [loading, setLoading] = useState(!!id)
     const [submitting, setSubmitting] = useState(false)
 
     useEffect(() => {
         if (!id) {
-            // thêm mới thì không cần load
             return setLoading(false)
         }
-
-        // load blog cũ
         blogService
             .getById(id)
             .then((res) => setInitialData(res.data))
@@ -29,18 +23,24 @@ const BlogEditorPage: React.FC = () => {
             .finally(() => setLoading(false))
     }, [id])
 
-    // ==== CHỈ ĐỔI Ở ĐÂY ====
-    // Trước: data: Omit<IBlog,'_id'|'views'>
-    // Sau:
     const handleSave = async (data: IBlogPayload) => {
         setSubmitting(true)
         try {
+            console.log('Data before sending to server:', data);
+
+            const payload = {
+                ...data,
+                tags: Array.isArray(data.tags) ? data.tags : []
+            };
+
+            console.log('Final payload:', payload);
+
             if (id) {
                 // cập nhật
-                await blogService.update(id, data)
+                await blogService.update(id, payload)
             } else {
                 // tạo mới
-                await blogService.create(data)
+                await blogService.create(payload)
             }
             // sau khi thành công, quay về list
             navigate('/admin/blogs')
@@ -50,7 +50,7 @@ const BlogEditorPage: React.FC = () => {
             setSubmitting(false)
         }
     }
-    // ==========================
+
 
     if (loading) return <Spinner />
 

@@ -56,10 +56,6 @@ export const router = createBrowserRouter([
     //children : root con 
     children: [
       {
-        //Root cho người dùng bình thường
-        //path : đường dẫn URL muốn ánh xạ đến Component đó 
-        //element : component muốn render khi path tương ứng được truy cập
-        //children : route con = nested routes
         element: <UserLayout />,
         children: [
           //route mặc định khi truy cập vào path cha 
@@ -71,7 +67,8 @@ export const router = createBrowserRouter([
           { path: "company/:id", element: <CompanyDetailsPage /> },
           { path: "jobs", element: <AllJobsPage /> },
           { path: "job/:id", element: <JobDetailsPage /> },
-          { path: "jobs/by-skill/:skillId", element: <JobsBySkillPage /> },
+          // { path: "jobs/by-skill/:skillId", element: <JobsBySkillPage /> },
+          { path: "jobs/skill/:skillId", element: <JobsBySkillPage /> },
           { path: "jobs/by-category/:categoryId", element: <JobsByCategoryPage /> },
           { path: "jobs/search", element: <JobSearchResultsPage /> },
           { path: "jobs/applied", element: <AppliedJobsPage /> },

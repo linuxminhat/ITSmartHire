@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAuthActions } from '@/contexts/AuthActionContext';
 import { callFetchAllSkills } from '@/services/skill.service';
 import { callFetchAllCategories } from '@/services/category.service';
 import { ISkill, ICategory } from '@/types/backend';
+import { createPortal } from 'react-dom';
 import {
   Bars3Icon,
   XMarkIcon,
@@ -24,6 +25,7 @@ import {
   BellIcon
 } from '@heroicons/react/24/outline';
 import NotificationIcon from '@/components/user/notifications/NotificationIcon';
+import { Transition } from '@headlessui/react';
 
 const UserHeader: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
@@ -35,7 +37,40 @@ const UserHeader: React.FC = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [isLoadingSkills, setIsLoadingSkills] = useState<boolean>(false);
   const [isLoadingCategories, setIsLoadingCategories] = useState<boolean>(false);
+  const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const closeTimer = React.useRef<number | null>(null);
+  const [isBlogMenuOpen, setIsBlogMenuOpen] = useState(false);
+  const blogCloseTimer = React.useRef<number | null>(null);
+  const openBlogMenu = () => {
+    if (blogCloseTimer.current) clearTimeout(blogCloseTimer.current);
+    setIsBlogMenuOpen(true);
+  };
 
+  const closeBlogMenu = () => {
+    blogCloseTimer.current = window.setTimeout(() => {
+      setIsBlogMenuOpen(false);
+    }, 200);
+  };
+  const BLOG_TAGS = [
+    'Sự nghiệp IT',
+    'Ứng tuyển và thăng tiến',
+    'Chuyên môn IT',
+    'Chuyện IT',
+    'Quảng bá công ty'
+  ];
+  const openMenu = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+    }
+    setIsJobMenuOpen(true)
+  }
+
+  const closeMenu = () => {
+    closeTimer.current = window.setTimeout(() => {
+      setIsJobMenuOpen(false)
+    }, 200)
+  }
   useEffect(() => {
     const fetchData = async () => {
       // Fetch Skills
@@ -97,6 +132,96 @@ const UserHeader: React.FC = () => {
   const jobMenuItemClass = "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100";
   const jobSubMenuItemClass = "block px-2 py-1.5 text-sm text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 rounded-md truncate";
 
+  const updateMenuPosition = () => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setMenuPosition({
+        top: rect.bottom + window.scrollY,
+        right: window.innerWidth - rect.right
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (isUserMenuOpen) {
+      updateMenuPosition();
+      window.addEventListener('scroll', updateMenuPosition);
+      window.addEventListener('resize', updateMenuPosition);
+    }
+    return () => {
+      window.removeEventListener('scroll', updateMenuPosition);
+      window.removeEventListener('resize', updateMenuPosition);
+    };
+  }, [isUserMenuOpen]);
+
+  const renderUserMenu = () => {
+    if (!isUserMenuOpen) return null;
+
+    return createPortal(
+      <div
+        className="fixed z-[9999] shadow-lg"
+        style={{
+          top: `${menuPosition.top}px`,
+          right: `${menuPosition.right}px`,
+          maxHeight: 'calc(100vh - ${menuPosition.top}px)',
+          overflowY: 'auto'
+        }}
+      >
+        <div
+          className="w-56 rounded-md bg-white py-1 ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="user-menu-button"
+          onMouseLeave={() => setIsUserMenuOpen(false)}
+        >
+          {isStandardUser && (
+            <>
+              <Link to="/dashboard" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <Squares2X2Icon className={userMenuIconClass} /> Tổng quan
+              </Link>
+              <Link to="/resumes/attached" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <DocumentArrowUpIcon className={userMenuIconClass} /> Hồ sơ đính kèm
+              </Link>
+              <Link to="/profile" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <IdentificationIcon className={userMenuIconClass} /> Hồ sơ
+              </Link>
+              <Link to="/jobs/applied" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <BriefcaseIcon className={userMenuIconClass} /> Việc làm của tôi
+              </Link>
+              <Link to="/notifications" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
+                <div className="flex items-center">
+                  <BellIcon className={userMenuIconClass} />
+                  <span className="flex-grow">Thông báo</span>
+                  <NotificationIcon showBadgeOnly={true} showIconOnly={false} />
+                </div>
+              </Link>
+            </>
+          )}
+          {!isStandardUser && (
+            <Link
+              to={profilePath}
+              className={userMenuItemClass}
+              role="menuitem"
+              onClick={() => setIsUserMenuOpen(false)}
+            >
+              <UserCircleIcon className={userMenuIconClass} /> Hồ sơ người dùng
+            </Link>
+          )}
+          {!isStandardUser && <div className="my-1 border-t border-gray-100"></div>}
+          <button
+            onClick={() => { handleLogout(); setIsUserMenuOpen(false); }}
+            className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+            role="menuitem"
+          >
+            <ArrowRightOnRectangleIcon className="h-5 w-5 mr-3 text-red-500" />
+            Đăng xuất
+          </button>
+        </div>
+      </div>,
+      document.body
+    );
+  };
+
   return (
     <nav className="bg-gray-800 shadow-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -112,10 +237,14 @@ const UserHeader: React.FC = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {/* Job Menu Dropdown */}
-              <div className="relative" onMouseLeave={() => setIsJobMenuOpen(false)}>
+              <div
+                className="relative"
+                onMouseEnter={openMenu}
+                onMouseLeave={closeMenu}
+              >
                 <button
                   type="button"
-                  onMouseEnter={() => setIsJobMenuOpen(true)}
+                  onMouseEnter={openMenu}
                   onClick={() => setIsJobMenuOpen(!isJobMenuOpen)}
                   className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none"
                 >
@@ -124,9 +253,12 @@ const UserHeader: React.FC = () => {
                 </button>
                 {isJobMenuOpen && (
                   <div
-                    className="absolute left-0 mt-2 w-80 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10 flex"
+                    className="absolute left-0 mt-2 w-[32rem] origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-[9999] flex"
                     role="menu"
                     aria-orientation="vertical"
+                    style={{ position: 'absolute' }}
+                    onMouseEnter={openMenu}
+                    onMouseLeave={closeMenu}
                   >
                     <div className="w-1/2 border-r border-gray-100">
                       <NavLink
@@ -144,7 +276,7 @@ const UserHeader: React.FC = () => {
                         {isLoadingCategories ? (
                           <div className="px-4 py-2 text-sm text-gray-500">Đang tải...</div>
                         ) : categories.length > 0 ? (
-                          <div className="max-h-60 overflow-y-auto px-2 py-1">
+                          <div className="max-h-[60vh] overflow-y-auto px-2 py-1">
                             {categories.map(category => (
                               <Link
                                 key={category._id}
@@ -172,12 +304,12 @@ const UserHeader: React.FC = () => {
                         {isLoadingSkills ? (
                           <div className="px-4 py-2 text-sm text-gray-500">Đang tải...</div>
                         ) : skills.length > 0 ? (
-                          <div className="max-h-[16.5rem] overflow-y-auto px-2 py-1">
+                          <div className="max-h-[60vh] overflow-y-auto px-2 py-1">
                             <div className="grid grid-cols-2 gap-x-2 gap-y-1">
                               {skills.map(skill => (
                                 <Link
                                   key={skill._id}
-                                  to={`/jobs/by-skill/${skill._id}`}
+                                  to={`/jobs/skill/${skill._id}`}
                                   className={jobSubMenuItemClass}
                                   title={skill.name}
                                   role="menuitem"
@@ -198,8 +330,45 @@ const UserHeader: React.FC = () => {
               </div>
 
               <NavLink to="/companies" className={navLinkClasses}>Công ty</NavLink>
-              <NavLink to="/blog" className={navLinkClasses}>Blog về IT</NavLink>
-              <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn giả lập</NavLink>
+              <div
+                className="relative"
+                onMouseEnter={openBlogMenu}
+                onMouseLeave={closeBlogMenu}
+              >
+                <button
+                  type="button"
+                  onClick={() => setIsBlogMenuOpen(!isBlogMenuOpen)}
+                  className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none"
+                >
+                  Blog về IT
+                  <ChevronDownIcon
+                    className={`h-4 w-4 ml-1 transition-transform ${isBlogMenuOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                {isBlogMenuOpen && (
+                  <div
+                    className="absolute left-0 mt-2 w-48 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-[9999]"
+                    role="menu"
+                    aria-orientation="vertical"
+                    onMouseEnter={openBlogMenu}
+                    onMouseLeave={closeBlogMenu}
+                  >
+                    {BLOG_TAGS.map(tag => (
+                      <Link
+                        key={tag}
+                        to={`/blog?tag=${encodeURIComponent(tag)}`}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                      >
+                        {tag}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn bằng AI</NavLink>
+              <NavLink to="/mockinterview" className={navLinkClasses}>Viết CV bằng AI</NavLink>
             </div>
           </div>
 
@@ -209,6 +378,7 @@ const UserHeader: React.FC = () => {
               {isAuthenticated && user ? (
                 <div className="relative ml-3">
                   <button
+                    ref={buttonRef}
                     type="button"
                     className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     id="user-menu-button"
@@ -221,59 +391,7 @@ const UserHeader: React.FC = () => {
                     <span className='text-white ml-2 mr-1 text-sm hidden sm:inline'>{user.name}</span>
                     <ChevronDownIcon className='h-4 w-4 text-gray-400' />
                   </button>
-
-                  {isUserMenuOpen && (
-                    <div
-                      className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="user-menu-button"
-                      onMouseLeave={() => setIsUserMenuOpen(false)}
-                    >
-                      {isStandardUser && (
-                        <>
-                          <Link to="/dashboard" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <Squares2X2Icon className={userMenuIconClass} /> Tổng quan
-                          </Link>
-                          <Link to="/resumes/attached" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <DocumentArrowUpIcon className={userMenuIconClass} /> Hồ sơ đính kèm
-                          </Link>
-                          <Link to="/profile" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <IdentificationIcon className={userMenuIconClass} /> Hồ sơ
-                          </Link>
-                          <Link to="/jobs/applied" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <BriefcaseIcon className={userMenuIconClass} /> Việc làm của tôi
-                          </Link>
-                          <Link to="/notifications" className={userMenuItemClass} role="menuitem" onClick={() => setIsUserMenuOpen(false)}>
-                            <div className="flex items-center">
-                              <BellIcon className={userMenuIconClass} />
-                              <span className="flex-grow">Thông báo</span>
-                              <NotificationIcon showBadgeOnly={true} showIconOnly={false} />
-                            </div>
-                          </Link>
-                        </>
-                      )}
-                      {!isStandardUser && (
-                        <Link
-                          to={profilePath}
-                          className={userMenuItemClass}
-                          role="menuitem"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          <UserCircleIcon className={userMenuIconClass} /> Hồ sơ người dùng
-                        </Link>
-                      )}
-                      {!isStandardUser && <div className="my-1 border-t border-gray-100"></div>}
-                      <button
-                        onClick={() => { handleLogout(); setIsUserMenuOpen(false); }}
-                        className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                        role="menuitem"
-                      >
-                        <ArrowRightOnRectangleIcon className="h-5 w-5 mr-3 text-red-500" />
-                        Đăng xuất
-                      </button>
-                    </div>
-                  )}
+                  {renderUserMenu()}
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
