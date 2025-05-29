@@ -18,6 +18,8 @@ import { ApplicationsModule } from './applications/applications.module';
 import { BlogsModule } from './blogs/blogs.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { EventsModule } from './interview-events/events.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -36,8 +38,18 @@ import { DashboardModule } from './dashboard/dashboard.module';
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    //Auto update
-
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.SMTP_HOST,
+        port: +process.env.SMTP_PORT,
+        secure: true,                       // true nếu dùng cổng 465
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      },
+      defaults: { from: '"IT Smart Hire" <hr@itsmarthire.com>' },
+    }),
     UsersModule,
     AuthModule,
     CompaniesModule,
@@ -51,7 +63,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     ApplicationsModule,
     BlogsModule,
     NotificationsModule,
-    DashboardModule
+    DashboardModule,
+    EventsModule
   ],
 
   controllers: [AppController],
