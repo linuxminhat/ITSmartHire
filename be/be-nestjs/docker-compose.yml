@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data             # giữ dữ liệu khi container xoá
+    command: ["redis-server", "--appendonly", "yes"]
+
+  api:
+    build: .
+    command: npm run start:prod
+    env_file: .env                   # <–– lấy biến môi trường
+    environment:
+      REDIS_HOST: redis              # DNS nội bộ
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+    ports:
+      - "8000:8000"                  # NestJS ra ngoài
+    volumes:
+      - .:/usr/src/app               # hot-reload dev (tuỳ)
+      - /usr/src/app/node_modules    # tránh ghi đè
+
+volumes:
+  redis-data:

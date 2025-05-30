@@ -198,6 +198,12 @@ const Sidebar: React.FC = () => {
                   <span className="flex-1 whitespace-nowrap">Quản lý Việc làm</span>
                 </NavLink>
               </li>
+              <li>
+                <NavLink to={`${basePath}/interviews`} className={navLinkClasses}>
+                  <BriefcaseIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
+                  <span className="flex-1 whitespace-nowrap">Quản lý lịch phỏng vấn</span>
+                </NavLink>
+              </li>
             </>
           )}
         </ul>

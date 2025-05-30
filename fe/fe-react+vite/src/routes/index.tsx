@@ -37,6 +37,7 @@ import BlogDetailPage from '@/pages/BlogDetailPage';
 import HRPage from "@/pages/admin/HRPage";
 import BlogEditorPage from "@/components/admin/blog/BlogEditorPage";
 import HRNotificationsPage from "@/pages/admin/HRNotificationsPage";
+import InterviewSchedulePage from "@/pages/admin/InterviewSchedulePage";
 
 //component root 
 const Root = () => (
@@ -123,6 +124,7 @@ export const router = createBrowserRouter([
               { path: "profile", element: <ProfilePage /> },
               { path: "companies", element: <ManageCompaniesPage /> },
               { path: "jobs", element: <ManageJobsPage /> },
+              { path: "interviews", element: <InterviewSchedulePage /> },
               { path: "resumes", element: <ManageResumesPage /> },
               { path: "notifications", element: <HRNotificationsPage /> },
               { path: "blogs", element: <ManageBlogsPage /> },
