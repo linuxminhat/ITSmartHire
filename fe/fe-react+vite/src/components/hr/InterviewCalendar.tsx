@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import viLocale from '@fullcalendar/core/locales/vi';
 
 import InterviewEventModal from './InterviewEventModal';
 import { getEvents, createEvent, updateEvent, deleteEvent } from '@/services/event.service';
 import { FormValues } from '@/types/interview-event';
-import { DateSelectArg, DatesSetArg, DateClickArg, EventApi, EventInput } from '@fullcalendar/core';
+import { DateSelectArg, DatesSetArg, EventApi, EventInput } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 
 const InterviewCalendar: React.FC = () => {
@@ -97,9 +97,14 @@ const InterviewCalendar: React.FC = () => {
                                     candidateEmail: modal.event.extendedProps.candidateEmail,
                                     meetLink: modal.event.extendedProps.meetLink,
                                     note: modal.event.extendedProps.note,
+                                    // thêm:
+                                    hrName: modal.event.extendedProps.hrName,
+                                    companyName: modal.event.extendedProps.companyName,
+                                    personalMessage: modal.event.extendedProps.personalMessage,
                                 }
                                 : undefined
                         }
+
                         mode={modal.event ? 'edit' : 'create'}
                         onCreate={async (data: FormValues) => {
                             if (!modal.range) return;

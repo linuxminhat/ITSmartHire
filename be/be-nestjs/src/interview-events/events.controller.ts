@@ -27,12 +27,8 @@ export class EventsController {
     return this.eventsService.create(dto, req.user._id);
   }
 
-  /**
-   * GET /events?range=2025-05-26..2025-06-02
-   */
   @Get()
   findRange(@Query('range') range: string, @Request() req) {
-    // tách range thành [start, end]
     const [start, end] = range.split('..');
     return this.eventsService.findRange(req.user._id, new Date(start), new Date(end));
   }
@@ -50,8 +46,6 @@ export class EventsController {
   remove(@Param('id') id: string, @Request() req) {
     return this.eventsService.remove(id, req.user._id);
   }
-  /** ---------- Public route cho ứng viên ---------- */
-  /** Ứng viên click link trong mail để accept / decline */
   @Patch('reply/:id')
   reply(
     @Param('id') id: string,

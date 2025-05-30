@@ -88,6 +88,38 @@ const InterviewEventModal: React.FC<Props> = ({
                             />
                         </div>
 
+                        {/* Tên HR */}
+                        <div>
+                            <label className="block text-sm font-medium mb-1">Tên HR</label>
+                            <input
+                                {...register('hrName', { required: true })}
+                                placeholder="Nhập tên HR"
+                                className="w-full border rounded px-3 py-2 focus:ring-blue-500"
+                            />
+                        </div>
+
+                        {/* Công ty */}
+                        <div>
+                            <label className="block text-sm font-medium mb-1">Công ty</label>
+                            <input
+                                {...register('companyName', { required: true })}
+                                placeholder="Nhập tên công ty"
+                                className="w-full border rounded px-3 py-2 focus:ring-blue-500"
+                            />
+                        </div>
+
+                        {/* Lời nhắn cá nhân */}
+                        <div>
+                            <label className="block text-sm font-medium mb-1">Lời nhắn cá nhân</label>
+                            <textarea
+                                {...register('personalMessage')}
+                                placeholder="Bạn muốn gửi lời gì đến ứng viên?"
+                                rows={2}
+                                className="w-full border rounded px-3 py-2 focus:ring-blue-500"
+                            />
+                        </div>
+
+
                         {/* Ghi chú */}
                         <div>
                             <label className="block text-sm font-medium mb-1">Ghi chú</label>

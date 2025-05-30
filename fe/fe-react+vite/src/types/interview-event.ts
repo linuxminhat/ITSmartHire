@@ -10,10 +10,14 @@ export interface IEvent {
     status?: 'pending' | 'accepted' | 'declined';
 }
 
-/* giá trị form trong modal */
+// src/types/interview-event.ts
 export interface FormValues {
     title: string;
     candidateEmail: string;
     meetLink?: string;
     note?: string;
+    // thêm
+    hrName: string;
+    companyName: string;
+    personalMessage?: string;
 }
