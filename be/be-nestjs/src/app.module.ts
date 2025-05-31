@@ -20,6 +20,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { EventsModule } from './interview-events/events.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { ParsingResumesModule } from './parsing-resumes/parsing-resumes.module';
 
 @Module({
   imports: [
@@ -64,7 +65,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
     BlogsModule,
     NotificationsModule,
     DashboardModule,
-    EventsModule
+    EventsModule,
+    ParsingResumesModule
   ],
 
   controllers: [AppController],

@@ -204,6 +204,12 @@ const Sidebar: React.FC = () => {
                   <span className="flex-1 whitespace-nowrap">Quản lý lịch phỏng vấn</span>
                 </NavLink>
               </li>
+              <li>
+                <NavLink to={`${basePath}/parsing-resumes`} className={navLinkClasses}>
+                  <DocumentTextIcon className="h-5 w-5 mr-3 flex-shrink-0 text-gray-400 group-hover:text-white" />
+                  <span className="flex-1 whitespace-nowrap">Công cụ trích xuất hồ sơ</span>
+                </NavLink>
+              </li>
             </>
           )}
         </ul>

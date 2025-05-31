@@ -38,6 +38,8 @@ import HRPage from "@/pages/admin/HRPage";
 import BlogEditorPage from "@/components/admin/blog/BlogEditorPage";
 import HRNotificationsPage from "@/pages/admin/HRNotificationsPage";
 import InterviewSchedulePage from "@/pages/admin/InterviewSchedulePage";
+import ResumeParsingPage from "@/components/ResumeParsing/ResumeParsingPage";
+
 
 //component root 
 const Root = () => (
@@ -120,7 +122,7 @@ export const router = createBrowserRouter([
             element: <AdminLayout />,
             children: [
               { index: true, element: <HRPage /> },
-              { index: true, element: <Navigate to="/hr/jobs" replace /> },
+              // { index: true, element: <Navigate to="/hr/jobs" replace /> },
               { path: "profile", element: <ProfilePage /> },
               { path: "companies", element: <ManageCompaniesPage /> },
               { path: "jobs", element: <ManageJobsPage /> },
@@ -129,7 +131,9 @@ export const router = createBrowserRouter([
               { path: "notifications", element: <HRNotificationsPage /> },
               { path: "blogs", element: <ManageBlogsPage /> },
               { path: "blogs/new", element: <BlogEditorPage /> },
-              { path: "blogs/:id/edit", element: <BlogEditorPage /> }
+              { path: "blogs/:id/edit", element: <BlogEditorPage /> },
+              { path: "parsing-resumes", element: <ResumeParsingPage /> },
+
             ]
           }
         ]
