@@ -1,5 +1,10 @@
 // scripts/get-refresh-token.js
-require('dotenv').config();
+// scripts/get-refresh-token.js
+const path = require('path');
+require('dotenv').config({
+    path: path.resolve(__dirname, '../.env')      // ← thêm dòng này
+});
+
 const { google } = require('googleapis');
 
 async function main() {
@@ -17,7 +22,7 @@ async function main() {
     console.log(authUrl);
 
     // dán code vào biến này rồi chạy lại
-    const code = '4/0AUJR-x72l4oTJ-iJrsSVI2mzuFxfO1LWdF4O9pOQNF2txlmBfWj-Sa5bTKxP4mpW_gtFGQ';
+    const code = '4/0AUJR-x7bfcGwvVrZIJCUe9CR2KQFkz1lADTkwdi5qUvCHzZpOFeFtYWpOFs1wWbeHotizA';
     const { tokens } = await oAuth2Client.getToken(code);
     console.log('\n💾 Refresh Token:');
     console.log(tokens.refresh_token);
