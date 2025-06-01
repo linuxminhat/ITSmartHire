@@ -6,12 +6,127 @@ import UploadSection from './UploadSection'
 import DataTable from './DataTable'
 import FileListModal from './FileListModal'
 import { callUploadAndParseCVs } from '@/services/resumeParsing.service'
+import { unparse } from 'papaparse'
+import { CloudArrowUpIcon, SparklesIcon, ArrowDownTrayIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
+import * as XLSX from 'xlsx'
+import SaveModal from './SaveModal'
 
 const Inner: React.FC = () => {
-    const { files, setFiles, setParsed } = useContext(ResumeContext)
+    const { files, setFiles, setParsed, parsed } = useContext(ResumeContext)
     const [showFileList, setShowFileList] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [searchTerm, setSearchTerm] = useState('')
+    const [showSaveModal, setShowSaveModal] = useState(false)
+
+    // Hàm xuất CSV với BOM để hỗ trợ tiếng Việt
+    const handleExportCSV = () => {
+        if (!parsed.length) return;
+
+        const data = parsed.map(item => ({
+            'Họ và tên': item.name || '',
+            'Email': item.email || '',
+            'GitHub': item.github || '',
+            'Địa chỉ': item.location || '',
+            'Điện thoại': item.phone || '',
+            'Trường': item.university || '',
+            'Bằng cấp': item.degree || '',
+            'Điểm GPA': item.gpa || '',
+            'Kinh nghiệm làm việc': item.workExperiences?.map(exp => 
+                `${exp.company} - ${exp.position} (${exp.duration})`
+            ).join('; ') || '',
+            'Dự án': item.projects?.map(proj => 
+                `${proj.name}: ${proj.description.join(', ')}`
+            ).join('; ') || '',
+            'Kỹ năng': item.skills?.join(', ') || '',
+            'Chứng chỉ': item.certifications?.join(', ') || ''
+        }));
+
+        // Thêm BOM và config để hỗ trợ Unicode
+        const csv = '\ufeff' + unparse(data, {
+            quotes: true,
+            delimiter: ',',
+            encoding: 'UTF-8'
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `cv_data_${new Date().toISOString().slice(0,10)}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
+    // Thêm hàm xuất Excel
+    const handleExportExcel = () => {
+        if (!parsed.length) return;
+
+        // Định nghĩa các cột và độ rộng
+        const columns = [
+            { header: 'Họ và tên', key: 'name', width: 20 },
+            { header: 'Email', key: 'email', width: 30 },
+            { header: 'GitHub', key: 'github', width: 25 },
+            { header: 'Địa chỉ', key: 'location', width: 25 },
+            { header: 'Điện thoại', key: 'phone', width: 15 },
+            { header: 'Trường', key: 'university', width: 30 },
+            { header: 'Bằng cấp', key: 'degree', width: 20 },
+            { header: 'Điểm GPA', key: 'gpa', width: 10 },
+            { header: 'Kinh nghiệm làm việc', key: 'workExperiences', width: 50 },
+            { header: 'Dự án', key: 'projects', width: 50 },
+            { header: 'Kỹ năng', key: 'skills', width: 40 },
+            { header: 'Chứng chỉ', key: 'certifications', width: 30 }
+        ];
+
+        // Tạo dữ liệu cho Excel
+        const data = parsed.map(item => ({
+            'Họ và tên': item.name || '',
+            'Email': item.email || '',
+            'GitHub': item.github || '',
+            'Địa chỉ': item.location || '',
+            'Điện thoại': item.phone || '',
+            'Trường': item.university || '',
+            'Bằng cấp': item.degree || '',
+            'Điểm GPA': item.gpa || '',
+            'Kinh nghiệm làm việc': item.workExperiences?.map(exp => 
+                `${exp.company} - ${exp.position} (${exp.duration})`
+            ).join('\n') || '',
+            'Dự án': item.projects?.map(proj => 
+                `${proj.name}: ${proj.description.join(', ')}`
+            ).join('\n') || '',
+            'Kỹ năng': item.skills?.join(', ') || '',
+            'Chứng chỉ': item.certifications?.join(', ') || ''
+        }));
+
+        // Tạo worksheet
+        const ws = XLSX.utils.json_to_sheet(data, {
+            header: columns.map(col => col.header)
+        });
+
+        // Thiết lập độ rộng cột
+        ws['!cols'] = columns.map(col => ({ wch: col.width }));
+
+        // Style cho header
+        const range = XLSX.utils.decode_range(ws['!ref']);
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+            const address = XLSX.utils.encode_col(C) + "1";
+            if (!ws[address]) continue;
+            ws[address].s = {
+                font: { bold: true },
+                fill: { fgColor: { rgb: "EFEFEF" } },
+                alignment: { vertical: 'center', horizontal: 'center' }
+            };
+        }
+
+        // Tạo workbook và thêm worksheet
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "CV Data");
+
+        // Xuất file
+        XLSX.writeFile(wb, `cv_data_${new Date().toISOString().slice(0,10)}.xlsx`);
+    };
 
     const handleParseAll = async () => {
         if (!files.length) return
@@ -52,6 +167,36 @@ const Inner: React.FC = () => {
         }
     }
 
+    // Thêm hàm reset
+    const handleReset = () => {
+        setFiles([]);
+        setParsed([]);
+        setSearchTerm('');
+        setError(null);
+    };
+
+    const handleSave = async (name: string) => {
+        try {
+            // Tạo object để lưu
+            const saveData = {
+                name,
+                date: new Date().toISOString(),
+                cvs: parsed,
+            };
+            
+            // Lưu vào localStorage (hoặc có thể gọi API để lưu vào database)
+            const savedLists = JSON.parse(localStorage.getItem('savedCvLists') || '[]');
+            savedLists.push(saveData);
+            localStorage.setItem('savedCvLists', JSON.stringify(savedLists));
+            
+            // Hiển thị thông báo thành công
+            alert('Đã lưu danh sách thành công!');
+        } catch (error) {
+            console.error('Error saving CV list:', error);
+            alert('Có lỗi xảy ra khi lưu danh sách!');
+        }
+    };
+
     if (error) {
         return (
             <div className="p-4 bg-red-50 border border-red-200 rounded">
@@ -63,31 +208,108 @@ const Inner: React.FC = () => {
 
     return (
         <>
-            <div className="flex items-center space-x-2">
-                <Toolbar
-                    onShowFileList={() => setShowFileList(true)}
-                    onParseAll={handleParseAll}
-                />
-            </div>
+            {/* Main Content Container */}
+            <div className="space-y-6">
+                {/* Toolbar Section */}
+                <div className="bg-white rounded-lg shadow p-4">
+                    <div className="flex flex-col space-y-4">
+                        {/* Primary Actions */}
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={() => setShowFileList(true)}
+                                className="flex items-center px-4 py-2 bg-[#1890ff] text-white rounded-lg hover:bg-blue-600 transition-colors"
+                            >
+                                <CloudArrowUpIcon className="h-5 w-5 mr-2" />
+                                Import CV ({files.length})
+                            </button>
 
-            <UploadSection />
+                            <button
+                                onClick={handleParseAll}
+                                className="flex items-center px-4 py-2 bg-[#fa8c16] text-white rounded-lg hover:bg-orange-500 transition-colors"
+                            >
+                                <SparklesIcon className="h-5 w-5 mr-2" />
+                                Phân tích tất cả
+                            </button>
 
-            <div className="flex-1 overflow-hidden">
-                <DataTable />
+                            <button
+                                onClick={() => setShowSaveModal(true)}
+                                className="flex items-center px-4 py-2 bg-[#52c41a] text-white rounded-lg hover:bg-green-600 transition-colors"
+                            >
+                                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                                Lưu tất cả
+                            </button>
+
+                            {/* Thêm nút Làm mới */}
+                            <button
+                                onClick={handleReset}
+                                className="flex items-center px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                            >
+                                <ArrowPathIcon className="h-5 w-5 mr-2" />
+                                Làm mới
+                            </button>
+                        </div>
+
+                        {/* Search and Export */}
+                        <div className="flex items-center gap-4">
+                            <div className="flex-1 relative">
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    placeholder="🔍 Tìm theo tên hoặc email"
+                                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <button 
+                                onClick={handleExportExcel}
+                                disabled={!parsed.length}
+                                className="flex items-center px-4 py-2 bg-[#52c41a] text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                                Xuất Excel ({parsed.length}/100)
+                            </button>
+                            <button 
+                                onClick={handleExportCSV}
+                                disabled={!parsed.length}
+                                className="flex items-center px-4 py-2 bg-[#52c41a] text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                                Xuất CSV ({parsed.length}/100)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Upload Section - Compact when empty */}
+                {files.length === 0 && (
+                    <div className="bg-white rounded-lg shadow">
+                        <UploadSection />
+                    </div>
+                )}
+
+                {/* Data Table */}
+                <div className="bg-white rounded-lg shadow">
+                    <DataTable searchTerm={searchTerm} />
+                </div>
             </div>
 
             {showFileList && <FileListModal onClose={() => setShowFileList(false)} />}
+            {showSaveModal && (
+                <SaveModal 
+                    onClose={() => setShowSaveModal(false)}
+                    onSave={handleSave}
+                />
+            )}
         </>
     )
 }
 
 const ResumeParsingPage: React.FC = () => (
     <ResumeProvider>
-        <div className="flex flex-col h-full p-6 space-y-4">
+        <div className="p-6 min-h-screen bg-gray-100">
             <Inner />
         </div>
     </ResumeProvider>
 )
-
 
 export default ResumeParsingPage

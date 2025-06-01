@@ -43,6 +43,7 @@
     "react-router-dom": "^6.30.0",
     "react-select": "^5.10.1",
     "react-toastify": "^11.0.5",
+    "react-tooltip": "^5.28.1",
     "tinymce": "^7.8.0",
     "uuid": "^11.1.0",
     "xlsx": "^0.18.5",

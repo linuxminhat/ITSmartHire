@@ -108,7 +108,8 @@ export const router = createBrowserRouter([
               { path: "blogs", element: <ManageBlogsPage /> },
               { path: "blogs/new", element: <BlogEditorPage /> },
               { path: "blogs/:id/edit", element: <BlogEditorPage /> },
-
+              { path: "parsing-resumes", element: <ResumeParsingPage /> },
+              { path: "interviews", element: <InterviewSchedulePage /> },
             ]
           }
         ]
