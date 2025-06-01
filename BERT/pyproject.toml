@@ -4,8 +4,9 @@ version = "0.1.0"
 requires-python = ">=3.11.11"
 dependencies = [
     "flask>=3.1.0",
-    "pytorch-pretrained-bert>=0.6.2",
-    "scipy>=1.15.2",
-    "spacy>=3.8.5",
-    "tensorflow>=2.19.0",
+    # "pytorch-pretrained-bert>=0.6.2",
+    #"scipy>=1.15.2",
+    # "spacy>=3.8.5",
+    #"tensorflow>=2.19.0",
+    "google-generativeai>=0.8.5",
 ]

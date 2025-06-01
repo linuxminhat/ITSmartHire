@@ -18,23 +18,22 @@ const ALL_COLUMNS: Column[] = [
     { key: 'name', label: 'Họ và tên' },
     { key: 'email', label: 'Email' },
     { key: 'github', label: 'GitHub' },
-    { key: 'loc', label: 'Địa chỉ' },
+    { key: 'location', label: 'Địa chỉ' },
     { key: 'phone', label: 'Điện thoại' },
     { key: 'university', label: 'Trường' },
-    { key: 'deg', label: 'Bằng cấp' },
+    { key: 'degree', label: 'Bằng cấp' },
     { key: 'gpa', label: 'Điểm GPA' },
-    { key: 'graduation_year', label: 'Năm tốt nghiệp' },
-    { key: 'working_company_experiences', label: 'Công ty đã làm' },
-    { key: 'working_time_experiences', label: 'Thời gian làm việc' },
-    { key: 'desig', label: 'Chức danh' },
-    { key: 'techstack_skills', label: 'Kỹ năng công nghệ' },
-    { key: 'project', label: 'Dự án' },
-    { key: 'project_description', label: 'Mô tả dự án' },
+    { key: 'workExperiences', label: 'Kinh nghiệm làm việc' },
+    { key: 'projects', label: 'Dự án' },
+    { key: 'skills', label: 'Kỹ năng' },
     { key: 'certifications', label: 'Chứng chỉ' },
 ];
 
 const DataTable: React.FC = () => {
     const { parsed, setParsed } = useContext(ResumeContext);
+    
+    // Thêm log để kiểm tra
+    console.log('Current parsed data in DataTable:', parsed);
 
     // 1. Search filter
     const [filter, setFilter] = useState('');
@@ -77,6 +76,29 @@ const DataTable: React.FC = () => {
             return next;
         });
         setEditing(null);
+    };
+
+    // Trong phần render cell, thêm xử lý đặc biệt cho workExperiences và projects
+    const renderCellContent = (item: ParsedResume, key: keyof ParsedResume) => {
+        const value = item[key];
+        
+        if (key === 'workExperiences') {
+            return (item.workExperiences || [])
+                .map(exp => `${exp.company} - ${exp.position} (${exp.duration})`)
+                .join('\n');
+        }
+        
+        if (key === 'projects') {
+            return (item.projects || [])
+                .map(proj => `${proj.name}: ${proj.description.join(', ')}`)
+                .join('\n');
+        }
+        
+        if (Array.isArray(value)) {
+            return value.join(', ');
+        }
+        
+        return value || '-';
     };
 
     return (
@@ -161,7 +183,7 @@ const DataTable: React.FC = () => {
                                                 {editing?.row === i && editing.key === col.key ? (
                                                     <input
                                                         type="text"
-                                                        defaultValue={String((item as any)[col.key] ?? '')}
+                                                        defaultValue={String(renderCellContent(item, col.key))}
                                                         onBlur={e => saveCell(i, col.key, e.target.value)}
                                                         autoFocus
                                                         className="w-full border rounded px-1 py-0.5"
@@ -171,10 +193,8 @@ const DataTable: React.FC = () => {
                                                         className="flex items-center space-x-1"
                                                         onClick={() => setEditing({ row: i, key: col.key })}
                                                     >
-                                                        <span>
-                                                            {Array.isArray((item as any)[col.key])
-                                                                ? (item as any)[col.key].join(', ')
-                                                                : (item as any)[col.key] ?? '-'}
+                                                        <span className="whitespace-pre-line">
+                                                            {renderCellContent(item, col.key)}
                                                         </span>
                                                         <PencilIcon className="h-4 w-4 text-gray-400 hover:text-gray-600 cursor-pointer" />
                                                     </div>

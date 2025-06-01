@@ -1,5 +1,4 @@
-
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
 
 // 1. Định nghĩa kiểu dữ liệu cho từng file upload
 export interface FileItem {
@@ -10,24 +9,31 @@ export interface FileItem {
 }
 
 // 2. Định nghĩa tất cả các trường sẽ hiển thị trong bảng
+export interface WorkExperience {
+    company: string;
+    position: string;
+    duration: string;
+    description: string[];
+}
+
+export interface Project {
+    name: string;
+    description: string[];
+}
+
 export interface ParsedResume {
-    name?: string;                             // NAME
-    email?: string;                            // EMAIL
-    github?: string;                           // GITHUB
-    loc?: string;                              // LOC
-    phone?: string;                            // PHONE
-    university?: string;                       // UNI
-    deg?: string;                              // DEG
-    gpa?: string;                              // GPA
-    graduation_year?: string;                  // GRADUATION_YEAR
-    working_company_experiences?: string[];    // WORKING_COMPANY_EXPERIENCES
-    working_time_experiences?: string;         // WORKING_TIME_EXPERIENCES
-    desig?: string;                            // DESIG
-    techstack_skills?: string[];               // TECHSTACK_SKILLS
-    project?: string;                          // PROJECT
-    project_description?: string;              // PROJECT_DESCRIPTION
-    certifications?: string[];                 // CERTIFICATION
-    skills: string[];                          // SKILLS (nếu còn cần)
+    name: string;
+    email: string;
+    phone: string;
+    github: string;
+    location: string;
+    university: string;
+    degree: string;
+    gpa: string;
+    workExperiences: WorkExperience[];
+    projects: Project[];
+    skills: string[];
+    certifications: string[];
 }
 
 // 3. Interface cho giá trị context
@@ -47,9 +53,18 @@ export const ResumeContext = createContext<ResumeContextValue>({
 });
 
 // 5. Provider component
-export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [files, setFiles] = useState<FileItem[]>([]);
     const [parsed, setParsed] = useState<ParsedResume[]>([]);
+
+    // Thêm log để kiểm tra khi state thay đổi
+    useEffect(() => {
+        console.log('Files state changed:', files);
+    }, [files]);
+
+    useEffect(() => {
+        console.log('Parsed state changed:', parsed);
+    }, [parsed]);
 
     return (
         <ResumeContext.Provider value={{ files, setFiles, parsed, setParsed }}>

@@ -7,19 +7,51 @@ export class ParsedResumeDto {
 
     @IsString()
     @IsOptional()
-    university?: string;
+    email?: string;
+
+    @IsString()
+    @IsOptional()
+    phone?: string;
 
     @IsString()
     @IsOptional()
     github?: string;
 
-    @IsArray()
-    @ArrayNotEmpty()
-    skills: string[];
+    @IsString()
+    @IsOptional()
+    location?: string;
 
     @IsString()
     @IsOptional()
-    email?: string;
+    university?: string;
+
+    @IsString()
+    @IsOptional()
+    degree?: string;
+
+    @IsString()
+    @IsOptional()
+    gpa?: string;
+
+    @IsArray()
+    @IsOptional()
+    workExperiences?: {
+        company: string;
+        position: string;
+        duration: string;
+        description: string[];
+    }[];
+
+    @IsArray()
+    @IsOptional()
+    projects?: {
+        name: string;
+        description: string[];
+    }[];
+
+    @IsArray()
+    @IsOptional()
+    skills: string[];
 
     @IsArray()
     @IsOptional()

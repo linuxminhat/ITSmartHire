@@ -11,10 +11,11 @@ const PreviewTable: React.FC = () => {
             <thead className="bg-gray-100">
                 <tr>
                     <th className="p-2">#</th>
-                    <th className="p-2">Name</th>
-                    <th className="p-2">University</th>
+                    <th className="p-2">Họ và tên</th>
+                    <th className="p-2">Trường</th>
                     <th className="p-2">GitHub</th>
-                    <th className="p-2">Skills</th>
+                    <th className="p-2">Kỹ năng</th>
+                    <th className="p-2">Kinh nghiệm</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +31,12 @@ const PreviewTable: React.FC = () => {
                                 </a>
                             ) : '-'}
                         </td>
-                        <td className="p-2">{p.skills.join(', ')}</td>
+                        <td className="p-2">{p.skills?.join(', ') || '-'}</td>
+                        <td className="p-2">
+                            {p.workExperiences?.map(exp => 
+                                `${exp.company} (${exp.position})`
+                            ).join(', ') || '-'}
+                        </td>
                     </tr>
                 ))}
             </tbody>

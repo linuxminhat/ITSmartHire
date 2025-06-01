@@ -10,17 +10,55 @@ import { callUploadAndParseCVs } from '@/services/resumeParsing.service'
 const Inner: React.FC = () => {
     const { files, setFiles, setParsed } = useContext(ResumeContext)
     const [showFileList, setShowFileList] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
 
     const handleParseAll = async () => {
         if (!files.length) return
-        setFiles(fs => fs.map(f => ({ ...f, status: 'parsing', progress: 0 })))
+        setIsLoading(true)
+        setError(null)
+        
         try {
-            const result = await callUploadAndParseCVs(files.map(f => f.file))
-            setParsed(result)
+            setFiles(fs => fs.map(f => ({ ...f, status: 'parsing', progress: 0 })))
+            
+            console.log('Sending files:', files.map(f => f.file.name));
+            
+            const response = await callUploadAndParseCVs(files.map(f => f.file))
+            
+            console.log('Response from service:', response);
+            
+            if (!response.success || !response.data) {
+                throw new Error('Invalid response from server');
+            }
+
+            // Đảm bảo data là mảng
+            const parsedData = Array.isArray(response.data) ? response.data : [response.data];
+            
+            // Set parsed data
+            setParsed(parsedData);
+            
+            // Update file status
             setFiles(fs => fs.map(f => ({ ...f, status: 'done', progress: 100 })))
-        } catch {
-            setFiles(fs => fs.map(f => ({ ...f, status: 'error' })))
+            
+            console.log('Successfully parsed CVs:', parsedData);
+            
+        } catch (err) {
+            console.error('Parse error:', err);
+            const errorMessage = err instanceof Error ? err.message : 'Có lỗi xảy ra khi xử lý CV';
+            setError(errorMessage);
+            setFiles(fs => fs.map(f => ({ ...f, status: 'error' })));
+        } finally {
+            setIsLoading(false)
         }
+    }
+
+    if (error) {
+        return (
+            <div className="p-4 bg-red-50 border border-red-200 rounded">
+                <h3 className="text-red-600 font-medium">Lỗi xử lý CV:</h3>
+                <p className="text-red-700">{error}</p>
+            </div>
+        );
     }
 
     return (
@@ -50,5 +88,6 @@ const ResumeParsingPage: React.FC = () => (
         </div>
     </ResumeProvider>
 )
+
 
 export default ResumeParsingPage
