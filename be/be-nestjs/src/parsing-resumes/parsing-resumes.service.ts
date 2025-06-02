@@ -5,12 +5,19 @@ import axios from 'axios';
 import { HttpService } from '@nestjs/axios';
 import * as fs from 'fs';
 import * as path from 'path';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { SavedCVList } from './schemas/saved-cv-list.schema';
+import { SaveCVListDto } from './dto/save-cv-list.dto';
 
 @Injectable()
 export class ParsingResumesService {
   private logDir: string;
 
-  constructor(private readonly httpService: HttpService) {
+  constructor(
+    private readonly httpService: HttpService,
+    @InjectModel(SavedCVList.name) private savedCVListModel: Model<SavedCVList>
+  ) {
     this.logDir = path.join(process.cwd(), 'logs');
     if (!fs.existsSync(this.logDir)) {
       fs.mkdirSync(this.logDir);
@@ -61,44 +68,52 @@ export class ParsingResumesService {
       textLengths: texts.map(t => t.length)
     });
 
-    try {
-      const calls = texts.map((text, index) => {
-        console.log(`Sending CV #${index + 1} to LLM server...`);
-        return axios.post('http://127.0.0.1:6969/resume_parsing', {
+    const results: any[] = [];
+
+    // Xử lý tuần tự thay vì đồng thời
+    for (let i = 0; i < texts.length; i++) {
+      const text = texts[i];
+      console.log(`Processing CV #${i + 1}/${texts.length}...`);
+      
+      try {
+        const response = await axios.post('http://127.0.0.1:6969/resume_parsing', {
           cv: text
         }, {
-          timeout: 60000, // 60 seconds timeout
+          timeout: 60000,
           headers: {
             'Content-Type': 'application/json'
           }
         });
-      });
 
-      const responses = await Promise.all(calls);
-
-      responses.forEach((res, index) => {
-        this.writeLog(`LLM SERVER RESPONSE - CV #${index + 1}`, {
-          success: res.data.success,
-          method: res.data.method,
-          dataFields: Object.keys(res.data.data || {}),
-          skillsCount: res.data.data?.skills?.length || 0,
-          workExpCount: res.data.data?.workExperiences?.length || 0
+        this.writeLog(`LLM SERVER RESPONSE - CV #${i + 1}`, {
+          success: response.data.success,
+          method: response.data.method,
+          dataFields: Object.keys(response.data.data || {}),
+          skillsCount: response.data.data?.skills?.length || 0,
+          workExpCount: response.data.data?.workExperiences?.length || 0
         });
-      });
 
-      // LLM trả về structured data rồi, không cần xử lý tokens
-      return responses.map(res => res.data.data);
+        results.push(response.data.data);
 
-    } catch (error) {
-      console.error('Error calling LLM server:', error);
-      this.writeLog('LLM SERVER ERROR', {
-        error: error.message,
-        response: error.response?.data
-      });
+        // Thêm delay ngắn giữa các requests để tránh rate limiting
+        if (i < texts.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 1000)); // 1 giây delay
+        }
 
-      // Return empty results for failed requests
-      return texts.map(() => this.createEmptyResult());
+      } catch (error) {
+        console.error(`Error processing CV #${i + 1}:`, error.message);
+        this.writeLog(`LLM SERVER ERROR - CV #${i + 1}`, {
+          error: error.message,
+          response: error.response?.data
+        });
+
+        // Chỉ tạo empty result cho CV này, không ảnh hưởng CV khác
+        results.push(this.createEmptyResult());
+      }
     }
+
+    console.log(`Completed processing ${texts.length} CVs. Successful: ${results.filter(r => r.name || r.email).length}`);
+    return results;
   }
 
   private createEmptyResult() {
@@ -125,7 +140,7 @@ export class ParsingResumesService {
       sampleResult: results[0] || null
     });
 
-    // LLM đã trả về format đúng rồi, chỉ cần clean up
+
     return results.map(result => this.cleanupLLMResults(result));
   }
 
@@ -204,5 +219,82 @@ export class ParsingResumesService {
   async mapTokensToFields_OLD_METHOD(lists: { token: string; tag: string; position: number }[][]) {
     // Keep this for reference, but won't be used with LLM approach
     // ... existing token processing code ...
+  }
+
+  // Lưu danh sách CV
+  async saveList(dto: SaveCVListDto, userId: string) {
+    try {
+      console.log('SaveList service called with:', {
+        userId,
+        dtoName: dto.name,
+        dtoFormat: dto.format,
+        cvsCount: dto.cvs?.length || 0,
+        cvsFirstItem: dto.cvs?.[0] ? Object.keys(dto.cvs[0]) : null
+      });
+
+      // Validate inputs
+      if (!userId) {
+        throw new Error('User ID is required');
+      }
+
+      if (!dto.name || !dto.format || !Array.isArray(dto.cvs)) {
+        throw new Error('Invalid save data: missing name, format, or cvs array');
+      }
+
+      // Create document data
+      const docData = {
+        name: dto.name,
+        format: dto.format,
+        cvs: dto.cvs,
+        hrId: userId,
+      };
+
+      console.log('Creating savedList document with data:', {
+        ...docData,
+        cvs: `[${docData.cvs.length} items]` // Don't log full CVs, just count
+      });
+
+      const savedList = new this.savedCVListModel(docData);
+      
+      console.log('Document created, attempting to save...');
+      const result = await savedList.save();
+      
+      console.log('Save successful:', {
+        id: result._id,
+        name: result.name,
+        format: result.format,
+        cvsCount: result.cvs?.length || 0
+      });
+
+      return result;
+    } catch (error) {
+      console.error('SaveList service error:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name,
+        code: error.code,
+        userId,
+        dtoProvided: !!dto
+      });
+      
+      // Re-throw with more context
+      throw new Error(`Failed to save CV list: ${error.message}`);
+    }
+  }
+
+  // Lấy danh sách đã lưu của HR
+  async getSavedLists(userId: string) {
+    return await this.savedCVListModel
+      .find({ hrId: userId })
+      .sort({ createdAt: -1 })
+      .exec();
+  }
+
+  // Xóa danh sách
+  async deleteList(id: string, userId: string) {
+    return await this.savedCVListModel.findOneAndDelete({
+      _id: id,
+      hrId: userId
+    });
   }
 }

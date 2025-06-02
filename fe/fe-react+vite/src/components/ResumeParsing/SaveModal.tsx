@@ -3,16 +3,17 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface SaveModalProps {
     onClose: () => void;
-    onSave: (name: string) => void;
+    onSave: (name: string, format: 'excel' | 'csv') => void;
 }
 
 const SaveModal: React.FC<SaveModalProps> = ({ onClose, onSave }) => {
     const [name, setName] = useState('');
+    const [format, setFormat] = useState<'excel' | 'csv'>('excel');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (name.trim()) {
-            onSave(name.trim());
+            onSave(name.trim(), format);
             onClose();
         }
     };
@@ -39,6 +40,33 @@ const SaveModal: React.FC<SaveModalProps> = ({ onClose, onSave }) => {
                             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                            Định dạng xuất
+                        </label>
+                        <div className="flex gap-4">
+                            <label className="flex items-center">
+                                <input
+                                    type="radio"
+                                    value="excel"
+                                    checked={format === 'excel'}
+                                    onChange={(e) => setFormat(e.target.value as 'excel' | 'csv')}
+                                    className="mr-2"
+                                />
+                                Excel
+                            </label>
+                            <label className="flex items-center">
+                                <input
+                                    type="radio"
+                                    value="csv"
+                                    checked={format === 'csv'}
+                                    onChange={(e) => setFormat(e.target.value as 'excel' | 'csv')}
+                                    className="mr-2"
+                                />
+                                CSV
+                            </label>
+                        </div>
                     </div>
                     <div className="flex justify-end gap-2">
                         <button

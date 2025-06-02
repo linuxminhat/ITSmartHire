@@ -21,7 +21,12 @@ async function bootstrap() {
     app.useStaticAssets(join(__dirname, "..", "public"));//js/css/images
     app.setBaseViewsDir(join(__dirname, "..", "views"));//view 
     app.setViewEngine("ejs");
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: false,
+        transform: true,
+        disableErrorMessages: false,
+    }));
     app.useGlobalInterceptors(new TransformInterceptor(reflector));
     // const cookieParser = require('cookie-parser');
 

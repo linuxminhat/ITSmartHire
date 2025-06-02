@@ -39,6 +39,9 @@ import BlogEditorPage from "@/components/admin/blog/BlogEditorPage";
 import HRNotificationsPage from "@/pages/admin/HRNotificationsPage";
 import InterviewSchedulePage from "@/pages/admin/InterviewSchedulePage";
 import ResumeParsingPage from "@/components/ResumeParsing/ResumeParsingPage";
+import SavedRecordsPage from "@/pages/hr/SaveRecordPage";
+
+
 
 
 //component root 
@@ -109,6 +112,7 @@ export const router = createBrowserRouter([
               { path: "blogs/new", element: <BlogEditorPage /> },
               { path: "blogs/:id/edit", element: <BlogEditorPage /> },
               { path: "parsing-resumes", element: <ResumeParsingPage /> },
+              { path: "saved-records", element: <SavedRecordsPage /> },
               { path: "interviews", element: <InterviewSchedulePage /> },
             ]
           }
@@ -134,9 +138,13 @@ export const router = createBrowserRouter([
               { path: "blogs/new", element: <BlogEditorPage /> },
               { path: "blogs/:id/edit", element: <BlogEditorPage /> },
               { path: "parsing-resumes", element: <ResumeParsingPage /> },
-
+              { path: "saved-records", element: <SavedRecordsPage /> },
             ]
-          }
+          },
+          // {
+          //   path: 'saved-cv-lists',
+          //   element: <SavedListsPage />
+          // }
         ]
       },
     ],

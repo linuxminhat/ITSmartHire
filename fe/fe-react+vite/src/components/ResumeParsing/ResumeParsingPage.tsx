@@ -5,7 +5,7 @@ import Toolbar from './Toolbar'
 import UploadSection from './UploadSection'
 import DataTable from './DataTable'
 import FileListModal from './FileListModal'
-import { callUploadAndParseCVs } from '@/services/resumeParsing.service'
+import { callUploadAndParseCVs, saveParseList } from '@/services/resumeParsing.service'
 import { unparse } from 'papaparse'
 import { CloudArrowUpIcon, SparklesIcon, ArrowDownTrayIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
 import * as XLSX from 'xlsx'
@@ -45,8 +45,7 @@ const Inner: React.FC = () => {
         // Thêm BOM và config để hỗ trợ Unicode
         const csv = '\ufeff' + unparse(data, {
             quotes: true,
-            delimiter: ',',
-            encoding: 'UTF-8'
+            delimiter: ','
         });
         
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
@@ -136,26 +135,28 @@ const Inner: React.FC = () => {
         try {
             setFiles(fs => fs.map(f => ({ ...f, status: 'parsing', progress: 0 })))
             
-            console.log('Sending files:', files.map(f => f.file.name));
+            console.log('🚀 Starting batch processing for', files.length, 'CVs...');
+            console.log('⏱️  Estimated time:', Math.ceil(files.length / 5) * 3, 'seconds');
             
             const response = await callUploadAndParseCVs(files.map(f => f.file))
-            
-            console.log('Response from service:', response);
             
             if (!response.success || !response.data) {
                 throw new Error('Invalid response from server');
             }
 
-            // Đảm bảo data là mảng
             const parsedData = Array.isArray(response.data) ? response.data : [response.data];
             
-            // Set parsed data
+            // Phân tích kết quả
+            const successCount = parsedData.filter(cv => cv.name || cv.email).length;
+            const failCount = parsedData.length - successCount;
+            
+            console.log(`📊 Processing complete:`);
+            console.log(`   ✅ Success: ${successCount} CVs`);
+            console.log(`   ❌ Failed: ${failCount} CVs`);
+            console.log(`   📈 Success rate: ${((successCount/parsedData.length)*100).toFixed(1)}%`);
+            
             setParsed(parsedData);
-            
-            // Update file status
             setFiles(fs => fs.map(f => ({ ...f, status: 'done', progress: 100 })))
-            
-            console.log('Successfully parsed CVs:', parsedData);
             
         } catch (err) {
             console.error('Parse error:', err);
@@ -175,25 +176,37 @@ const Inner: React.FC = () => {
         setError(null);
     };
 
-    const handleSave = async (name: string) => {
+    const handleSave = async (name: string, format: 'excel' | 'csv') => {
         try {
-            // Tạo object để lưu
-            const saveData = {
+            console.log('handleSave called with:', {
                 name,
-                date: new Date().toISOString(),
-                cvs: parsed,
-            };
+                format,
+                parsedLength: parsed.length,
+                parsedData: parsed.slice(0, 2) // Log first 2 items for debugging
+            });
+
+            if (!parsed.length) {
+                alert('Không có dữ liệu CV để lưu!');
+                return;
+            }
+
+            // Gọi API để lưu vào database
+            console.log('Calling saveParseList...');
+            const result = await saveParseList(name, format, parsed);
+            console.log('SaveParseList result:', result);
             
-            // Lưu vào localStorage (hoặc có thể gọi API để lưu vào database)
-            const savedLists = JSON.parse(localStorage.getItem('savedCvLists') || '[]');
-            savedLists.push(saveData);
-            localStorage.setItem('savedCvLists', JSON.stringify(savedLists));
+            // Xuất file theo định dạng đã chọn
+            if (format === 'excel') {
+                handleExportExcel();
+            } else {
+                handleExportCSV();
+            }
             
-            // Hiển thị thông báo thành công
             alert('Đã lưu danh sách thành công!');
         } catch (error) {
             console.error('Error saving CV list:', error);
-            alert('Có lỗi xảy ra khi lưu danh sách!');
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            alert(`Có lỗi xảy ra khi lưu danh sách: ${errorMessage}`);
         }
     };
 

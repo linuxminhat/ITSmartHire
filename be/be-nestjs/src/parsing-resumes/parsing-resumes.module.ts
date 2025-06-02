@@ -3,6 +3,8 @@ import { ParsingResumesService } from './parsing-resumes.service';
 import { HttpModule } from '@nestjs/axios';
 import { ParsingResumesController } from './parsing-resumes.controller';
 import { MulterModule } from '@nestjs/platform-express';
+import { MongooseModule } from '@nestjs/mongoose';
+import { SavedCVList, SavedCVListSchema } from './schemas/saved-cv-list.schema';
 
 @Module({
   imports: [
@@ -16,6 +18,9 @@ import { MulterModule } from '@nestjs/platform-express';
         files: 10
       }
     }),
+    MongooseModule.forFeature([
+      { name: SavedCVList.name, schema: SavedCVListSchema }
+    ]),
   ],
   controllers: [ParsingResumesController],
   providers: [ParsingResumesService],

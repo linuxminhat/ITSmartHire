@@ -18,6 +18,8 @@ import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon
 } from '@heroicons/react/24/outline';
+import { Menu } from '@headlessui/react';
+
 
 const Sidebar: React.FC = () => {
   const { user } = useAuth();
@@ -54,17 +56,15 @@ const Sidebar: React.FC = () => {
   }, [isCollapsed]);
 
   return (
-    <aside 
-      className={`transition-all duration-300 ease-in-out ${
-        isCollapsed ? 'w-16' : 'w-64'
-      } flex-shrink-0 bg-gray-800`}
+    <aside
+      className={`transition-all duration-300 ease-in-out ${isCollapsed ? 'w-16' : 'w-64'
+        } flex-shrink-0 bg-gray-800`}
       aria-label="Sidebar"
     >
       <div className="h-full flex flex-col">
         {/* Logo section */}
-        <div className={`p-4 border-b border-gray-700 ${
-          isCollapsed ? 'flex justify-center' : ''
-        }`}>
+        <div className={`p-4 border-b border-gray-700 ${isCollapsed ? 'flex justify-center' : ''
+          }`}>
           <Link to="/" className="flex items-center">
             {isCollapsed ? (
               <span className="text-xl font-bold text-white">IT</span>
@@ -258,12 +258,45 @@ const Sidebar: React.FC = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to={`${basePath}/parsing-resumes`} className={navLinkClasses}>
-                    <div className="flex items-center">
-                      <DocumentTextIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                      {!isCollapsed && <span className="ml-3">Công cụ trích xuất hồ sơ</span>}
-                    </div>
-                  </NavLink>
+                  <div className="py-2">
+                    <Menu as="div" className="relative">
+                      <Menu.Button className="flex items-center w-full px-4 py-2 text-left text-gray-300 hover:bg-gray-700 rounded-lg">
+                        <DocumentTextIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
+                        {!isCollapsed && (
+                          <>
+                            <span className="ml-3">Công cụ trích xuất hồ sơ</span>
+                            <ChevronDownIcon className="w-4 h-4 ml-auto" />
+                          </>
+                        )}
+                      </Menu.Button>
+                      {!isCollapsed && (
+                        <Menu.Items className="absolute left-0 mt-1 w-full bg-gray-700 rounded-lg shadow-lg py-1">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <NavLink
+                                to={`${basePath}/parsing-resumes`}
+                                className={`${active ? 'bg-gray-600' : ''
+                                  } block px-4 py-2 text-sm text-gray-300`}
+                              >
+                                Trích xuất CV
+                              </NavLink>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <NavLink
+                                to={`${basePath}/saved-records`}
+                                className={`${active ? 'bg-gray-600' : ''
+                                  } block px-4 py-2 text-sm text-gray-300`}
+                              >
+                                Danh sách đã lưu
+                              </NavLink>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      )}
+                    </Menu>
+                  </div>
                 </li>
               </>
             )}
