@@ -69,52 +69,93 @@ export class ParsingResumesService {
     });
 
     const results: any[] = [];
+    const MIN_GAP_MS = 4000;    // 4 s
+    let lastCallTime = 0;       // timestamp lần cuối gọi API
 
-    // Xử lý tuần tự thay vì đồng thời
     for (let i = 0; i < texts.length; i++) {
       const text = texts[i];
-      console.log(`Processing CV #${i + 1}/${texts.length}...`);
-      
-      try {
-        const response = await axios.post('http://127.0.0.1:6969/resume_parsing', {
-          cv: text
-        }, {
-          timeout: 60000,
-          headers: {
-            'Content-Type': 'application/json'
+      let done = false;
+      let attempt = 0;
+
+      while (!done) {
+        // Trước khi gọi, đảm bảo đã chờ đủ 4 s kể từ lastCallTime
+        const now = Date.now();
+        if (lastCallTime > 0) {
+          const elapsedSinceLast = now - lastCallTime;
+          const extraWait = MIN_GAP_MS - elapsedSinceLast;
+          if (extraWait > 0) {
+            console.log(`Chờ thêm ${extraWait} ms để đảm bảo không vượt giới hạn.`);
+            await new Promise(r => setTimeout(r, extraWait));
           }
-        });
-
-        this.writeLog(`LLM SERVER RESPONSE - CV #${i + 1}`, {
-          success: response.data.success,
-          method: response.data.method,
-          dataFields: Object.keys(response.data.data || {}),
-          skillsCount: response.data.data?.skills?.length || 0,
-          workExpCount: response.data.data?.workExperiences?.length || 0
-        });
-
-        results.push(response.data.data);
-
-        // Thêm delay ngắn giữa các requests để tránh rate limiting
-        if (i < texts.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 1000)); // 1 giây delay
         }
 
-      } catch (error) {
-        console.error(`Error processing CV #${i + 1}:`, error.message);
-        this.writeLog(`LLM SERVER ERROR - CV #${i + 1}`, {
-          error: error.message,
-          response: error.response?.data
-        });
+        console.log(`Processing CV #${i + 1}/${texts.length}, attempt #${attempt + 1}...`);
+        const startTime = Date.now();
 
-        // Chỉ tạo empty result cho CV này, không ảnh hưởng CV khác
-        results.push(this.createEmptyResult());
+        try {
+          const response = await axios.post(
+            'http://127.0.0.1:6969/resume_parsing',
+            { cv: text },
+            { timeout: 120000, headers: { 'Content-Type': 'application/json' } }
+          );
+          const latencySec = (Date.now() - startTime) / 1000;
+          console.log(`API latency cho CV #${i + 1}: ${latencySec.toFixed(2)} s`);
+
+          this.writeLog(`LLM SERVER RESPONSE - CV #${i + 1}`, {
+            success: response.data.success,
+            method: response.data.method,
+            dataFields: Object.keys(response.data.data || {}),
+            skillsCount: response.data.data?.skills?.length || 0,
+            workExpCount: response.data.data?.workExperiences?.length || 0
+          });
+
+          results.push(response.data.data);
+          lastCallTime = Date.now();  // Cập nhật timestamp lần gọi thành công
+          done = true;                // Kết thúc vòng retry
+        } catch (error: any) {
+          const status = error.response?.status;
+          const retryInfo = error.response?.data?.retry_delay;
+          attempt++;
+
+          // Nếu là lỗi 429, chờ đúng retry_delay rồi lặp lại
+          if (status === 429 && retryInfo?.seconds) {
+            const waitMs = retryInfo.seconds * 1000;
+            console.warn(`CV #${i + 1} bị 429, chờ ${waitMs} ms rồi retry...`);
+            await new Promise(r => setTimeout(r, waitMs));
+            // vẫn giữ lastCallTime cũ, vì chờ here để quota refill
+          }
+          // Nếu timeout hoặc network error, ta retry tối đa 2 lần
+          else if (error.code === 'ECONNABORTED' || !error.response) {
+            if (attempt < 2) {
+              console.warn(`CV #${i + 1} gặp lỗi network/timeout, retry lần ${attempt + 1}...`);
+              // Có thể chờ thêm 1s trước khi retry tiếp
+              await new Promise(r => setTimeout(r, 1000));
+            } else {
+              console.error(`CV #${i + 1} lỗi network sau ${attempt} lần thử, trả về empty.`);
+              results.push(this.createEmptyResult());
+              lastCallTime = Date.now();
+              done = true;
+            }
+          }
+          // Các lỗi khác (JSON decode, unexpected), bỏ luôn
+          else {
+            console.error(`CV #${i + 1} gặp lỗi không xác định:`, error.message);
+            results.push(this.createEmptyResult());
+            lastCallTime = Date.now();
+            done = true;
+          }
+        }
       }
     }
 
-    console.log(`Completed processing ${texts.length} CVs. Successful: ${results.filter(r => r.name || r.email).length}`);
+    console.log(
+      `Completed processing ${texts.length} CVs. Successful: ${results.filter(r => r.name || r.email).length}`
+    );
     return results;
   }
+
+
+
 
   private createEmptyResult() {
     return {
@@ -255,10 +296,10 @@ export class ParsingResumesService {
       });
 
       const savedList = new this.savedCVListModel(docData);
-      
+
       console.log('Document created, attempting to save...');
       const result = await savedList.save();
-      
+
       console.log('Save successful:', {
         id: result._id,
         name: result.name,
@@ -276,7 +317,7 @@ export class ParsingResumesService {
         userId,
         dtoProvided: !!dto
       });
-      
+
       // Re-throw with more context
       throw new Error(`Failed to save CV list: ${error.message}`);
     }

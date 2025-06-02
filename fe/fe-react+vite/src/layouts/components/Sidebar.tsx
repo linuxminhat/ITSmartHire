@@ -16,15 +16,16 @@ import {
   ChevronDownIcon,
   BellIcon,
   ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon
+  ChevronDoubleRightIcon,
+  CalendarDaysIcon
 } from '@heroicons/react/24/outline';
 import { Menu } from '@headlessui/react';
-
 
 const Sidebar: React.FC = () => {
   const { user } = useAuth();
   const role = user?.role?.name;
   const [blogsOpen, setBlogsOpen] = useState(false);
+  const [resumeToolsOpen, setResumeToolsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Only use HR notification hook if the user is HR
@@ -36,8 +37,24 @@ const Sidebar: React.FC = () => {
 
   const basePath = role === 'ADMIN' ? '/admin' : role === 'HR' ? '/hr' : '/';
 
+  // Unified nav link classes với consistent styling
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
-    `flex items-center py-2.5 px-4 rounded-lg text-gray-300 transition duration-200 hover:bg-gray-700 hover:text-white ${isActive ? 'bg-gray-700 text-white' : ''}`;
+    `group flex items-center w-full h-11 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
+      isActive 
+        ? 'bg-blue-600 text-white shadow-md' 
+        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+    }`;
+
+  // Classes cho sub-menu items
+  const subNavLinkClasses = ({ isActive }: { isActive: boolean }) =>
+    `group flex items-center w-full h-10 px-4 py-2 text-sm rounded-lg transition-all duration-200 ${
+      isActive 
+        ? 'bg-blue-600 text-white shadow-md' 
+        : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+    }`;
+
+  // Classes cho dropdown buttons
+  const dropdownButtonClasses = `group flex items-center w-full h-11 px-4 py-2.5 text-sm font-medium text-gray-300 rounded-lg transition-all duration-200 hover:bg-gray-700 hover:text-white`;
 
   // Thêm hàm xử lý phím tab
   const handleTabKey = (e: KeyboardEvent) => {
@@ -57,262 +74,266 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`transition-all duration-300 ease-in-out ${isCollapsed ? 'w-16' : 'w-64'
-        } flex-shrink-0 bg-gray-800`}
+      className={`transition-all duration-300 ease-in-out ${
+        isCollapsed ? 'w-16' : 'w-64'
+      } flex-shrink-0 bg-gray-800 border-r border-gray-700`}
       aria-label="Sidebar"
     >
       <div className="h-full flex flex-col">
         {/* Logo section */}
-        <div className={`p-4 border-b border-gray-700 ${isCollapsed ? 'flex justify-center' : ''
-          }`}>
+        <div className={`h-16 flex items-center border-b border-gray-700 px-4 ${
+          isCollapsed ? 'justify-center' : ''
+        }`}>
           <Link to="/" className="flex items-center">
             {isCollapsed ? (
-              <span className="text-xl font-bold text-white">IT</span>
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">IT</span>
+              </div>
             ) : (
-              <span className="text-xl font-semibold text-white">IT Smart Hire</span>
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
+                  <span className="text-white font-bold text-sm">IT</span>
+                </div>
+                <span className="text-xl font-semibold text-white">Smart Hire</span>
+              </div>
             )}
           </Link>
         </div>
 
         {/* Navigation section */}
-        <div className="flex-1 overflow-y-auto px-3 py-4">
-          <ul className="space-y-2 font-medium">
-            {/* Bảng điều khiển */}
-            <li>
-              <NavLink to={basePath} className={navLinkClasses} end>
-                <div className="flex items-center">
-                  <HomeIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
+        <div className="flex-1 overflow-y-auto py-4">
+          <nav className="px-3">
+            <ul className="space-y-1">
+              {/* Bảng điều khiển */}
+              <li>
+                <NavLink to={basePath} className={navLinkClasses} end>
+                  <HomeIcon className="w-5 h-5 flex-shrink-0" />
                   {!isCollapsed && <span className="ml-3">Bảng điều khiển</span>}
-                </div>
-              </NavLink>
-            </li>
+                </NavLink>
+              </li>
 
-            {role === 'ADMIN' && (
-              <>
-                <li>
-                  <NavLink to={`${basePath}/users`} className={navLinkClasses}>
-                    <div className="flex items-center">
-                      <UsersIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
+              {role === 'ADMIN' && (
+                <>
+                  {/* Admin specific items */}
+                  <li className="pt-2">
+                    <div className={`px-4 py-2 ${isCollapsed ? 'hidden' : 'block'}`}>
+                      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Quản lý hệ thống
+                      </span>
+                    </div>
+                  </li>
+
+                  <li>
+                    <NavLink to={`${basePath}/users`} className={navLinkClasses}>
+                      <UsersIcon className="w-5 h-5 flex-shrink-0" />
                       {!isCollapsed && <span className="ml-3">Quản lý Người dùng</span>}
-                    </div>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to={`${basePath}/roles`} className={navLinkClasses}>
-                    <div className="flex items-center">
-                      <TagIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink to={`${basePath}/roles`} className={navLinkClasses}>
+                      <TagIcon className="w-5 h-5 flex-shrink-0" />
                       {!isCollapsed && <span className="ml-3">Quản lý Vai trò</span>}
-                    </div>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to={`${basePath}/skills`} className={navLinkClasses}>
-                    <div className="flex items-center">
-                      <AcademicCapIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink to={`${basePath}/skills`} className={navLinkClasses}>
+                      <AcademicCapIcon className="w-5 h-5 flex-shrink-0" />
                       {!isCollapsed && <span className="ml-3">Quản lý Kỹ năng</span>}
-                    </div>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to={`${basePath}/categories`} className={navLinkClasses}>
-                    <div className="flex items-center">
-                      <RectangleGroupIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink to={`${basePath}/categories`} className={navLinkClasses}>
+                      <RectangleGroupIcon className="w-5 h-5 flex-shrink-0" />
                       {!isCollapsed && <span className="ml-3">Quản lý Danh mục</span>}
-                    </div>
-                  </NavLink>
-                </li>
-                {/* Dropdown Quản lý Bài viết */}
-                <li>
-                  <button
-                    onClick={() => setBlogsOpen(o => !o)}
-                    className="group w-full flex items-center py-2.5 px-4 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200"
-                  >
-                    <div className="flex items-center flex-1">
-                      <NewspaperIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                      {!isCollapsed && <span className="ml-3">Quản lý Bài viết</span>}
-                    </div>
-                    {!isCollapsed && (
-                      <ChevronDownIcon
-                        className={`h-5 w-5 transition-transform ${blogsOpen ? 'rotate-180' : 'rotate-0'}`}
-                      />
-                    )}
-                  </button>
+                    </NavLink>
+                  </li>
 
-                  {blogsOpen && !isCollapsed && (
-                    <ul className="mt-1 space-y-1 pl-8">
-                      <li>
-                        <NavLink
-                          to={`${basePath}/blogs`}
-                          end
-                          className={navLinkClasses}
-                        >
-                          <div className="flex items-center">
-                            <span>Danh sách bài viết</span>
-                          </div>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to={`${basePath}/blogs/new`}
-                          end
-                          className={navLinkClasses}
-                        >
-                          <div className="flex items-center">
-                            <span>Thêm bài viết mới</span>
-                          </div>
-                        </NavLink>
-                      </li>
-                    </ul>
-                  )}
-                </li>
-              </>
-            )}
-
-            {(role === 'ADMIN' || role === 'HR') && (
-              <>
-                {role === 'HR' && (
-                  <>
-                    <li>
-                      <NavLink to={`${basePath}/notifications`} className={navLinkClasses}>
-                        <div className="flex items-center relative">
-                          <BellIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                          {!isCollapsed && <span className="ml-3">Quản lý thông báo</span>}
-                          {unreadCount > 0 && (
-                            <span className="absolute -top-2 left-3 flex h-5 w-5">
-                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-                              <span className="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                                {unreadCount > 9 ? '9+' : unreadCount}
-                              </span>
-                            </span>
-                          )}
-                        </div>
-                      </NavLink>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => setBlogsOpen(o => !o)}
-                        className="group w-full flex items-center py-2.5 px-4 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200"
-                      >
-                        <div className="flex items-center flex-1">
-                          <NewspaperIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                          {!isCollapsed && <span className="ml-3">Quản lý Bài viết</span>}
-                        </div>
-                        {!isCollapsed && (
-                          <ChevronDownIcon
-                            className={`h-5 w-5 transition-transform ${blogsOpen ? 'rotate-180' : 'rotate-0'}`}
-                          />
-                        )}
-                      </button>
-
-                      {blogsOpen && !isCollapsed && (
-                        <ul className="mt-1 space-y-1 pl-8">
-                          <li>
-                            <NavLink
-                              to={`${basePath}/blogs`}
-                              end
-                              className={navLinkClasses}
-                            >
-                              <div className="flex items-center">
-                                <span>Danh sách bài viết</span>
-                              </div>
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to={`${basePath}/blogs/new`}
-                              end
-                              className={navLinkClasses}
-                            >
-                              <div className="flex items-center">
-                                <span>Thêm bài viết mới</span>
-                              </div>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      )}
-                    </li>
-                  </>
-                )}
-                <li>
-                  <NavLink to={`${basePath}/companies`} className={navLinkClasses}>
-                    <div className="flex items-center">
-                      <BuildingOffice2Icon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                      {!isCollapsed && <span className="ml-3">Quản lý Công ty</span>}
-                    </div>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to={`${basePath}/jobs`} className={navLinkClasses}>
-                    <div className="flex items-center">
-                      <BriefcaseIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                      {!isCollapsed && <span className="ml-3">Quản lý Việc làm</span>}
-                    </div>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to={`${basePath}/interviews`} className={navLinkClasses}>
-                    <div className="flex items-center">
-                      <BriefcaseIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                      {!isCollapsed && <span className="ml-3">Quản lý lịch phỏng vấn</span>}
-                    </div>
-                  </NavLink>
-                </li>
-                <li>
-                  <div className="py-2">
-                    <Menu as="div" className="relative">
-                      <Menu.Button className="flex items-center w-full px-4 py-2 text-left text-gray-300 hover:bg-gray-700 rounded-lg">
-                        <DocumentTextIcon className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-white" />
-                        {!isCollapsed && (
-                          <>
-                            <span className="ml-3">Công cụ trích xuất hồ sơ</span>
-                            <ChevronDownIcon className="w-4 h-4 ml-auto" />
-                          </>
-                        )}
-                      </Menu.Button>
+                  {/* Blogs dropdown for Admin */}
+                  <li>
+                    <button
+                      onClick={() => setBlogsOpen(!blogsOpen)}
+                      className={dropdownButtonClasses}
+                    >
+                      <NewspaperIcon className="w-5 h-5 flex-shrink-0" />
                       {!isCollapsed && (
-                        <Menu.Items className="absolute left-0 mt-1 w-full bg-gray-700 rounded-lg shadow-lg py-1">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <NavLink
-                                to={`${basePath}/parsing-resumes`}
-                                className={`${active ? 'bg-gray-600' : ''
-                                  } block px-4 py-2 text-sm text-gray-300`}
-                              >
-                                Trích xuất CV
-                              </NavLink>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <NavLink
-                                to={`${basePath}/saved-records`}
-                                className={`${active ? 'bg-gray-600' : ''
-                                  } block px-4 py-2 text-sm text-gray-300`}
-                              >
-                                Danh sách đã lưu
-                              </NavLink>
-                            )}
-                          </Menu.Item>
-                        </Menu.Items>
+                        <>
+                          <span className="ml-3 flex-1 text-left">Quản lý Bài viết</span>
+                          <ChevronDownIcon
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              blogsOpen ? 'rotate-180' : 'rotate-0'
+                            }`}
+                          />
+                        </>
                       )}
-                    </Menu>
-                  </div>
-                </li>
-              </>
-            )}
-          </ul>
+                    </button>
+
+                    {blogsOpen && !isCollapsed && (
+                      <ul className="mt-1 ml-8 space-y-1">
+                        <li>
+                          <NavLink to={`${basePath}/blogs`} end className={subNavLinkClasses}>
+                            <span className="ml-2">Danh sách bài viết</span>
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to={`${basePath}/blogs/new`} end className={subNavLinkClasses}>
+                            <span className="ml-2">Thêm bài viết mới</span>
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                </>
+              )}
+
+              {(role === 'ADMIN' || role === 'HR') && (
+                <>
+                  {/* Shared section */}
+                  <li className="pt-4">
+                    <div className={`px-4 py-2 ${isCollapsed ? 'hidden' : 'block'}`}>
+                      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Quản lý tuyển dụng
+                      </span>
+                    </div>
+                  </li>
+
+                  {role === 'HR' && (
+                    <>
+                      <li>
+                        <NavLink to={`${basePath}/notifications`} className={navLinkClasses}>
+                          <div className="relative">
+                            <BellIcon className="w-5 h-5 flex-shrink-0" />
+                            {unreadCount > 0 && (
+                              <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+                                <span className="text-xs text-white font-medium">
+                                  {unreadCount > 9 ? '9+' : unreadCount}
+                                </span>
+                              </span>
+                            )}
+                          </div>
+                          {!isCollapsed && <span className="ml-3">Quản lý thông báo</span>}
+                        </NavLink>
+                      </li>
+
+                      {/* Blogs dropdown for HR */}
+                      <li>
+                        <button
+                          onClick={() => setBlogsOpen(!blogsOpen)}
+                          className={dropdownButtonClasses}
+                        >
+                          <NewspaperIcon className="w-5 h-5 flex-shrink-0" />
+                          {!isCollapsed && (
+                            <>
+                              <span className="ml-3 flex-1 text-left">Quản lý Bài viết</span>
+                              <ChevronDownIcon
+                                className={`w-4 h-4 transition-transform duration-200 ${
+                                  blogsOpen ? 'rotate-180' : 'rotate-0'
+                                }`}
+                              />
+                            </>
+                          )}
+                        </button>
+
+                        {blogsOpen && !isCollapsed && (
+                          <ul className="mt-1 ml-8 space-y-1">
+                            <li>
+                              <NavLink to={`${basePath}/blogs`} end className={subNavLinkClasses}>
+                                <span className="ml-2">Danh sách bài viết</span>
+                              </NavLink>
+                            </li>
+                            <li>
+                              <NavLink to={`${basePath}/blogs/new`} end className={subNavLinkClasses}>
+                                <span className="ml-2">Thêm bài viết mới</span>
+                              </NavLink>
+                            </li>
+                          </ul>
+                        )}
+                      </li>
+                    </>
+                  )}
+
+                  <li>
+                    <NavLink to={`${basePath}/companies`} className={navLinkClasses}>
+                      <BuildingOffice2Icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="ml-3">Quản lý Công ty</span>}
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink to={`${basePath}/jobs`} className={navLinkClasses}>
+                      <BriefcaseIcon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="ml-3">Quản lý Việc làm</span>}
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink to={`${basePath}/interviews`} className={navLinkClasses}>
+                      <CalendarDaysIcon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="ml-3">Quản lý lịch phỏng vấn</span>}
+                    </NavLink>
+                  </li>
+
+                  {/* Resume Tools Section */}
+                  <li className="pt-4">
+                    <div className={`px-4 py-2 ${isCollapsed ? 'hidden' : 'block'}`}>
+                      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Công cụ AI
+                      </span>
+                    </div>
+                  </li>
+
+                  <li>
+                    <button
+                      onClick={() => setResumeToolsOpen(!resumeToolsOpen)}
+                      className={dropdownButtonClasses}
+                    >
+                      <DocumentTextIcon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && (
+                        <>
+                          <span className="ml-3 flex-1 text-left">Công cụ trích xuất hồ sơ</span>
+                          <ChevronDownIcon
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              resumeToolsOpen ? 'rotate-180' : 'rotate-0'
+                            }`}
+                          />
+                        </>
+                      )}
+                    </button>
+
+                    {resumeToolsOpen && !isCollapsed && (
+                      <ul className="mt-1 ml-8 space-y-1">
+                        <li>
+                          <NavLink to={`${basePath}/parsing-resumes`} className={subNavLinkClasses}>
+                            <span className="ml-2">Trích xuất CV</span>
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to={`${basePath}/saved-records`} className={subNavLinkClasses}>
+                            <span className="ml-2">Danh sách đã lưu</span>
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                </>
+              )}
+            </ul>
+          </nav>
         </div>
 
         {/* Toggle button section */}
-        <div className="p-4 border-t border-gray-700">
+        <div className="border-t border-gray-700 p-3">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-full flex items-center justify-center p-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors"
+            className="w-full h-10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-all duration-200"
+            title={isCollapsed ? "Mở rộng sidebar" : "Thu gọn sidebar"}
           >
             {isCollapsed ? (
-              <ChevronDoubleRightIcon className="h-5 w-5" />
+              <ChevronDoubleRightIcon className="w-5 h-5" />
             ) : (
-              <ChevronDoubleLeftIcon className="h-5 w-5" />
+              <ChevronDoubleLeftIcon className="w-5 h-5" />
             )}
           </button>
         </div>
