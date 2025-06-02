@@ -9,10 +9,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SavedCVList } from './schemas/saved-cv-list.schema';
 import { SaveCVListDto } from './dto/save-cv-list.dto';
+import pLimit from 'p-limit';
+
 
 @Injectable()
 export class ParsingResumesService {
   private logDir: string;
+  private CONCURRENT_LIMIT = 2; // Gemini Pro: nên để 2-3 để an toàn
 
   constructor(
     private readonly httpService: HttpService,
@@ -61,37 +64,18 @@ export class ParsingResumesService {
       })
     );
   }
-
   async callLLMParser(texts: string[]): Promise<any[]> {
     this.writeLog('SENDING TO LLM SERVER (GEMINI)', {
       totalTexts: texts.length,
       textLengths: texts.map(t => t.length)
     });
 
+    const limit = pLimit(this.CONCURRENT_LIMIT);
     const results: any[] = [];
-    const MIN_GAP_MS = 4000;    // 4 s
-    let lastCallTime = 0;       // timestamp lần cuối gọi API
-
-    for (let i = 0; i < texts.length; i++) {
-      const text = texts[i];
-      let done = false;
-      let attempt = 0;
-
-      while (!done) {
-        // Trước khi gọi, đảm bảo đã chờ đủ 4 s kể từ lastCallTime
-        const now = Date.now();
-        if (lastCallTime > 0) {
-          const elapsedSinceLast = now - lastCallTime;
-          const extraWait = MIN_GAP_MS - elapsedSinceLast;
-          if (extraWait > 0) {
-            console.log(`Chờ thêm ${extraWait} ms để đảm bảo không vượt giới hạn.`);
-            await new Promise(r => setTimeout(r, extraWait));
-          }
-        }
-
-        console.log(`Processing CV #${i + 1}/${texts.length}, attempt #${attempt + 1}...`);
+    const tasks = texts.map((text, idx) => limit(async () => {
+      let done = false, attempt = 0, result = this.createEmptyResult();
+      while (!done && attempt < 3) {
         const startTime = Date.now();
-
         try {
           const response = await axios.post(
             'http://127.0.0.1:6969/resume_parsing',
@@ -99,81 +83,148 @@ export class ParsingResumesService {
             { timeout: 120000, headers: { 'Content-Type': 'application/json' } }
           );
           const latencySec = (Date.now() - startTime) / 1000;
-          console.log(`API latency cho CV #${i + 1}: ${latencySec.toFixed(2)} s`);
-
-          this.writeLog(`LLM SERVER RESPONSE - CV #${i + 1}`, {
-            success: response.data.success,
-            method: response.data.method,
-            dataFields: Object.keys(response.data.data || {}),
-            skillsCount: response.data.data?.skills?.length || 0,
-            workExpCount: response.data.data?.workExperiences?.length || 0
+          this.writeLog(`LLM RESPONSE - CV #${idx + 1}`, {
+            latencySec, method: response.data.method, fields: Object.keys(response.data.data || {})
           });
-
-          results.push(response.data.data);
-          lastCallTime = Date.now();  // Cập nhật timestamp lần gọi thành công
-          done = true;                // Kết thúc vòng retry
+          result = response.data.data;
+          done = true;
         } catch (error: any) {
-          const status = error.response?.status;
-          const retryInfo = error.response?.data?.retry_delay;
           attempt++;
-
-          // Nếu là lỗi 429, chờ đúng retry_delay rồi lặp lại
-          if (status === 429 && retryInfo?.seconds) {
-            const waitMs = retryInfo.seconds * 1000;
-            console.warn(`CV #${i + 1} bị 429, chờ ${waitMs} ms rồi retry...`);
-            await new Promise(r => setTimeout(r, waitMs));
-            // vẫn giữ lastCallTime cũ, vì chờ here để quota refill
-          }
-          // Nếu timeout hoặc network error, ta retry tối đa 2 lần
-          else if (error.code === 'ECONNABORTED' || !error.response) {
-            if (attempt < 2) {
-              console.warn(`CV #${i + 1} gặp lỗi network/timeout, retry lần ${attempt + 1}...`);
-              // Có thể chờ thêm 1s trước khi retry tiếp
-              await new Promise(r => setTimeout(r, 1000));
-            } else {
-              console.error(`CV #${i + 1} lỗi network sau ${attempt} lần thử, trả về empty.`);
-              results.push(this.createEmptyResult());
-              lastCallTime = Date.now();
-              done = true;
-            }
-          }
-          // Các lỗi khác (JSON decode, unexpected), bỏ luôn
-          else {
-            console.error(`CV #${i + 1} gặp lỗi không xác định:`, error.message);
-            results.push(this.createEmptyResult());
-            lastCallTime = Date.now();
+          if (error?.response?.status === 429) {
+            const retry = error.response.data?.retry_delay || 5;
+            console.warn(`Quota limit, waiting ${retry}s...`);
+            await new Promise(res => setTimeout(res, retry * 1000));
+          } else if (error.code === 'ECONNABORTED' || !error.response) {
+            if (attempt < 3) await new Promise(r => setTimeout(r, 1000));
+            else done = true;
+          } else {
             done = true;
           }
         }
       }
-    }
-
-    console.log(
-      `Completed processing ${texts.length} CVs. Successful: ${results.filter(r => r.name || r.email).length}`
-    );
-    return results;
+      return result;
+    }));
+    return Promise.all(tasks);
   }
-
-
-
 
   private createEmptyResult() {
     return {
-      name: '',
-      email: '',
-      phone: '',
-      github: '',
-      location: '',
-      university: '',
-      degree: '',
-      gpa: '',
-      graduationYear: '',
-      workExperiences: [],
-      projects: [],
-      skills: [],
-      certifications: []
+      name: '', email: '', phone: '', github: '', location: '', university: '',
+      degree: '', gpa: '', graduationYear: '', workExperiences: [], projects: [],
+      skills: [], certifications: []
     };
   }
+
+  // async callLLMParser(texts: string[]): Promise<any[]> {
+  //   this.writeLog('SENDING TO LLM SERVER (GEMINI)', {
+  //     totalTexts: texts.length,
+  //     textLengths: texts.map(t => t.length)
+  //   });
+
+  //   const results: any[] = [];
+  //   const MIN_GAP_MS = 200;
+  //   let lastCallTime = 0;
+
+  //   for (let i = 0; i < texts.length; i++) {
+  //     const text = texts[i];
+  //     let done = false;
+  //     let attempt = 0;
+
+  //     while (!done) {
+
+  //       const now = Date.now();
+  //       if (lastCallTime > 0) {
+  //         const elapsedSinceLast = now - lastCallTime;
+  //         const extraWait = MIN_GAP_MS - elapsedSinceLast;
+  //         if (extraWait > 0) {
+  //           console.log(`Chờ thêm ${extraWait} ms để đảm bảo không vượt giới hạn.`);
+  //           await new Promise(r => setTimeout(r, extraWait));
+  //         }
+  //       }
+
+  //       console.log(`Processing CV #${i + 1}/${texts.length}, attempt #${attempt + 1}...`);
+  //       const startTime = Date.now();
+
+  //       try {
+  //         const response = await axios.post(
+  //           'http://127.0.0.1:6969/resume_parsing',
+  //           { cv: text },
+  //           { timeout: 120000, headers: { 'Content-Type': 'application/json' } }
+  //         );
+  //         const latencySec = (Date.now() - startTime) / 1000;
+  //         console.log(`API latency cho CV #${i + 1}: ${latencySec.toFixed(2)} s`);
+
+  //         this.writeLog(`LLM SERVER RESPONSE - CV #${i + 1}`, {
+  //           success: response.data.success,
+  //           method: response.data.method,
+  //           dataFields: Object.keys(response.data.data || {}),
+  //           skillsCount: response.data.data?.skills?.length || 0,
+  //           workExpCount: response.data.data?.workExperiences?.length || 0
+  //         });
+
+  //         results.push(response.data.data);
+  //         lastCallTime = Date.now();
+  //         done = true;
+  //       } catch (error: any) {
+  //         const status = error.response?.status;
+  //         const retryInfo = error.response?.data?.retry_delay;
+  //         attempt++;
+
+
+  //         if (status === 429 && retryInfo?.seconds) {
+  //           const waitMs = retryInfo.seconds * 1000;
+  //           console.warn(`CV #${i + 1} bị 429, chờ ${waitMs} ms rồi retry...`);
+  //           await new Promise(r => setTimeout(r, waitMs));
+
+  //         }
+
+  //         else if (error.code === 'ECONNABORTED' || !error.response) {
+  //           if (attempt < 2) {
+  //             console.warn(`CV #${i + 1} gặp lỗi network/timeout, retry lần ${attempt + 1}...`);
+  //             // Có thể chờ thêm 1s trước khi retry tiếp
+  //             await new Promise(r => setTimeout(r, 1000));
+  //           } else {
+  //             console.error(`CV #${i + 1} lỗi network sau ${attempt} lần thử, trả về empty.`);
+  //             results.push(this.createEmptyResult());
+  //             lastCallTime = Date.now();
+  //             done = true;
+  //           }
+  //         }
+  //         // Các lỗi khác (JSON decode, unexpected), bỏ luôn
+  //         else {
+  //           console.error(`CV #${i + 1} gặp lỗi không xác định:`, error.message);
+  //           results.push(this.createEmptyResult());
+  //           lastCallTime = Date.now();
+  //           done = true;
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   console.log(
+  //     `Completed processing ${texts.length} CVs. Successful: ${results.filter(r => r.name || r.email).length}`
+  //   );
+  //   return results;
+  // }
+
+
+  // private createEmptyResult() {
+  //   return {
+  //     name: '',
+  //     email: '',
+  //     phone: '',
+  //     github: '',
+  //     location: '',
+  //     university: '',
+  //     degree: '',
+  //     gpa: '',
+  //     graduationYear: '',
+  //     workExperiences: [],
+  //     projects: [],
+  //     skills: [],
+  //     certifications: []
+  //   };
+  // }
 
   async mapTokensToFields(results: any[]): Promise<any[]> {
     this.writeLog('LLM RESULTS - ALREADY STRUCTURED', {

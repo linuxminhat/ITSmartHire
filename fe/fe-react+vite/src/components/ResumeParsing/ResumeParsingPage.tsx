@@ -22,7 +22,6 @@ const Inner: React.FC = () => {
     // Hàm xuất CSV với BOM để hỗ trợ tiếng Việt
     const handleExportCSV = () => {
         if (!parsed.length) return;
-
         const data = parsed.map(item => ({
             'Họ và tên': item.name || '',
             'Email': item.email || '',
@@ -32,10 +31,10 @@ const Inner: React.FC = () => {
             'Trường': item.university || '',
             'Bằng cấp': item.degree || '',
             'Điểm GPA': item.gpa || '',
-            'Kinh nghiệm làm việc': item.workExperiences?.map(exp => 
+            'Kinh nghiệm làm việc': item.workExperiences?.map(exp =>
                 `${exp.company} - ${exp.position} (${exp.duration})`
             ).join('; ') || '',
-            'Dự án': item.projects?.map(proj => 
+            'Dự án': item.projects?.map(proj =>
                 `${proj.name}: ${proj.description.join(', ')}`
             ).join('; ') || '',
             'Kỹ năng': item.skills?.join(', ') || '',
@@ -47,12 +46,12 @@ const Inner: React.FC = () => {
             quotes: true,
             delimiter: ','
         });
-        
+
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `cv_data_${new Date().toISOString().slice(0,10)}.csv`;
+        a.download = `cv_data_${new Date().toISOString().slice(0, 10)}.csv`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -89,10 +88,10 @@ const Inner: React.FC = () => {
             'Trường': item.university || '',
             'Bằng cấp': item.degree || '',
             'Điểm GPA': item.gpa || '',
-            'Kinh nghiệm làm việc': item.workExperiences?.map(exp => 
+            'Kinh nghiệm làm việc': item.workExperiences?.map(exp =>
                 `${exp.company} - ${exp.position} (${exp.duration})`
             ).join('\n') || '',
-            'Dự án': item.projects?.map(proj => 
+            'Dự án': item.projects?.map(proj =>
                 `${proj.name}: ${proj.description.join(', ')}`
             ).join('\n') || '',
             'Kỹ năng': item.skills?.join(', ') || '',
@@ -124,40 +123,40 @@ const Inner: React.FC = () => {
         XLSX.utils.book_append_sheet(wb, ws, "CV Data");
 
         // Xuất file
-        XLSX.writeFile(wb, `cv_data_${new Date().toISOString().slice(0,10)}.xlsx`);
+        XLSX.writeFile(wb, `cv_data_${new Date().toISOString().slice(0, 10)}.xlsx`);
     };
 
     const handleParseAll = async () => {
         if (!files.length) return
         setIsLoading(true)
         setError(null)
-        
+
         try {
             setFiles(fs => fs.map(f => ({ ...f, status: 'parsing', progress: 0 })))
-            
+
             console.log('🚀 Starting batch processing for', files.length, 'CVs...');
             console.log('⏱️  Estimated time:', Math.ceil(files.length / 5) * 3, 'seconds');
-            
+
             const response = await callUploadAndParseCVs(files.map(f => f.file))
-            
+
             if (!response.success || !response.data) {
                 throw new Error('Invalid response from server');
             }
 
             const parsedData = Array.isArray(response.data) ? response.data : [response.data];
-            
+
             // Phân tích kết quả
             const successCount = parsedData.filter(cv => cv.name || cv.email).length;
             const failCount = parsedData.length - successCount;
-            
+
             console.log(`📊 Processing complete:`);
             console.log(`   ✅ Success: ${successCount} CVs`);
             console.log(`   ❌ Failed: ${failCount} CVs`);
-            console.log(`   📈 Success rate: ${((successCount/parsedData.length)*100).toFixed(1)}%`);
-            
+            console.log(`   📈 Success rate: ${((successCount / parsedData.length) * 100).toFixed(1)}%`);
+
             setParsed(parsedData);
             setFiles(fs => fs.map(f => ({ ...f, status: 'done', progress: 100 })))
-            
+
         } catch (err) {
             console.error('Parse error:', err);
             const errorMessage = err instanceof Error ? err.message : 'Có lỗi xảy ra khi xử lý CV';
@@ -194,14 +193,14 @@ const Inner: React.FC = () => {
             console.log('Calling saveParseList...');
             const result = await saveParseList(name, format, parsed);
             console.log('SaveParseList result:', result);
-            
+
             // Xuất file theo định dạng đã chọn
             if (format === 'excel') {
                 handleExportExcel();
             } else {
                 handleExportCSV();
             }
-            
+
             alert('Đã lưu danh sách thành công!');
         } catch (error) {
             console.error('Error saving CV list:', error);
@@ -273,7 +272,7 @@ const Inner: React.FC = () => {
                                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <button 
+                            <button
                                 onClick={handleExportExcel}
                                 disabled={!parsed.length}
                                 className="flex items-center px-4 py-2 bg-[#52c41a] text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -281,7 +280,7 @@ const Inner: React.FC = () => {
                                 <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
                                 Xuất Excel ({parsed.length}/100)
                             </button>
-                            <button 
+                            <button
                                 onClick={handleExportCSV}
                                 disabled={!parsed.length}
                                 className="flex items-center px-4 py-2 bg-[#52c41a] text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -308,7 +307,7 @@ const Inner: React.FC = () => {
 
             {showFileList && <FileListModal onClose={() => setShowFileList(false)} />}
             {showSaveModal && (
-                <SaveModal 
+                <SaveModal
                     onClose={() => setShowSaveModal(false)}
                     onSave={handleSave}
                 />
