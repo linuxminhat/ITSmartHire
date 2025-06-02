@@ -10,6 +10,7 @@ import { unparse } from 'papaparse'
 import { CloudArrowUpIcon, SparklesIcon, ArrowDownTrayIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
 import * as XLSX from 'xlsx'
 import SaveModal from './SaveModal'
+import { Tooltip } from 'react-tooltip'
 
 const Inner: React.FC = () => {
     const { files, setFiles, setParsed, parsed } = useContext(ResumeContext)
@@ -223,81 +224,140 @@ const Inner: React.FC = () => {
             {/* Main Content Container */}
             <div className="space-y-6">
                 {/* Toolbar Section */}
-                <div className="bg-white rounded-lg shadow p-4">
+                <div className="bg-white rounded-lg shadow-lg p-6">
                     <div className="flex flex-col space-y-4">
-                        {/* Primary Actions */}
-                        <div className="flex items-center gap-3">
+                        {/* Primary Actions Row */}
+                        <div className="flex items-center gap-4">
+                            {/* Hồ sơ tải lên - Primary gradient button */}
                             <button
                                 onClick={() => setShowFileList(true)}
-                                className="flex items-center px-4 py-2 bg-[#1890ff] text-white rounded-lg hover:bg-blue-600 transition-colors"
+                                className="flex items-center px-6 py-3 
+                                    bg-gradient-to-r from-blue-600 to-blue-500
+                                    hover:from-blue-700 hover:to-blue-600
+                                    text-white rounded-xl shadow-md hover:shadow-lg
+                                    transform transition-all duration-200 hover:-translate-y-0.5"
                             >
-                                <CloudArrowUpIcon className="h-5 w-5 mr-2" />
-                                Import CV ({files.length})
+                                <CloudArrowUpIcon className="h-6 w-6 mr-3" />
+                                <span className="font-medium">
+                                    Hồ sơ tải lên
+                                    <span className="ml-2 px-2 py-0.5 bg-blue-400 rounded-full text-sm">
+                                        {files.length}/10
+                                    </span>
+                                </span>
                             </button>
 
+                            {/* Phân tích tất cả - Accent orange button */}
                             <button
                                 onClick={handleParseAll}
-                                className="flex items-center px-4 py-2 bg-[#fa8c16] text-white rounded-lg hover:bg-orange-500 transition-colors"
+                                className="flex items-center px-6 py-3
+                                    bg-gradient-to-r from-orange-500 to-orange-400
+                                    hover:from-orange-600 hover:to-orange-500
+                                    text-white rounded-xl shadow-md hover:shadow-lg
+                                    transform transition-all duration-200 hover:-translate-y-0.5"
                             >
-                                <SparklesIcon className="h-5 w-5 mr-2" />
-                                Phân tích tất cả
+                                <SparklesIcon className="h-6 w-6 mr-3" />
+                                <span className="font-medium">Phân tích tất cả</span>
                             </button>
 
+                            {/* Lưu tất cả - Success green button */}
                             <button
                                 onClick={() => setShowSaveModal(true)}
-                                className="flex items-center px-4 py-2 bg-[#52c41a] text-white rounded-lg hover:bg-green-600 transition-colors"
+                                className="flex items-center px-6 py-3
+                                    bg-gradient-to-r from-green-500 to-green-400
+                                    hover:from-green-600 hover:to-green-500
+                                    text-white rounded-xl shadow-md hover:shadow-lg
+                                    transform transition-all duration-200 hover:-translate-y-0.5"
                             >
-                                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
-                                Lưu tất cả
+                                <ArrowDownTrayIcon className="h-6 w-6 mr-3" />
+                                <span className="font-medium">Lưu tất cả</span>
                             </button>
 
-                            {/* Thêm nút Làm mới */}
+                            {/* Làm mới - Neutral button */}
                             <button
                                 onClick={handleReset}
-                                className="flex items-center px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                                className="flex items-center px-6 py-3
+                                    bg-gray-500 hover:bg-gray-600
+                                    text-white rounded-xl shadow-md hover:shadow-lg
+                                    transform transition-all duration-200 hover:-translate-y-0.5
+                                    ml-auto"
                             >
-                                <ArrowPathIcon className="h-5 w-5 mr-2" />
-                                Làm mới
+                                <ArrowPathIcon className="h-6 w-6 mr-3" />
+                                <span className="font-medium">Làm mới</span>
                             </button>
-                        </div>
 
-                        {/* Search and Export */}
-                        <div className="flex items-center gap-4">
-                            <div className="flex-1 relative">
-                                <input
-                                    type="text"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    placeholder="🔍 Tìm theo tên hoặc email"
-                                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                            </div>
+                            {/* Export buttons */}
                             <button
                                 onClick={handleExportExcel}
                                 disabled={!parsed.length}
-                                className="flex items-center px-4 py-2 bg-[#52c41a] text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                data-tooltip-id="export-tooltip"
+                                data-tooltip-content="Xuất tất cả hồ sơ đã trích xuất sang file Excel"
+                                className={`
+                                    flex items-center px-6 py-3 rounded-xl
+                                    transform transition-all duration-200
+                                    ${parsed.length 
+                                        ? 'bg-gradient-to-r from-green-500 to-green-400 hover:from-green-600 hover:to-green-500 text-white shadow-md hover:shadow-lg hover:-translate-y-0.5' 
+                                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'}
+                                `}
                             >
-                                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
-                                Xuất Excel ({parsed.length}/100)
+                                <ArrowDownTrayIcon className="h-6 w-6 mr-3" />
+                                <span className="font-medium">
+                                    Xuất Excel
+                                    <span className={`
+                                        ml-2 px-2 py-0.5 rounded-full text-sm
+                                        ${parsed.length 
+                                            ? 'bg-green-400 text-white' 
+                                            : 'bg-gray-200 text-gray-500'}
+                                    `}>
+                                        {parsed.length}/100
+                                    </span>
+                                </span>
                             </button>
+
                             <button
                                 onClick={handleExportCSV}
                                 disabled={!parsed.length}
-                                className="flex items-center px-4 py-2 bg-[#52c41a] text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                data-tooltip-id="export-tooltip"
+                                data-tooltip-content="Xuất tất cả hồ sơ đã trích xuất sang file CSV"
+                                className={`
+                                    flex items-center px-6 py-3 rounded-xl
+                                    transform transition-all duration-200
+                                    ${parsed.length 
+                                        ? 'bg-gradient-to-r from-green-500 to-green-400 hover:from-green-600 hover:to-green-500 text-white shadow-md hover:shadow-lg hover:-translate-y-0.5' 
+                                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'}
+                                `}
                             >
-                                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
-                                Xuất CSV ({parsed.length}/100)
+                                <ArrowDownTrayIcon className="h-6 w-6 mr-3" />
+                                <span className="font-medium">
+                                    Xuất CSV
+                                    <span className={`
+                                        ml-2 px-2 py-0.5 rounded-full text-sm
+                                        ${parsed.length 
+                                            ? 'bg-green-400 text-white' 
+                                            : 'bg-gray-200 text-gray-500'}
+                                    `}>
+                                        {parsed.length}/100
+                                    </span>
+                                </span>
                             </button>
+                        </div>
+
+                        {/* Search bar */}
+                        <div className="flex items-center">
+                            <input
+                                type="text"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                placeholder="🔍 Tìm theo tên hoặc email"
+                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
                         </div>
                     </div>
                 </div>
 
-                {/* Upload Section - Compact when empty */}
-                {files.length === 0 && (
-                    <div className="bg-white rounded-lg shadow">
-                        <UploadSection />
-                    </div>
-                )}
+                {/* Upload Section - LUÔN HIỂN THỊ, không còn điều kiện files.length === 0 */}
+                <div className="bg-white rounded-lg shadow">
+                    <UploadSection />
+                </div>
 
                 {/* Data Table */}
                 <div className="bg-white rounded-lg shadow">
@@ -312,6 +372,13 @@ const Inner: React.FC = () => {
                     onSave={handleSave}
                 />
             )}
+
+            {/* Tooltip Component */}
+            <Tooltip
+                id="export-tooltip"
+                className="z-50 !bg-gray-800 !px-3 !py-2"
+                place="top"
+            />
         </>
     )
 }

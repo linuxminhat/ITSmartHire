@@ -1,4 +1,5 @@
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 // 1. Định nghĩa kiểu dữ liệu cho từng file upload
 export interface FileItem {
@@ -44,6 +45,8 @@ interface ResumeContextValue {
     setParsed: React.Dispatch<React.SetStateAction<ParsedResume[]>>;
 }
 
+const STORAGE_KEY = 'resume_parsing_state';
+
 // 4. Tạo context với giá trị mặc định
 export const ResumeContext = createContext<ResumeContextValue>({
     files: [],
@@ -53,11 +56,87 @@ export const ResumeContext = createContext<ResumeContextValue>({
 });
 
 // 5. Provider component
-export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [files, setFiles] = useState<FileItem[]>([]);
-    const [parsed, setParsed] = useState<ParsedResume[]>([]);
+export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    // Khôi phục state từ localStorage khi component mount
+    const [files, setFiles] = useState<FileItem[]>(() => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            // Khôi phục File objects từ stored data
+            return parsed.files.map((f: any) => ({
+                ...f,
+                file: new File([], f.file.name, {
+                    type: f.file.type,
+                })
+            }));
+        }
+        return [];
+    });
 
-    // Thêm log để kiểm tra khi state thay đổi
+    const [parsed, setParsed] = useState<ParsedResume[]>(() => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            return parsed.parsed || [];
+        }
+        return [];
+    });
+
+    // Lưu state vào localStorage khi có thay đổi
+    useEffect(() => {
+        const state = {
+            files: files.map(f => ({
+                ...f,
+                file: {
+                    name: f.file.name,
+                    type: f.file.type,
+                }
+            })),
+            parsed
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }, [files, parsed]);
+
+    // Thêm event listener để cảnh báo khi rời trang
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (files.length > 0 || parsed.length > 0) {
+                const message = 'Bạn có dữ liệu chưa được lưu. Bạn có chắc chắn muốn rời khỏi trang?';
+                e.returnValue = message;
+                return message;
+            }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [files, parsed]);
+
+    // Thêm effect để cảnh báo khi chuyển route trong ứng dụng
+    useEffect(() => {
+        const handleRouteChange = () => {
+            if (files.length > 0 || parsed.length > 0) {
+                const shouldLeave = window.confirm(
+                    'Bạn có dữ liệu chưa được lưu. Bạn có chắc chắn muốn rời khỏi trang?'
+                );
+                if (!shouldLeave) {
+                    // Prevent navigation
+                    window.history.pushState(null, '', window.location.pathname);
+                    return false;
+                }
+            }
+        };
+
+        window.addEventListener('popstate', handleRouteChange);
+
+        return () => {
+            window.removeEventListener('popstate', handleRouteChange);
+        };
+    }, [files, parsed]);
+
+    // Thêm effect để kiểm tra khi state thay đổi
     useEffect(() => {
         console.log('Files state changed:', files);
     }, [files]);

@@ -295,7 +295,7 @@ FORMAT JSON:
     "name": "tên đầy đủ của ứng viên",
     "email": "địa chỉ email của ứng viên",
     "phone": "số điện thoại",
-    "github": "github username hoặc URL",
+    "github": "github của ứng viên. Nếu chỉ có tên github thì đính kèm URL để HR có thể click vào. Nếu không có github thì nền tảng khác như linkedln cũng chấp nh",
     "location": "địa chỉ/thành phố",
     "university": "tên trường đại học",
     "degree": "bằng cấp/chuyên ngành",
