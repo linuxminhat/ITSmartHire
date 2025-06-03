@@ -39,7 +39,10 @@ const Inner: React.FC = () => {
                 `${proj.name}: ${proj.description.join(', ')}`
             ).join('; ') || '',
             'Kỹ năng': item.skills?.join(', ') || '',
-            'Chứng chỉ': item.certifications?.join(', ') || ''
+            'Chứng chỉ': item.certifications?.join(', ') || '',
+            'Năm kinh nghiệm': item.totalExperienceYears ? `${item.totalExperienceYears} năm` : '',
+            'Ngoại ngữ': item.languages?.join('; ') || '',
+            'Giải thưởng': item.awards?.join('; ') || ''
         }));
 
         // Thêm BOM và config để hỗ trợ Unicode
@@ -76,7 +79,10 @@ const Inner: React.FC = () => {
             { header: 'Kinh nghiệm làm việc', key: 'workExperiences', width: 50 },
             { header: 'Dự án', key: 'projects', width: 50 },
             { header: 'Kỹ năng', key: 'skills', width: 40 },
-            { header: 'Chứng chỉ', key: 'certifications', width: 30 }
+            { header: 'Chứng chỉ', key: 'certifications', width: 30 },
+            { header: 'Năm kinh nghiệm', key: 'totalExperienceYears', width: 15 },
+            { header: 'Ngoại ngữ', key: 'languages', width: 30 },
+            { header: 'Giải thưởng', key: 'awards', width: 30 }
         ];
 
         // Tạo dữ liệu cho Excel
@@ -96,7 +102,10 @@ const Inner: React.FC = () => {
                 `${proj.name}: ${proj.description.join(', ')}`
             ).join('\n') || '',
             'Kỹ năng': item.skills?.join(', ') || '',
-            'Chứng chỉ': item.certifications?.join(', ') || ''
+            'Chứng chỉ': item.certifications?.join(', ') || '',
+            'Năm kinh nghiệm': item.totalExperienceYears ? `${item.totalExperienceYears} năm` : '',
+            'Ngoại ngữ': item.languages?.join(', ') || '',
+            'Giải thưởng': item.awards?.join(', ') || ''
         }));
 
         // Tạo worksheet

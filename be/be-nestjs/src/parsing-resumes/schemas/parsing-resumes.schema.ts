@@ -31,6 +31,7 @@ export class ResumeParsed {
         type: [{
             company: String,
             position: String,
+            designation: String,
             duration: String,
             description: [String]
         }]
@@ -38,6 +39,7 @@ export class ResumeParsed {
     workExperiences: Array<{
         company: string;
         position: string;
+        designation: string;
         duration: string;
         description: string[];
     }>;
@@ -58,6 +60,18 @@ export class ResumeParsed {
 
     @Prop({ type: [String] })
     certifications: string[];
+
+    @Prop({ type: Number })
+    totalExperienceYears: number;
+
+    @Prop({ type: [String] })
+    languages: string[];
+
+    @Prop({ type: [String] })
+    awards: string[];
+
+    @Prop({ type: [String] })
+    designations: string[];
 }
 
 export const ParsingResumesSchema = SchemaFactory.createForClass(ResumeParsed);

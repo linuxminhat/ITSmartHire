@@ -367,8 +367,10 @@ const UserHeader: React.FC = () => {
                   </div>
                 )}
               </div>
-              <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn bằng AI</NavLink>
-              <NavLink to="/mockinterview" className={navLinkClasses}>Viết CV bằng AI</NavLink>
+              {/* <NavLink to="/mockinterview" className={navLinkClasses}>Phỏng vấn bằng AI</NavLink>
+              <NavLink to="/mockinterview" className={navLinkClasses}>Viết CV bằng AI</NavLink> */}
+              <a href="http://localhost:3000/" target="_blank" rel="noopener noreferrer" className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Phỏng vấn bằng AI</a>
+              <a href="http://localhost:3001/" target="_blank" rel="noopener noreferrer" className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Viết CV bằng AI</a>
             </div>
           </div>
 

@@ -26,9 +26,13 @@ const ALL_COLUMNS: Column[] = [
     { key: 'degree', label: 'Bằng cấp', width: '150px' },
     { key: 'gpa', label: 'Điểm GPA', width: '100px' },
     { key: 'workExperiences', label: 'Kinh nghiệm làm việc', width: '300px' },
+    { key: 'totalExperienceYears', label: 'Năm kinh nghiệm', width: '120px' },
+    { key: 'languages', label: 'Ngoại ngữ', width: '200px' },
     { key: 'projects', label: 'Dự án', width: '300px' },
     { key: 'skills', label: 'Kỹ năng', width: '250px' },
+    { key: 'awards', label: 'Giải thưởng', width: '200px' },
     { key: 'certifications', label: 'Chứng chỉ', width: '200px' },
+    { key: 'designations', label: 'Chức danh', width: '200px' },
 ];
 
 interface DataTableProps {
@@ -42,11 +46,55 @@ const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
     // Thêm hàm renderCellContent
     const renderCellContent = (item: ParsedResume, key: keyof ParsedResume) => {
         const value = item[key];
+        const emptyMessage = (
+            <span className="italic text-orange-500 bg-orange-50 px-2 py-1 rounded-md text-sm">
+                Ứng viên không cung cấp thông tin này
+            </span>
+        );
 
+        // Xử lý hiển thị năm kinh nghiệm
+        if (key === 'totalExperienceYears') {
+            return value ? `${value} năm` : emptyMessage;
+        }
+
+        // Xử lý hiển thị chức danh
+        if (key === 'designations') {
+            if (!Array.isArray(value) || value.length === 0) {
+                return emptyMessage;
+            }
+
+            const text = value.join(', ');
+            
+            return (
+                <div
+                    className="min-h-[50px] max-h-[100px] p-2 cursor-pointer hover:bg-gray-50"
+                    data-tooltip-id="shared-tooltip"
+                    data-tooltip-content={text}
+                >
+                    <div className="line-clamp-2">
+                        {text.length > 100 ? `${text.slice(0, 100)}...` : text}
+                    </div>
+                </div>
+            );
+        }
+
+        // Xử lý hiển thị kinh nghiệm làm việc
         if (key === 'workExperiences') {
-            const text = (item.workExperiences || [])
-                .map(exp => `${exp.company}\n${exp.position}\n${exp.duration}\n${exp.description.join('\n')}`)
+            if (!Array.isArray(value) || value.length === 0) {
+                return emptyMessage;
+            }
+
+            const text = value
+                .map(exp => {
+                    if (typeof exp === 'object' && exp !== null) {
+                        return `${exp.company || ''}\n${exp.position || ''}\nChức danh: ${exp.designation || 'Không có'}\n${exp.duration || ''}\n${Array.isArray(exp.description) ? exp.description.join('\n') : ''}`;
+                    }
+                    return '';
+                })
+                .filter(Boolean)
                 .join('\n\n');
+
+            if (!text) return emptyMessage;
             
             return (
                 <div
@@ -61,11 +109,24 @@ const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
             );
         }
 
+        // Xử lý hiển thị projects
         if (key === 'projects') {
-            const text = (item.projects || [])
-                .map(proj => `${proj.name}\n${proj.description.join('\n')}`)
+            if (!Array.isArray(value) || value.length === 0) {
+                return emptyMessage;
+            }
+
+            const text = value
+                .map(proj => {
+                    if (typeof proj === 'object' && proj !== null) {
+                        return `${proj.name || ''}\n${Array.isArray(proj.description) ? proj.description.join('\n') : ''}`;
+                    }
+                    return '';
+                })
+                .filter(Boolean)
                 .join('\n\n');
-            
+
+            if (!text) return emptyMessage;
+
             return (
                 <div
                     className="min-h-[50px] max-h-[100px] p-2 cursor-pointer hover:bg-gray-50"
@@ -79,8 +140,13 @@ const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
             );
         }
 
-        if (key === 'skills' || key === 'certifications') {
-            const text = Array.isArray(value) ? value.join(', ') : String(value || '');
+        // Xử lý hiển thị mảng (languages, awards, skills, certifications)
+        if (['languages', 'awards', 'skills', 'certifications'].includes(key)) {
+            if (!Array.isArray(value) || value.length === 0) {
+                return emptyMessage;
+            }
+
+            const text = value.join(key === 'skills' || key === 'certifications' ? ', ' : '\n');
             
             return (
                 <div
@@ -88,14 +154,17 @@ const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
                     data-tooltip-id="shared-tooltip"
                     data-tooltip-content={text}
                 >
-                    <div className="line-clamp-3">
+                    <div className={`${key === 'languages' || key === 'awards' ? 'line-clamp-2' : 'line-clamp-3'}`}>
                         {text.length > 100 ? `${text.slice(0, 100)}...` : text}
                     </div>
                 </div>
             );
         }
 
+        // Xử lý hiển thị GitHub
         if (key === 'github' && value) {
+            if (!value) return emptyMessage;
+            
             return (
                 <a
                     href={value as string}
@@ -108,7 +177,9 @@ const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
             );
         }
 
-        return value || '-';
+        // Xử lý các trường còn lại
+        if (!value || value === '') return emptyMessage;
+        return String(value);
     };
 
     // filter data based on searchTerm from props

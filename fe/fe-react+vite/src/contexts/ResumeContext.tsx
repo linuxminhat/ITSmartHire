@@ -13,6 +13,7 @@ export interface FileItem {
 export interface WorkExperience {
     company: string;
     position: string;
+    designation: string;
     duration: string;
     description: string[];
 }
@@ -35,6 +36,10 @@ export interface ParsedResume {
     projects: Project[];
     skills: string[];
     certifications: string[];
+    totalExperienceYears: number;
+    languages: string[];
+    awards: string[];
+    designations: string[];
 }
 
 // 3. Interface cho giá trị context

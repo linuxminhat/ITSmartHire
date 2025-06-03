@@ -1,4 +1,4 @@
-import { IsString, IsArray, ArrayNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsArray, ArrayNotEmpty, IsOptional, IsNumber } from 'class-validator';
 
 export class ParsedResumeDto {
     @IsString()
@@ -38,6 +38,7 @@ export class ParsedResumeDto {
     workExperiences?: {
         company: string;
         position: string;
+        designation: string;
         duration: string;
         description: string[];
     }[];
@@ -56,4 +57,20 @@ export class ParsedResumeDto {
     @IsArray()
     @IsOptional()
     certifications?: string[];
+
+    @IsNumber()
+    @IsOptional()
+    totalExperienceYears?: number;
+
+    @IsArray()
+    @IsOptional()
+    languages?: string[];
+
+    @IsArray()
+    @IsOptional()
+    awards?: string[];
+
+    @IsArray()
+    @IsOptional()
+    designations?: string[];
 }
