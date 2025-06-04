@@ -122,3 +122,86 @@ export const getSavedLists = async () => {
 export const deleteSavedList = async (id: string) => {
     return axios.delete(`/api/v1/parsing-resumes/saved-lists/${id}`);
 };
+
+export const scoreResumes = async (data: {
+    jd: string;
+    file: File;
+    weights: {
+        skills: number;
+        experience: number;
+        designation: number;
+        degree: number;
+        gpa: number;
+        languages: number;
+        awards: number;
+        github: number;
+        certifications: number;
+        projects: number;
+    }
+}) => {
+    try {
+        const formData = new FormData();
+        formData.append('jd', data.jd);
+        formData.append('file', data.file);
+        formData.append('weights', JSON.stringify(data.weights));
+
+        const response = await axios.post('/api/v1/parsing-resumes/score', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            responseType: 'blob'
+        });
+
+        const blobData = (response.data instanceof Blob && response.data.size > 0) ? response.data : response;
+
+        console.log('Full Axios object received:', response);
+        console.log('Data used for Blob:', blobData);
+        console.log('Type of data used for Blob:', typeof blobData);
+
+        if (!(blobData instanceof Blob)) {
+            console.error('Failed to obtain a valid Blob object from the response.');
+            throw new Error('Received invalid data format from server. Expected a Blob.');
+        }
+        console.log('Blob data is valid. Size:', blobData.size, 'Type:', blobData.type);
+        
+        const url = window.URL.createObjectURL(blobData);
+        const link = document.createElement('a');
+        link.href = url;
+        
+        const responseHeaders = response.headers;
+        const contentDisposition = responseHeaders ? responseHeaders['content-disposition'] : null;
+        
+        let filename = `cv_scores_${new Date().toISOString().slice(0,10)}.xlsx`;
+        if (contentDisposition) {
+            const filenameMatch = contentDisposition.match(/filename="?(.+)"?/i);
+            if (filenameMatch && filenameMatch.length > 1) {
+                filename = filenameMatch[1];
+            }
+        }
+        link.setAttribute('download', filename);
+        
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+
+        return true;
+    } catch (error: any) {
+        console.error('Score error:', error);
+        if (error.response && error.response.data instanceof Blob) {
+            const textError = await error.response.data.text();
+            console.error("Server error details (blob):", textError);
+            try {
+                const jsonError = JSON.parse(textError);
+                throw new Error(jsonError.message || jsonError.error || 'Failed to score CVs (parsed from blob error)');
+            } catch (e) {
+                throw new Error(textError || 'Failed to score CVs (raw blob error)');
+            }
+        } else if (error.response && error.response.data) {
+            console.error("Server error details (json/text):", error.response.data);
+            const errorDetails = error.response.data;
+            throw new Error(errorDetails.message || errorDetails.error || 'Failed to score CVs');
+        }
+        throw error;
+    }
+};

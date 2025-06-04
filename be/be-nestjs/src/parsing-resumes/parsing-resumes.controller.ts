@@ -10,13 +10,16 @@ import {
   Param,
   UseGuards,
   Req,
+  UploadedFile,
+  Res,
+  Header,
 } from '@nestjs/common';
-import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+import { FileFieldsInterceptor, FilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
 import { ParsingResumesService } from './parsing-resumes.service';
 import { SaveCVListDto } from './dto/save-cv-list.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guards';
-
 
 @Controller('parsing-resumes')
 @UseGuards(JwtAuthGuard)
@@ -195,5 +198,59 @@ export class ParsingResumesController {
   async deleteList(@Param('id') id: string, @Req() req) {
     const userId = req.user?.id || req.user?._id;
     return await this.parsingService.deleteList(id, userId);
+  }
+
+  @Post('score')
+  @UseInterceptors(FileInterceptor('file'))
+  async scoreResumes(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: {
+      jd: string;
+      weights: string;
+    },
+    @Res() res: Response,
+  ) {
+    try {
+      if (!file) {
+        throw new BadRequestException('File is required.');
+      }
+      if (!body.jd || !body.weights) {
+        throw new BadRequestException('JD and weights are required.');
+      }
+
+      let parsedWeights;
+      try {
+        parsedWeights = JSON.parse(body.weights);
+      } catch (e) {
+        throw new BadRequestException('Invalid weights format. Weights should be a valid JSON string.');
+      }
+
+      const result = await this.parsingService.scoreResumes(file, { jd: body.jd, weights: parsedWeights });
+      
+      // result.data ở đây là ArrayBuffer từ service
+      // Set headers cho response
+      res.setHeader('Content-Type', result.headers['Content-Type']);
+      res.setHeader('Content-Disposition', result.headers['Content-Disposition']);
+      
+      // Gửi ArrayBuffer dưới dạng Buffer của Node.js
+      res.send(Buffer.from(result.data as ArrayBuffer)); // Chuyển ArrayBuffer thành Buffer
+
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      console.error('Error in scoreResumes controller:', error);
+      // Gửi lỗi dưới dạng JSON nếu có lỗi xảy ra TRƯỚC KHI gửi file
+      if (!res.headersSent) {
+        res.status(400).json({
+            statusCode: 400,
+            message: error.message || 'Failed to score CVs due to an internal error.',
+            error: "Bad Request"
+        });
+      } else {
+        // Nếu header đã được gửi, không thể gửi JSON error nữa
+        console.error("Error occurred after headers were sent. Could not send JSON error response.");
+      }
+    }
   }
 }

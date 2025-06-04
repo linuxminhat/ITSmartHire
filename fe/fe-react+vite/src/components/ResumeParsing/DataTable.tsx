@@ -6,9 +6,12 @@ import {
     PencilIcon,
     EyeIcon,
     EyeSlashIcon,
+    StarIcon,
 } from '@heroicons/react/24/outline';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
+import CVScoringModal from './CVScoringModal';
+import { scoreResumes } from '@/services/resumeParsing.service';
 
 interface Column {
     key: keyof ParsedResume;
@@ -42,6 +45,7 @@ interface DataTableProps {
 const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
     const { parsed } = useContext(ResumeContext);
     const [visibleCols, setVisibleCols] = useState<string[]>(ALL_COLUMNS.map(c => c.key as string));
+    const [showScoringModal, setShowScoringModal] = useState(false);
 
     // Thêm hàm renderCellContent
     const renderCellContent = (item: ParsedResume, key: keyof ParsedResume) => {
@@ -190,6 +194,31 @@ const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
         );
     }, [parsed, searchTerm]);
 
+    const handleScore = async (data: {
+        jd: string;
+        file: File;
+        weights: {
+            skills: number;
+            experience: number;
+            designation: number;
+            degree: number;
+            gpa: number;
+            languages: number;
+            awards: number;
+            github: number;
+            certifications: number;
+            projects: number;
+        }
+    }) => {
+        try {
+            await scoreResumes(data);
+            setShowScoringModal(false);
+        } catch (error) {
+            alert('Có lỗi xảy ra khi chấm điểm CV');
+            console.error(error);
+        }
+    };
+
     return (
         <div className="bg-white shadow rounded-lg p-4">
             {/* Column visibility toggles */}
@@ -296,6 +325,32 @@ const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
                     }}
                 />
             </div>
+
+            <div className="mt-4 flex justify-end gap-2">
+                <button
+                    onClick={() => setShowScoringModal(true)}
+                    disabled={!parsed.length}
+                    data-tooltip-id="export-tooltip"
+                    data-tooltip-content="Chấm điểm CV theo JD"
+                    className={`
+                        flex items-center px-6 py-3 rounded-xl
+                        transform transition-all duration-200
+                        ${parsed.length 
+                            ? 'bg-gradient-to-r from-purple-500 to-purple-400 hover:from-purple-600 hover:to-purple-500 text-white shadow-md hover:shadow-lg hover:-translate-y-0.5' 
+                            : 'bg-gray-100 text-gray-400 cursor-not-allowed'}
+                    `}
+                >
+                    <StarIcon className="h-6 w-6 mr-3" />
+                    <span className="font-medium">Chấm điểm CV</span>
+                </button>
+            </div>
+
+            {showScoringModal && (
+                <CVScoringModal
+                    onClose={() => setShowScoringModal(false)}
+                    onScore={handleScore}
+                />
+            )}
         </div>
     );
 };

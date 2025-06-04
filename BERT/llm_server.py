@@ -65,7 +65,7 @@ LƯU Ý:
 
 
 def clean_json_response(response_text: str) -> str:
-    """Loại bỏ markdown, lấy đúng block JSON đầu tiên."""
+
     # Xóa markdown code block
     response_text = response_text.strip()
     if response_text.startswith("```json"):

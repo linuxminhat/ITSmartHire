@@ -389,4 +389,69 @@ export class ParsingResumesService {
       hrId: userId
     });
   }
+
+  async scoreResumes(
+    fileFromFrontend: Express.Multer.File,
+    dataFromController: {
+        jd: string;
+        weights: {
+            skills: number;
+            experience: number;
+            designation: number;
+            degree: number;
+            gpa: number;
+            languages: number;
+            awards: number;
+            github: number;
+            certifications: number;
+            projects: number;
+        }
+    }
+  ) {
+    try {
+        // Tạo FormData để gửi file
+        const formData = new FormData();
+        
+        // Thêm file Excel
+        const blob = new Blob([fileFromFrontend.buffer], { type: fileFromFrontend.mimetype });
+        formData.append('file', blob, fileFromFrontend.originalname);
+        
+        // Thêm JD và weights
+        formData.append('jd', JSON.stringify({
+            position: dataFromController.jd,
+            required_skills: [],
+            required_experience: "2",
+            required_degree: ""
+        }));
+        formData.append('weights', JSON.stringify(dataFromController.weights));
+
+        // Gọi đến AI Server với địa chỉ chính xác
+        const response = await axios.post('http://127.0.0.1:6970/score', formData, {
+            headers: {
+                // 'Content-Type': 'multipart/form-data' // Axios sets this automatically for FormData
+            },
+            responseType: 'arraybuffer'
+        });
+
+        // Trả về file Excel đã chấm điểm
+        return {
+            data: response.data,
+            headers: {
+                'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition': `attachment; filename="cv_scores_${new Date().toISOString().slice(0,10)}.xlsx"`
+            }
+        };
+    } catch (error: any) {
+        console.error('CV scoring error in service:', error.message);
+        if (error.response) {
+            console.error('AI Server Response Error Data:', error.response.data ? error.response.data.toString() : 'No data');
+            console.error('AI Server Response Error Status:', error.response.status);
+        } else if (error.request) {
+            console.error('AI Server No Response:', error.request);
+        } else {
+            console.error('AI Server Request Setup Error:', error.message);
+        }
+        throw new Error('Failed to score CVs: ' + (error.response?.data?.error || error.message) );
+    }
+  }
 }

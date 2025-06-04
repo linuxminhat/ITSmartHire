@@ -82,7 +82,8 @@ const Inner: React.FC = () => {
             { header: 'Chứng chỉ', key: 'certifications', width: 30 },
             { header: 'Năm kinh nghiệm', key: 'totalExperienceYears', width: 15 },
             { header: 'Ngoại ngữ', key: 'languages', width: 30 },
-            { header: 'Giải thưởng', key: 'awards', width: 30 }
+            { header: 'Giải thưởng', key: 'awards', width: 30 },
+            { header: 'Chức danh', key: 'designations', width: 30 }
         ];
 
         // Tạo dữ liệu cho Excel
@@ -105,7 +106,8 @@ const Inner: React.FC = () => {
             'Chứng chỉ': item.certifications?.join(', ') || '',
             'Năm kinh nghiệm': item.totalExperienceYears ? `${item.totalExperienceYears} năm` : '',
             'Ngoại ngữ': item.languages?.join(', ') || '',
-            'Giải thưởng': item.awards?.join(', ') || ''
+            'Giải thưởng': item.awards?.join(', ') || '',
+            'Chức danh': item.designations?.join(', ') || ''
         }));
 
         // Tạo worksheet
