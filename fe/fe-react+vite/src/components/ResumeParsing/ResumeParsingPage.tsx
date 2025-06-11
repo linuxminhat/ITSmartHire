@@ -11,6 +11,7 @@ import { CloudArrowUpIcon, SparklesIcon, ArrowDownTrayIcon, ArrowPathIcon } from
 import * as XLSX from 'xlsx'
 import SaveModal from './SaveModal'
 import { Tooltip } from 'react-tooltip'
+import ParsingModal from './ParsingModal'
 
 const Inner: React.FC = () => {
     const { files, setFiles, setParsed, parsed } = useContext(ResumeContext)
@@ -232,6 +233,7 @@ const Inner: React.FC = () => {
 
     return (
         <>
+            {isLoading && <ParsingModal />}
             {/* Main Content Container */}
             <div className="space-y-6">
                 {/* Toolbar Section */}

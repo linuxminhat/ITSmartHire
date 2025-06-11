@@ -13,6 +13,7 @@ app = Flask(__name__)
 
 MODEL_NAME = "gemini-1.5-pro"
 model = genai.GenerativeModel(MODEL_NAME)
+SKILLS_FILE_PATH = "skills_catalog.yaml"
 
 EXTRACTION_PROMPT = """
 Bạn là một AI chuyên gia trích xuất thông tin từ CV. Hãy phân tích nội dung CV dưới đây và TRẢ VỀ DUY NHẤT KẾT QUẢ JSON, đúng format:

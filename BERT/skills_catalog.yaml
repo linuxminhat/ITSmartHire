@@ -1,0 +1,225 @@
+    # skills_catalog.yaml
+    # Danh mục các kỹ năng công nghệ
+
+    programming_languages:
+      - Java
+      - Kotlin
+      - Scala
+      - Groovy
+      - Python
+      - TypeScript
+      - JavaScript
+      - Dart
+      - Go
+      - Rust
+      - C
+      - C++
+      - C#
+      - VB.NET
+      - PHP
+      - Ruby
+      - Elixir
+      - Swift
+      - Objective-C
+      - R
+      - MATLAB
+      - Perl
+      - Lua
+
+    backend_frameworks:
+      - Spring Framework
+      - Spring Boot
+      - Micronaut
+      - Quarkus
+      - JHipster
+      - Jakarta EE
+      - Struts
+      - Hibernate
+      - ".NET Core"
+      - ASP.NET
+      - Entity Framework
+      - Express.js
+      - NestJS
+      - Fastify
+      - HapiJS
+      - Django
+      - Flask
+      - FastAPI
+      - Tornado
+      - Rails
+      - Sinatra
+      - Laravel
+      - Symfony
+      - Phoenix
+      - "Fiber (Go)"
+      - "Gin (Go)"
+      - Actix
+      - Rocket
+      - Ktor
+      - Vert.x
+
+    frontend_frameworks:
+      - ReactJS
+      - Next.js
+      - Remix
+      - AngularJS
+      - Angular
+      - Vue.js
+      - Nuxt.js
+      - Svelte
+      - SvelteKit
+      - SolidJS
+      - Bootstrap
+      - Tailwind CSS
+      - Material-UI
+      - jQuery
+      - Lit
+      - Stencil
+
+    mobile_platforms:
+      - Android
+      - iOS
+      - SwiftUI
+      - Jetpack Compose
+      - React Native
+      - Flutter
+      - Ionic
+      - Cordova
+      - Xamarin
+      - Kotlin Multiplatform
+      - Capacitor
+
+    databases:
+      - MySQL
+      - PostgreSQL
+      - Oracle
+      - SQL Server
+      - MongoDB
+      - Cassandra
+      - Redis
+      - Memcached
+      - Elasticsearch
+      - OpenSearch
+      - Solr
+      - DynamoDB
+      - Firebase Realtime DB
+      - Firestore
+      - Neo4j
+      - ArangoDB
+      - TimescaleDB
+      - InfluxDB
+      - ClickHouse
+      - Snowflake
+      - BigQuery
+
+    devops_cloud:
+      - DevOps
+      - CI/CD
+      - Jenkins
+      - GitHub Actions
+      - GitLab CI
+      - Docker
+      - Docker Compose
+      - Podman
+      - Kubernetes
+      - Helm
+      - ArgoCD
+      - FluxCD
+      - AWS
+      - Azure
+      - Google Cloud
+      - Oracle Cloud
+      - Heroku
+      - Terraform
+      - Pulumi
+      - Ansible
+      - Chef
+      - Puppet
+      - OpenShift
+      - Rancher
+      - Istio
+      - Linkerd
+      - Prometheus
+      - Grafana
+
+    testing_qa:
+      - JUnit
+      - TestNG
+      - Mockito
+      - Cypress
+      - Playwright
+      - Selenium
+      - Jest
+      - Vitest
+      - Mocha
+      - Chai
+      - PyTest
+      - Robot Framework
+      - Cucumber
+      - Postman
+      - Gatling
+      - k6
+      - JMeter
+
+    security_auth:
+      - OAuth2
+      - JWT
+      - Keycloak
+      - Okta
+      - OpenID Connect
+      - SAML
+      - Spring Security
+      - OWASP
+      - Burp Suite
+      - SonarQube
+      - Zap
+
+    big_data_streaming:
+      - Hadoop
+      - Spark
+      - Flink
+      - Kafka
+      - RabbitMQ
+      - Kinesis
+      - Pulsar
+      - Hive
+      - Presto
+      - Trino
+
+    ml_ai:
+      - TensorFlow
+      - PyTorch
+      - Keras
+      - Scikit-learn
+      - pandas
+      - NumPy
+      - spaCy
+      - Hugging Face
+      - LangChain
+      - OpenCV
+      - ONNX
+      - MLflow
+      - Airflow
+
+    miscellaneous_tools_concepts:
+      - Linux
+      - Unix
+      - Bash
+      - PowerShell
+      - Git
+      - GitHub
+      - Bitbucket
+      - SVN
+      - REST
+      - GraphQL
+      - gRPC
+      - WebSocket
+      - Microservices
+      - Serverless
+      - Event Driven
+      - TDD
+      - DDD
+      - Clean Architecture
+      - Agile
+      - Scrum
+      - Kanban

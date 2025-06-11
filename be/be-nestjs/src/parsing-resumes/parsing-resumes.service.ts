@@ -393,7 +393,7 @@ export class ParsingResumesService {
   async scoreResumes(
     fileFromFrontend: Express.Multer.File,
     dataFromController: {
-        jd: string;
+        jd: string; // Đây là TOÀN BỘ NỘI DUNG JD TEXT từ frontend
         weights: {
             skills: number;
             experience: number;
@@ -409,26 +409,24 @@ export class ParsingResumesService {
     }
   ) {
     try {
-        // Tạo FormData để gửi file
         const formData = new FormData();
         
-        // Thêm file Excel
         const blob = new Blob([fileFromFrontend.buffer], { type: fileFromFrontend.mimetype });
         formData.append('file', blob, fileFromFrontend.originalname);
         
         // Thêm JD và weights
+        // Chỉ gửi nội dung JD. Python server sẽ tự trích xuất các trường cần thiết.
         formData.append('jd', JSON.stringify({
-            position: dataFromController.jd,
-            required_skills: [],
-            required_experience: "2",
-            required_degree: ""
+            position: dataFromController.jd, // Toàn bộ text JD được đặt vào "position"
+            // required_experience và required_degree sẽ do Python server tự trích xuất
+            // Không cần gửi required_skills rỗng nữa, vì Python server sẽ tự trích xuất skills từ position
         }));
         formData.append('weights', JSON.stringify(dataFromController.weights));
 
-        // Gọi đến AI Server với địa chỉ chính xác
+        // Gọi đến AI Server
         const response = await axios.post('http://127.0.0.1:6970/score', formData, {
             headers: {
-                // 'Content-Type': 'multipart/form-data' // Axios sets this automatically for FormData
+                // 'Content-Type': 'multipart/form-data' // Axios sets this automatically
             },
             responseType: 'arraybuffer'
         });

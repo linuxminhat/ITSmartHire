@@ -194,28 +194,38 @@ const DataTable: React.FC<DataTableProps> = ({ searchTerm }) => {
         );
     }, [parsed, searchTerm]);
 
-    const handleScore = async (data: {
-        jd: string;
-        file: File;
-        weights: {
-            skills: number;
-            experience: number;
-            designation: number;
-            degree: number;
-            gpa: number;
-            languages: number;
-            awards: number;
-            github: number;
-            certifications: number;
-            projects: number;
-        }
-    }) => {
+    const handleScore = async (dataFromModal: { jd: string; file: File }) => {
         try {
-            await scoreResumes(data);
+            // Định nghĩa weights mặc định ở đây
+            // Bạn có thể điều chỉnh các giá trị này nếu cần
+            const defaultWeights = {
+                skills: 25,
+                experience: 20,
+                designation: 15,
+                degree: 10,
+                gpa: 10,
+                languages: 10,
+                awards: 2.5,
+                github: 2.5,
+                certifications: 2.5,
+                projects: 2.5
+            };
+
+            await scoreResumes({
+                jd: dataFromModal.jd,
+                file: dataFromModal.file,
+                weights: defaultWeights // Truyền weights mặc định vào đây
+            });
             setShowScoringModal(false);
-        } catch (error) {
-            alert('Có lỗi xảy ra khi chấm điểm CV');
-            console.error(error);
+            // Bạn có thể thêm toast notification ở đây để thông báo thành công
+            // ví dụ: toast.success('Đã chấm điểm và tải file Excel thành công!');
+        } catch (error: any) {
+            setShowScoringModal(false); // Đóng modal ngay cả khi có lỗi
+            // Thêm toast notification lỗi ở đây
+            const errorMessage = error?.message || 'Có lỗi xảy ra khi chấm điểm CV. Vui lòng thử lại.';
+            console.error("Error scoring resumes:", error);
+            // ví dụ: toast.error(errorMessage);
+            alert(`Lỗi: ${errorMessage}`); // Hoặc một cách xử lý lỗi tốt hơn
         }
     };
 
