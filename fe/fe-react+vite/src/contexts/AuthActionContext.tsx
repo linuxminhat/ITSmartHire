@@ -26,10 +26,10 @@ interface AuthActionProviderProps {
 }
 
 // Provider component
-export const AuthActionProvider: React.FC<AuthActionProviderProps> = ({ 
-  children, 
-  loginAction, 
-  logoutAction 
+export const AuthActionProvider: React.FC<AuthActionProviderProps> = ({
+  children,
+  loginAction,
+  logoutAction
 }) => {
   const contextValue = {
     handleLogin: loginAction,

@@ -324,3 +324,27 @@ export interface IAwardPayload extends Omit<IAward, '_id'> { }
 
 // Payload for adding a new attached CV
 export interface IAttachedCvPayload extends Omit<IAttachedCv, '_id' | 'createdAt' | 'updatedAt'> { } // Payload for name & url
+
+// Company Comments Interface
+export interface ICompanyComment {
+    _id?: string;
+    companyId: string;
+    userId: {
+        _id: string;
+        name: string;
+        email: string;
+    } | string;
+    rating: number; // 1-5 stars
+    comment: string;
+    createdBy?: string;
+    isDeleted?: boolean;
+    deletedAt?: boolean | null;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+export interface ICompanyCommentPayload {
+    companyId: string;
+    rating: number;
+    comment: string;
+}
