@@ -7,15 +7,15 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth-guards';
 
 @Controller('comments')
 export class CommentsController {
-    constructor(private readonly commentsService: CommentsService) { 
-        console.log('🚀 CommentsController initialized'); // Debug log
+    constructor(private readonly commentsService: CommentsService) {
+        console.log('🚀 CommentsController initialized');
     }
 
     @Post()
     @UseGuards(JwtAuthGuard)
     @ResponseMessage("Create comment")
     create(@Body() createCommentDto: CreateCommentDto, @User() user: IUser) {
-        console.log('📝 POST /api/v1/comments called with:', createCommentDto); // Debug log
+        console.log('📝 POST /api/v1/comments called with:', createCommentDto);
         console.log('👤 User from decorator:', JSON.stringify(user));
 
         if (!user || !user._id) {

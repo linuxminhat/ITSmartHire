@@ -2,7 +2,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Company } from 'src/companies/schemas/company.schema';
 import { Job } from 'src/jobs/schemas/job.schema';
+
 export type ResumeDocument = HydratedDocument<Resume>;
+
 @Schema({ timestamps: true })
 export class Resume {
     @Prop()
@@ -12,12 +14,13 @@ export class Resume {
     @Prop()
     url: string;
     @Prop()
-    status: string;
+    status: string; // Trạng thái: PENDING/APPROVED/REJECTED
+
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
     companyId: mongoose.Schema.Types.ObjectId;
-
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Job.name })
     jobId: mongoose.Schema.Types.ObjectId;
+
     @Prop({ type: mongoose.Schema.Types.Array })
     history: {
         status: string;

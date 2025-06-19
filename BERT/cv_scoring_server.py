@@ -29,7 +29,17 @@ load_dotenv()
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 log.info("Loading SentenceTransformer model for scoring...")
 try:
-    model = SentenceTransformer("all-mpnet-base-v2", cache_folder="D:/hf-cache")
+    #        "all-mpnet-base-v2", cache_folder="D:/hf-cache",
+    # model = SentenceTransformer(
+    #     "D:\pretrained model\all_mpnet_ft_cv_jd",
+    # )
+    model_dir = os.path.join(
+        os.path.dirname(__file__),
+        "pretrained model",
+        "all_mpnet_ft_cv_jd",
+    )
+
+    model = SentenceTransformer(model_dir)
     log.info("SentenceTransformer model loaded successfully.")
 except Exception as e:
     log.error(f"Failed to load SentenceTransformer model: {e}")

@@ -12,22 +12,18 @@ export class ResumesController {
   constructor(private readonly resumesService: ResumesService
   ) { }
 
-  //Create User Resume 
   @Post()
   @ResponseMessage("Create a new resume")
-  //@User() : luu vet ai la nguoi tao
   create(@Body() createUserCvDto: CreateUserCvDto, @User() user: IUser) {
     return this.resumesService.create(createUserCvDto, user);
   }
 
-  //Get Resume by User
   @Post('by-user')
   @ResponseMessage("Get resume by user")
   getResumeByUser(@User() user: IUser) {
     return this.resumesService.findByUsers(user);
   }
 
-  //Find All Resume 
   @Get()
   @ResponseMessage("Fetch all resumes with paginate")
   findAll(
@@ -42,10 +38,8 @@ export class ResumesController {
   @ResponseMessage("Fetch a resume by id")
   findOne(@Param('id') id: string) {
     return this.resumesService.findOne(id);
-
   }
 
-  //Update status of resume 
   @Patch(':id')
   @ResponseMessage("Update status resume")
   updateStatus(@Param('id') id: string, @Body("status") status: string, @User() user: IUser) {

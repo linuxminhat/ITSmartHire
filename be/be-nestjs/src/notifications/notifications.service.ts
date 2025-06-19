@@ -16,15 +16,17 @@ export class NotificationsService {
         @InjectModel(DeviceToken.name) private deviceTokenModel: Model<DeviceTokenDocument>
     ) { }
 
+    //user, currentPage, limit (Number of records per page), qs : query string 
     async getUserNotifications(user: IUser, currentPage: number, limit: number, qs: string) {
         const { filter, sort, population } = aqp(qs);
+        //current and pageSize are only used for pagination
         delete filter.current;
         delete filter.pageSize;
 
+        //Number of records to skip
         const offset = (currentPage - 1) * limit;
         const defaultLimit = limit || 10;
 
-        // Lọc theo userId
         const queryFilter = { ...filter, userId: new mongoose.Types.ObjectId(user._id) };
 
         const totalItems = await this.notificationModel.countDocuments(queryFilter);
@@ -62,14 +64,15 @@ export class NotificationsService {
         userId: string,
         payload: { title: string; body: string },
     ) {
-        // 1) Lấy toàn bộ token của user
+
+        //Query DB to get registered tokens from user device.
         const docs = await this.deviceTokenModel
             .find({ userId: new mongoose.Types.ObjectId(userId) })
             .select('token -_id');
         const tokens = docs.map((d) => d.token);
         if (!tokens.length) return;
 
-        // 2) Gửi multicast
+        // Use the Firebase Admin SDK to send multiple notifications to a list of tokens at once.
         const res = await getMessaging().sendEachForMulticast({
             tokens,
             notification: {
@@ -78,7 +81,7 @@ export class NotificationsService {
             },
         });
 
-        // 3) Xoá token hỏng để tránh gửi lại lần sau
+        //Clean up error tokens
         if (res.failureCount) {
             const invalid: string[] = [];
             res.responses.forEach((r, i) => {
@@ -95,6 +98,7 @@ export class NotificationsService {
             }
         }
     }
+
     async markAsRead(id: string, user: IUser) {
         await this.notificationModel.updateOne(
             { _id: id, userId: new mongoose.Types.ObjectId(user._id) },
@@ -122,8 +126,6 @@ export class NotificationsService {
 
     async registerDeviceToken(registerDeviceDto: RegisterDeviceDto, user: IUser) {
         const { token } = registerDeviceDto;
-
-        // Tìm và cập nhật token hiện có hoặc tạo mới
         await this.deviceTokenModel.findOneAndUpdate(
             { userId: new mongoose.Types.ObjectId(user._id), token },
             { lastActive: new Date() },
@@ -135,8 +137,6 @@ export class NotificationsService {
 
     async createNotificationForApplication(applicationId: string, jobId: string, userId: string, companyName: string, status: string) {
         let message = 'Hồ sơ của bạn đã được cập nhật trạng thái mới';
-
-        // Tạo thông báo dựa theo trạng thái
         if (status === 'reviewed') message = 'Hồ sơ của bạn đã được xem xét';
         if (status === 'offered') message = 'Bạn đã được mời phỏng vấn';
         if (status === 'accepted') message = 'Đơn ứng tuyển của bạn đã được chấp nhận';

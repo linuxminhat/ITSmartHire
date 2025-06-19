@@ -91,16 +91,6 @@ export class BlogsService {
     return blog.save();
   }
 
-  // async remove(id: string, user: any): Promise<void> {
-  //   const result = await this.blogModel.findOneAndUpdate(
-  //     { _id: id, isDeleted: false },
-  //     { $set: { isDeleted: true, deletedAt: new Date() } }
-  //   ).exec();
-
-  //   if (!result) {
-  //     throw new NotFoundException(`Blog with ID ${id} not found`);
-  //   }
-  // }
 
   async remove(id: string, user: any): Promise<void> {
     const blog = await this.blogModel.findById(id).exec();

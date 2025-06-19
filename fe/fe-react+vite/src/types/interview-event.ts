@@ -9,8 +9,6 @@ export interface IEvent {
     note?: string;
     status?: 'pending' | 'accepted' | 'declined';
 }
-
-// src/types/interview-event.ts
 export interface FormValues {
     title: string;
     candidateEmail: string;

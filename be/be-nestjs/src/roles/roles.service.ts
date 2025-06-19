@@ -21,7 +21,6 @@ export class RolesService {
       throw new BadRequestException(`Role với name="${name}" đã tồn tại !!!`)
     }
 
-    //If not error create a new Permission 
     const newRole = await this.roleModel.create({
       name, description, isActive,
       createdBy: {
@@ -35,35 +34,6 @@ export class RolesService {
     };
   }
 
-  // async findAll(currentPage: number, limit: number, qs: string) {
-  //   const { filter, sort, population, projection } = aqp(qs);
-  //   delete filter.current;
-  //   delete filter.pageSize;
-
-  //   let offset = (+currentPage - 1) * (+limit);
-  //   let defaultLimit = +limit ? +limit : 10;
-
-  //   const totalItems = (await this.roleModel.find(filter)).length;
-  //   const totalPages = Math.ceil(totalItems / defaultLimit);
-
-  //   const result = await this.roleModel.find(filter)
-  //     .skip(offset)
-  //     .limit(defaultLimit)
-  //     .sort(sort as any)
-  //     .populate(population)
-  //     .select(projection as any)
-  //     .exec();
-
-  //   return {
-  //     meta: {
-  //       current: currentPage,
-  //       pageSize: limit,
-  //       pages: totalPages,
-  //       total: totalItems
-  //     },
-  //     result
-  //   }
-  // }
   async findAll(currentPage = 1, limit = 10, qs = '') {
     const { filter = {}, sort = {}, projection = {} } = aqp(qs);
     delete filter.current;
@@ -89,7 +59,7 @@ export class RolesService {
         },
       },
       { $addFields: { userCount: { $size: '$users' } } },
-      { $project: { users: 0, ...projection } }, // ẩn mảng users
+      { $project: { users: 0, ...projection } },
       { $skip: skip },
       { $limit: pageSize },
     ];

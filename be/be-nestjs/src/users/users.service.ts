@@ -22,9 +22,7 @@ import { ListUsersDto } from './dto/list-users.dto';
 export class UsersService {
 
   constructor(@InjectModel(UserM.name) private userModel: SoftDeleteModel<UserDocument>, @InjectModel(Role.name) private roleModel: SoftDeleteModel<RoleDocument>) { }
-
   hashPassword = (password: string) => {
-
     const salt = genSaltSync(10);
     const hash = hashSync(password, salt);
     return hash;
@@ -37,7 +35,6 @@ export class UsersService {
       name, email, password, age,
       gender, address, role, company
     } = createUserDto;
-    //check logic email 
     const isExist = await this.userModel.findOne({ email });
     if (isExist) {
       throw new BadGatewayException(`Email : ${email} đã tồn tại trên hệ thống `)
@@ -53,9 +50,7 @@ export class UsersService {
         email: user.email
       }
     })
-
     return newUser;
-
   }
 
   async findOneById(id: string) {
@@ -74,11 +69,10 @@ export class UsersService {
     if (!mongoose.Types.ObjectId.isValid(userId))
       return "Not found a user !"
 
-    // Explicitly list fields needed by the profile page
     const selectFields = [
       '_id', 'name', 'email', 'age', 'gender', 'address',
       'phone', 'aboutMe', 'skills', 'cvUrl',
-      'createdAt', 'updatedAt' // Add timestamps if needed
+      'createdAt', 'updatedAt'
     ].join(' ');
 
     return await this.userModel.findOne({ _id: userId })
@@ -109,13 +103,10 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto, user: IUser) {
-    // Xóa dòng destructuring không cần thiết vì _id không còn trong DTO
-    // const { _id, ...dataToUpdate } = updateUserDto; 
-
     const updated = await this.userModel.updateOne(
-      { _id: id }, // Sử dụng id từ tham số
+      { _id: id },
       {
-        ...updateUserDto, // Sử dụng trực tiếp updateUserDto
+        ...updateUserDto,
         updatedBy: {
           _id: user._id,
           email: user.email
@@ -168,50 +159,22 @@ export class UsersService {
     })
     return newRegister;
   }
-  // async findAll(currentPage: number, limit: number, qs: string) {
-  //   const { filter, sort, population, projection } = aqp(qs);
-  //   delete filter.current;
-  //   delete filter.pageSize;
-  //   let offset = (+currentPage - 1) * (+limit);
-  //   let defaultLimit = +limit ? +limit : 10;
-
-  //   const totalItems = (await this.userModel.find(filter)).length;
-  //   const totalPages = Math.ceil(totalItems / defaultLimit);
-
-  //   const result = await this.userModel.find(filter)
-  //     .skip(offset)
-  //     .limit(defaultLimit)
-  //     .sort(sort as any)
-  //     .select(projection as any)
-  //     .populate(population)
-  //     .exec();
-
-  //   return {
-  //     meta: {
-  //       current: currentPage,
-  //       pageSize: limit,
-  //       pages: totalPages,
-  //       total: totalItems
-  //     },
-  //     result //kết quả query
-  //   }
-  // }
+  //server side pagination 
   async findAll(dto: ListUsersDto) {
+    //not value, 1 
     const current = +dto.current || 1;
+    //10 item in page 
     const pageSize = +dto.pageSize || 10;
-
+    //filter condition variable 
     const match: any = {};
 
     if (dto.name) match.name = { $regex: dto.name, $options: 'i' };
     if (dto.email) match.email = { $regex: dto.email, $options: 'i' };
-    // không add dto.role ở đây vì cần lookup trước
-
-    /* -------- Pipeline -------- */
+    //aggeration pipeline
     const pipeline: any[] = [
+      //dont list user that deleted 
       { $match: { isDeleted: { $ne: true } } },
       { $match: match },
-
-      /* join với collection roles */
       {
         $lookup: {
           from: 'roles',
@@ -232,23 +195,20 @@ export class UsersService {
       { $unwind: { path: '$company', preserveNullAndEmptyArrays: true } },
     ];
 
-    /* lọc theo role.name */
     if (dto.role) {
       pipeline.push({
         $match: { 'role.name': { $regex: dto.role, $options: 'i' } },
       });
     }
-
-    /* đếm tổng */
     const totalPipeline = [...pipeline, { $count: 'total' }];
     const [{ total = 0 } = {}] = await this.userModel.aggregate(totalPipeline);
 
-    /* phân trang */
+    //page pagination 
+    //skip : this page will start which page ? 
+    //limit : limit of object pagesize return 
     pipeline.push({ $skip: (current - 1) * pageSize });
     pipeline.push({ $limit: pageSize });
-
     const result = await this.userModel.aggregate(pipeline);
-
     return {
       result,
       meta: {
@@ -259,8 +219,6 @@ export class UsersService {
       },
     };
   }
-
-
 
   updateUserToken = async (refreshToken: string, _id: string) => {
     return await this.userModel.updateOne(
@@ -280,8 +238,7 @@ export class UsersService {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       throw new BadRequestException('ID người dùng không hợp lệ');
     }
-
-    // Define type without cvUrl
+    //create temporary data type
     type UserProfileUpdateData = Partial<Pick<UserM, 'name' | 'age' | 'gender' | 'address' | 'phone' | 'aboutMe'>> & { updatedBy?: object };
 
     const updateData: UserProfileUpdateData = {};
@@ -291,15 +248,15 @@ export class UsersService {
     if (updateUserProfileDto.address !== undefined) updateData.address = updateUserProfileDto.address;
     if (updateUserProfileDto.phone !== undefined) updateData.phone = updateUserProfileDto.phone;
     if (updateUserProfileDto.aboutMe !== undefined) updateData.aboutMe = updateUserProfileDto.aboutMe;
-    // Removed cvUrl handling from here
 
+    //case : person not update data 
     if (Object.keys(updateData).length === 0) {
       throw new BadRequestException('Không có thông tin nào được cung cấp để cập nhật.');
     }
 
     const updatedUser = await this.userModel.findOneAndUpdate(
       { _id: userId },
-      { $set: updateData },
+      { $set: updateData },//update every field in updateData
       { new: true }
     )
       .populate({ path: "role", select: { name: 1, _id: 1 } })
@@ -308,14 +265,13 @@ export class UsersService {
       .populate('projects')
       .populate('certificates')
       .populate('awards')
-      .populate('attachedCvs') // Populate the array
+      .populate('attachedCvs')
       .select("-password -refreshToken")
       .exec();
 
     if (!updatedUser) {
       throw new NotFoundException(`Không tìm thấy người dùng với ID: ${userId}`);
     }
-
     return updatedUser;
   }
 
@@ -331,7 +287,7 @@ export class UsersService {
     const updatedUser = await this.userModel.findOneAndUpdate(
       { _id: userId },
       { $push: { education: newEducationEntry } },
-      { new: true }
+      { new: true } //Ask Mongoose to return the document after update
     ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
 
     if (!updatedUser) {
@@ -346,6 +302,7 @@ export class UsersService {
     }
 
     const updateFields = {};
+    //Browse all submitted fields
     for (const key in updateEducationDto) {
       if (updateEducationDto.hasOwnProperty(key)) {
         updateFields[`education.$.${key}`] = updateEducationDto[key];
@@ -375,6 +332,7 @@ export class UsersService {
 
     const updatedUser = await this.userModel.findOneAndUpdate(
       { _id: userId },
+      //Removes an element from an array, if it matches a condition.
       { $pull: { education: { _id: eduId } } },
       { new: true }
     ).populate('education').populate('experience').populate('projects').populate('certificates').populate('awards').exec();
@@ -546,6 +504,7 @@ export class UsersService {
       throw new BadRequestException('ID người dùng không hợp lệ');
     }
 
+    //Omit<Type, Keys> is TypeScript syntax for ignoring some fields in a type data.
     const newCertificateEntry: Omit<Certificate, '_id' | 'createdAt' | 'updatedAt'> = {
       name: addCertificateDto.name,
       issuingOrganization: addCertificateDto.issuingOrganization,
@@ -683,8 +642,6 @@ export class UsersService {
     return updatedUser;
   }
 
-  // --- Attached CV Management (using array) --- 
-
   async addAttachedCv(userId: string, addCvDto: AddAttachedCvDto): Promise<UserDocument> {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       throw new BadRequestException('ID người dùng không hợp lệ');
@@ -743,5 +700,4 @@ export class UsersService {
 
     return updatedUser;
   }
-  // --- End Attached CV Management ---
 }

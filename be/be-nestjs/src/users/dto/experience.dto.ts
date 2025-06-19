@@ -1,7 +1,6 @@
 import { IsString, IsNotEmpty, IsOptional, IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
 
-// DTO for adding a new experience entry
 export class AddExperienceDto {
     @IsNotEmpty({ message: 'Tên công ty không được bỏ trống' })
     @IsString()
@@ -16,7 +15,7 @@ export class AddExperienceDto {
     location?: string;
 
     @IsNotEmpty({ message: 'Ngày bắt đầu không được bỏ trống' })
-    @Type(() => Date) // Transform string/number to Date
+    @Type(() => Date)
     @IsDate({ message: 'Ngày bắt đầu không hợp lệ' })
     startDate: Date;
 
@@ -28,15 +27,8 @@ export class AddExperienceDto {
     @IsOptional()
     @IsString()
     description?: string;
-
-    // Optional skillsUsed field validation if added to schema later
-    // @IsOptional()
-    // @IsArray()
-    // @IsString({ each: true })
-    // skillsUsed?: string[];
 }
 
-// DTO for updating an existing experience entry
 export class UpdateExperienceDto {
     @IsOptional()
     @IsNotEmpty({ message: 'Tên công ty không được bỏ trống khi cập nhật' })
@@ -66,9 +58,4 @@ export class UpdateExperienceDto {
     @IsString()
     description?: string;
 
-    // Optional skillsUsed field validation if added to schema later
-    // @IsOptional()
-    // @IsArray()
-    // @IsString({ each: true })
-    // skillsUsed?: string[];
 } 

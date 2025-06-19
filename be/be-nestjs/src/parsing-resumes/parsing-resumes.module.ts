@@ -8,13 +8,11 @@ import { SavedCVList, SavedCVListSchema } from './schemas/saved-cv-list.schema';
 
 @Module({
   imports: [
-    // Để dùng HttpService.call() 
     HttpModule.register({ timeout: 30000 }),
-    
-    // Multer configuration
+
     MulterModule.register({
       limits: {
-        fileSize: 10 * 1024 * 1024, // 10MB
+        fileSize: 10 * 1024 * 1024,
         files: 10
       }
     }),

@@ -31,6 +31,7 @@ export class JobsController {
     @Query("pageSize") limit?: string,
     @Query() qs?: string) {
 
+    //Data type conversion
     const current = parseInt(currentPage) || 1;
     const size = parseInt(limit) || 10;
 

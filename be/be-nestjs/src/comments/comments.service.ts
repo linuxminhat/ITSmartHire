@@ -18,13 +18,11 @@ export class CommentsService {
 
         const savedComment = await newComment.save();
 
-        // Populate thông tin user ngay sau khi tạo
-        // Đây là bước quan trọng để đảm bảo dữ liệu trả về là đầy đủ
         const populatedComment = await this.commentModel
             .findById(savedComment._id)
             .populate({
                 path: 'userId',
-                select: 'name email' // Chỉ lấy name và email
+                select: 'name email'
             })
             .exec();
 
@@ -47,7 +45,7 @@ export class CommentsService {
             console.log('Found comments:', comments.length);
             console.log('Comments data:', comments);
 
-            return comments; // Return array directly, not wrapped in object
+            return comments;
         } catch (error) {
             console.error('Error in findByCompany:', error);
             throw error;
@@ -62,10 +60,7 @@ export class CommentsService {
         }
 
         const isOwner = comment.userId.toString() === user._id.toString();
-        // Giả định user object có chứa role.name
         const isAdmin = user.role && user.role.name === 'ADMIN';
-
-        // Chỉ cho phép xóa nếu là chủ sở hữu hoặc là Admin
         if (!isOwner && !isAdmin) {
             throw new BadRequestException('Bạn không có quyền xóa bình luận này.');
         }

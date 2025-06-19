@@ -1,4 +1,3 @@
-// interview-event.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -14,8 +13,6 @@ export class InterviewEvent extends Document {
     @Prop({ default: 'pending', enum: ['pending', 'accepted', 'declined'] })
     status: 'pending' | 'accepted' | 'declined';
     @Prop({ required: true }) hrId: string;
-
-    // 3 trường mới
     @Prop({ required: true }) hrName: string;
     @Prop({ required: true }) companyName: string;
     @Prop() personalMessage?: string;

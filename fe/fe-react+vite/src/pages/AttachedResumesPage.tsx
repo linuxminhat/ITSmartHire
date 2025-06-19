@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import UserDashboardSidebar from '@/layouts/components/UserDashboardSidebar';
 import { useAuth } from '@/contexts/AuthContext';
 import Spinner from '@/components/Spinner';
-import { uploadFile } from '@/services/storage.service'; // Import Firebase upload service
+import { uploadFile } from '@/services/storage.service';
 import { callGetAttachedCvs, callAddAttachedCv, callDeleteAttachedCv } from '@/services/user.service';
 import { toast } from 'react-toastify';
 import { DocumentArrowUpIcon, DocumentCheckIcon, TrashIcon, LinkIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
@@ -53,13 +53,13 @@ const AttachedResumesPage: React.FC = () => {
     // Basic validation (e.g., file type, size)
     const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     if (!allowedTypes.includes(file.type)) {
-        toast.error('Chỉ chấp nhận file PDF hoặc DOC/DOCX.');
-        return;
+      toast.error('Chỉ chấp nhận file PDF hoặc DOC/DOCX.');
+      return;
     }
     const maxSize = 5 * 1024 * 1024; // 5MB
     if (file.size > maxSize) {
-        toast.error('Kích thước file không được vượt quá 5MB.');
-        return;
+      toast.error('Kích thước file không được vượt quá 5MB.');
+      return;
     }
 
     setIsUploading(true);
@@ -72,13 +72,12 @@ const AttachedResumesPage: React.FC = () => {
       });
 
       // 2. Add the CV to the user's attached CVs
-      const res = await callAddAttachedCv({ 
+      const res = await callAddAttachedCv({
         name: file.name,
         url: downloadURL
       });
-      
+
       if (res && res.data) {
-        // Update the CV list with the new data from user object
         const updatedUser = res.data;
         if (updatedUser.attachedCvs) {
           setAttachedCvs(updatedUser.attachedCvs);
@@ -93,9 +92,8 @@ const AttachedResumesPage: React.FC = () => {
     } finally {
       setIsUploading(false);
       setUploadProgress(0);
-      // Clear file input value so the same file can be selected again
       if (fileInputRef.current) {
-          fileInputRef.current.value = "";
+        fileInputRef.current.value = "";
       }
     }
   };
@@ -147,13 +145,13 @@ const AttachedResumesPage: React.FC = () => {
           <div className="md:col-span-3 lg:col-span-4 space-y-6 md:space-y-8">
             <h1 className="text-2xl font-semibold text-gray-800 mb-1">CV Đã Tải Lên</h1>
             <p className="text-gray-600 mb-6">Quản lý danh sách CV của bạn. Các CV này có thể được sử dụng khi ứng tuyển.</p>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold text-gray-800">Danh sách CV</h2>
-                
+
                 {/* Upload Button */}
-                <button 
+                <button
                   onClick={handleUploadButtonClick}
                   disabled={isUploading}
                   className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-300 flex items-center justify-center"
@@ -189,23 +187,23 @@ const AttachedResumesPage: React.FC = () => {
                         <DocumentCheckIcon className="h-6 w-6 text-green-600 mr-3 flex-shrink-0" />
                         <div>
                           <p className="font-medium text-gray-900">{cv.name}</p>
-                          <a 
-                            href={cv.url} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
+                          <a
+                            href={cv.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline break-all flex items-center"
                           >
                             Xem CV <LinkIcon className="h-3 w-3 ml-1" />
                           </a>
                         </div>
                       </div>
-                      <button 
+                      <button
                         onClick={() => handleRemoveCv(cv._id)}
                         disabled={isDeletingId === cv._id}
                         className="p-1 text-red-600 hover:text-red-800 disabled:opacity-50 disabled:cursor-not-allowed ml-4"
                         aria-label="Xóa CV"
                       >
-                        {isDeletingId === cv._id ? <Spinner /> : <TrashIcon className="h-5 w-5" />} 
+                        {isDeletingId === cv._id ? <Spinner /> : <TrashIcon className="h-5 w-5" />}
                       </button>
                     </div>
                   ))}
@@ -219,10 +217,10 @@ const AttachedResumesPage: React.FC = () => {
               )}
 
               {/* Hidden File Input */}
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileChange} 
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
                 className="hidden"
                 accept=".pdf,.doc,.docx"
               />

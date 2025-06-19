@@ -1,5 +1,6 @@
 import { IsString, IsArray, IsEnum } from 'class-validator';
 
+//Defines the file formats that can be exported
 export enum ExportFormat {
     CSV = 'csv',
     EXCEL = 'excel'

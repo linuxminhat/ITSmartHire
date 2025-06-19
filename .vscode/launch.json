@@ -10,7 +10,7 @@
                 "run",
                 "start:debug"
             ],
-            "cwd": "${workspaceFolder}/4.nestjs/02-nestjs-starter-master", // ⬅️ CỐ ĐỊNH THƯ MỤC NÀY
+            "cwd": "${workspaceFolder}/4.nestjs/02-nestjs-starter-master",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "port": 9229

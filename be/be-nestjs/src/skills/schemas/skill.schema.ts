@@ -5,8 +5,9 @@ export type SkillDocument = HydratedDocument<Skill>;
 
 @Schema({ timestamps: true })
 export class Skill {
-    @Prop({ required: true, unique: true }) // Ensure name is required and unique
+    @Prop({ required: true, unique: true })
     name: string;
+
     @Prop({
         required: true, enum: ['JavaProgramming', 'NETProgramming', 'PythonProgramming', 'JavaScriptProgramming', 'C/C++Programming',
             'WebProgramming', 'MobileProgramming', 'FunctionalProgramming', 'ScriptingLanguages', 'SQLDatabases',
@@ -14,6 +15,7 @@ export class Skill {
             'BackendFrameworks', 'APIDevelopment', 'MLFrameworks', 'DevOps', "Others"]
     })
     category: string;
+
     @Prop({ default: '' })
     description: string;
     @Prop({ default: true })

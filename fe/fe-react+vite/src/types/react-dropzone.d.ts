@@ -1,3 +1,4 @@
+//Declare type module for react-dropzone
 declare module 'react-dropzone' {
     import * as React from 'react';
     export interface DropzoneOptions {

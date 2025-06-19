@@ -1,6 +1,4 @@
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
-
-// Define allowed statuses - Add 'offered'
 const allowedStatuses = ['pending', 'reviewed', 'accepted', 'rejected', 'offered'];
 
 export class UpdateApplicationStatusDto {

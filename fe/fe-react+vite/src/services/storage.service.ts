@@ -1,7 +1,8 @@
 import { storage } from "@/firebase.config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { v4 as uuidv4 } from 'uuid'; // Cần cài đặt uuid: npm install uuid @types/uuid
+import { v4 as uuidv4 } from 'uuid';
 
+//communicate with Firebase Storage 
 /**
  * Upload file lên Firebase Storage
  * @param file File cần upload
@@ -19,8 +20,7 @@ export const uploadFile = (
       reject("No file provided for upload.");
       return;
     }
-
-    // Tạo tên file duy nhất
+    //create file name
     const fileExtension = file.name.split('.').pop();
     const uniqueFileName = `${uuidv4()}.${fileExtension}`;
     const storagePath = `${path}/${uniqueFileName}`;
@@ -55,11 +55,11 @@ export const uploadFile = (
         reject(errorMessage);
       },
       () => {
-        // Handle successful uploads on complete
+
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          //   console.log("File available at", downloadURL);
+
           resolve(downloadURL);
-        }).catch(reject); // Thêm catch ở đây nếu getDownloadURL lỗi
+        }).catch(reject);
       }
     );
   });

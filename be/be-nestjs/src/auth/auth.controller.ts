@@ -11,19 +11,16 @@ import { RolesService } from 'src/roles/roles.service';
 
 @Controller("auth")
 export class AuthController {
-    //port from .env
     constructor(
         private authService: AuthService, private rolesService: RolesService) { }
 
-    @Public()
+    @Public() //Bo qua JWTAuthGuard
     @UseGuards(LocalAuthGuard)
     @Post('/login')
     @ResponseMessage("User Login ")
     handleLogin(@Req() req, @Res({ passthrough: true }) response: Response) {
         return this.authService.login(req.user, response);
     }
-
-    //Public for not using JSON WEB TOKEN
     @Public()
     @ResponseMessage('Register a new user')
     @Post('/register')
@@ -31,23 +28,21 @@ export class AuthController {
         return this.authService.register(registerUserDto);
     }
 
+    //Lay thong tin nguoi dung
     @ResponseMessage("Get user information")
     @Get('/account')
-    async handleGetAccount(@User() user: IUser) { //Get from req.user
-        // Kiểm tra nếu user.role không tồn tại hoặc null
+    async handleGetAccount(@User() user: IUser) {
         if (!user.role) {
             console.error("User role is null or undefined", user._id);
-            // Trả về thông tin user nhưng không có permissions
             return { user: { ...user, permissions: [] } };
         }
-        
+
         try {
             const temp = await this.rolesService.findOne(user.role._id) as any;
             user.permissions = temp?.permissions || [];
             return { user };
         } catch (error) {
             console.error("Error getting role permissions:", error);
-            // Fallback trả về user không có permissions
             return { user: { ...user, permissions: [] } };
         }
     }

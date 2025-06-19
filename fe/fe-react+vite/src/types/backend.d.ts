@@ -1,3 +1,4 @@
+//Backend Response
 export interface IBackendRes<T> {
     status: boolean;
     error?: string | string[];
@@ -119,8 +120,7 @@ export interface IAward {
     description?: string;
 }
 
-// --- User Attached Resume Type (Renamed to Attached CV) ---
-export interface IAttachedCv { // Interface for the CV object in the array
+export interface IAttachedCv {
     _id: string;
     name: string;
     url: string;
@@ -283,13 +283,10 @@ export interface ISubscribers {
     updatedAt?: string;
 }
 
-// Simple interface for API responses that only return status and message (like create/update)
 export interface IApiResponse {
     statusCode: number | string;
     message: string;
 }
-
-// Interface for responses that have a result array but might not be paginated
 export interface IBackendResWithResultArray<T> {
     statusCode: number | string;
     message: string;

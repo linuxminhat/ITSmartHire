@@ -28,7 +28,9 @@ export class ParsingResumesController {
     private readonly parsingService: ParsingResumesService,
   ) { }
 
+  //api upload and parse 
   @Post('upload-and-parse')
+  //Configure multiple file uploads in one API
   @UseInterceptors(
     FilesInterceptor('cvs', 10, {
       fileFilter: (req, file, callback) => {
@@ -52,6 +54,7 @@ export class ParsingResumesController {
       },
     }),
   )
+  //get CV -> parsing -> call LLM -> return result 
   async uploadAndParse(
     @UploadedFiles() files: Express.Multer.File[],
   ) {
@@ -60,6 +63,7 @@ export class ParsingResumesController {
       console.log('Raw files parameter:', files);
       console.log('Files length:', files?.length);
 
+      //for loop every file for checking 
       if (files) {
         files.forEach((file, index) => {
           console.log(`File ${index}:`, {
@@ -71,6 +75,7 @@ export class ParsingResumesController {
         });
       }
 
+      //no file upload
       if (!files || files.length === 0) {
         console.log('ERROR: No files received');
         return {
@@ -86,7 +91,7 @@ export class ParsingResumesController {
       const texts = await this.parsingService.extractAndCleanText(files);
       console.log('Extracted texts lengths:', texts.map(t => t.length));
 
-      // Call LLM parser instead of BERT
+      // Call LLM  
       const llmResults = await this.parsingService.callLLMParser(texts);
       console.log('LLM results count:', llmResults.length);
 
@@ -112,9 +117,11 @@ export class ParsingResumesController {
     }
   }
 
+  //api-save-list
   @Post('save-list')
   async saveList(@Body() dto: SaveCVListDto, @Req() req) {
     try {
+      //debug
       console.log('Received save request:', {
         endpoint: '/api/v1/parsing-resumes/save-list',
         body: dto,
@@ -125,7 +132,6 @@ export class ParsingResumesController {
         userHas_Id: !!req.user?._id
       });
 
-      // Validate user exists - check both id and _id for compatibility
       const userId = req.user?.id || req.user?._id;
       if (!req.user || !userId) {
         console.error('User not found in request:', {
@@ -162,8 +168,9 @@ export class ParsingResumesController {
         cvsCount: dto.cvs.length
       });
 
+      //call service for saving cv-list
       const result = await this.parsingService.saveList(dto, userId);
-      
+
       console.log('Save result:', result);
       return {
         success: true,
@@ -177,8 +184,8 @@ export class ParsingResumesController {
         name: error.name,
         code: error.code
       });
-      
-      // Return structured error response
+
+
       return {
         success: false,
         message: 'Failed to save CV list',
@@ -200,6 +207,7 @@ export class ParsingResumesController {
     return await this.parsingService.deleteList(id, userId);
   }
 
+  //compare cv and jd
   @Post('score')
   @UseInterceptors(FileInterceptor('file'))
   async scoreResumes(
@@ -226,29 +234,26 @@ export class ParsingResumesController {
       }
 
       const result = await this.parsingService.scoreResumes(file, { jd: body.jd, weights: parsedWeights });
-      
-      // result.data ở đây là ArrayBuffer từ service
-      // Set headers cho response
+
+      //return the result for client
       res.setHeader('Content-Type', result.headers['Content-Type']);
       res.setHeader('Content-Disposition', result.headers['Content-Disposition']);
-      
-      // Gửi ArrayBuffer dưới dạng Buffer của Node.js
-      res.send(Buffer.from(result.data as ArrayBuffer)); // Chuyển ArrayBuffer thành Buffer
+
+      res.send(Buffer.from(result.data as ArrayBuffer));
 
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
       }
       console.error('Error in scoreResumes controller:', error);
-      // Gửi lỗi dưới dạng JSON nếu có lỗi xảy ra TRƯỚC KHI gửi file
       if (!res.headersSent) {
         res.status(400).json({
-            statusCode: 400,
-            message: error.message || 'Failed to score CVs due to an internal error.',
-            error: "Bad Request"
+          statusCode: 400,
+          message: error.message || 'Failed to score CVs due to an internal error.',
+          error: "Bad Request"
         });
       } else {
-        // Nếu header đã được gửi, không thể gửi JSON error nữa
+
         console.error("Error occurred after headers were sent. Could not send JSON error response.");
       }
     }

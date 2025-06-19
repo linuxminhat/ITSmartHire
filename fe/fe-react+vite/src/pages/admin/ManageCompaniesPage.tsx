@@ -27,7 +27,6 @@ const ManageCompaniesPage: React.FC = () => {
     industry: ''
   });
 
-  // ⚡ Sửa nhanh: buildQuery trong ManageCompaniesPage.tsx
   const buildQuery = (
     page = meta.current,
     size = meta.pageSize,
@@ -170,20 +169,20 @@ const ManageCompaniesPage: React.FC = () => {
   const renderPagination = () => {
     const totalPages = meta.pages;
     const currentPage = meta.current;
-    
+
     // Giới hạn hiển thị tối đa 5 nút số trang
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, startPage + 4);
-    
+
     if (endPage - startPage < 4) {
       startPage = Math.max(1, endPage - 4);
     }
-    
+
     const pageNumbers = [];
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
     }
-    
+
     return (
       <div className="flex justify-between items-center mt-4">
         <div className="text-sm text-gray-700">
@@ -193,16 +192,16 @@ const ManageCompaniesPage: React.FC = () => {
           <button
             onClick={() => handlePage(currentPage - 1)}
             disabled={currentPage <= 1}
-            className={`px-3 py-1 rounded border ${currentPage <= 1 
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+            className={`px-3 py-1 rounded border ${currentPage <= 1
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : 'bg-white text-blue-600 hover:bg-blue-50 border-blue-600'}`}
           >
             Trước
           </button>
-          
+
           {startPage > 1 && (
             <>
-              <button 
+              <button
                 onClick={() => handlePage(1)}
                 className="px-3 py-1 rounded border bg-white text-blue-600 hover:bg-blue-50"
               >
@@ -211,23 +210,23 @@ const ManageCompaniesPage: React.FC = () => {
               {startPage > 2 && <span className="px-2">...</span>}
             </>
           )}
-          
+
           {pageNumbers.map(number => (
             <button
               key={number}
               onClick={() => handlePage(number)}
-              className={`px-3 py-1 rounded border ${number === currentPage 
-                ? 'bg-blue-600 text-white' 
+              className={`px-3 py-1 rounded border ${number === currentPage
+                ? 'bg-blue-600 text-white'
                 : 'bg-white text-blue-600 hover:bg-blue-50'}`}
             >
               {number}
             </button>
           ))}
-          
+
           {endPage < totalPages && (
             <>
               {endPage < totalPages - 1 && <span className="px-2">...</span>}
-              <button 
+              <button
                 onClick={() => handlePage(totalPages)}
                 className="px-3 py-1 rounded border bg-white text-blue-600 hover:bg-blue-50"
               >
@@ -235,17 +234,17 @@ const ManageCompaniesPage: React.FC = () => {
               </button>
             </>
           )}
-          
+
           <button
             onClick={() => handlePage(currentPage + 1)}
             disabled={currentPage >= totalPages}
-            className={`px-3 py-1 rounded border ${currentPage >= totalPages 
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+            className={`px-3 py-1 rounded border ${currentPage >= totalPages
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : 'bg-white text-blue-600 hover:bg-blue-50 border-blue-600'}`}
           >
             Sau
           </button>
-          
+
           <select
             value={meta.pageSize}
             onChange={(e) => handlePage(1, Number(e.target.value))}

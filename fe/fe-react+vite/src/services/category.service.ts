@@ -27,7 +27,6 @@ export const callFetchCategoryById = (id: string) => {
 
 // Fetch all categories without pagination
 export const callFetchAllCategories = () => {
-    // Assume backend endpoint /api/v1/categories returns all categories without pagination params
-    // Assume response format is IBackendRes<ICategory[]>
+
     return axios.get<IBackendRes<ICategory[]>>(`/api/v1/categories?current=1&pageSize=100`); // Fetch up to 100 categories
 }; 

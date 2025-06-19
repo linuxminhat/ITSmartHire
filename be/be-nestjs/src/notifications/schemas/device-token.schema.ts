@@ -5,6 +5,7 @@ export type DeviceTokenDocument = DeviceToken & Document;
 
 @Schema({ timestamps: true })
 export class DeviceToken {
+    //check which user connect with token ?
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
     userId: mongoose.Schema.Types.ObjectId;
 

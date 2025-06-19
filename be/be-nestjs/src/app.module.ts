@@ -25,7 +25,6 @@ import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
-    //Note : forRootAsync function ! 
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -44,7 +43,7 @@ import { CommentsModule } from './comments/comments.module';
       transport: {
         host: process.env.SMTP_HOST,
         port: +process.env.SMTP_PORT,
-        secure: true,                       // true nếu dùng cổng 465
+        secure: true,
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,

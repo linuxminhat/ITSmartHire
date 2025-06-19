@@ -8,10 +8,10 @@ export class ListUsersDto {
     name?: string;
 
     @IsOptional() @IsString()
-    email?: string;           // ⬅️ mới
+    email?: string;
 
     @IsOptional() @IsString()
-    role?: string;            // ⬅️ mới
+    role?: string;
 
 
 }

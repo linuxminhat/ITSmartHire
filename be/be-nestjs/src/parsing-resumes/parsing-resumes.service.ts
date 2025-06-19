@@ -15,7 +15,7 @@ import pLimit from 'p-limit';
 @Injectable()
 export class ParsingResumesService {
   private logDir: string;
-  private CONCURRENT_LIMIT = 2; // Gemini Pro: nên để 2-3 để an toàn
+  private CONCURRENT_LIMIT = 2;
 
   constructor(
     private readonly httpService: HttpService,
@@ -41,12 +41,16 @@ export class ParsingResumesService {
     }
   }
 
+  //extract raw text from file 
   async extractAndCleanText(
     files: Express.Multer.File[],
   ): Promise<string[]> {
+    //Parallel processing of multiple files → optimize speed.
     return Promise.all(
       files.map(async file => {
+        //file.originalname = "nguyenvana_cv.docx" → ext = "docx".
         const ext = file.originalname.split('.').pop().toLowerCase();
+        //Create a variable containing raw text
         let rawText = '';
 
         if (ext === 'pdf') {
@@ -64,15 +68,19 @@ export class ParsingResumesService {
       })
     );
   }
+
   async callLLMParser(texts: string[]): Promise<any[]> {
     this.writeLog('SENDING TO LLM SERVER (GEMINI)', {
       totalTexts: texts.length,
       textLengths: texts.map(t => t.length)
     });
 
+    //Initialize parallel processing tasks
     const limit = pLimit(this.CONCURRENT_LIMIT);
     const results: any[] = [];
+
     const tasks = texts.map((text, idx) => limit(async () => {
+
       let done = false, attempt = 0, result = this.createEmptyResult();
       while (!done && attempt < 3) {
         const startTime = Date.now();
@@ -115,116 +123,6 @@ export class ParsingResumesService {
     };
   }
 
-  // async callLLMParser(texts: string[]): Promise<any[]> {
-  //   this.writeLog('SENDING TO LLM SERVER (GEMINI)', {
-  //     totalTexts: texts.length,
-  //     textLengths: texts.map(t => t.length)
-  //   });
-
-  //   const results: any[] = [];
-  //   const MIN_GAP_MS = 200;
-  //   let lastCallTime = 0;
-
-  //   for (let i = 0; i < texts.length; i++) {
-  //     const text = texts[i];
-  //     let done = false;
-  //     let attempt = 0;
-
-  //     while (!done) {
-
-  //       const now = Date.now();
-  //       if (lastCallTime > 0) {
-  //         const elapsedSinceLast = now - lastCallTime;
-  //         const extraWait = MIN_GAP_MS - elapsedSinceLast;
-  //         if (extraWait > 0) {
-  //           console.log(`Chờ thêm ${extraWait} ms để đảm bảo không vượt giới hạn.`);
-  //           await new Promise(r => setTimeout(r, extraWait));
-  //         }
-  //       }
-
-  //       console.log(`Processing CV #${i + 1}/${texts.length}, attempt #${attempt + 1}...`);
-  //       const startTime = Date.now();
-
-  //       try {
-  //         const response = await axios.post(
-  //           'http://127.0.0.1:6969/resume_parsing',
-  //           { cv: text },
-  //           { timeout: 120000, headers: { 'Content-Type': 'application/json' } }
-  //         );
-  //         const latencySec = (Date.now() - startTime) / 1000;
-  //         console.log(`API latency cho CV #${i + 1}: ${latencySec.toFixed(2)} s`);
-
-  //         this.writeLog(`LLM SERVER RESPONSE - CV #${i + 1}`, {
-  //           success: response.data.success,
-  //           method: response.data.method,
-  //           dataFields: Object.keys(response.data.data || {}),
-  //           skillsCount: response.data.data?.skills?.length || 0,
-  //           workExpCount: response.data.data?.workExperiences?.length || 0
-  //         });
-
-  //         results.push(response.data.data);
-  //         lastCallTime = Date.now();
-  //         done = true;
-  //       } catch (error: any) {
-  //         const status = error.response?.status;
-  //         const retryInfo = error.response?.data?.retry_delay;
-  //         attempt++;
-
-
-  //         if (status === 429 && retryInfo?.seconds) {
-  //           const waitMs = retryInfo.seconds * 1000;
-  //           console.warn(`CV #${i + 1} bị 429, chờ ${waitMs} ms rồi retry...`);
-  //           await new Promise(r => setTimeout(r, waitMs));
-
-  //         }
-
-  //         else if (error.code === 'ECONNABORTED' || !error.response) {
-  //           if (attempt < 2) {
-  //             console.warn(`CV #${i + 1} gặp lỗi network/timeout, retry lần ${attempt + 1}...`);
-  //             // Có thể chờ thêm 1s trước khi retry tiếp
-  //             await new Promise(r => setTimeout(r, 1000));
-  //           } else {
-  //             console.error(`CV #${i + 1} lỗi network sau ${attempt} lần thử, trả về empty.`);
-  //             results.push(this.createEmptyResult());
-  //             lastCallTime = Date.now();
-  //             done = true;
-  //           }
-  //         }
-  //         // Các lỗi khác (JSON decode, unexpected), bỏ luôn
-  //         else {
-  //           console.error(`CV #${i + 1} gặp lỗi không xác định:`, error.message);
-  //           results.push(this.createEmptyResult());
-  //           lastCallTime = Date.now();
-  //           done = true;
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   console.log(
-  //     `Completed processing ${texts.length} CVs. Successful: ${results.filter(r => r.name || r.email).length}`
-  //   );
-  //   return results;
-  // }
-
-
-  // private createEmptyResult() {
-  //   return {
-  //     name: '',
-  //     email: '',
-  //     phone: '',
-  //     github: '',
-  //     location: '',
-  //     university: '',
-  //     degree: '',
-  //     gpa: '',
-  //     graduationYear: '',
-  //     workExperiences: [],
-  //     projects: [],
-  //     skills: [],
-  //     certifications: []
-  //   };
-  // }
 
   async mapTokensToFields(results: any[]): Promise<any[]> {
     this.writeLog('LLM RESULTS - ALREADY STRUCTURED', {
@@ -267,7 +165,7 @@ export class ParsingResumesService {
         result.skills = result.skills
           .filter(skill => skill && skill.trim())
           .map(skill => skill.trim())
-          .filter((skill, index, arr) => arr.indexOf(skill) === index); // Remove duplicates
+          .filter((skill, index, arr) => arr.indexOf(skill) === index);
       }
 
       // Clean up work experiences
@@ -307,10 +205,8 @@ export class ParsingResumesService {
     }
   }
 
-  // Update main method to use LLM
   async mapTokensToFields_OLD_METHOD(lists: { token: string; tag: string; position: number }[][]) {
-    // Keep this for reference, but won't be used with LLM approach
-    // ... existing token processing code ...
+
   }
 
   // Lưu danh sách CV
@@ -324,7 +220,6 @@ export class ParsingResumesService {
         cvsFirstItem: dto.cvs?.[0] ? Object.keys(dto.cvs[0]) : null
       });
 
-      // Validate inputs
       if (!userId) {
         throw new Error('User ID is required');
       }
@@ -333,7 +228,6 @@ export class ParsingResumesService {
         throw new Error('Invalid save data: missing name, format, or cvs array');
       }
 
-      // Create document data
       const docData = {
         name: dto.name,
         format: dto.format,
@@ -343,7 +237,7 @@ export class ParsingResumesService {
 
       console.log('Creating savedList document with data:', {
         ...docData,
-        cvs: `[${docData.cvs.length} items]` // Don't log full CVs, just count
+        cvs: `[${docData.cvs.length} items]`
       });
 
       const savedList = new this.savedCVListModel(docData);
@@ -369,12 +263,10 @@ export class ParsingResumesService {
         dtoProvided: !!dto
       });
 
-      // Re-throw with more context
       throw new Error(`Failed to save CV list: ${error.message}`);
     }
   }
 
-  // Lấy danh sách đã lưu của HR
   async getSavedLists(userId: string) {
     return await this.savedCVListModel
       .find({ hrId: userId })
@@ -393,63 +285,59 @@ export class ParsingResumesService {
   async scoreResumes(
     fileFromFrontend: Express.Multer.File,
     dataFromController: {
-        jd: string; // Đây là TOÀN BỘ NỘI DUNG JD TEXT từ frontend
-        weights: {
-            skills: number;
-            experience: number;
-            designation: number;
-            degree: number;
-            gpa: number;
-            languages: number;
-            awards: number;
-            github: number;
-            certifications: number;
-            projects: number;
-        }
+      //job description
+      jd: string;
+      //score weights
+      weights: {
+        skills: number;
+        experience: number;
+        designation: number;
+        degree: number;
+        gpa: number;
+        languages: number;
+        awards: number;
+        github: number;
+        certifications: number;
+        projects: number;
+      }
     }
   ) {
     try {
-        const formData = new FormData();
-        
-        const blob = new Blob([fileFromFrontend.buffer], { type: fileFromFrontend.mimetype });
-        formData.append('file', blob, fileFromFrontend.originalname);
-        
-        // Thêm JD và weights
-        // Chỉ gửi nội dung JD. Python server sẽ tự trích xuất các trường cần thiết.
-        formData.append('jd', JSON.stringify({
-            position: dataFromController.jd, // Toàn bộ text JD được đặt vào "position"
-            // required_experience và required_degree sẽ do Python server tự trích xuất
-            // Không cần gửi required_skills rỗng nữa, vì Python server sẽ tự trích xuất skills từ position
-        }));
-        formData.append('weights', JSON.stringify(dataFromController.weights));
+      const formData = new FormData();
+      const blob = new Blob([fileFromFrontend.buffer], { type: fileFromFrontend.mimetype });
+      formData.append('file', blob, fileFromFrontend.originalname);
+      formData.append('jd', JSON.stringify({
+        position: dataFromController.jd,
 
-        // Gọi đến AI Server
-        const response = await axios.post('http://127.0.0.1:6970/score', formData, {
-            headers: {
-                // 'Content-Type': 'multipart/form-data' // Axios sets this automatically
-            },
-            responseType: 'arraybuffer'
-        });
+      }));
+      formData.append('weights', JSON.stringify(dataFromController.weights));
 
-        // Trả về file Excel đã chấm điểm
-        return {
-            data: response.data,
-            headers: {
-                'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                'Content-Disposition': `attachment; filename="cv_scores_${new Date().toISOString().slice(0,10)}.xlsx"`
-            }
-        };
-    } catch (error: any) {
-        console.error('CV scoring error in service:', error.message);
-        if (error.response) {
-            console.error('AI Server Response Error Data:', error.response.data ? error.response.data.toString() : 'No data');
-            console.error('AI Server Response Error Status:', error.response.status);
-        } else if (error.request) {
-            console.error('AI Server No Response:', error.request);
-        } else {
-            console.error('AI Server Request Setup Error:', error.message);
+      // Gọi đến AI Server
+      const response = await axios.post('http://127.0.0.1:6970/score', formData, {
+        headers: {
+        },
+        responseType: 'arraybuffer'
+      });
+
+      // Trả về file Excel đã chấm điểm
+      return {
+        data: response.data,
+        headers: {
+          'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'Content-Disposition': `attachment; filename="cv_scores_${new Date().toISOString().slice(0, 10)}.xlsx"`
         }
-        throw new Error('Failed to score CVs: ' + (error.response?.data?.error || error.message) );
+      };
+    } catch (error: any) {
+      console.error('CV scoring error in service:', error.message);
+      if (error.response) {
+        console.error('AI Server Response Error Data:', error.response.data ? error.response.data.toString() : 'No data');
+        console.error('AI Server Response Error Status:', error.response.status);
+      } else if (error.request) {
+        console.error('AI Server No Response:', error.request);
+      } else {
+        console.error('AI Server Request Setup Error:', error.message);
+      }
+      throw new Error('Failed to score CVs: ' + (error.response?.data?.error || error.message));
     }
   }
 }

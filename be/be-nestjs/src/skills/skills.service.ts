@@ -16,34 +16,11 @@ export class SkillsService {
     private skillModel: SoftDeleteModel<SkillDocument>
   ) { }
 
-  // async create(createSkillDto: CreateSkillDto, user: IUser) {
-  //   const { name } = createSkillDto;
-
-  //   // Check if skill name already exists (case-insensitive)
-  //   const isExist = await this.skillModel.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') } });
-  //   if (isExist) {
-  //     throw new BadRequestException(`Kỹ năng với tên "${name}" đã tồn tại.`);
-  //   }
-
-  //   const newSkill = await this.skillModel.create({
-  //     name,
-  //     // description, // Add if description is included
-  //     createdBy: {
-  //       _id: user._id,
-  //       email: user.email
-  //     }
-  //   });
-
-  //   return {
-  //     _id: newSkill?._id,
-  //     createdAt: newSkill?.createdAt
-  //   };
-  // }
   async create(dto: CreateSkillDto, user: IUser) {
     const { name, category, description = '', isActive = true } = dto;
-
-    // escape regex đặc biệt
+    //Clean up skill names to avoid regex injection errors.
     const regexSafe = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
     const isExist = await this.skillModel.findOne({ name: { $regex: new RegExp(`^${regexSafe}$`, 'i') } });
     if (isExist) throw new BadRequestException(`Kỹ năng "${name}" đã tồn tại.`);
 
@@ -60,12 +37,13 @@ export class SkillsService {
 
 
   async findAll(currentPage = 1, limit = 10, qs = '') {
-
+    //filter, sort, count job per skills 
+    //Use the api-query-params (aqp) library to convert query string to MongoDB object 
     const { filter = {}, sort = {}, projection = {} } = aqp(qs);
     delete filter.current;
     delete filter.pageSize;
 
-
+    // (RegExp) is not case sensitive. Ex : Java, java, JAVA
     if (filter.name) {
       filter.name = { $regex: new RegExp(filter.name, 'i') };
     }
@@ -74,7 +52,7 @@ export class SkillsService {
     const pageSize = Number(limit) || 10;
     const skip = (page - 1) * pageSize;
 
-
+    //Aggregation Pipeline
     const pipeline: any[] = [
       { $match: filter },
 
@@ -89,15 +67,13 @@ export class SkillsService {
       { $addFields: { recruitCount: { $size: '$jobRefs' } } },
       { $project: { jobRefs: 0, ...projection } },
 
-      // sắp xếp
+      // sort
       { $sort: Object.keys(sort).length ? sort : { createdAt: -1 } },
 
-      // phân trang
+      // page pagination
       { $skip: skip },
       { $limit: pageSize },
     ];
-
-    // 4) Chạy song song lấy danh sách + tổng
     const [result, total] = await Promise.all([
       this.skillModel.aggregate(pipeline),
       this.skillModel.countDocuments(filter),
@@ -126,43 +102,10 @@ export class SkillsService {
     return skill;
   }
 
-  // async update(id: string, updateSkillDto: UpdateSkillDto, user: IUser) {
-  //   if (!mongoose.Types.ObjectId.isValid(id)) {
-  //     throw new BadRequestException("ID kỹ năng không hợp lệ.");
-  //   }
-
-  //   const { name } = updateSkillDto;
-
-  //   // If name is being updated, check for conflicts (case-insensitive, excluding self)
-  //   if (name) {
-  //     const isExist = await this.skillModel.findOne({
-  //       name: { $regex: new RegExp(`^${name}$`, 'i') },
-  //       _id: { $ne: id }
-  //     });
-  //     if (isExist) {
-  //       throw new BadRequestException(`Kỹ năng với tên "${name}" đã tồn tại.`);
-  //     }
-  //   }
-
-  //   const updated = await this.skillModel.updateOne(
-  //     { _id: id },
-  //     {
-  //       ...updateSkillDto,
-  //       updatedBy: {
-  //         _id: user._id,
-  //         email: user.email
-  //       }
-  //     }
-  //   );
-
-  //   if (updated.modifiedCount === 0) {
-  //   }
-
-  //   return updated;
-  // }
   async update(id: string, dto: UpdateSkillDto, user: IUser) {
     const { name } = dto;
     if (name) {
+      //check if existed or not 
       const regexSafe = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const dup = await this.skillModel.findOne({
         name: { $regex: new RegExp(`^${regexSafe}$`, 'i') },

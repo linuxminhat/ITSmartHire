@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { XMarkIcon, InformationCircleIcon, DocumentArrowUpIcon, CheckCircleIcon, XCircleIcon, ChevronDownIcon, ChevronUpIcon, ArrowsPointingOutIcon } from '@heroicons/react/24/outline';
 import { useDropzone } from 'react-dropzone';
-// Nếu bạn chưa cài đặt tailwind-scrollbar-hide, hãy chạy: npm install tailwind-scrollbar-hide hoặc yarn add tailwind-scrollbar-hide
-// và thêm require('tailwind-scrollbar-hide') vào array plugins trong file tailwind.config.js của bạn.
+
 
 interface CVScoringModalProps {
     onClose: () => void;
@@ -24,16 +23,16 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
         if (rejectedFiles && rejectedFiles.length > 0) {
             const firstRejection = rejectedFiles[0];
             if (firstRejection.errors && firstRejection.errors.length > 0) {
-                 const mainError = firstRejection.errors[0];
-                 if (mainError.code === 'file-invalid-type') {
+                const mainError = firstRejection.errors[0];
+                if (mainError.code === 'file-invalid-type') {
                     setFileError('Lỗi: Chỉ chấp nhận file Excel (.xlsx).');
-                 } else if (mainError.code === 'file-too-large'){
+                } else if (mainError.code === 'file-too-large') {
                     setFileError('Lỗi: Kích thước file quá lớn (tối đa 5MB).'); // Ví dụ giới hạn kích thước
-                 } else {
+                } else {
                     setFileError(`Lỗi file: ${mainError.message}`);
-                 }
+                }
             } else {
-                 setFileError('File không hợp lệ.');
+                setFileError('File không hợp lệ.');
             }
             setFile(null);
             return;
@@ -144,7 +143,7 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
                             </div>
                         )}
                     </div>
-                    
+
                     {/* Collapsible Instructions */}
                     <div className="border rounded-md bg-white">
                         <button

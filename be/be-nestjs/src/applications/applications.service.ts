@@ -24,9 +24,9 @@ export class ApplicationsService {
   ) { }
 
   async create(createApplicationDto: CreateApplicationDto, user: IUser) {
+    //Destructuring 
     const { jobId, cvUrl } = createApplicationDto;
 
-    // Check if user already applied for this job with this CV
     const existingApplication = await this.applicationModel.findOne({
       userId: user._id,
       jobId: jobId,
@@ -39,7 +39,6 @@ export class ApplicationsService {
 
     console.log(`[DEBUG] Creating application for User ${user.name} (${user._id}), Job ID: ${jobId}`);
 
-    // Create new application
     const newApp = await this.applicationModel.create({
       userId: user._id,
       jobId: jobId,
@@ -50,9 +49,10 @@ export class ApplicationsService {
         email: user.email
       }
     });
-    
+
     console.log(`[DEBUG] Application created: ${newApp._id}`);
-    
+
+    //Query job information matching jobId.
     const job = await this.jobModel
       .findById(jobId)
       .select('hrId name')
@@ -66,7 +66,7 @@ export class ApplicationsService {
 
     if (job?.hrId) {
       console.log(`[DEBUG] Found hrId: ${job.hrId}, sending notification`);
-      
+
       await this.hrNotificationsService.createHRNotification(
         newApp._id.toString(),
         job._id.toString(),
@@ -75,7 +75,7 @@ export class ApplicationsService {
         user.name,
         user.email,
       );
-      
+
       console.log(`[DEBUG] Notification sent to HR (${job.hrId})`);
     } else {
       console.log(`[DEBUG] No hrId found for job ${jobId}, notification not sent`);
@@ -105,10 +105,9 @@ export class ApplicationsService {
     const totalItems = await this.applicationModel.countDocuments(queryFilter);
     const totalPages = Math.ceil(totalItems / defaultLimit);
 
-    // Default population to get basic user info
     let defaultPopulation = [
-      { path: 'userId', select: '_id name email' } // Populate user details
-      // Add job population if needed: { path: 'jobId', select: '_id name' }
+      { path: 'userId', select: '_id name email' }
+
     ];
 
     const result = await this.applicationModel.find(queryFilter)
@@ -130,64 +129,14 @@ export class ApplicationsService {
     };
   }
 
-  // if (!mongoose.Types.ObjectId.isValid(id)) {
-  //   throw new BadRequestException('ID đơn ứng tuyển không hợp lệ.');
-  // }
-
-  // const updated = await this.applicationModel.updateOne(
-  //   { _id: id },
-  //   {
-  //     status: updateDto.status,
-  //     updatedBy: {
-  //       _id: user._id,
-  //       email: user.email
-  //     }
-  //   }
-  // );
-
-  // if (updated.matchedCount === 0) {
-  //     throw new NotFoundException(`Không tìm thấy đơn ứng tuyển với ID: ${id}`);
-  // }
-
-  // // Optionally, you could return the updated document if needed
-  // // return this.applicationModel.findById(id);
-
-  // return { message: 'Cập nhật trạng thái ứng tuyển thành công.' };
-  // }
-  // async updateStatus(id: string, updateDto: UpdateApplicationStatusDto, user: IUser) {
-  //   // Code hiện tại để cập nhật trạng thái application...
-  //   if (!mongoose.Types.ObjectId.isValid(id)) {
-  //     throw new BadRequestException('ID đơn ứng tuyển không hợp lệ.');
-  //   }
-
-  //   const updated = await this.applicationModel.updateOne(
-  //     { _id: id },
-  //     {
-  //       status: updateDto.status,
-  //       updatedBy: {
-  //         _id: user._id,
-  //         email: user.email
-  //       }
-  //     }
-  //   );
-
-  //   if (updated.matchedCount === 0) {
-  //     throw new NotFoundException(`Không tìm thấy đơn ứng tuyển với ID: ${id}`);
-  //   }
-
-  //   // Optionally, you could return the updated document if needed
-  //   // return this.applicationModel.findById(id);
-
-  //   return { message: 'Cập nhật trạng thái ứng tuyển thành công.' };
-  // }
   async updateStatus(id: string, dto: UpdateApplicationStatusDto, hr: IUser) {
-    // 1. Update trạng thái
+
     await this.applicationModel.updateOne(
       { _id: id },
       { status: dto.status, updatedBy: { _id: hr._id, email: hr.email } },
     );
 
-    // 2. Lấy lại application + thông tin job
+
     const application = await this.applicationModel
       .findById(id)
       .populate({ path: 'jobId', populate: { path: 'company', select: 'name' } });
@@ -196,7 +145,7 @@ export class ApplicationsService {
       const job = application.jobId as any;
       const companyName = job.company?.name ?? 'Nhà tuyển dụng';
 
-      // 3. GHI notification vào MongoDB
+      //Notification firebase
       await this.notificationsService.createNotificationForApplication(
         application._id.toString(),
         job._id.toString(),
@@ -205,7 +154,7 @@ export class ApplicationsService {
         dto.status,
       );
 
-      // 4. ĐẨY push FCM
+      //Push notification
       await this.notificationsService.pushToUserDevices(
         application.userId.toString(),
         {
@@ -215,7 +164,7 @@ export class ApplicationsService {
       );
     }
 
-    // 5. Trả response SAU KHI hoàn tất mọi thứ
+
     return { message: 'Cập nhật trạng thái ứng tuyển thành công.' };
   }
 
@@ -269,5 +218,4 @@ export class ApplicationsService {
     };
   }
 
-  // Add other methods like findAll, findOne, remove if needed later
 } 

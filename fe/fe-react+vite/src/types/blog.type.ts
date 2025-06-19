@@ -1,4 +1,3 @@
-// import type { IUser } from "./user.type";
 
 export interface IBlog {
   _id: string;
@@ -7,7 +6,7 @@ export interface IBlog {
   description: string;
   thumbnail?: string;
   status: 'draft' | 'published';
-  author: any; // Có thể là string hoặc user object
+  author: any;
   tags: string[];
   views?: number;
   isDeleted?: boolean;
@@ -26,6 +25,7 @@ export interface ICreateBlog {
   tags: string[]
 }
 
+//send to backend
 export interface IBlogPayload {
   title: string;
   content: string;

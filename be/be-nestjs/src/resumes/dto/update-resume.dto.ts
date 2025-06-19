@@ -12,6 +12,7 @@ class UpdatedBy {
     email: string;
 }
 
+//Defining an Altered History
 class History {
     @IsNotEmpty()
     status: string;

@@ -18,8 +18,8 @@ async function bootstrap() {
     const reflector = app.get(Reflector);
     app.useGlobalGuards(new JwtAuthGuard(reflector));
 
-    app.useStaticAssets(join(__dirname, "..", "public"));//js/css/images
-    app.setBaseViewsDir(join(__dirname, "..", "views"));//view 
+    app.useStaticAssets(join(__dirname, "..", "public"));
+    app.setBaseViewsDir(join(__dirname, "..", "views"));
     app.setViewEngine("ejs");
     app.useGlobalPipes(new ValidationPipe({
         whitelist: true,
@@ -28,37 +28,24 @@ async function bootstrap() {
         disableErrorMessages: false,
     }));
     app.useGlobalInterceptors(new TransformInterceptor(reflector));
-    // const cookieParser = require('cookie-parser');
-
-
-    //config cookie 
     app.use(cookieParser());
-
-    //config CORS
-
     app.enableCors(
         {
             "origin": true,
             "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
             "preflightContinue": false,
             credentials: true
-            // "optionsSuccessStatus": 204
         }
     );
-
-    // or "app.enableVersioning()"
     app.setGlobalPrefix('api');
     app.enableVersioning({
 
         type: VersioningType.URI,
-        // prefix: 'api/v',
         defaultVersion: ['1', '2']
     });
-
+    //using 2 middlewares
     app.use(express.json({ limit: '50mb' }));
     app.use(express.urlencoded({ limit: '50mb', extended: true }));
-
-    // Run the job migrations
     try {
         console.log('[STARTUP] Running job migrations to fix missing hrId fields');
         const jobsService = app.get(JobsService);

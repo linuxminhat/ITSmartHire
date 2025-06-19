@@ -18,17 +18,11 @@ export class AuthService {
         private rolesService: RolesService
     ) { }
 
-    //Run when login
-    //passport take username and password
     async validateUser(username: string, pass: string): Promise<any> {
-
         const user = await this.usersService.findOneByUserName(username);
-        //First you need login successfully
-        //Correct email -> then user.password
         if (user) {
             const isValid = this.usersService.isValidPassword(pass, user.password);
             if (isValid === true) {
-
                 const objUser = {
                     ...user.toObject(),
                 }
@@ -39,13 +33,9 @@ export class AuthService {
     }
 
     async login(user: IUser, response: Response) {
-
         const { _id, name, email, role } = user;
-        //Define what you want in payload
         const payload = {
-            //subtitle
             sub: "token login",
-            //issuer
             iss: "from server",
             _id,
             name,
@@ -53,16 +43,14 @@ export class AuthService {
             role
         };
         const refresh_token = this.createRefreshToken(payload);
-
-        await this.usersService.updateUserToken(refresh_token, _id);
-        //set refresh_token as cookies 
+        await this.usersService.updateUserToken(refresh_token, _id); //save refreshtoken in database 
+        //set refreshtoken in cookie
         response.cookie('refresh_token', refresh_token, {
             httpOnly: true,
             maxAge: ms((this.configService.get<string>("JWT_REFRESH_EXPIRE")))
         })
 
         return {
-
             access_token: this.jwtService.sign(payload),
             refresh_token,
             user: {
@@ -75,10 +63,7 @@ export class AuthService {
         };
 
     }
-
-    //register a new user 
     async register(user: RegisterUserDto) {
-        //Inject usersService for interacting with database
         let newUser = await this.usersService.register(user);
         return {
             _id: newUser?._id,
@@ -86,7 +71,6 @@ export class AuthService {
         };
     }
 
-    //create a new refresh token
     createRefreshToken = (payload: any) => {
         const refresh_token = this.jwtService.sign(payload, {
             secret: this.configService.get<string>("JWT_REFRESH_TOKEN_SECRET"),
@@ -94,19 +78,19 @@ export class AuthService {
         });
         return refresh_token;
     }
+    //refresh both access token and refresh token
     processNewToken = async (refreshToken: string, response: Response) => {
         try {
             this.jwtService.verify(refreshToken, {
                 secret: this.configService.get<string>("JWT_REFRESH_TOKEN_SECRET")
             })
-            //To do here !
+
             let user = await this.usersService.findUserbyToken(refreshToken);
             if (user) {
                 const { _id, name, email, role } = user;
+                //new payload
                 const payload = {
-                    //subtitle
                     sub: "token refresh",
-                    //issuer
                     iss: "from server",
                     _id,
                     name,
@@ -114,11 +98,10 @@ export class AuthService {
                     role
                 };
                 const refresh_token = this.createRefreshToken(payload);
-
+                //save new freshtoken in DB 
                 await this.usersService.updateUserToken(refresh_token, _id.toString());
-                //fetch user role 
+                //update cookie in client
                 response.clearCookie("refresh_token");
-                //set refresh_token as cookies 
                 response.cookie("refresh_token", refresh_token, {
                     httpOnly: true,
                     maxAge: ms((this.configService.get<string>("JWT_REFRESH_EXPIRE"))) * 1000

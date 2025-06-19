@@ -1,22 +1,12 @@
 import { IBackendRes, IGetAccount, IUser, IModelPaginate, IApiResponse, IEducation, IExperience, IUserProfileUpdatePayload, IAttachedCv, IAttachedCvPayload } from '@/types/backend';
 import axios from '@/config/axios-customize';
 
-/**
- *
-Module User
- */
-
-// Tham khảo user.tsx, payload có thể cần gender, role, age, company
 export const callCreateUser = (data: Partial<IUser>) => {
-    // Ví dụ: Gửi đi name, email, password, age, gender, address, role, company._id
-    // Cần điều chỉnh payload dựa trên định nghĩa API của bạn
+
     return axios.post<IBackendRes<IUser>>('/api/v1/users', data);
 }
 
-// Tham khảo user.tsx, payload có thể cần các trường tương tự create
 export const callUpdateUser = (id: string, data: Partial<IUser>) => {
-    // Ví dụ: Gửi đi _id, name, age, gender, address, role, company._id
-    // Lưu ý: API update thường không cho đổi email, password
     return axios.patch<IBackendRes<IUser>>(`/api/v1/users/${id}`, data);
 }
 
@@ -24,7 +14,6 @@ export const callDeleteUser = (id: string) => {
     return axios.delete<IBackendRes<IUser>>(`/api/v1/users/${id}`);
 }
 
-// Tham khảo buildQuery trong user.tsx, cần populate role
 export const callFetchUser = (query: string) => {
     // Đảm bảo query bao gồm populate=role&fields=role._id, role.name nếu cần hiển thị tên Role
     return axios.get<IBackendRes<IModelPaginate<IUser>>>(`/api/v1/users?${query}`);
@@ -219,6 +208,4 @@ export const callDeleteAttachedCv = (cvId: string) => {
     return axios.delete<IBackendRes<IUser>>(`/api/v1/users/me/attached-cvs/${cvId}`);
 };
 
-// --- End Attached CV Service Functions ---
-// -----------------------------------------------------------------------------------------------------------------------------------------------------
-// --- Filtering 
+

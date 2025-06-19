@@ -17,7 +17,7 @@ export class HRNotificationsService {
 
     async getHRNotifications(hr: IUser, currentPage: number, limit: number, qs: string) {
         console.log(`[DEBUG] getHRNotifications called for HR: ${hr.name} (${hr._id})`);
-        
+
         const { filter, sort, population } = aqp(qs);
         delete filter.current;
         delete filter.pageSize;
@@ -30,7 +30,7 @@ export class HRNotificationsService {
 
         const totalItems = await this.hrNotificationModel.countDocuments(queryFilter);
         console.log(`[DEBUG] Found ${totalItems} total notifications`);
-        
+
         const totalPages = Math.ceil(totalItems / defaultLimit);
 
         const result = await this.hrNotificationModel.find(queryFilter)
@@ -41,7 +41,7 @@ export class HRNotificationsService {
             .exec();
 
         console.log(`[DEBUG] Returning ${result.length} notifications for current page`);
-        
+
         return {
             meta: {
                 current: currentPage,
@@ -82,22 +82,19 @@ export class HRNotificationsService {
 
     async createHRNotification(applicationId: string, jobId: string, hrId: string, jobName: string, candidateName: string, candidateEmail: string, resumeInfo?: { education?: string; experience?: number }) {
         console.log(`[DEBUG] createHRNotification called with hrId: ${hrId}, applicationId: ${applicationId}`);
-        
-        // Tạo thông báo chi tiết hơn về CV mới
+
         let message = `Ứng viên ${candidateName} đã ứng tuyển vào vị trí "${jobName}"`;
-        
-        // Thêm thông tin về kinh nghiệm nếu có
+
         if (resumeInfo?.experience !== undefined) {
             message += ` với ${resumeInfo.experience} năm kinh nghiệm`;
         }
 
-        // Thêm thông tin về học vấn nếu có
         if (resumeInfo?.education) {
             message += `, trình độ ${resumeInfo.education}`;
         }
 
         console.log(`[DEBUG] Creating HR notification in database with message: ${message}`);
-        
+
         try {
             const notification = await this.hrNotificationModel.create({
                 hrId: new mongoose.Types.ObjectId(hrId),
@@ -109,16 +106,15 @@ export class HRNotificationsService {
                 message,
                 isRead: false
             });
-            
+
             console.log(`[DEBUG] HR notification created in database: ${notification._id}`);
 
-            // Gửi thông báo qua Firebase với tiêu đề cụ thể hơn
             console.log(`[DEBUG] Sending push notification to HR devices`);
             await this.pushToHRDevices(hrId, {
                 title: 'Hồ sơ ứng tuyển mới cho ' + jobName,
                 body: message
             });
-            
+
             console.log(`[DEBUG] Push notification sent successfully`);
 
             return notification;

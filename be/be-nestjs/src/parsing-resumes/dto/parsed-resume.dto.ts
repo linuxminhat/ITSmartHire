@@ -1,5 +1,6 @@
 import { IsString, IsArray, ArrayNotEmpty, IsOptional, IsNumber } from 'class-validator';
 
+//Define data structure for CV parsed from PDF/DOCX file using AI
 export class ParsedResumeDto {
     @IsString()
     @IsOptional()

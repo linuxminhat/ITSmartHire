@@ -13,17 +13,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         private rolesService: RolesService,
     ) {
         super({
-            //get token from header and decode 
+            //way to get token
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-
-            // ignoreElements: false,
-            //dont need keyword this
             ignoreExpiration: false,
             secretOrKey: configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
         });
     }
-
-    //if token valid return data of user 
     async validate(payload: IUser) {
         const { _id, name, email, role } = payload;
         const userRole = role as unknown as { _id: string; name: string }

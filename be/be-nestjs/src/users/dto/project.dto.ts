@@ -1,7 +1,6 @@
 import { IsString, IsNotEmpty, IsOptional, IsDate, IsUrl, IsArray } from 'class-validator';
 import { Type } from 'class-transformer';
 
-// DTO for adding a new project entry
 export class AddProjectDto {
     @IsNotEmpty({ message: 'Tên dự án không được bỏ trống' })
     @IsString()
@@ -31,7 +30,6 @@ export class AddProjectDto {
     technologiesUsed?: string[];
 }
 
-// DTO for updating an existing project entry
 export class UpdateProjectDto {
     @IsOptional()
     @IsNotEmpty({ message: 'Tên dự án không được bỏ trống khi cập nhật' })
@@ -61,4 +59,3 @@ export class UpdateProjectDto {
     @IsString({ each: true, message: 'Mỗi công nghệ phải là một chuỗi' })
     technologiesUsed?: string[];
 }
- 

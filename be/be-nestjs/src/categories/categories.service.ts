@@ -39,46 +39,7 @@ export class CategoriesService {
     };
   }
 
-  // category.service.ts
-  // async findAll(dto: ListCategoriesDto) {
-  //   const cur = +dto.current || 1;
-  //   const size = +dto.pageSize || 10;
 
-  //   const match: any = { isDeleted: { $ne: true } };
-  //   if (dto.name) match.name = { $regex: dto.name, $options: 'i' };
-  //   if (dto.description) match.description = { $regex: dto.description, $options: 'i' };
-
-  //   const pipeline: any[] = [
-  //     { $match: match },
-  //     /* ⭐ join skills để lấy recruitCount */
-  //     {
-  //       $lookup: {
-  //         from: 'skills',
-  //         localField: 'skills',
-  //         foreignField: '_id',
-  //         as: 'skills',
-  //       },
-  //     },
-
-  //     {
-  //       $addFields: {
-  //         recruitCount: { $sum: '$skills.recruitCount' },
-  //       },
-  //     },
-  //     { $sort: { createdAt: -1 } },
-  //   ];
-
-  //   // total
-  //   const [{ total = 0 } = {}] = await this.categoryModel
-  //     .aggregate([...pipeline, { $count: 'total' }]);
-
-  //   // paging
-  //   pipeline.push({ $skip: (cur - 1) * size }, { $limit: size });
-
-  //   const result = await this.categoryModel.aggregate(pipeline);
-
-  //   return { result, meta: { current: cur, pageSize: size, total, pages: Math.ceil(total / size) } };
-  // }
   async findAll(dto: ListCategoriesDto) {
     const cur = Number(dto.current) || 1;
     const size = Number(dto.pageSize) || 10;
@@ -188,7 +149,6 @@ export class CategoriesService {
       }
     );
     if (updated.modifiedCount === 0) {
-      // Optional: throw error if nothing was modified, or just return success
     }
     return updated;
   }

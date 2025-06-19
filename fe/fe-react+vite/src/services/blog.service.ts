@@ -29,19 +29,16 @@ class BlogService {
     return response;
   }
 
-  // Thêm các phương thức tìm kiếm
   async search(keyword: string) {
     const response = await axios.get(`${this.baseUrl}/search?q=${encodeURIComponent(keyword)}`);
     return response;
   }
 
-  // Lấy blogs theo tag
   async getByTag(tag: string) {
     const response = await axios.get(`${this.baseUrl}/tag/${encodeURIComponent(tag)}`);
     return response;
   }
 
-  // Lấy blogs liên quan
   async getRelated(blogId: string) {
     const response = await axios.get(`${this.baseUrl}/${blogId}/related`);
     return response;

@@ -13,14 +13,11 @@ import { RolesModule } from 'src/roles/roles.module';
 
 @Module({
   imports: [UsersModule, RolesModule, PassportModule,
-
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        // secretOrPrivateKey: configService.get<string>('JWT_ACCESS_TOKEN_SECRET_SECRET'),
         secret: configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
         signOptions: {
-          // expiresIn: configService.get<string>('JWT_ACCESS_EXPIRE'),
           expiresIn: ms(configService.get<string>('JWT_ACCESS_EXPIRE')) / 1000,
         },
       }),

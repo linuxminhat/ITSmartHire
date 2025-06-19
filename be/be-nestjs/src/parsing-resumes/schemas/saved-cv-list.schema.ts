@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 
-// Định nghĩa các interface phụ
 interface WorkExperience {
     company: string;
     position: string;
@@ -14,7 +13,7 @@ interface Project {
     description: string[];
 }
 
-// Interface cho CV đã parse
+// Interface for parsed CV
 interface ParsedResumeData {
     name: string;
     email: string;
@@ -35,7 +34,7 @@ export class SavedCVList extends Document {
     @Prop({ required: true })
     name: string;
 
-    @Prop({ 
+    @Prop({
         required: true,
         enum: ['csv', 'excel'],
         type: String

@@ -1,7 +1,6 @@
 import { Transform, Type } from 'class-transformer';
 import { ArrayNotEmpty, IsArray, IsBoolean, IsDate, IsMongoId, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, ValidateNested } from 'class-validator';
 import mongoose from 'mongoose';
-// import { Company } from 'src/companies/schemas/company.schema';
 class Company {
     @IsNotEmpty()
     _id: mongoose.Schema.Types.ObjectId;
@@ -27,10 +26,6 @@ export class CreateJobDto {
     @IsObject()
     @ValidateNested()
     @Type(() => Company)
-    // company: {
-    //     _id: mongoose.Schema.Types.ObjectId;
-    //     name: string;
-    // }
     company: Company;
 
 

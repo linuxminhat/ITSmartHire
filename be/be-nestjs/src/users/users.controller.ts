@@ -18,9 +18,6 @@ import { ListUsersDto } from './dto/list-users.dto';
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
-
-    //Chức năng tìm kiếm 
-
     @Post()
     @ResponseMessage('Create a new user')
     async create(@Body() createUserDto: CreateUserDto, @User() user: IUser) {
@@ -30,19 +27,12 @@ export class UsersController {
             createdAt: newUser?.createdAt
         }
     }
-    // @Get()
-    // @ResponseMessage("Fetch user with paginate")
-    // findAll(
-    //     @Query("current") currentPage: string,
-    //     @Query("pageSize") limit: string,
-    //     @Query() qs: string,
-    //     @Query() query: ListUsersDto) {
-    //     return this.usersService.findAll(+currentPage, +limit, qs, query);
-    // }
+
+    //get list of user with pagination
     @Get()
     @ResponseMessage('Fetch user with paginate')
     findAll(@Query() query: ListUsersDto) {
-        return this.usersService.findAll(query);   // gọi service
+        return this.usersService.findAll(query);
     }
 
     @Get('profile')
@@ -59,8 +49,10 @@ export class UsersController {
         return foundUser;
     }
 
+    //partial update 
     @Patch('profile')
     @ResponseMessage("Update user profile success")
+    //user login update 
     async updateUserProfile(@User() user: IUser, @Body() updateUserProfileDto: UpdateUserProfileDto) {
         return await this.usersService.updateUserProfile(user._id, updateUserProfileDto);
     }

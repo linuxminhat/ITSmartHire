@@ -8,7 +8,7 @@ export class CreateResumeDto {
     userId: mongoose.Schema.Types.ObjectId;
     @IsNotEmpty({ message: 'url không được để trống', })
     url: string;
-
+    //PENDING - APPROVED - REJECTED
     @IsNotEmpty({ message: 'Tình trạng không được để trống', })
     status: string;
     @IsNotEmpty({ message: 'Mã ID của công ty không được để trống', })

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react';
 import { useAuthActions } from '@/contexts/AuthActionContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { 
-  UserCircleIcon, 
+import {
+  UserCircleIcon,
   ArrowRightOnRectangleIcon,
   Cog6ToothIcon
 } from '@heroicons/react/24/outline';

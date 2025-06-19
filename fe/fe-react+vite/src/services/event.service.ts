@@ -1,7 +1,7 @@
 import { IBackendRes } from "@/types/backend";
-import axios from "@/config/axios-customize";      // <-- Đúng import instance
+import axios from "@/config/axios-customize";
 
-import { IEvent } from "@/types/interview-event";  // Kiểm tra path cho đúng!
+import { IEvent } from "@/types/interview-event";
 
 export const getEvents = (start: Date, end: Date) =>
     axios.get<IEvent[]>(`/api/v1/events`, {

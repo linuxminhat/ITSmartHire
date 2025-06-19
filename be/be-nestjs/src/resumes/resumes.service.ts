@@ -14,13 +14,14 @@ export class ResumesService {
   constructor(@InjectModel(Resume.name) private resumeModel: SoftDeleteModel<ResumeDocument>) { }
 
   async create(createUserCvDto: CreateUserCvDto, user: IUser) {
-    //get information from createUserCvDto
     const { url, companyId, jobId } = createUserCvDto;
     const { email, _id } = user;
 
+    //Create new CV record in database
     const newCV = await this.resumeModel.create({
       url, companyId, email, jobId,
       userId: _id,
+      //First status is PENDING
       status: "PENDING",
       createdBy: { _id, email },
       history: [
@@ -39,7 +40,6 @@ export class ResumesService {
       _id: newCV?._id,
       createdAt: newCV?.createdAt
     };
-
   }
 
   async findAll(currentPage: number, limit: number, qs: string) {
@@ -60,6 +60,7 @@ export class ResumesService {
       result
     }
   }
+
   async findOne(id: string) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       throw new BadRequestException("Not Found Resume ");
@@ -71,6 +72,7 @@ export class ResumesService {
     return await this.resumeModel.find({
       userId: user._id,
     })
+      //Sort results by latest creation time (descending).
       .sort("-createdAt")
       .populate([
         {
@@ -90,7 +92,7 @@ export class ResumesService {
     }
 
     const updated = await this.resumeModel.updateOne(
-      //success full finding ! 
+      //success full finding
       { _id },
       {
         status,

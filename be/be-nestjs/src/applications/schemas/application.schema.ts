@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { User } from 'src/users/schemas/user.schema'; // Assuming User schema exists
-import { Job } from 'src/jobs/schemas/job.schema'; // Assuming Job schema exists
+import { User } from 'src/users/schemas/user.schema';
+import { Job } from 'src/jobs/schemas/job.schema';
 
 export type ApplicationDocument = Application & Document;
 
@@ -14,9 +14,8 @@ export class Application {
   jobId: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: true })
-  cvUrl: string; // URL of the attached CV used for this application
-
-  @Prop({ default: 'pending' }) // Example status: pending, reviewed, rejected, accepted
+  cvUrl: string;
+  @Prop({ default: 'pending' })
   status: string;
 
   @Prop({ type: Object })
