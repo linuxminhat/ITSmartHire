@@ -5,10 +5,11 @@ import { ParsingResumesController } from './parsing-resumes.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SavedCVList, SavedCVListSchema } from './schemas/saved-cv-list.schema';
+import { Application, ApplicationSchema } from 'src/applications/schemas/application.schema';
 
 @Module({
   imports: [
-    HttpModule.register({ timeout: 30000 }),
+    HttpModule.register({ timeout: 120000 }),
 
     MulterModule.register({
       limits: {
@@ -17,7 +18,8 @@ import { SavedCVList, SavedCVListSchema } from './schemas/saved-cv-list.schema';
       }
     }),
     MongooseModule.forFeature([
-      { name: SavedCVList.name, schema: SavedCVListSchema }
+      { name: SavedCVList.name, schema: SavedCVListSchema },
+      { name: Application.name, schema: ApplicationSchema }
     ]),
   ],
   controllers: [ParsingResumesController],

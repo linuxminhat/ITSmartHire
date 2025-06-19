@@ -1,0 +1,3644 @@
+[{
+  "_id": {
+    "$oid": "6805c3672646799625f6bf2a"
+  },
+  "userId": {
+    "$oid": "6804845d6eb696a63050cf93"
+  },
+  "jobId": {
+    "$oid": "6805bfe57a449f956adf8300"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/user-cvs%2F57c0bf15-3dc3-49c1-8241-1d5efd6a5a86.pdf?alt=media&token=d9bda4c8-b6da-4a61-8da5-2387410e9832",
+  "status": "offered",
+  "createdBy": {
+    "_id": "6804845d6eb696a63050cf93",
+    "email": "hungvo12@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T04:02:47.419Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T04:42:38.306Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68036ccf84efb588c6082c32",
+    "email": "hr1@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "6805c4192646799625f6bf57"
+  },
+  "userId": {
+    "$oid": "6804845d6eb696a63050cf93"
+  },
+  "jobId": {
+    "$oid": "6805bfe57a449f956adf8300"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2F408f9b4e-d25a-46d5-86e7-5c0fe75d90dc.pdf?alt=media&token=fe1d88a5-81d0-4807-b419-853ec43c0a5e",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6804845d6eb696a63050cf93",
+    "email": "hungvo12@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T04:05:45.942Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T04:05:45.942Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6805c42e2646799625f6bf5f"
+  },
+  "userId": {
+    "$oid": "6804845d6eb696a63050cf93"
+  },
+  "jobId": {
+    "$oid": "6805bfe57a449f956adf8300"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/user-cvs%2F2c38ccc6-b607-47d7-872d-33ae46bd40b9.pdf?alt=media&token=d886814d-b3a0-49c8-ba2b-8fc8f5d35c55",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6804845d6eb696a63050cf93",
+    "email": "hungvo12@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T04:06:06.263Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T04:06:06.263Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6805ccd24b6a94bdbb9d59a1"
+  },
+  "userId": {
+    "$oid": "6804845d6eb696a63050cf93"
+  },
+  "jobId": {
+    "$oid": "67fe5516167bda9508fc92f3"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/user-cvs%2F57c0bf15-3dc3-49c1-8241-1d5efd6a5a86.pdf?alt=media&token=d9bda4c8-b6da-4a61-8da5-2387410e9832",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6804845d6eb696a63050cf93",
+    "email": "hungvo12@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T04:42:58.655Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T04:42:58.655Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6805ccd94b6a94bdbb9d59a6"
+  },
+  "userId": {
+    "$oid": "6804845d6eb696a63050cf93"
+  },
+  "jobId": {
+    "$oid": "67fe5516167bda9508fc92f3"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2F36f222b8-79ab-4c87-afc6-bbaa259d235e.pdf?alt=media&token=6c750de9-7a00-4019-9cf8-6e3b83370fc1",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6804845d6eb696a63050cf93",
+    "email": "hungvo12@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T04:43:05.796Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T04:43:05.796Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6805d0b540af2aae9627dcc6"
+  },
+  "userId": {
+    "$oid": "6804845d6eb696a63050cf93"
+  },
+  "jobId": {
+    "$oid": "67fe58d4167bda9508fc939e"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2F8bb7b27d-ed5d-49b3-8a8a-5127a414ee1a.pdf?alt=media&token=c3414f76-b407-4de6-a2eb-ce8313c88f9e",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6804845d6eb696a63050cf93",
+    "email": "hungvo12@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T04:59:33.861Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T04:59:33.861Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6805d19440af2aae9627dd7b"
+  },
+  "userId": {
+    "$oid": "6804845d6eb696a63050cf93"
+  },
+  "jobId": {
+    "$oid": "67fe58d4167bda9508fc939e"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2F78082c11-a45e-4f5b-a1cc-a0dc1101a9c2.pdf?alt=media&token=b781bebc-b5c7-4ab4-90e7-b8c29fe0ce47",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6804845d6eb696a63050cf93",
+    "email": "hungvo12@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T05:03:16.627Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T05:03:16.627Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6805d24c40af2aae9627de0f"
+  },
+  "userId": {
+    "$oid": "6804845d6eb696a63050cf93"
+  },
+  "jobId": {
+    "$oid": "6805bfe57a449f956adf8300"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2F98e7841f-3b35-4bc1-9da2-5e52e227f999.pdf?alt=media&token=ca15f6ce-f965-45e9-b788-7f0373d49ef5",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "6804845d6eb696a63050cf93",
+    "email": "hungvo12@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T05:06:20.619Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T05:07:07.468Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68036ccf84efb588c6082c32",
+    "email": "hr1@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "6805d7ea40af2aae9627e292"
+  },
+  "userId": {
+    "$oid": "6805d5d840af2aae9627e10b"
+  },
+  "jobId": {
+    "$oid": "6805bfe57a449f956adf8300"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2F22d9a836-1de4-436f-b39f-ec19ce1518c9.pdf?alt=media&token=7067e523-97af-4d60-9a58-69017de11e9e",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6805d5d840af2aae9627e10b",
+    "email": "minhnhatdang2810@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T05:30:18.191Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T05:30:18.191Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6805d8e640af2aae9627e3bd"
+  },
+  "userId": {
+    "$oid": "6805d5d840af2aae9627e10b"
+  },
+  "jobId": {
+    "$oid": "6805bfe57a449f956adf8300"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2Fd737b6ea-933c-4726-93b1-b1f5a4df80b5.pdf?alt=media&token=00ebd421-6d2f-41b5-99ef-94ba2ad6f6c9",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6805d5d840af2aae9627e10b",
+    "email": "minhnhatdang2810@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T05:34:30.162Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T05:34:30.162Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6805f599b9cb08e17c5aba2d"
+  },
+  "userId": {
+    "$oid": "6805e6ff8314d408127a024c"
+  },
+  "jobId": {
+    "$oid": "67fe58d4167bda9508fc939e"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/user-cvs%2Fe6ab8bf9-21d2-4822-83ac-a5ca1c52e9fa.pdf?alt=media&token=801a772f-185d-4991-97d2-d7f9dd41059b",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6805e6ff8314d408127a024c",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-21T07:36:57.731Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-21T07:36:57.731Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680709c4f11e7e2272a516f6"
+  },
+  "userId": {
+    "$oid": "6805e6ff8314d408127a024c"
+  },
+  "jobId": {
+    "$oid": "67fe53f5167bda9508fc92d9"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2Fc116b7cf-5777-4bda-aab4-c0a0ed855eed.pdf?alt=media&token=6794b745-fe3a-4da8-8ec5-cc53ee44bd15",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6805e6ff8314d408127a024c",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-22T03:15:16.256Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-22T03:15:16.256Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68070a12f11e7e2272a5177c"
+  },
+  "userId": {
+    "$oid": "6805e6ff8314d408127a024c"
+  },
+  "jobId": {
+    "$oid": "67fe579f167bda9508fc934c"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2Fe6e300e0-b5a0-42aa-bbb0-0129403bfb63.pdf?alt=media&token=b7cb45f7-e8ab-4cb1-9498-e5161f992a1f",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6805e6ff8314d408127a024c",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-22T03:16:34.161Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-22T03:16:34.161Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68070a89f11e7e2272a51863"
+  },
+  "userId": {
+    "$oid": "6805e6ff8314d408127a024c"
+  },
+  "jobId": {
+    "$oid": "68070a70f11e7e2272a5181f"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2Fcf4e83f0-335b-4e29-b10a-08bfb3d3840a.pdf?alt=media&token=16177b0e-64b1-4272-ac9f-17abbe631d53",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6805e6ff8314d408127a024c",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-22T03:18:33.717Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-22T03:18:33.717Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6807a17c3146376de6afd7cb"
+  },
+  "userId": {
+    "$oid": "68079b9e3146376de6afd5d1"
+  },
+  "jobId": {
+    "$oid": "67fe53f5167bda9508fc92d9"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2F2f470638-63af-4acd-9b36-c7f688a6c697.pdf?alt=media&token=889f24d5-d396-4658-b88b-525499704dd2",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68079b9e3146376de6afd5d1",
+    "email": "ngocnguyen@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-22T14:02:36.675Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-22T14:02:36.675Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6807a7363146376de6afdadb"
+  },
+  "userId": {
+    "$oid": "68079b9e3146376de6afd5d1"
+  },
+  "jobId": {
+    "$oid": "67fe53f5167bda9508fc92d9"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/job-applications%2Fb95b0b20-4f9b-4950-95ba-27379c576840.pdf?alt=media&token=70c59f58-8be0-4d44-8113-c5553caf90dd",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68079b9e3146376de6afd5d1",
+    "email": "ngocnguyen@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-22T14:27:02.690Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-22T14:27:02.690Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6807a8f43146376de6afdbac"
+  },
+  "userId": {
+    "$oid": "68079b9e3146376de6afd5d1"
+  },
+  "jobId": {
+    "$oid": "6807a8e03146376de6afdb64"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/user-cvs%2Fb18d3389-261d-4021-922c-0830ff8b371c.pdf?alt=media&token=3bc65801-4b41-474a-92db-c3ed6af122b0",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68079b9e3146376de6afd5d1",
+    "email": "ngocnguyen@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-22T14:34:28.649Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-22T14:35:09.705Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "6807a66a3146376de6afd8d3",
+    "email": "huynhthaolinh59@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "6807ab253146376de6afdccb"
+  },
+  "userId": {
+    "$oid": "6807aaf93146376de6afdc5d"
+  },
+  "jobId": {
+    "$oid": "6807a8e03146376de6afdb64"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/user-cvs%2F62819dfe-ab1e-4464-bdb2-dea9ae76505b.pdf?alt=media&token=f29eae88-dca4-47ab-824f-04bd9cc93779",
+  "status": "rejected",
+  "createdBy": {
+    "_id": "6807aaf93146376de6afdc5d",
+    "email": "minhnhatdang1@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-22T14:43:49.319Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-22T14:44:59.667Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "6807a66a3146376de6afd8d3",
+    "email": "huynhthaolinh59@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "680922d16b0d191694120b04"
+  },
+  "userId": {
+    "$oid": "6805e6ff8314d408127a024c"
+  },
+  "jobId": {
+    "$oid": "6808527c3a73bbeeb48c7292"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/user-cvs%2Fe6ab8bf9-21d2-4822-83ac-a5ca1c52e9fa.pdf?alt=media&token=801a772f-185d-4991-97d2-d7f9dd41059b",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6805e6ff8314d408127a024c",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-23T17:26:41.227Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-23T17:26:41.227Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68092a1e960a9661ffb7323e"
+  },
+  "userId": {
+    "$oid": "68079b9e3146376de6afd5d1"
+  },
+  "jobId": {
+    "$oid": "6808527c3a73bbeeb48c7292"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/zalo-app-66612.appspot.com/o/user-cvs%2Fb18d3389-261d-4021-922c-0830ff8b371c.pdf?alt=media&token=3bc65801-4b41-474a-92db-c3ed6af122b0",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68079b9e3146376de6afd5d1",
+    "email": "ngocnguyen@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-23T17:57:50.340Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-23T17:57:50.340Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68092a51960a9661ffb73246"
+  },
+  "userId": {
+    "$oid": "68079b9e3146376de6afd5d1"
+  },
+  "jobId": {
+    "$oid": "6808527c3a73bbeeb48c7292"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fe96b2b76-2e8c-47e9-99c3-f38e4ddbc9a3.pdf?alt=media&token=368f9167-1061-40be-bc3c-99f15be1b76e",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68079b9e3146376de6afd5d1",
+    "email": "ngocnguyen@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-23T17:58:41.008Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-23T17:58:41.008Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680a2baa4e0f886b31d6a7b6"
+  },
+  "userId": {
+    "$oid": "680a2a1e4e0f886b31d6a470"
+  },
+  "jobId": {
+    "$oid": "680a29204e0f886b31d6a368"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F27db504c-0aae-42f5-acee-b81b62efc9cd.pdf?alt=media&token=481b3556-d621-4482-bab0-e13327b889f3",
+  "status": "rejected",
+  "createdBy": {
+    "_id": "680a2a1e4e0f886b31d6a470",
+    "email": "minh3@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:16:42.005Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:22:52.368Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680a284f4e0f886b31d6a226",
+    "email": "hraxon@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "680a2bbc4e0f886b31d6a7df"
+  },
+  "userId": {
+    "$oid": "680a2a1e4e0f886b31d6a470"
+  },
+  "jobId": {
+    "$oid": "680a29b34e0f886b31d6a370"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F27db504c-0aae-42f5-acee-b81b62efc9cd.pdf?alt=media&token=481b3556-d621-4482-bab0-e13327b889f3",
+  "status": "pending",
+  "createdBy": {
+    "_id": "680a2a1e4e0f886b31d6a470",
+    "email": "minh3@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:17:00.119Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:17:00.119Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680a2bfe4e0f886b31d6a88b"
+  },
+  "userId": {
+    "$oid": "680a2a4a4e0f886b31d6a4a2"
+  },
+  "jobId": {
+    "$oid": "680a29204e0f886b31d6a368"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F13cd417f-aff9-4bc3-9abc-67f6d4ccfb49.pdf?alt=media&token=085baa99-0200-4e8e-960c-270a1d10cd29",
+  "status": "rejected",
+  "createdBy": {
+    "_id": "680a2a4a4e0f886b31d6a4a2",
+    "email": "minh5@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:18:06.145Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:22:51.116Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680a284f4e0f886b31d6a226",
+    "email": "hraxon@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "680a2c054e0f886b31d6a8b4"
+  },
+  "userId": {
+    "$oid": "680a2a4a4e0f886b31d6a4a2"
+  },
+  "jobId": {
+    "$oid": "680a29b34e0f886b31d6a370"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F13cd417f-aff9-4bc3-9abc-67f6d4ccfb49.pdf?alt=media&token=085baa99-0200-4e8e-960c-270a1d10cd29",
+  "status": "pending",
+  "createdBy": {
+    "_id": "680a2a4a4e0f886b31d6a4a2",
+    "email": "minh5@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:18:13.486Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:18:13.486Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680a2c224e0f886b31d6a90c"
+  },
+  "userId": {
+    "$oid": "680a2a5c4e0f886b31d6a4bb"
+  },
+  "jobId": {
+    "$oid": "680a29204e0f886b31d6a368"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fda92a8fd-64d7-419b-9b28-30d3f9b4ae36.pdf?alt=media&token=493ca76e-5603-4201-aa7c-8fd0c38a792b",
+  "status": "reviewed",
+  "createdBy": {
+    "_id": "680a2a5c4e0f886b31d6a4bb",
+    "email": "minh6@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:18:42.525Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:22:48.840Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680a284f4e0f886b31d6a226",
+    "email": "hraxon@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "680a2c274e0f886b31d6a935"
+  },
+  "userId": {
+    "$oid": "680a2a5c4e0f886b31d6a4bb"
+  },
+  "jobId": {
+    "$oid": "680a29b34e0f886b31d6a370"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fda92a8fd-64d7-419b-9b28-30d3f9b4ae36.pdf?alt=media&token=493ca76e-5603-4201-aa7c-8fd0c38a792b",
+  "status": "pending",
+  "createdBy": {
+    "_id": "680a2a5c4e0f886b31d6a4bb",
+    "email": "minh6@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:18:47.513Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:18:47.513Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680a2c4b4e0f886b31d6a99d"
+  },
+  "userId": {
+    "$oid": "680a2a724e0f886b31d6a4d4"
+  },
+  "jobId": {
+    "$oid": "680a29204e0f886b31d6a368"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fd08a6643-8fef-463d-917f-17c6a6a71d1d.pdf?alt=media&token=3c683bc8-fbdb-4024-b866-d1bf01ad630f",
+  "status": "reviewed",
+  "createdBy": {
+    "_id": "680a2a724e0f886b31d6a4d4",
+    "email": "minh7@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:19:23.227Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:22:47.832Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680a284f4e0f886b31d6a226",
+    "email": "hraxon@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "680a2c504e0f886b31d6a9c6"
+  },
+  "userId": {
+    "$oid": "680a2a724e0f886b31d6a4d4"
+  },
+  "jobId": {
+    "$oid": "680a29b34e0f886b31d6a370"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fd08a6643-8fef-463d-917f-17c6a6a71d1d.pdf?alt=media&token=3c683bc8-fbdb-4024-b866-d1bf01ad630f",
+  "status": "pending",
+  "createdBy": {
+    "_id": "680a2a724e0f886b31d6a4d4",
+    "email": "minh7@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:19:28.750Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:19:28.750Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680a2c704e0f886b31d6aa2e"
+  },
+  "userId": {
+    "$oid": "680a2a884e0f886b31d6a4ed"
+  },
+  "jobId": {
+    "$oid": "680a29204e0f886b31d6a368"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F60f8aad2-2c35-489c-a326-9cdfbc501eaa.pdf?alt=media&token=1ad9cde3-5b8d-4c12-9d05-ad858bd126f9",
+  "status": "reviewed",
+  "createdBy": {
+    "_id": "680a2a884e0f886b31d6a4ed",
+    "email": "minh8@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:20:00.639Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:22:46.528Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680a284f4e0f886b31d6a226",
+    "email": "hraxon@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "680a2c764e0f886b31d6aa57"
+  },
+  "userId": {
+    "$oid": "680a2a884e0f886b31d6a4ed"
+  },
+  "jobId": {
+    "$oid": "680a29b34e0f886b31d6a370"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F60f8aad2-2c35-489c-a326-9cdfbc501eaa.pdf?alt=media&token=1ad9cde3-5b8d-4c12-9d05-ad858bd126f9",
+  "status": "pending",
+  "createdBy": {
+    "_id": "680a2a884e0f886b31d6a4ed",
+    "email": "minh8@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:20:06.103Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:20:06.103Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680a2c984e0f886b31d6aac0"
+  },
+  "userId": {
+    "$oid": "680a2b424e0f886b31d6a689"
+  },
+  "jobId": {
+    "$oid": "680a29204e0f886b31d6a368"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F88c6deab-ec67-4248-85e7-1600b5266481.pdf?alt=media&token=969f1758-2365-4b7a-8ed1-0f702d1274da",
+  "status": "pending",
+  "createdBy": {
+    "_id": "680a2b424e0f886b31d6a689",
+    "email": "minh10@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:20:40.185Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-12T18:19:35.683Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680a284f4e0f886b31d6a226",
+    "email": "hraxon@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "680a2c9d4e0f886b31d6aae9"
+  },
+  "userId": {
+    "$oid": "680a2b424e0f886b31d6a689"
+  },
+  "jobId": {
+    "$oid": "680a29b34e0f886b31d6a370"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F88c6deab-ec67-4248-85e7-1600b5266481.pdf?alt=media&token=969f1758-2365-4b7a-8ed1-0f702d1274da",
+  "status": "pending",
+  "createdBy": {
+    "_id": "680a2b424e0f886b31d6a689",
+    "email": "minh10@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:20:45.612Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:20:45.612Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680a2cd54e0f886b31d6abbf"
+  },
+  "userId": {
+    "$oid": "680a2b774e0f886b31d6a71c"
+  },
+  "jobId": {
+    "$oid": "680a29204e0f886b31d6a368"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F334fb301-7f29-47ff-9caf-fe2f0b7a41fc.pdf?alt=media&token=3ecff7f9-acba-4471-96a5-c0f0980946c0",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "680a2b774e0f886b31d6a71c",
+    "email": "minh11@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:21:41.900Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:22:40.460Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680a284f4e0f886b31d6a226",
+    "email": "hraxon@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "680a2cda4e0f886b31d6abe8"
+  },
+  "userId": {
+    "$oid": "680a2b774e0f886b31d6a71c"
+  },
+  "jobId": {
+    "$oid": "680a29b34e0f886b31d6a370"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F334fb301-7f29-47ff-9caf-fe2f0b7a41fc.pdf?alt=media&token=3ecff7f9-acba-4471-96a5-c0f0980946c0",
+  "status": "pending",
+  "createdBy": {
+    "_id": "680a2b774e0f886b31d6a71c",
+    "email": "minh11@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-04-24T12:21:46.742Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-24T12:21:46.742Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68221070cd57adb66d337217"
+  },
+  "userId": {
+    "$oid": "6807a66a3146376de6afd8d3"
+  },
+  "jobId": {
+    "$oid": "67fe0a09c003c412b4cfaa86"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F8715e325-0e68-43c6-9b44-f66d8078a560.pdf?alt=media&token=6b94b643-935a-4a77-92e8-d902ee5f7e30",
+  "status": "pending",
+  "createdBy": {
+    "_id": "6807a66a3146376de6afd8d3",
+    "email": "huynhthaolinh59@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-12T15:14:56.052Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-12T15:14:56.052Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6823c0f1a9020167844411d6"
+  },
+  "userId": {
+    "$oid": "68238ca0769faca609aefe79"
+  },
+  "jobId": {
+    "$oid": "6823b9c5d10fb7f8218c6dcd"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fe0bec404-a080-4a2f-9e45-3022cb9a4d00.pdf?alt=media&token=1cdf1d5f-0b5e-4796-bb4d-23d3e3d9c6bb",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238ca0769faca609aefe79",
+    "email": "minhnhatdang2810@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-13T22:00:17.507Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-14T00:05:00.213Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "6823b053d10fb7f8218c6832",
+    "email": "hrfpt@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "6823e701522c437728e5da08"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "6823e510522c437728e5d8dd"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F89f25e37-aa36-426b-907d-655d61f49b1e.pdf?alt=media&token=2f415304-d953-4771-ae19-d74a25aebaaf",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-14T00:42:41.789Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-23T06:50:08.983Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680125b048ebc6dc41503f19",
+    "email": "adminitsmarthire@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "68258f39534627945b2cbfed"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fd4992335-6bef-4be1-bf4b-786eca9909f1.pdf?alt=media&token=48a350cf-1549-40b6-a971-9fb04c3d6012",
+  "status": "reviewed",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-15T06:52:41.864Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T02:36:05.123Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "68258f62534627945b2cc045"
+  },
+  "userId": {
+    "$oid": "68238ea4769faca609af004d"
+  },
+  "jobId": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F18a0ab0a-2e64-432e-b343-7be5cc001d19.pdf?alt=media&token=5a381c3d-96b3-434f-b84e-2564abe4413c",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238ea4769faca609af004d",
+    "email": "tranleminh0105@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-15T06:53:22.941Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-15T06:53:22.941Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68258f8b534627945b2cc077"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F47c40a45-424b-4fcf-b77e-1f682d321c6e.pdf?alt=media&token=ca3d545e-6a2d-4813-9d59-cbf1b4c1f5b6",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-15T06:54:03.354Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-15T06:54:03.354Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6825932a534627945b2cc35c"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "68258e68534627945b2cbee6"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fc96ad1c0-e961-4f27-8144-de9da8a3351f.pdf?alt=media&token=66a9da4e-29a1-4812-a66d-27282e365527",
+  "status": "reviewed",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-15T07:09:30.180Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T02:35:50.890Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682ce4a1f674117038cc0216"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F89f25e37-aa36-426b-907d-655d61f49b1e.pdf?alt=media&token=2f415304-d953-4771-ae19-d74a25aebaaf",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-20T20:22:57.701Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-20T20:59:51.469Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682ce4adf674117038cc023f"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "68258e68534627945b2cbee6"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F89f25e37-aa36-426b-907d-655d61f49b1e.pdf?alt=media&token=2f415304-d953-4771-ae19-d74a25aebaaf",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-20T20:23:09.517Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-20T20:23:09.517Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682cee04f674117038cc0561"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fdaa05f7c-cb2d-48b7-bd33-1f5febe565ca.pdf?alt=media&token=f0b58a46-388f-40a0-8cef-35ebf20f6413",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-20T21:03:00.706Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T02:43:58.121Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682cf055f674117038cc0897"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "68258e68534627945b2cbee6"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fe38331fe-5e5a-4f0b-9c4a-69080403c3fc.pdf?alt=media&token=66822509-9ed6-4d31-afa8-c371d7d27270",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-20T21:12:53.534Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-20T21:13:08.524Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d4acbb1da1f83c6a2902a"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T03:38:51.957Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T03:47:38.460Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d58edb1da1f83c6a3445f"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:09.066Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:56.064Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d58f4b1da1f83c6a34492"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:16.135Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:50.926Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d58f8b1da1f83c6a344b5"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:20.847Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T04:56:21.584Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d58fcb1da1f83c6a344d8"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d57b5b1da1f83c6a343cf"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:24.932Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:38.080Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d5901b1da1f83c6a344fb"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5769b1da1f83c6a343c7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:29.106Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:30.118Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d5905b1da1f83c6a3451e"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5724b1da1f83c6a343bf"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:33.047Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:24.635Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d590ab1da1f83c6a34541"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d56acb1da1f83c6a3439b"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:38.846Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:19.572Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d590fb1da1f83c6a34564"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d565ab1da1f83c6a34393"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:43.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:15.525Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d5913b1da1f83c6a34587"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d561eb1da1f83c6a3438b"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:47.703Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:10.991Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d5917b1da1f83c6a345aa"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d55d0b1da1f83c6a34383"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F74ef0b4e-c49c-4084-97d2-1e0d2f547561.pdf?alt=media&token=4d733664-7907-4d17-b2bb-5009c9f4847f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T04:39:51.380Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T05:48:06.778Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d737786c64c1c2621c5ac"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:23.259Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T06:34:24.390Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d737b86c64c1c2621c5cf"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "rejected",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:27.699Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T06:34:18.454Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d737f86c64c1c2621c5f2"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:31.408Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T16:03:52.975Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d738386c64c1c2621c615"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d57b5b1da1f83c6a343cf"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:35.111Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T16:03:49.075Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d738886c64c1c2621c638"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d5769b1da1f83c6a343c7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "offered",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:40.589Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T06:33:54.652Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d738c86c64c1c2621c65b"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d5724b1da1f83c6a343bf"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "reviewed",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:44.324Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:09:26.511Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d739086c64c1c2621c67e"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d56acb1da1f83c6a3439b"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "offered",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:48.200Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T01:58:41.396Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d739486c64c1c2621c6a1"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d565ab1da1f83c6a34393"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:52.329Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T01:58:34.744Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d739986c64c1c2621c6c4"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d561eb1da1f83c6a3438b"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:32:57.758Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T01:58:30.446Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d739e86c64c1c2621c6e7"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d55d0b1da1f83c6a34383"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:33:02.869Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T03:04:02.539Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d778195c5301496626aa5"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:49:37.492Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T06:50:20.145Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d778895c5301496626acd"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "68258e68534627945b2cbee6"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:49:44.221Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T06:50:26.897Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d779095c5301496626af5"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "6823e510522c437728e5d8dd"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fb2bbb91c-b353-4f4b-ac3f-702a6ce9ee07.pdf?alt=media&token=18a5e6a9-0796-4980-83c5-898a014ee007",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T06:49:52.546Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T06:49:52.546Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d82b8300a9b4a22c163d7"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F5a456e20-3765-4bf0-a23c-294c3c3c00f7.pdf?alt=media&token=61d2698d-7aeb-4534-af72-6a4c8a17b859",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T07:37:28.159Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T07:37:28.159Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d89e1b2c213ec7c09c0ba"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F53ac0139-f95d-4b5e-b1bd-5c62db89218d.pdf?alt=media&token=7f2557d7-38b2-4efe-81de-c0fad63ad504",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:08:01.193Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:08:01.193Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d8a07b2c213ec7c09c2c2"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F1f413ab1-f65d-4487-b415-122b4cc62600.pdf?alt=media&token=884cac9b-9a7b-476b-9bd2-0f812cb61d34",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:08:39.564Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:08:39.564Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d8af8717c1b482c81f42a"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F224847d6-a86e-4688-bc83-26646895a2f1.pdf?alt=media&token=794f9dbf-fc71-40c4-a70f-14048e1558e5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:12:40.846Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:12:40.846Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d8f4e9a77ae245822fa55"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fe5b0cc62-0c89-4f91-b56b-6b84e3381408.pdf?alt=media&token=698cd143-6e36-475e-8b5c-90fefc614f3d",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:31:10.686Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:31:10.686Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d8fbdaa5325ce9d48d5f4"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F3d1cf9d8-fd6e-486a-9b91-001afb48305f.pdf?alt=media&token=df60d10b-1c8d-4bae-806b-ca4fdb5a71b0",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:33:01.808Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:33:01.808Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d910e096b2756e67f8b10"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fdd581a0c-0781-49b4-bd17-a80d09907353.pdf?alt=media&token=25efe98f-e350-4b16-a676-c2198fcc0b84",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:38:38.530Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:38:38.530Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d93a4f4db68a70119171e"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F224847d6-a86e-4688-bc83-26646895a2f1.pdf?alt=media&token=794f9dbf-fc71-40c4-a70f-14048e1558e5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:49:40.496Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:49:40.496Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d9541f8c8c751b206c909"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F224847d6-a86e-4688-bc83-26646895a2f1.pdf?alt=media&token=794f9dbf-fc71-40c4-a70f-14048e1558e5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:56:33.197Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:56:33.197Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d95a5b796a028825b1bae"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F224847d6-a86e-4688-bc83-26646895a2f1.pdf?alt=media&token=794f9dbf-fc71-40c4-a70f-14048e1558e5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T08:58:13.636Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T08:58:13.636Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d9700b796a028825b8262"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F224847d6-a86e-4688-bc83-26646895a2f1.pdf?alt=media&token=794f9dbf-fc71-40c4-a70f-14048e1558e5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T09:04:00.534Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T09:04:00.534Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d9808b796a028825ba562"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F224847d6-a86e-4688-bc83-26646895a2f1.pdf?alt=media&token=794f9dbf-fc71-40c4-a70f-14048e1558e5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T09:08:24.900Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T09:08:24.900Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d9884b796a028825ba8c2"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F224847d6-a86e-4688-bc83-26646895a2f1.pdf?alt=media&token=794f9dbf-fc71-40c4-a70f-14048e1558e5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T09:10:28.103Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T09:10:28.103Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d9ab18fbd341a9c1c08fb"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F224847d6-a86e-4688-bc83-26646895a2f1.pdf?alt=media&token=794f9dbf-fc71-40c4-a70f-14048e1558e5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T09:19:45.432Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T09:19:45.432Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d9abf8fbd341a9c1c0a82"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F3b444e80-1c7b-4ff9-8b2f-4f6579d873c4.pdf?alt=media&token=6a5d95f8-7ea4-4145-a93a-5b7fe837bd88",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T09:19:59.144Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T09:19:59.144Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682df9a0a72fd78a80aed96a"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fa5997697-cf92-4192-a316-5bcc6d70d805.pdf?alt=media&token=af9ae67c-4100-4436-bb1b-5e801df476e4",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-21T16:04:48.090Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-21T16:05:07.039Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682e93e4325ed27881e5fb74"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fa5997697-cf92-4192-a316-5bcc6d70d805.pdf?alt=media&token=af9ae67c-4100-4436-bb1b-5e801df476e4",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T03:03:00.703Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T03:03:00.703Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682e9717a255fde3a8e7ffdc"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F819524ae-786e-45fd-b5f9-cca93a98b2de.pdf?alt=media&token=b931d999-2cfa-4126-b7da-971d8a56244e",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T03:16:39.723Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T03:16:39.723Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682e983dcfd550db29e58e7e"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F856af691-ab4c-4eec-91f6-f901000c0e33.pdf?alt=media&token=28fdaa71-89de-4ee7-9753-de34058f1b2e",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T03:21:33.075Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T03:21:33.075Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682e9a140936338c28a2e687"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F40415477-99ea-4180-bb2a-dcc30b4889af.pdf?alt=media&token=185ddef6-6fdd-4a85-91a9-117517eaa9f2",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T03:29:24.436Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T03:29:24.436Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682ea0320936338c28a5362d"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F9daef35c-8668-4190-8f09-847da4b86d74.pdf?alt=media&token=90636d06-b332-4006-8b96-d6938ae3ce10",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T03:55:30.858Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T03:55:30.858Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682ea05e0936338c28a53c86"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F39193788-c990-4999-aec1-41036eab6118.pdf?alt=media&token=f30019b8-4800-48d3-a12e-285a7d60117b",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T03:56:14.882Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T03:56:14.882Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682eec87e15dd0b055bfec9a"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F43fb62cd-d59a-4b08-80ab-e87b6e9b2105.pdf?alt=media&token=07d693b3-cc24-45ca-ba8e-a17c265e0fec",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T09:21:11.983Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:21:11.983Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682eed12e15dd0b055c00d84"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fbde8a84f-9947-431b-a84b-fd9bc981cb80.pdf?alt=media&token=9f209edf-2142-4ce0-99a2-1eba88ea858d",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T09:23:30.559Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:23:30.559Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682ef069e15dd0b055c08b47"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F439c258c-5f40-4755-92fa-0acd302bf282.pdf?alt=media&token=1dc0e3e1-2b20-493b-8822-f6d1a84498ca",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T09:37:45.174Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:37:45.174Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682ef23be15dd0b055c0a6af"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F0a123a1b-8fe0-4dbb-8437-5038789d78af.pdf?alt=media&token=b65cf075-d84a-418e-ad51-6942153194a3",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T09:45:31.046Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:45:31.046Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682ef24fe15dd0b055c0a6e3"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F200c98af-d842-4e82-9d78-091cf68aca0e.pdf?alt=media&token=99d1d445-2063-4466-955f-5a6560552d0f",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T09:45:51.727Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:45:51.727Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682efa7ce15dd0b055c0b4a7"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fca2d81e1-e699-4ef5-8901-cb516b41b450.pdf?alt=media&token=77bdfad3-ea18-469e-a287-8126af108db6",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T10:20:44.085Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T10:20:44.085Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682efaa8e15dd0b055c0b514"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "68258e68534627945b2cbee6"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F279e82b4-2c1b-4943-adb9-031a7131b32e.pdf?alt=media&token=b1d4e546-0914-4bfb-8690-099e54a06d7f",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T10:21:28.917Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T10:21:28.917Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682efac0e15dd0b055c0b524"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "68258e68534627945b2cbee6"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F7685b259-59df-4497-9d22-b7358b5c14df.pdf?alt=media&token=5d40a573-d9dd-4d21-9dbd-c25a1b60f1cb",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T10:21:52.455Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T10:21:52.455Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682efc81eae7411d60f29219"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fb9b096d9-4f3d-4d01-a34b-fc89324c7684.pdf?alt=media&token=5a35963d-a5ef-465f-a45b-ddd5c840ec2f",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T10:29:21.323Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T12:59:59.765Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f1f367272d56755f16d26"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fcb60478c-c33b-43c1-9b65-7cccd8173e5c.pdf?alt=media&token=c40dd526-327b-46c1-a5ee-4089579524da",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T12:57:26.882Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:10:47.882Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f1f487272d56755f16d54"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F0c663b9a-1a93-46b9-862c-a1b38d2339e0.pdf?alt=media&token=454fe1f4-b229-4043-850a-4b2a846d725c",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T12:57:44.240Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:10:57.656Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f1f5c7272d56755f16d82"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F4387e51b-7e6e-46b4-b00b-e262f8ff0d35.pdf?alt=media&token=3316fc81-3a62-4be6-b3d7-7f8729ca794d",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T12:58:04.356Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T12:58:04.356Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f1f6c7272d56755f16d92"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F9d4c8458-37b3-4c86-86c1-ef54f42a6869.pdf?alt=media&token=555cd62f-a63b-4de6-a760-454196b3bd64",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T12:58:20.688Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:11:03.182Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f1f807272d56755f16dd0"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "682d57b5b1da1f83c6a343cf"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F60ca266f-e6c9-4ddd-a86b-c37ed6d5462b.pdf?alt=media&token=6ee45f7e-3d49-4988-b0ab-82cbc9db16f4",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T12:58:40.580Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:11:11.641Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f1f927272d56755f16e0e"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "682d5769b1da1f83c6a343c7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fcec6356a-0bae-41f0-8804-f0d1f023115c.pdf?alt=media&token=337042b9-eb57-43d4-8ec7-1a635f72e805",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T12:58:58.549Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:11:18.648Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f23e47272d56755f17641"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F80baadb5-6b5f-4c29-9e65-bb42e85546bf.pdf?alt=media&token=a08761bb-10de-4766-a05c-4c888481fd24",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:17:24.943Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:17:24.943Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f23f57272d56755f17683"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F973b0be0-87b7-4a04-92df-c5016beae2fb.pdf?alt=media&token=3b2ed20f-7225-4747-83eb-d5740b049cc5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:17:41.486Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:17:41.486Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f23ff7272d56755f176c5"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fd9d5959d-b243-47d8-9057-400b868375da.pdf?alt=media&token=0755d353-db1f-45f0-a2f0-277026ce8974",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:17:51.693Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:17:51.693Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f240b7272d56755f17707"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d57b5b1da1f83c6a343cf"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F5bcde5b8-262c-409a-8610-bcf9dd9001bf.pdf?alt=media&token=55a671ca-863a-4f99-8d5f-a5982ac0cfb2",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:18:03.398Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:18:03.398Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f241b7272d56755f17749"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5769b1da1f83c6a343c7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fe75b7e9c-40e0-42c5-acd8-1d5e1e60a70d.pdf?alt=media&token=ba509563-a15a-477d-a497-8f337a5b9ea0",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:18:19.250Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:18:19.250Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f24287272d56755f1778b"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F2db314d3-0304-411c-9131-5f364900709b.pdf?alt=media&token=63847cc0-a514-4289-a021-8bba8b77b5e9",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:18:32.016Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:18:32.016Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f24327272d56755f177cd"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fcfea7b0c-6d09-4b1f-b6e1-30d1470b6550.pdf?alt=media&token=a89e5aa7-1122-447a-9eb3-d9b15cb7fa0d",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:18:42.713Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:18:42.713Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f243b7272d56755f1780f"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F5c6b05d3-a12d-442a-9e66-8a94a9deaa47.pdf?alt=media&token=97f3a8dc-92fb-4f0d-844a-bf1efe72d8a5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:18:51.912Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:18:51.912Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f24477272d56755f17858"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d57b5b1da1f83c6a343cf"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F76bf8a05-f42a-42be-9077-7322b40c6e3e.pdf?alt=media&token=0fde7bc5-e931-4bd2-921d-0b07c6b1fd08",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:19:03.463Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:19:03.463Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f24507272d56755f178a1"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5769b1da1f83c6a343c7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F5b0b4f9e-5bef-4bc9-adc9-53940a19ad97.pdf?alt=media&token=06dc1ce3-485b-4d0f-9446-5f2831d6e319",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:19:12.965Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:19:12.965Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f24577272d56755f178e1"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fd52cfb46-396a-4fd8-833c-ff610652fab2.pdf?alt=media&token=b0b3fb25-de29-4ffa-9ba8-067c434663d5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:19:19.994Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:19:19.994Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f24617272d56755f17923"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F24fb28e5-0ffd-4115-883d-4c7b02fd2738.pdf?alt=media&token=945323ed-c2b0-4703-a92f-18683f398ec5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:19:29.432Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:19:29.432Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f246b7272d56755f17965"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fb4843f1a-f7e0-44b3-8329-322b9ab1060e.pdf?alt=media&token=cd0daf82-886b-4e39-8401-54c20120b024",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:19:39.307Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:19:39.307Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f24757272d56755f179a7"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d57b5b1da1f83c6a343cf"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F13ee7b07-86da-4a6e-886e-e349b8cde5a7.pdf?alt=media&token=346f0fa5-0cce-4455-b4c9-2ecefc735e7a",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:19:49.021Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:19:49.021Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f247f7272d56755f179e9"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5769b1da1f83c6a343c7"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2Fb720f9eb-7a12-42ed-9d9b-ce78d43c3bb5.pdf?alt=media&token=323b4ea1-20cf-4d40-95e9-6c9bb3ae58f5",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:19:59.779Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:19:59.779Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f25597272d56755f17ae8"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F9927e106-7d55-4e3a-bf15-b2268b58f857.pdf?alt=media&token=007b4703-cde6-424c-ad1c-54a572e6614d",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:23:37.159Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:23:37.159Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f257f7272d56755f17b79"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F83d0772d-7dcb-49e5-93ef-dd561cc91ac3.pdf?alt=media&token=e4208c6b-bac6-4fa5-8d60-55023917e11c",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:24:15.464Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:24:15.464Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f25957272d56755f17bef"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F28792d90-de24-4b2d-9d66-60cd551f7791.pdf?alt=media&token=17aed71b-6d78-4914-b1c4-f16dd95edf7b",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:24:37.027Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:24:37.027Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f26127272d56755f17d45"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F68490eca-6d55-4ede-930e-40c3e5fe3fde.pdf?alt=media&token=d4fc5bab-4b17-4761-919e-54717a2bc9f3",
+  "status": "pending",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:26:42.532Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:26:42.532Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682f27327272d56755f17ef2"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "682f27087272d56755f17eb0"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/job-applications%2F5366cd4a-a6f8-41a0-af25-26702ebf0a71.pdf?alt=media&token=746e71c7-0a75-429d-8fd0-b2ecfc7c241b",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:31:30.988Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:33:25.437Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f27427272d56755f17f36"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "682f27087272d56755f17eb0"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F68490eca-6d55-4ede-930e-40c3e5fe3fde.pdf?alt=media&token=d4fc5bab-4b17-4761-919e-54717a2bc9f3",
+  "status": "rejected",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:31:46.671Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:36:15.005Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f27687272d56755f17f8d"
+  },
+  "userId": {
+    "$oid": "68238e7b769faca609af0044"
+  },
+  "jobId": {
+    "$oid": "682f27087272d56755f17eb0"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fd4992335-6bef-4be1-bf4b-786eca9909f1.pdf?alt=media&token=48a350cf-1549-40b6-a971-9fb04c3d6012",
+  "status": "offered",
+  "createdBy": {
+    "_id": "68238e7b769faca609af0044",
+    "email": "nguyenducchung1301@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-22T13:32:24.976Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:33:28.643Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "6836763f2c089f1a66a69f91"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "683675fc2c089f1a66a69e55"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fe8fb4ecd-d85a-4ae1-8943-b3ee0b91d11a.pdf?alt=media&token=3b6fcb85-5a21-47d1-8688-87f7dd775cd3",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-28T02:34:39.382Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-19T06:59:22.582Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "683750c8d9f654e078ed6c04"
+  },
+  "userId": {
+    "$oid": "682d735e86c64c1c2621c4d3"
+  },
+  "jobId": {
+    "$oid": "6836a36626eb14582e68a49e"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2F68490eca-6d55-4ede-930e-40c3e5fe3fde.pdf?alt=media&token=d4fc5bab-4b17-4761-919e-54717a2bc9f3",
+  "status": "accepted",
+  "createdBy": {
+    "_id": "682d735e86c64c1c2621c4d3",
+    "email": "buithithanhthanhadelaide@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-05-28T18:07:04.142Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-19T06:00:07.622Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "683e524c453907fd0a457f99"
+  },
+  "userId": {
+    "$oid": "68238e41769faca609af0017"
+  },
+  "jobId": {
+    "$oid": "6836a36626eb14582e68a49e"
+  },
+  "cvUrl": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/user-cvs%2Fe8fb4ecd-d85a-4ae1-8943-b3ee0b91d11a.pdf?alt=media&token=3b6fcb85-5a21-47d1-8688-87f7dd775cd3",
+  "status": "pending",
+  "createdBy": {
+    "_id": "68238e41769faca609af0017",
+    "email": "minhnhatdang0307@gmail.com"
+  },
+  "deletedAt": null,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-06-03T01:39:24.325Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T01:39:24.325Z"
+  },
+  "__v": 0
+}]

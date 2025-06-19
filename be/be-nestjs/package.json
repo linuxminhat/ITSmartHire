@@ -39,6 +39,7 @@
     "cookie-parser": "1.4.6",
     "dotenv": "^16.5.0",
     "ejs": "3.1.9",
+    "exceljs": "^4.4.0",
     "firebase-admin": "^13.4.0",
     "googleapis": "^149.0.0",
     "ical-generator": "^4.0.1",
@@ -55,7 +56,8 @@
     "react-dropzone": "^14.3.8",
     "reflect-metadata": "0.1.13",
     "rxjs": "^7.2.0",
-    "soft-delete-plugin-mongoose": "1.0.15"
+    "soft-delete-plugin-mongoose": "1.0.15",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@nestjs/cli": "9.4.2",
@@ -74,6 +76,7 @@
     "@types/pdf-parse": "^1.1.5",
     "@types/react-dropzone": "^4.2.2",
     "@types/supertest": "2.0.11",
+    "@types/xlsx": "^0.0.35",
     "@typescript-eslint/eslint-plugin": "5.0.0",
     "@typescript-eslint/parser": "5.0.0",
     "eslint": "8.0.1",

@@ -13,6 +13,8 @@ import {
   UploadedFile,
   Res,
   Header,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { FileFieldsInterceptor, FilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
@@ -114,6 +116,29 @@ export class ParsingResumesController {
         message: error.message || 'Lỗi khi xử lý file',
         data: [],
       };
+    }
+  }
+
+  @Post('analyze-applications/:jobId')
+  async analyzeJobApplications(@Param('jobId') jobId: string, @Res() res: Response) {
+    try {
+      const excelBuffer = await this.parsingService.analyzeAndExportJobApplications(jobId);
+
+      if (!excelBuffer || excelBuffer.length === 0) {
+        throw new HttpException('Không thể tạo file Excel. Có thể do không có hồ sơ ứng viên hoặc không trích xuất được dữ liệu.', HttpStatus.BAD_REQUEST);
+      }
+
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename="analyzed_cvs_${jobId}.xlsx"`);
+      res.send(excelBuffer);
+
+    } catch (error) {
+      console.error(`Error analyzing applications for job ${jobId}:`, error);
+      // It's better to use HttpException for sending error responses in NestJS
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(error.message || 'Lỗi khi phân tích hồ sơ', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

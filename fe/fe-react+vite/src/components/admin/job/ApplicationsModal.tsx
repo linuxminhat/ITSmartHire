@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { callFetchApplicationsByJob, callUpdateApplicationStatus, IApplication } from '@/services/applications.service';
+import { callFetchApplicationsByJob, callUpdateApplicationStatus, IApplication, analyzeAndExportApplications } from '@/services/applications.service';
 import { IModelPaginate } from '@/types/backend';
 import Spinner from '@/components/Spinner';
 // Remove unused icons, add icons if needed for status rendering
-import { XMarkIcon, DocumentTextIcon, CheckCircleIcon, ClockIcon, ExclamationCircleIcon, ArrowTopRightOnSquareIcon, CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, DocumentTextIcon, CheckCircleIcon, ClockIcon, ExclamationCircleIcon, ArrowTopRightOnSquareIcon, CurrencyDollarIcon, UserCircleIcon, SparklesIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import Pagination from '@/components/shared/Pagination';
 import { toast } from 'react-toastify';
+import { saveAs } from 'file-saver';
 
 // Restore the interface definition
 interface ApplicationsModalProps {
@@ -35,6 +36,7 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 5; 
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
 
   // Restore fetchApplications function
   const fetchApplications = useCallback(async (page: number) => {
@@ -113,6 +115,68 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
     }
   };
 
+  const handleAnalyze = async () => {
+    if (!jobId) return;
+
+    setIsAnalyzing(true);
+    toast.info("Bắt đầu quá trình phân tích và xuất file Excel...");
+
+    try {
+        const response = await analyzeAndExportApplications(jobId);
+        
+        // Tìm kiếm Blob một cách linh hoạt, bất kể cấu trúc response
+        // do interceptor của axios có thể thay đổi nó.
+        let blobToSave: Blob | null = null;
+
+        if (response instanceof Blob) {
+            // Trường hợp 1: Service trả về trực tiếp Blob
+            console.log("Response is a Blob itself.");
+            blobToSave = response;
+        } else if (response && response.data instanceof Blob) {
+            // Trường hợp 2: Service trả về object response của axios, Blob nằm trong .data
+            console.log("Response.data is a Blob.");
+            blobToSave = response.data;
+        } else {
+            // Trường hợp không tìm thấy Blob
+            console.error("Response is not a Blob and response.data is not a Blob.", response);
+        }
+
+        // Chỉ lưu file khi đã tìm thấy Blob hợp lệ và có nội dung
+        if (blobToSave && blobToSave.size > 0) {
+            saveAs(blobToSave, `Analyzed_CVs_${jobTitle || jobId}_${dayjs().format('YYYYMMDD')}.xlsx`);
+            toast.success("Phân tích và xuất file Excel thành công!");
+        } else {
+            throw new Error("Dữ liệu trả về không hợp lệ.");
+        }
+
+    } catch (err: any) {
+        console.error("Analysis Error:", err);
+        let errorMessage = "Lỗi không xác định khi phân tích hồ sơ.";
+
+        // Cố gắng đọc lỗi từ backend nếu có
+        if (err.response && err.response.data) {
+             if (err.response.data instanceof Blob) {
+                try {
+                    const errorText = await err.response.data.text();
+                    const errorJson = JSON.parse(errorText);
+                    errorMessage = errorJson.message || "Lỗi từ server";
+                } catch (e) {
+                     errorMessage = "Không thể đọc lỗi từ server";
+                }
+            } else if(err.response.data.message) {
+                 errorMessage = err.response.data.message;
+            }
+        } else if(err.message) {
+            errorMessage = err.message;
+        }
+
+        toast.error(errorMessage);
+        setError(errorMessage);
+    } finally {
+        setIsAnalyzing(false);
+    }
+  };
+
   // Render status with Vietnamese text and icons
   const renderStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
@@ -135,7 +199,7 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
 
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4 transition-opacity duration-300 ease-out">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl transform transition-all max-h-[90vh] flex flex-col scale-95 opacity-0 animate-modal-scale-in">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-6xl transform transition-all max-h-[90vh] flex flex-col scale-95 opacity-0 animate-modal-scale-in">
         {/* Header */}
         <div className="flex justify-between items-center p-4 md:p-5 border-b border-gray-200 flex-shrink-0 bg-gray-50 rounded-t-lg">
           <h3 className="text-lg font-semibold text-gray-800">
@@ -234,16 +298,36 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
           )}
         </div>
 
-        {/* Footer with Pagination */}
-        {!isLoading && !error && meta && meta.pages > 1 && (
-          <div className="flex justify-center p-4 border-t border-gray-200 flex-shrink-0 bg-gray-50 rounded-b-lg">
-            <Pagination
-              currentPage={meta.current}
-              totalPages={meta.pages}
-              onPageChange={handlePageChange}
-            />
-          </div>
-        )}
+        {/* Footer */}
+        <div className="flex flex-col sm:flex-row justify-between items-center p-4 border-t border-gray-200 flex-shrink-0 bg-gray-50 rounded-b-lg gap-4">
+            {/* Analyze Button */}
+            <button
+                onClick={handleAnalyze}
+                disabled={isAnalyzing || isLoading || applications.length === 0}
+                className="flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors w-full sm:w-auto"
+            >
+                {isAnalyzing ? (
+                    <>
+                        <Spinner />
+                        <span className="ml-2">Đang phân tích...</span>
+                    </>
+                ) : (
+                    <>
+                        <SparklesIcon className="h-5 w-5 mr-2" />
+                        <span>Phân tích hồ sơ ứng viên</span>
+                    </>
+                )}
+            </button>
+
+            {/* Pagination */}
+            {!isLoading && !error && meta && meta.pages > 1 && (
+                <Pagination
+                    currentPage={meta.current}
+                    totalPages={meta.pages}
+                    onPageChange={handlePageChange}
+                />
+            )}
+        </div>
       </div>
     </div>
   );

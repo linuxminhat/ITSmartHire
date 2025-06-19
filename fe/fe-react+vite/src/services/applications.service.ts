@@ -48,3 +48,12 @@ export const callFetchAppliedJobs = (query: string) => {
   return axios.get<IBackendRes<IModelPaginate<IApplication>>>(`/api/v1/applications/by-user?${query}`);
 }
 
+export const analyzeAndExportApplications = (jobId: string) => {
+  return axios({
+    method: 'post',
+    url: `/api/v1/parsing-resumes/analyze-applications/${jobId}`,
+    data: {},
+    responseType: 'blob',
+  });
+}
+
