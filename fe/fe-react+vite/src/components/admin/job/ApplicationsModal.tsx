@@ -3,11 +3,12 @@ import { callFetchApplicationsByJob, callUpdateApplicationStatus, IApplication, 
 import { IModelPaginate } from '@/types/backend';
 import Spinner from '@/components/Spinner';
 // Remove unused icons, add icons if needed for status rendering
-import { XMarkIcon, DocumentTextIcon, CheckCircleIcon, ClockIcon, ExclamationCircleIcon, ArrowTopRightOnSquareIcon, CurrencyDollarIcon, UserCircleIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, DocumentTextIcon, CheckCircleIcon, ClockIcon, ExclamationCircleIcon, ArrowTopRightOnSquareIcon, CurrencyDollarIcon, UserCircleIcon, SparklesIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import Pagination from '@/components/shared/Pagination';
 import { toast } from 'react-toastify';
 import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 // Restore the interface definition
 interface ApplicationsModalProps {
@@ -37,6 +38,9 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
   const pageSize = 5; 
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
+  const [analyzedFile, setAnalyzedFile] = useState<Blob | null>(null);
+  const [parsedRowCount, setParsedRowCount] = useState(0);
+  const [isExporting, setIsExporting] = useState<boolean>(false);
 
   // Restore fetchApplications function
   const fetchApplications = useCallback(async (page: number) => {
@@ -72,11 +76,15 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
     if (isOpen && jobId) {
       setCurrentPage(1); 
       fetchApplications(1);
+      setAnalyzedFile(null); // Reset on open/job change
+      setParsedRowCount(0);
     } else {
       setApplications([]);
       setMeta(null);
       setError(null);
       setIsLoading(false);
+      setAnalyzedFile(null); // Reset on close
+      setParsedRowCount(0);
     }
   }, [isOpen, jobId, fetchApplications]);
 
@@ -119,34 +127,35 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
     if (!jobId) return;
 
     setIsAnalyzing(true);
-    toast.info("Bắt đầu quá trình phân tích và xuất file Excel...");
+    setAnalyzedFile(null);
+    setParsedRowCount(0);
+    setError(null);
+    toast.info("Bắt đầu quá trình phân tích hồ sơ. Quá trình này có thể mất vài phút...");
 
     try {
         const response = await analyzeAndExportApplications(jobId);
         
-        // Tìm kiếm Blob một cách linh hoạt, bất kể cấu trúc response
-        // do interceptor của axios có thể thay đổi nó.
         let blobToSave: Blob | null = null;
 
         if (response instanceof Blob) {
-            // Trường hợp 1: Service trả về trực tiếp Blob
-            console.log("Response is a Blob itself.");
             blobToSave = response;
         } else if (response && response.data instanceof Blob) {
-            // Trường hợp 2: Service trả về object response của axios, Blob nằm trong .data
-            console.log("Response.data is a Blob.");
             blobToSave = response.data;
-        } else {
-            // Trường hợp không tìm thấy Blob
-            console.error("Response is not a Blob and response.data is not a Blob.", response);
         }
 
-        // Chỉ lưu file khi đã tìm thấy Blob hợp lệ và có nội dung
         if (blobToSave && blobToSave.size > 0) {
-            saveAs(blobToSave, `Analyzed_CVs_${jobTitle || jobId}_${dayjs().format('YYYYMMDD')}.xlsx`);
-            toast.success("Phân tích và xuất file Excel thành công!");
+            // Read the blob to get row count for the counter
+            const data = await blobToSave.arrayBuffer();
+            const workbook = XLSX.read(data);
+            const worksheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[worksheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet);
+            
+            setAnalyzedFile(blobToSave);
+            setParsedRowCount(jsonData.length);
+            toast.success(`Phân tích thành công ${jsonData.length} hồ sơ. Sẵn sàng để xuất file.`);
         } else {
-            throw new Error("Dữ liệu trả về không hợp lệ.");
+            throw new Error("Dữ liệu trả về không hợp lệ hoặc không có hồ sơ nào được phân tích.");
         }
 
     } catch (err: any) {
@@ -174,6 +183,58 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
         setError(errorMessage);
     } finally {
         setIsAnalyzing(false);
+    }
+  };
+
+  const handleExport = async (format: 'excel' | 'csv') => {
+    if (!analyzedFile) {
+        toast.warn("Không có dữ liệu để xuất. Vui lòng phân tích trước.");
+        return;
+    }
+
+    setIsExporting(true);
+    toast.info(`Đang tạo file ${format.toUpperCase()}...`);
+
+    try {
+        if (format === 'excel') {
+            saveAs(analyzedFile, `Analyzed_CVs_${jobTitle || jobId}_${dayjs().format('YYYYMMDD')}.xlsx`);
+            toast.success("Xuất file Excel thành công!");
+        } else { // CSV
+            const data = await analyzedFile.arrayBuffer();
+            const workbook = XLSX.read(data);
+            const worksheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[worksheetName];
+
+            // Convert sheet to JSON to handle multiline fields properly
+            const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet);
+
+            // "Flatten" the data by replacing newlines in all string fields
+            const flattenedData = jsonData.map(row => {
+                const newRow = {};
+                for (const key in row) {
+                    if (typeof row[key] === 'string') {
+                        // Replace newlines with a space to keep each row on a single line
+                        newRow[key] = row[key].replace(/\r?\n/g, ' ');
+                    } else {
+                        newRow[key] = row[key];
+                    }
+                }
+                return newRow;
+            });
+
+            // Convert the flattened JSON back to a worksheet, then to a clean CSV
+            const newWorksheet = XLSX.utils.json_to_sheet(flattenedData);
+            const csvOutput = XLSX.utils.sheet_to_csv(newWorksheet);
+
+            const blob = new Blob([`\uFEFF${csvOutput}`], { type: 'text/csv;charset=utf-8;' }); // Add BOM for Excel UTF-8 compatibility
+            saveAs(blob, `Analyzed_CVs_${jobTitle || jobId}_${dayjs().format('YYYYMMDD')}.csv`);
+            toast.success("Xuất file CSV thành công!");
+        }
+    } catch (error) {
+        console.error("Export Error:", error);
+        toast.error("Đã có lỗi xảy ra khi xuất file.");
+    } finally {
+        setIsExporting(false);
     }
   };
 
@@ -205,13 +266,55 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
           <h3 className="text-lg font-semibold text-gray-800">
             Danh sách ứng viên {jobTitle ? `cho "${jobTitle}"` : ''}
           </h3>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-200 transition-colors"
-            title="Đóng"
-          >
-            <XMarkIcon className="h-5 w-5" />
-          </button>
+          <div className='flex items-center gap-4'>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => handleExport('excel')}
+                disabled={!analyzedFile || isExporting || isAnalyzing}
+                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${
+                  !analyzedFile || isExporting || isAnalyzing
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
+                    : 'bg-green-500 text-white hover:bg-green-600 border-green-500'
+                }`}
+              >
+                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                <span>Xuất Excel</span>
+                <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
+                    !analyzedFile || isExporting || isAnalyzing
+                        ? 'bg-gray-200 text-gray-500'
+                        : 'bg-green-400 text-white'
+                }`}>
+                  {parsedRowCount}/{meta?.total || 0}
+                </span>
+              </button>
+              <button
+                onClick={() => handleExport('csv')}
+                disabled={!analyzedFile || isExporting || isAnalyzing}
+                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${
+                  !analyzedFile || isExporting || isAnalyzing
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
+                    : 'bg-green-500 text-white hover:bg-green-600 border-green-500'
+                }`}
+              >
+                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                <span>Xuất CSV</span>
+                <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
+                  !analyzedFile || isExporting || isAnalyzing
+                    ? 'bg-gray-200 text-gray-500'
+                    : 'bg-green-400 text-white'
+                }`}>
+                  {parsedRowCount}/{meta?.total || 0}
+                </span>
+              </button>
+            </div>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-200 transition-colors"
+              title="Đóng"
+            >
+              <XMarkIcon className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
         {/* Body */}

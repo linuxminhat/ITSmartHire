@@ -67,7 +67,6 @@ LƯU Ý:
 
 def clean_json_response(response_text: str) -> str:
 
-    # Xóa markdown code block
     response_text = response_text.strip()
     if response_text.startswith("```json"):
         response_text = response_text[len("```json") :].strip()
@@ -75,7 +74,6 @@ def clean_json_response(response_text: str) -> str:
         response_text = response_text[len("```") :].strip()
     if response_text.endswith("```"):
         response_text = response_text[:-3].strip()
-    # Lấy khối JSON đầu tiên
     start = response_text.find("{")
     if start == -1:
         return response_text
@@ -110,11 +108,9 @@ def validate_json_structure(data: dict) -> dict:
     for k, v in required.items():
         if k not in data or data[k] is None:
             data[k] = v
-    # Đảm bảo array field luôn là list
     for arr_field in ["workExperiences", "projects", "skills", "certifications"]:
         if not isinstance(data[arr_field], list):
             data[arr_field] = []
-    # Chuẩn hóa description/project
     for i, exp in enumerate(data["workExperiences"]):
         if not isinstance(exp, dict):
             continue
