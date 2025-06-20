@@ -67,7 +67,8 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
         // 3. Hoặc chưa có dữ liệu notifications
         const now = Date.now();
         if (
-            !force && 
+            !force &&
+            page === meta.current &&
             now - lastFetchTimeRef.current < MIN_FETCH_INTERVAL && 
             notifications.length > 0
         ) {
@@ -101,7 +102,7 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
         } finally {
             setLoading(false);
         }
-    }, [isHR, meta.pageSize, notifications.length]);
+    }, [isHR, meta.pageSize, notifications.length, meta.current]);
 
     const markAsRead = async (id: string) => {
         try {
@@ -142,10 +143,17 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
 
     /* initial load */
     useEffect(() => {
-        if (isHR) fetchNotifications(1, true);
+        if (isHR) {
+            fetchNotifications(1, true);
+        }
+    }, [isHR]); // Dependency array changed to only run once on mount
+
+    // Separate useEffect for polling to avoid re-triggering on page change
+    useEffect(() => {
+        if (!isHR) return;
         
-        // Thiết lập polling với interval tăng lên (5 phút)
         const intervalId = setInterval(() => {
+            console.log('Polling for new notifications on page 1...');
             fetchNotifications(1, true);
         }, 300000); // 5 phút
         

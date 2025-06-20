@@ -50,7 +50,7 @@ export class JobsService {
 
     // Build the search filter
     let finalFilter: any = {
-      isDeleted: false // Always include non-deleted items
+      isDeleted: false
     };
 
     // Add HR filter if applicable
