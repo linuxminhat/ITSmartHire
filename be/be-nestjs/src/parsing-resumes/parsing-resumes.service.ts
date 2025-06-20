@@ -18,7 +18,7 @@ import * as ExcelJS from 'exceljs';
 export class ParsingResumesService {
   private readonly logger = new Logger(ParsingResumesService.name);
   private logDir: string;
-  private CONCURRENT_LIMIT = 2;
+  private CONCURRENT_LIMIT = 5;
 
   constructor(
     private readonly httpService: HttpService,
@@ -103,8 +103,8 @@ export class ParsingResumesService {
           const response = await axios.post(
             'http://127.0.0.1:6969/resume_parsing',
             { cv: text },
-            { 
-              timeout: 120000, 
+            {
+              timeout: 120000,
               headers: { 'Content-Type': 'application/json' },
               maxBodyLength: Infinity,
               maxContentLength: Infinity,
@@ -497,12 +497,12 @@ export class ParsingResumesService {
         graduationYear: item.graduationYear || '',
         totalExperienceYears: item.totalExperienceYears || 0,
         designations: Array.isArray(item.designations) ? item.designations.join(', ') : '',
-        workExperiences: Array.isArray(item.workExperiences) ? 
-          item.workExperiences.map(exp => 
+        workExperiences: Array.isArray(item.workExperiences) ?
+          item.workExperiences.map(exp =>
             `Công ty: ${exp.company || 'N/A'}\nVị trí: ${exp.position || 'N/A'}\nThời gian: ${exp.duration || 'N/A'}\nMô tả:\n${Array.isArray(exp.description) ? exp.description.map(d => `- ${d}`).join('\n') : ''}`
           ).join('\n\n') : '',
-        projects: Array.isArray(item.projects) ? 
-          item.projects.map(proj => 
+        projects: Array.isArray(item.projects) ?
+          item.projects.map(proj =>
             `[${proj.name || 'N/A'}]\n${Array.isArray(proj.description) ? proj.description.map(d => `- ${d}`).join('\n') : ''}`
           ).join('\n\n') : '',
         skills: Array.isArray(item.skills) ? item.skills.join(', ') : '',

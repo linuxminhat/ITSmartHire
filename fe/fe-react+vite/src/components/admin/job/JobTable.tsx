@@ -92,85 +92,117 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, meta, isLoading, onEdit, onDe
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tên Việc làm</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Danh mục</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kỹ năng</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Công ty</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Địa điểm</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lương</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số lượng</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày tạo</th>
-            <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {isLoading && (
+      <div className="inline-block min-w-full">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
             <tr>
-              <td colSpan={10} className="text-center py-4"><Spinner /></td>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tên Việc làm</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Danh mục</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kỹ năng</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Công ty</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Địa điểm</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lương</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số lượng</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày tạo</th>
+              <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th>
             </tr>
-          )}
-          {!isLoading && jobs.length === 0 && (
-            <tr>
-              <td colSpan={10} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">Không tìm thấy việc làm nào.</td>
-            </tr>
-          )}
-          {!isLoading && jobs.map((job) => (
-            <tr key={job._id}>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="flex items-center">
-                  {job.company?.logo && (
-                    <img src={job.company.logo} alt={job.company.name} className="h-8 w-8 rounded-full mr-3 object-contain" />
-                  )}
-                  <span className="text-sm font-medium text-gray-900">{job.name}</span>
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {job.category?.name ?? '-'}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {(job.skills ?? [])
-                  .map(s => (s as any)?.name ?? (typeof s === 'string' ? s : '-'))
-                  .join(', ') || '-'}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{job.company?.name || '-'}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{job.location}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {job.salary ? new Intl.NumberFormat('vi-VN').format(job.salary) + ' VNĐ' : '-'}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {job.quantity || '-'}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${job.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                  {job.isActive ? 'ACTIVE' : 'INACTIVE'}
-                </span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{dayjs(job.createdAt).format('DD/MM/YYYY')}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                <button
-                  onClick={() => onViewApplicants(job)}
-                  className="text-blue-600 hover:text-blue-900 mr-3"
-                  title="Xem ứng viên"
-                >
-                  <UsersIcon className="h-5 w-5" />
-                </button>
-                <button onClick={() => onEdit(job)} className="text-indigo-600 hover:text-indigo-900 mr-3" title="Chỉnh sửa">
-                  <PencilIcon className="h-5 w-5" />
-                </button>
-                <button onClick={() => onDelete(job)} className="text-red-600 hover:text-red-900" title="Xóa">
-                  <TrashIcon className="h-5 w-5" />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {!isLoading && renderPagination()}
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {isLoading && (
+              <tr>
+                <td colSpan={10} className="text-center py-4"><Spinner /></td>
+              </tr>
+            )}
+            {!isLoading && jobs.length === 0 && (
+              <tr>
+                <td colSpan={10} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                  Không tìm thấy việc làm nào.
+                </td>
+              </tr>
+            )}
+            {!isLoading && jobs.map((job) => (
+              <tr key={job._id}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center">
+                    {job.company?.logo && (
+                      <img
+                        src={job.company.logo}
+                        alt={job.company.name}
+                        className="h-8 w-8 rounded-full mr-3 object-contain"
+                      />
+                    )}
+                    <span className="text-sm font-medium text-gray-900">{job.name}</span>
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {job.category?.name ?? '-'}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {(job.skills ?? [])
+                    .map(s => (s as any)?.name ?? (typeof s === 'string' ? s : '-'))
+                    .join(', ') || '-'}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {job.company?.name || '-'}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {job.location}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {job.salary
+                    ? new Intl.NumberFormat('vi-VN').format(job.salary) + ' VNĐ'
+                    : '-'}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {job.quantity || '-'}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <span
+                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${job.isActive
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-red-100 text-red-800'
+                      }`}
+                  >
+                    {job.isActive ? 'ACTIVE' : 'INACTIVE'}
+                  </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {dayjs(job.createdAt).format('DD/MM/YYYY')}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
+                  <button
+                    onClick={() => onViewApplicants(job)}
+                    className="text-blue-600 hover:text-blue-900 mr-3"
+                    title="Xem ứng viên"
+                  >
+                    <UsersIcon className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={() => onEdit(job)}
+                    className="text-indigo-600 hover:text-indigo-900 mr-3"
+                    title="Chỉnh sửa"
+                  >
+                    <PencilIcon className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={() => onDelete(job)}
+                    className="text-red-600 hover:text-red-900"
+                    title="Xóa"
+                  >
+                    <TrashIcon className="h-5 w-5" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Pagination giờ nằm trong cùng wrapper inline-block */}
+        {!isLoading && renderPagination()}
+      </div>
     </div>
+
   );
 };
 
