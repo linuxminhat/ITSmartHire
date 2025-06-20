@@ -301,6 +301,7 @@ const ManageJobsPage: React.FC = () => {
         }}
         jobId={selectedJob?._id ?? null}
         jobTitle={selectedJob?.name}
+        jobDescription={selectedJob?.description}
       />
     </div>
   );

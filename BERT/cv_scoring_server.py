@@ -35,7 +35,7 @@ try:
     # )
     model_dir = os.path.join(
         os.path.dirname(__file__),
-        "pretrained model",
+        "pretrained_model",
         "all_mpnet_ft_cv_jd",
     )
 

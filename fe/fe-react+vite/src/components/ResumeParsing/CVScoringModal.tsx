@@ -5,15 +5,12 @@ import { useDropzone } from 'react-dropzone';
 
 interface CVScoringModalProps {
     onClose: () => void;
-    onScore: (data: {
-        jd: string;
-        file: File;
-    }) => void;
-    // isLoading?: boolean; 
+    onScore: (file: File) => void;
+    isLoading?: boolean;
+    jobDescription?: string;
 }
 
-const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => {
-    const [jd, setJd] = useState('');
+const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore, isLoading = false, jobDescription = '' }) => {
     const [file, setFile] = useState<File | null>(null);
     const [fileError, setFileError] = useState<string | null>(null);
     const [showInstructions, setShowInstructions] = useState(false);
@@ -27,7 +24,7 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
                 if (mainError.code === 'file-invalid-type') {
                     setFileError('Lỗi: Chỉ chấp nhận file Excel (.xlsx).');
                 } else if (mainError.code === 'file-too-large') {
-                    setFileError('Lỗi: Kích thước file quá lớn (tối đa 5MB).'); // Ví dụ giới hạn kích thước
+                    setFileError('Lỗi: Kích thước file quá lớn (tối đa 5MB).');
                 } else {
                     setFileError(`Lỗi file: ${mainError.message}`);
                 }
@@ -50,24 +47,20 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
         },
         maxFiles: 1,
         multiple: false,
-        maxSize: 5 * 1024 * 1024, // Ví dụ: giới hạn 5MB
+        maxSize: 5 * 1024 * 1024,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!isFormValid) {
-            alert('Vui lòng nhập Job Description và tải lên file Excel đã trích xuất!');
+            alert('Vui lòng tải lên file Excel đã trích xuất!');
             return;
         }
-        onScore({
-            jd: jd.trim(),
-            file: file!, // File is guaranteed to be non-null by isFormValid
-        });
+        onScore(file!);
     };
 
-    const isFormValid = useMemo(() => jd.trim() !== '' && file !== null && !fileError, [jd, file, fileError]);
+    const isFormValid = useMemo(() => file !== null && !fileError, [file, fileError]);
 
-    const jdPlaceholder = `Ví dụ:\n\nChức danh: Senior Backend Developer\n\nYêu cầu bằng cấp: Cử nhân Công nghệ Thông tin hoặc tương đương.\n\nMô tả công việc:\n- Phát triển và duy trì các API cho hệ thống...\n- Yêu cầu kinh nghiệm làm việc với Java, Spring Boot, Microservices...\n- Kỹ năng làm việc nhóm tốt...`;
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-60 z-[100] flex items-center justify-center p-4 transition-opacity duration-300">
@@ -80,24 +73,18 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
                 </div>
 
                 <form onSubmit={handleSubmit} id="cv-scoring-form" className="px-6 sm:px-8 py-6 space-y-6 overflow-y-auto flex-grow scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                    {/* Step 1: JD Section */}
-                    <div className="space-y-2">
-                        <h4 className="text-sm font-semibold text-gray-700">1. Dán nội dung Job Description (JD)</h4>
-                        <textarea
-                            id="jd-input"
-                            value={jd}
-                            onChange={(e) => setJd(e.target.value)}
-                            placeholder={jdPlaceholder}
-                            className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg shadow-sm h-[180px] 
-                                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm
-                                scrollbar-hide pr-2" // scrollbar-hide and padding for scrollbar
-                            required
-                        />
-                    </div>
+                    {jobDescription && (
+                        <div className="space-y-2">
+                            <h4 className="text-sm font-semibold text-gray-700">1. Job Description đang được áp dụng</h4>
+                            <div 
+                                className="prose prose-sm max-w-none w-full p-4 border border-gray-200 bg-gray-50 rounded-lg shadow-sm h-[150px] overflow-y-auto"
+                                dangerouslySetInnerHTML={{ __html: jobDescription }}
+                            />
+                        </div>
+                    )}
 
-                    {/* Step 2: File Upload Section */}
                     <div className="space-y-2">
-                        <h4 className="text-sm font-semibold text-gray-700">2. Tải file Excel CV đã trích xuất</h4>
+                        <h4 className="text-sm font-semibold text-gray-700">{jobDescription ? '2.' : '1.'} Tải file Excel CV đã trích xuất</h4>
                         <div
                             {...getRootProps()}
                             className={`p-6 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200 ease-in-out
@@ -106,7 +93,7 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
                             <input {...getInputProps()} id="file-upload-cv-scoring" />
                             <div className="flex flex-col items-center justify-center text-center">
                                 {isDragActive ? (
-                                    <ArrowsPointingOutIcon className="h-10 w-10 text-blue-600 mb-2 animate-pulse" /> // Simple animation
+                                    <ArrowsPointingOutIcon className="h-10 w-10 text-blue-600 mb-2 animate-pulse" />
                                 ) : (
                                     <DocumentArrowUpIcon className="h-10 w-10 text-gray-400 mb-2 group-hover:text-blue-500 transition-colors" />
                                 )}
@@ -124,7 +111,7 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
                         </div>
                         {file && !fileError && (
                             <div className="mt-2 p-3 border border-green-300 bg-green-50 rounded-md flex items-center justify-between text-sm">
-                                <div className="flex items-center min-w-0"> {/* Min width to allow text truncation */}
+                                <div className="flex items-center min-w-0">
                                     <CheckCircleIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0" />
                                     <div className="truncate">
                                         <span className="font-medium text-green-700 block truncate" title={file.name}>{file.name}</span>
@@ -144,7 +131,6 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
                         )}
                     </div>
 
-                    {/* Collapsible Instructions */}
                     <div className="border rounded-md bg-white">
                         <button
                             type="button"
@@ -161,13 +147,13 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
                             <div className="px-5 pb-4 pt-2 border-t border-gray-200">
                                 <ul className="list-disc list-outside ml-4 space-y-2 text-sm text-gray-600">
                                     <li>
-                                        <span className="font-semibold">Thông tin JD đầy đủ:</span> Cung cấp chi tiết chức danh, yêu cầu bằng cấp (nếu có), và mô tả công việc. Điều này giúp AI so khớp CV chính xác hơn.
+                                        <span className="font-semibold">Định dạng File:</span> Cần tải lên file Excel (.xlsx) đã được trích xuất từ chức năng "Phân tích hồ sơ" trước đó.
                                     </li>
                                     <li>
-                                        <span className="font-semibold">Từ khóa quan trọng:</span> Đảm bảo JD chứa các từ khóa chính về kỹ năng, công nghệ, và kinh nghiệm mà bạn tìm kiếm ở ứng viên.
+                                        <span className="font-semibold">Nội dung JD:</span> Hệ thống sẽ tự động sử dụng JD của công việc hiện tại để chấm điểm.
                                     </li>
                                     <li>
-                                        <span className="font-semibold">Định dạng rõ ràng:</span> Sử dụng định dạng văn bản rõ ràng, dễ đọc cho JD để AI có thể phân tích hiệu quả nhất.
+                                        <span className="font-semibold">Kết quả:</span> Sau khi chấm điểm, một file Excel mới với các cột điểm chi tiết sẽ được tự động tải về.
                                     </li>
                                 </ul>
                             </div>
@@ -181,18 +167,29 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore }) => 
                         type="button"
                         onClick={onClose}
                         className="px-4 py-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 rounded-lg border border-gray-300 shadow-sm transition-colors"
+                        disabled={isLoading}
                     >
                         Hủy
                     </button>
                     <button
                         type="submit"
                         form="cv-scoring-form"
-                        disabled={!isFormValid}
-                        title={!isFormValid ? "Vui lòng điền JD & tải lên file Excel trước nhé!" : "Chấm điểm CV"}
-                        className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                        disabled={!isFormValid || isLoading}
+                        title={!isFormValid ? "Vui lòng tải lên file Excel trước nhé!" : "Chấm điểm CV"}
+                        className="flex items-center justify-center w-40 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
                                    disabled:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-60 transition-colors"
                     >
-                        Chấm điểm CV
+                        {isLoading ? (
+                            <>
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span>Đang xử lý...</span>
+                            </>
+                        ) : (
+                            'Chấm điểm CV'
+                        )}
                     </button>
                 </div>
             </div>

@@ -3,19 +3,22 @@ import { callFetchApplicationsByJob, callUpdateApplicationStatus, IApplication, 
 import { IModelPaginate } from '@/types/backend';
 import Spinner from '@/components/Spinner';
 // Remove unused icons, add icons if needed for status rendering
-import { XMarkIcon, DocumentTextIcon, CheckCircleIcon, ClockIcon, ExclamationCircleIcon, ArrowTopRightOnSquareIcon, CurrencyDollarIcon, UserCircleIcon, SparklesIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, DocumentTextIcon, CheckCircleIcon, ClockIcon, ExclamationCircleIcon, ArrowTopRightOnSquareIcon, CurrencyDollarIcon, UserCircleIcon, SparklesIcon, ArrowDownTrayIcon, StarIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import Pagination from '@/components/shared/Pagination';
 import { toast } from 'react-toastify';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import CVScoringModal from '@/components/ResumeParsing/CVScoringModal';
+import { scoreResumes } from '@/services/resumeParsing.service';
 
 // Restore the interface definition
 interface ApplicationsModalProps {
   isOpen: boolean;
   onClose: () => void;
   jobId: string | null;
-  jobTitle?: string; 
+  jobTitle?: string;
+  jobDescription?: string;
 }
 
 // Define possible statuses for select box and rendering (Vietnamese for display mapping)
@@ -28,19 +31,21 @@ const applicationStatusMap: { [key: string]: string } = {
 };
 const applicationStatuses = Object.keys(applicationStatusMap);
 
-const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, jobId, jobTitle }) => {
+const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, jobId, jobTitle, jobDescription }) => {
   // Restore states
   const [applications, setApplications] = useState<IApplication[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [meta, setMeta] = useState<IModelPaginate<any>['meta'] | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const pageSize = 5; 
+  const pageSize = 5;
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [analyzedFile, setAnalyzedFile] = useState<Blob | null>(null);
   const [parsedRowCount, setParsedRowCount] = useState(0);
   const [isExporting, setIsExporting] = useState<boolean>(false);
+  const [showScoringModal, setShowScoringModal] = useState<boolean>(false);
+  const [isScoring, setIsScoring] = useState<boolean>(false);
 
   // Restore fetchApplications function
   const fetchApplications = useCallback(async (page: number) => {
@@ -74,7 +79,7 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
   // Restore useEffect to fetch data
   useEffect(() => {
     if (isOpen && jobId) {
-      setCurrentPage(1); 
+      setCurrentPage(1);
       fetchApplications(1);
       setAnalyzedFile(null); // Reset on open/job change
       setParsedRowCount(0);
@@ -133,108 +138,147 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
     toast.info("Bắt đầu quá trình phân tích hồ sơ. Quá trình này có thể mất vài phút...");
 
     try {
-        const response = await analyzeAndExportApplications(jobId);
-        
-        let blobToSave: Blob | null = null;
+      const response = await analyzeAndExportApplications(jobId);
 
-        if (response instanceof Blob) {
-            blobToSave = response;
-        } else if (response && response.data instanceof Blob) {
-            blobToSave = response.data;
-        }
+      let blobToSave: Blob | null = null;
 
-        if (blobToSave && blobToSave.size > 0) {
-            // Read the blob to get row count for the counter
-            const data = await blobToSave.arrayBuffer();
-            const workbook = XLSX.read(data);
-            const worksheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[worksheetName];
-            const jsonData = XLSX.utils.sheet_to_json(worksheet);
-            
-            setAnalyzedFile(blobToSave);
-            setParsedRowCount(jsonData.length);
-            toast.success(`Phân tích thành công ${jsonData.length} hồ sơ. Sẵn sàng để xuất file.`);
-        } else {
-            throw new Error("Dữ liệu trả về không hợp lệ hoặc không có hồ sơ nào được phân tích.");
-        }
+      if (response instanceof Blob) {
+        blobToSave = response;
+      } else if (response && response.data instanceof Blob) {
+        blobToSave = response.data;
+      }
+
+      if (blobToSave && blobToSave.size > 0) {
+        // Read the blob to get row count for the counter
+        const data = await blobToSave.arrayBuffer();
+        const workbook = XLSX.read(data);
+        const worksheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[worksheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+        setAnalyzedFile(blobToSave);
+        setParsedRowCount(jsonData.length);
+        toast.success(`Phân tích thành công ${jsonData.length} hồ sơ. Sẵn sàng để xuất file.`);
+      } else {
+        throw new Error("Dữ liệu trả về không hợp lệ hoặc không có hồ sơ nào được phân tích.");
+      }
 
     } catch (err: any) {
-        console.error("Analysis Error:", err);
-        let errorMessage = "Lỗi không xác định khi phân tích hồ sơ.";
+      console.error("Analysis Error:", err);
+      let errorMessage = "Lỗi không xác định khi phân tích hồ sơ.";
 
-        // Cố gắng đọc lỗi từ backend nếu có
-        if (err.response && err.response.data) {
-             if (err.response.data instanceof Blob) {
-                try {
-                    const errorText = await err.response.data.text();
-                    const errorJson = JSON.parse(errorText);
-                    errorMessage = errorJson.message || "Lỗi từ server";
-                } catch (e) {
-                     errorMessage = "Không thể đọc lỗi từ server";
-                }
-            } else if(err.response.data.message) {
-                 errorMessage = err.response.data.message;
-            }
-        } else if(err.message) {
-            errorMessage = err.message;
+      // Cố gắng đọc lỗi từ backend nếu có
+      if (err.response && err.response.data) {
+        if (err.response.data instanceof Blob) {
+          try {
+            const errorText = await err.response.data.text();
+            const errorJson = JSON.parse(errorText);
+            errorMessage = errorJson.message || "Lỗi từ server";
+          } catch (e) {
+            errorMessage = "Không thể đọc lỗi từ server";
+          }
+        } else if (err.response.data.message) {
+          errorMessage = err.response.data.message;
         }
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
 
-        toast.error(errorMessage);
-        setError(errorMessage);
+      toast.error(errorMessage);
+      setError(errorMessage);
     } finally {
-        setIsAnalyzing(false);
+      setIsAnalyzing(false);
     }
   };
 
   const handleExport = async (format: 'excel' | 'csv') => {
     if (!analyzedFile) {
-        toast.warn("Không có dữ liệu để xuất. Vui lòng phân tích trước.");
-        return;
+      toast.warn("Không có dữ liệu để xuất. Vui lòng phân tích trước.");
+      return;
     }
 
     setIsExporting(true);
     toast.info(`Đang tạo file ${format.toUpperCase()}...`);
 
     try {
-        if (format === 'excel') {
-            saveAs(analyzedFile, `Analyzed_CVs_${jobTitle || jobId}_${dayjs().format('YYYYMMDD')}.xlsx`);
-            toast.success("Xuất file Excel thành công!");
-        } else { // CSV
-            const data = await analyzedFile.arrayBuffer();
-            const workbook = XLSX.read(data);
-            const worksheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[worksheetName];
+      if (format === 'excel') {
+        saveAs(analyzedFile, `Analyzed_CVs_${jobTitle || jobId}_${dayjs().format('YYYYMMDD')}.xlsx`);
+        toast.success("Xuất file Excel thành công!");
+      } else { // CSV
+        const data = await analyzedFile.arrayBuffer();
+        const workbook = XLSX.read(data);
+        const worksheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[worksheetName];
 
-            // Convert sheet to JSON to handle multiline fields properly
-            const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet);
+        // Convert sheet to JSON to handle multiline fields properly
+        const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet);
 
-            // "Flatten" the data by replacing newlines in all string fields
-            const flattenedData = jsonData.map(row => {
-                const newRow = {};
-                for (const key in row) {
-                    if (typeof row[key] === 'string') {
-                        // Replace newlines with a space to keep each row on a single line
-                        newRow[key] = row[key].replace(/\r?\n/g, ' ');
-                    } else {
-                        newRow[key] = row[key];
-                    }
-                }
-                return newRow;
-            });
+        // "Flatten" the data by replacing newlines in all string fields
+        const flattenedData = jsonData.map(row => {
+          const newRow = {};
+          for (const key in row) {
+            if (typeof row[key] === 'string') {
+              // Replace newlines with a space to keep each row on a single line
+              newRow[key] = row[key].replace(/\r?\n/g, ' ');
+            } else {
+              newRow[key] = row[key];
+            }
+          }
+          return newRow;
+        });
 
-            // Convert the flattened JSON back to a worksheet, then to a clean CSV
-            const newWorksheet = XLSX.utils.json_to_sheet(flattenedData);
-            const csvOutput = XLSX.utils.sheet_to_csv(newWorksheet);
+        // Convert the flattened JSON back to a worksheet, then to a clean CSV
+        const newWorksheet = XLSX.utils.json_to_sheet(flattenedData);
+        const csvOutput = XLSX.utils.sheet_to_csv(newWorksheet);
 
-            const blob = new Blob([`\uFEFF${csvOutput}`], { type: 'text/csv;charset=utf-8;' }); // Add BOM for Excel UTF-8 compatibility
-            saveAs(blob, `Analyzed_CVs_${jobTitle || jobId}_${dayjs().format('YYYYMMDD')}.csv`);
-            toast.success("Xuất file CSV thành công!");
-        }
+        const blob = new Blob([`\uFEFF${csvOutput}`], { type: 'text/csv;charset=utf-8;' }); // Add BOM for Excel UTF-8 compatibility
+        saveAs(blob, `Analyzed_CVs_${jobTitle || jobId}_${dayjs().format('YYYYMMDD')}.csv`);
+        toast.success("Xuất file CSV thành công!");
+      }
     } catch (error) {
-        console.error("Export Error:", error);
-        toast.error("Đã có lỗi xảy ra khi xuất file.");
+      console.error("Export Error:", error);
+      toast.error("Đã có lỗi xảy ra khi xuất file.");
     } finally {
-        setIsExporting(false);
+      setIsExporting(false);
+    }
+  };
+
+  const handleScore = async (file: File) => {
+    setIsScoring(true);
+    try {
+      if (!jobDescription) {
+        toast.error("Không tìm thấy mô tả công việc để chấm điểm.");
+        setIsScoring(false);
+        return;
+      }
+
+      const defaultWeights = {
+        skills: 25,
+        experience: 20,
+        designation: 15,
+        degree: 10,
+        gpa: 10,
+        languages: 10,
+        awards: 2.5,
+        github: 2.5,
+        certifications: 2.5,
+        projects: 2.5
+      };
+
+      await scoreResumes({
+        jd: jobDescription,
+        file: file,
+        weights: defaultWeights
+      });
+
+      setShowScoringModal(false);
+      toast.success('Đã chấm điểm và tải file Excel thành công!');
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.message || error.message || 'Có lỗi xảy ra khi chấm điểm CV.';
+      console.error("Error scoring resumes:", error);
+      toast.error(errorMessage);
+    } finally {
+      setIsScoring(false);
     }
   };
 
@@ -242,15 +286,15 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
   const renderStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
       case 'pending':
-        return <span className="flex items-center text-xs font-medium text-yellow-800 bg-yellow-100 px-2.5 py-0.5 rounded-full"><ClockIcon className="h-3 w-3 mr-1"/>{applicationStatusMap.pending}</span>;
+        return <span className="flex items-center text-xs font-medium text-yellow-800 bg-yellow-100 px-2.5 py-0.5 rounded-full"><ClockIcon className="h-3 w-3 mr-1" />{applicationStatusMap.pending}</span>;
       case 'reviewed':
-        return <span className="flex items-center text-xs font-medium text-blue-800 bg-blue-100 px-2.5 py-0.5 rounded-full"><CheckCircleIcon className="h-3 w-3 mr-1"/>{applicationStatusMap.reviewed}</span>;
+        return <span className="flex items-center text-xs font-medium text-blue-800 bg-blue-100 px-2.5 py-0.5 rounded-full"><CheckCircleIcon className="h-3 w-3 mr-1" />{applicationStatusMap.reviewed}</span>;
       case 'accepted':
-        return <span className="flex items-center text-xs font-medium text-green-800 bg-green-100 px-2.5 py-0.5 rounded-full"><CheckCircleIcon className="h-3 w-3 mr-1"/>{applicationStatusMap.accepted}</span>;
+        return <span className="flex items-center text-xs font-medium text-green-800 bg-green-100 px-2.5 py-0.5 rounded-full"><CheckCircleIcon className="h-3 w-3 mr-1" />{applicationStatusMap.accepted}</span>;
       case 'rejected':
-        return <span className="flex items-center text-xs font-medium text-red-800 bg-red-100 px-2.5 py-0.5 rounded-full"><ExclamationCircleIcon className="h-3 w-3 mr-1"/>{applicationStatusMap.rejected}</span>;
+        return <span className="flex items-center text-xs font-medium text-red-800 bg-red-100 px-2.5 py-0.5 rounded-full"><ExclamationCircleIcon className="h-3 w-3 mr-1" />{applicationStatusMap.rejected}</span>;
       case 'offered':
-        return <span className="flex items-center text-xs font-medium text-purple-800 bg-purple-100 px-2.5 py-0.5 rounded-full"><CurrencyDollarIcon className="h-3 w-3 mr-1"/>{applicationStatusMap.offered}</span>;
+        return <span className="flex items-center text-xs font-medium text-purple-800 bg-purple-100 px-2.5 py-0.5 rounded-full"><CurrencyDollarIcon className="h-3 w-3 mr-1" />{applicationStatusMap.offered}</span>;
       default:
         return <span className="text-xs font-medium text-gray-700 bg-gray-100 px-2.5 py-0.5 rounded-full">{status}</span>;
     }
@@ -271,19 +315,17 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
               <button
                 onClick={() => handleExport('excel')}
                 disabled={!analyzedFile || isExporting || isAnalyzing}
-                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${
-                  !analyzedFile || isExporting || isAnalyzing
+                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${!analyzedFile || isExporting || isAnalyzing
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
                     : 'bg-green-500 text-white hover:bg-green-600 border-green-500'
-                }`}
+                  }`}
               >
                 <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
                 <span>Xuất Excel</span>
-                <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
-                    !analyzedFile || isExporting || isAnalyzing
-                        ? 'bg-gray-200 text-gray-500'
-                        : 'bg-green-400 text-white'
-                }`}>
+                <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${!analyzedFile || isExporting || isAnalyzing
+                    ? 'bg-gray-200 text-gray-500'
+                    : 'bg-green-400 text-white'
+                  }`}>
                   {parsedRowCount}/{meta?.total || 0}
                 </span>
               </button>
@@ -292,19 +334,31 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
                 disabled={!analyzedFile || isExporting || isAnalyzing}
                 className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${
                   !analyzedFile || isExporting || isAnalyzing
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
-                    : 'bg-green-500 text-white hover:bg-green-600 border-green-500'
-                }`}
-              >
-                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
-                <span>Xuất CSV</span>
-                <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
-                  !analyzedFile || isExporting || isAnalyzing
                     ? 'bg-gray-200 text-gray-500'
                     : 'bg-green-400 text-white'
                 }`}>
-                  {parsedRowCount}/{meta?.total || 0}
-                </span>
+                  <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                  <span>Xuất CSV</span>
+                  <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
+                    !analyzedFile || isExporting || isAnalyzing
+                      ? 'bg-gray-200 text-gray-500'
+                      : 'bg-green-400 text-white'
+                  }`}>
+                    {parsedRowCount}/{meta?.total || 0}
+                  </span>
+                </button>
+              <button
+                onClick={() => setShowScoringModal(true)}
+                disabled={isLoading || isAnalyzing || isExporting || isScoring || applications.length === 0}
+                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${
+                  isLoading || isAnalyzing || isExporting || isScoring || applications.length === 0
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
+                    : 'bg-purple-500 text-white hover:bg-purple-600 border-purple-500'
+                }`}
+                title={applications.length === 0 ? "Chưa có ứng viên để chấm điểm" : "Chấm điểm CV hàng loạt"}
+              >
+                <StarIcon className="h-5 w-5 mr-2" />
+                <span>Chấm điểm CV</span>
               </button>
             </div>
             <button
@@ -340,58 +394,58 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
                     <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
                       {/* Applicant Info */}
                       <div className="flex items-center space-x-3 flex-grow min-w-0">
-                         <div className="flex-shrink-0">
-                            <UserCircleIcon className="h-10 w-10 text-gray-400"/>
-                         </div>
-                         <div className="min-w-0 flex-1">
-                            <p className="truncate text-sm font-semibold text-gray-800">
-                              {typeof app.userId === 'object' && app.userId.name ? app.userId.name : 'Không rõ tên'}
-                            </p>
-                            <p className="truncate text-sm text-gray-500">
-                              {typeof app.userId === 'object' && app.userId.email ? app.userId.email : 'Không rõ email'}
-                            </p>
-                            <p className="text-xs text-gray-400 mt-0.5">
-                                Nộp lúc: {dayjs(app.createdAt).format('HH:mm DD/MM/YYYY')}
-                            </p>
-                         </div>
+                        <div className="flex-shrink-0">
+                          <UserCircleIcon className="h-10 w-10 text-gray-400" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-semibold text-gray-800">
+                            {typeof app.userId === 'object' && app.userId.name ? app.userId.name : 'Không rõ tên'}
+                          </p>
+                          <p className="truncate text-sm text-gray-500">
+                            {typeof app.userId === 'object' && app.userId.email ? app.userId.email : 'Không rõ email'}
+                          </p>
+                          <p className="text-xs text-gray-400 mt-0.5">
+                            Nộp lúc: {dayjs(app.createdAt).format('HH:mm DD/MM/YYYY')}
+                          </p>
+                        </div>
                       </div>
                       {/* Actions Column */}
                       <div className="flex items-center justify-end sm:justify-start space-x-3 flex-shrink-0 w-full sm:w-auto">
-                          {/* View CV Link */}
-                          <a 
-                              href={app.cvUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center rounded-md bg-white p-1.5 text-xs font-medium text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-colors"
-                              title="Xem CV"
-                              >
-                              <ArrowTopRightOnSquareIcon className="h-4 w-4"/>
-                          </a>
-                          
-                          {/* Status Select Box */}
-                          <div className="relative min-w-[120px]">
-                            <select
-                                value={app.status}
-                                onChange={(e) => handleUpdateStatus(app._id, e.target.value)}
-                                disabled={updatingStatusId === app._id} 
-                                className={`block w-full rounded-md border-0 py-1 pl-3 pr-8 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-xs sm:leading-6 appearance-none transition-colors ${updatingStatusId === app._id ? 'opacity-60 cursor-not-allowed bg-gray-100' : 'bg-white'}`}
-                             >
-                                {applicationStatuses.map(statusKey => (
-                                    <option key={statusKey} value={statusKey}>
-                                        {applicationStatusMap[statusKey]} {/* Display Vietnamese status */}
-                                    </option>
-                                ))}
-                            </select>
-                            {updatingStatusId === app._id && (
-                                <div className="absolute right-2 top-1/2 -translate-y-1/2">
-                                    <Spinner/>
-                                </div>
-                            )}
-                         </div>
-                         {/* Display Status Badge */}
-                         <div className="min-w-[90px] text-right">
-                           {renderStatusBadge(app.status)}
-                         </div>
+                        {/* View CV Link */}
+                        <a
+                          href={app.cvUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center rounded-md bg-white p-1.5 text-xs font-medium text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-colors"
+                          title="Xem CV"
+                        >
+                          <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                        </a>
+
+                        {/* Status Select Box */}
+                        <div className="relative min-w-[120px]">
+                          <select
+                            value={app.status}
+                            onChange={(e) => handleUpdateStatus(app._id, e.target.value)}
+                            disabled={updatingStatusId === app._id}
+                            className={`block w-full rounded-md border-0 py-1 pl-3 pr-8 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-xs sm:leading-6 appearance-none transition-colors ${updatingStatusId === app._id ? 'opacity-60 cursor-not-allowed bg-gray-100' : 'bg-white'}`}
+                          >
+                            {applicationStatuses.map(statusKey => (
+                              <option key={statusKey} value={statusKey}>
+                                {applicationStatusMap[statusKey]} {/* Display Vietnamese status */}
+                              </option>
+                            ))}
+                          </select>
+                          {updatingStatusId === app._id && (
+                            <div className="absolute right-2 top-1/2 -translate-y-1/2">
+                              <Spinner />
+                            </div>
+                          )}
+                        </div>
+                        {/* Display Status Badge */}
+                        <div className="min-w-[90px] text-right">
+                          {renderStatusBadge(app.status)}
+                        </div>
                       </div>
                     </div>
                   </li>
@@ -403,35 +457,43 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
 
         {/* Footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center p-4 border-t border-gray-200 flex-shrink-0 bg-gray-50 rounded-b-lg gap-4">
-            {/* Analyze Button */}
-            <button
-                onClick={handleAnalyze}
-                disabled={isAnalyzing || isLoading || applications.length === 0}
-                className="flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors w-full sm:w-auto"
-            >
-                {isAnalyzing ? (
-                    <>
-                        <Spinner />
-                        <span className="ml-2">Đang phân tích...</span>
-                    </>
-                ) : (
-                    <>
-                        <SparklesIcon className="h-5 w-5 mr-2" />
-                        <span>Phân tích hồ sơ ứng viên</span>
-                    </>
-                )}
-            </button>
-
-            {/* Pagination */}
-            {!isLoading && !error && meta && meta.pages > 1 && (
-                <Pagination
-                    currentPage={meta.current}
-                    totalPages={meta.pages}
-                    onPageChange={handlePageChange}
-                />
+          {/* Analyze Button */}
+          <button
+            onClick={handleAnalyze}
+            disabled={isAnalyzing || isLoading || applications.length === 0}
+            className="flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors w-full sm:w-auto"
+          >
+            {isAnalyzing ? (
+              <>
+                <Spinner />
+                <span className="ml-2">Đang phân tích...</span>
+              </>
+            ) : (
+              <>
+                <SparklesIcon className="h-5 w-5 mr-2" />
+                <span>Phân tích hồ sơ ứng viên</span>
+              </>
             )}
+          </button>
+
+          {/* Pagination */}
+          {!isLoading && !error && meta && meta.pages > 1 && (
+            <Pagination
+              currentPage={meta.current}
+              totalPages={meta.pages}
+              onPageChange={handlePageChange}
+            />
+          )}
         </div>
       </div>
+      {showScoringModal && (
+        <CVScoringModal
+          onClose={() => setShowScoringModal(false)}
+          onScore={handleScore}
+          jobDescription={jobDescription}
+          isLoading={isScoring}
+        />
+      )}
     </div>
   );
 };
