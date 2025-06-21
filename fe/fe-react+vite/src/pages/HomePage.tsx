@@ -316,12 +316,14 @@ const HomePage: React.FC = () => {
                 </span>
               </h3>
               <p className="text-base text-gray-600 mb-6 flex-grow">Mô phỏng phỏng vấn chuyên môn với AI</p>
-              <Link
-                to="/mock-interview"
+              <a
+                href="http://localhost:3000/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 text-base font-medium"
               >
                 Bắt đầu phỏng vấn
-              </Link>
+              </a>
             </div>
 
             {/* Card 5 - Hỗ trợ viết CV */}
@@ -339,12 +341,14 @@ const HomePage: React.FC = () => {
                 </span>
               </h3>
               <p className="text-base text-gray-600 mb-6 flex-grow">Viết CV chuẩn nội dung ATS theo gợi ý AI</p>
-              <Link
-                to="/cv-assistant"
+              <a
+                href="http://localhost:3001/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full py-3 border-2 border-red-600 text-red-600 rounded-md hover:bg-red-50 transition duration-200 text-base font-medium"
               >
                 Tạo CV ngay
-              </Link>
+              </a>
             </div>
           </div>
         </div>

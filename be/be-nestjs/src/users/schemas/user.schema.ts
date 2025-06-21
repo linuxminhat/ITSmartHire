@@ -41,6 +41,9 @@ export class User {
   @Prop()
   phone?: string;
 
+  @Prop()
+  designation?: string;
+
   @Prop({ type: Object })
   createdBy?: {
     _id: mongoose.Schema.Types.ObjectId;

@@ -228,8 +228,13 @@ const UserHeader: React.FC = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-white font-bold text-xl">
-              IT Smart Hire
+            <Link to="/" className="flex items-center">
+              <span className="bg-blue-600 text-white font-bold rounded-md px-2 py-1 text-lg">
+                IT
+              </span>
+              <span className="text-white font-bold text-xl ml-2">
+                Smart Hire
+              </span>
             </Link>
           </div>
 
