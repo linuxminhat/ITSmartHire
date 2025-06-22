@@ -388,42 +388,139 @@ export class JobsService {
     let offset = ((currentPage ?? 1) - 1) * (limit ?? 10);
     let defaultLimit = limit ?? 10;
 
-    const searchQuery: mongoose.FilterQuery<JobDocument> = {
-      ...filter,
-      isActive: true,
-      isDeleted: false
-    };
-
-    //filter by name using regex
-    if (name) {
-      const escapedName = this.escapeRegExp(name);
-      searchQuery.name = { $regex: escapedName, $options: 'i' };
-    }
-
-    //filter by location using regex (như findAll method)
-    if (location && location !== '') {
-      const escapedLocation = this.escapeRegExp(location);
-      searchQuery.location = { $regex: escapedLocation, $options: 'i' };
-    }
-
-    console.log('Final search query:', searchQuery);
-
-    const totalItems = await this.jobModel.countDocuments(searchQuery);
-    const totalPages = Math.ceil(totalItems / defaultLimit);
-
-    let defaultPopulation = [
-      { path: 'company', select: 'name logo' },
-      { path: 'category', select: 'name' },
-      { path: 'skills', select: 'name' }
+    // Build aggregation pipeline
+    const pipeline: any[] = [
+      // Match active and non-deleted jobs first
+      {
+        $match: {
+          ...filter,
+          isActive: true,
+          isDeleted: false
+        }
+      }
     ];
 
-    const result = await this.jobModel.find(searchQuery)
-      .skip(offset)
-      .limit(defaultLimit)
-      .sort(sort as any)
-      .populate(population && population.length > 0 ? population : defaultPopulation)
-      .select(projection as any)
-      .exec();
+    // Add search conditions if name is provided
+    if (name) {
+      const escapedName = this.escapeRegExp(name);
+      pipeline.push({
+        $match: {
+          $or: [
+            // Search in job name
+            { name: { $regex: escapedName, $options: 'i' } },
+            // Search in company name
+            { 'company.name': { $regex: escapedName, $options: 'i' } }
+          ]
+        }
+      });
+    }
+
+    // Add location filter if provided
+    if (location && location !== '') {
+      const escapedLocation = this.escapeRegExp(location);
+      pipeline.push({
+        $match: {
+          location: { $regex: escapedLocation, $options: 'i' }
+        }
+      });
+    }
+
+    // Count total items
+    const countPipeline = [...pipeline, { $count: 'total' }];
+    const countResult = await this.jobModel.aggregate(countPipeline);
+    const totalItems = countResult.length > 0 ? countResult[0].total : 0;
+    const totalPages = Math.ceil(totalItems / defaultLimit);
+
+    // Add pagination and sorting
+    if (sort) {
+      pipeline.push({ $sort: sort });
+    } else {
+      pipeline.push({ $sort: { updatedAt: -1 } });
+    }
+
+    pipeline.push({ $skip: offset });
+    pipeline.push({ $limit: defaultLimit });
+
+    // Add lookups for population
+    pipeline.push(
+      {
+        $lookup: {
+          from: 'companies',
+          localField: 'company._id',
+          foreignField: '_id',
+          as: 'companyDetails'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'category',
+          foreignField: '_id',
+          as: 'categoryDetails'
+        }
+      },
+      {
+        $lookup: {
+          from: 'skills',
+          localField: 'skills',
+          foreignField: '_id',
+          as: 'skillsDetails'
+        }
+      }
+    );
+
+    // Project the final shape
+    pipeline.push({
+      $project: {
+        _id: 1,
+        name: 1,
+        location: 1,
+        salary: 1,
+        level: 1,
+        description: 1,
+        startDate: 1,
+        endDate: 1,
+        isActive: 1,
+        isHot: 1,
+        createdAt: 1,
+        updatedAt: 1,
+        company: {
+          $cond: {
+            if: { $gt: [{ $size: '$companyDetails' }, 0] },
+            then: {
+              _id: { $arrayElemAt: ['$companyDetails._id', 0] },
+              name: { $arrayElemAt: ['$companyDetails.name', 0] },
+              logo: { $arrayElemAt: ['$companyDetails.logo', 0] }
+            },
+            else: '$company' // fallback to embedded company data
+          }
+        },
+        category: {
+          $cond: {
+            if: { $gt: [{ $size: '$categoryDetails' }, 0] },
+            then: {
+              _id: { $arrayElemAt: ['$categoryDetails._id', 0] },
+              name: { $arrayElemAt: ['$categoryDetails.name', 0] }
+            },
+            else: null
+          }
+        },
+        skills: {
+          $map: {
+            input: '$skillsDetails',
+            as: 'skill',
+            in: {
+              _id: '$$skill._id',
+              name: '$$skill.name'
+            }
+          }
+        }
+      }
+    });
+
+    console.log('Search pipeline:', JSON.stringify(pipeline, null, 2));
+
+    const result = await this.jobModel.aggregate(pipeline);
 
     console.log('Results found:', result.length);
 
@@ -435,7 +532,7 @@ export class JobsService {
         total: totalItems
       },
       result
-    }
+    };
   }
 
   async fixMissingHrIds() {
@@ -475,5 +572,108 @@ export class JobsService {
       updatedJobs: updated,
       failedJobs: failed
     };
+  }
+
+  // Method mới cho public (không filter HR)
+  async findAllPublic(currentPage: number, limit: number, qs: string) {
+    const { filter, sort, population } = aqp(qs);
+    delete filter.current;
+    delete filter.pageSize;
+
+    let offset = (+currentPage - 1) * (+limit);
+    let defaultLimit = +limit ? +limit : 10;
+
+    // Build the search filter - KHÔNG có HR filter
+    let finalFilter: any = {
+      isDeleted: false
+    };
+
+    const searchConditions = [];
+
+    // Handle name/search
+    if (filter.name || filter.search) {
+      const searchTerm = filter.name || filter.search;
+      if (searchTerm?.trim()) {
+        searchConditions.push({
+          name: { $regex: this.escapeRegExp(searchTerm.trim()), $options: 'i' }
+        });
+      }
+    }
+
+    // Handle category search
+    if (filter.category?.trim()) {
+      const id = new Types.ObjectId(filter.category.trim());
+      searchConditions.push({ category: id });
+    }
+
+    // Handle skills search
+    if (filter.skill?.trim()) {
+      const id = new Types.ObjectId(filter.skill.trim());
+      searchConditions.push({ skills: id });          // 1 skill
+    }
+
+    // Handle company search
+    if (filter.company?.trim()) {
+      const idStr = filter.company.trim();
+      const idObj = new Types.ObjectId(idStr);
+
+      searchConditions.push({
+        $or: [
+          { 'company._id': idObj },
+          { 'company._id': idStr }
+        ]
+      });
+    }
+
+    // Handle location search
+    if (filter.location?.trim()) {
+      searchConditions.push({
+        location: { $regex: this.escapeRegExp(filter.location.trim()), $options: 'i' }
+      });
+    }
+
+    // Combine all search conditions
+    if (searchConditions.length > 0) {
+      finalFilter.$and = searchConditions;
+    }
+
+    // Add remaining filter properties
+    finalFilter = { ...finalFilter, ...filter };
+
+    const populatedQuery = this.jobModel.find(finalFilter)
+      .skip(offset)
+      .limit(defaultLimit)
+      .sort(sort as any)
+      .populate([
+        {
+          path: 'category',
+          select: 'name',
+        },
+        {
+          path: 'skills',
+          select: 'name',
+        },
+        {
+          path: 'company',
+          select: 'name logo',
+        }
+      ]);
+
+    const [totalItems, result] = await Promise.all([
+      this.jobModel.countDocuments(finalFilter),
+      populatedQuery.exec()
+    ]);
+
+    const totalPages = Math.ceil(totalItems / defaultLimit);
+
+    return {
+      meta: {
+        current: currentPage,
+        pageSize: limit,
+        pages: totalPages,
+        total: totalItems
+      },
+      result
+    }
   }
 }

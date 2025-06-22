@@ -70,6 +70,7 @@ export class CompaniesService {
       result
     }
   }
+
   async findOne(id: string) {
     const company = await this.companyModel.findById(id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -112,5 +113,47 @@ export class CompaniesService {
     return this.companyModel.softDelete({
       _id: id
     })
+  }
+
+  async findAllPublic(currentPage: number, limit: number, qs: string) {
+    const { filter, skip, sort, projection, population } = aqp(qs);
+    delete filter.current;
+    delete filter.pageSize;
+
+    let offset = (+currentPage - 1) * (+limit);
+    let defaultLimit = +limit ? +limit : 10;
+
+    let finalFilter = { ...filter, isDeleted: false };
+
+    const searchFields = ['name', 'address', 'country', 'industry'];
+    for (const field of searchFields) {
+      if (finalFilter[field] && typeof finalFilter[field] === 'string') {
+        finalFilter[field] = {
+          $regex: finalFilter[field],
+          $options: 'i'
+        };
+      }
+    }
+
+    const totalItems = (await this.companyModel.find(finalFilter)).length;
+    const totalPages = Math.ceil(totalItems / defaultLimit);
+
+    const result = await this.companyModel.find(finalFilter)
+      .skip(offset)
+      .limit(defaultLimit)
+      .sort(sort as any)
+      .populate(population)
+      .select(projection as any)
+      .exec();
+
+    return {
+      meta: {
+        current: currentPage,
+        pageSize: limit,
+        pages: totalPages,
+        total: totalItems
+      },
+      result
+    }
   }
 }

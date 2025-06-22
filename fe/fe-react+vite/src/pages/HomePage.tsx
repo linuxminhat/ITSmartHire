@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPinIcon, MagnifyingGlassIcon, BuildingOffice2Icon, ArrowRightIcon, BriefcaseIcon, CurrencyDollarIcon, TagIcon, CalendarIcon, EyeIcon } from '@heroicons/react/24/outline';
-import { callFetchCompany } from '@/services/company.service';
-import { callFetchJob } from '@/services/job.service';
+import { callFetchCompany, callFetchCompanyPublic } from '@/services/company.service';
+import { callFetchJob, callFetchJobPublic } from '@/services/job.service';
 import { ICompany, IJob } from '@/types/backend';
 import Spinner from '@/components/Spinner';
 import dayjs from 'dayjs';
@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
       setIsLoadingCompanies(true);
       setErrorCompanies(null);
       try {
-        const res = await callFetchCompany('current=1&pageSize=3&sort=-updatedAt');
+        const res = await callFetchCompanyPublic('current=1&pageSize=3&sort=-updatedAt');
         if (res && res.data) {
           setCompanies(res.data.result);
         } else {
@@ -71,7 +71,7 @@ const HomePage: React.FC = () => {
       setIsLoadingJobs(true);
       setErrorJobs(null);
       try {
-        const res = await callFetchJob('current=1&pageSize=6&sort=-updatedAt');
+        const res = await callFetchJobPublic('current=1&pageSize=6&sort=-updatedAt');
         if (res && res.data) {
           setJobs(res.data.result);
         } else {

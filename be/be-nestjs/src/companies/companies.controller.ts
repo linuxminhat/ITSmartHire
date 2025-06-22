@@ -16,16 +16,26 @@ export class CompaniesController {
 
   }
 
+  @Public()
+  @Get('public')
+  @ResponseMessage("Fetch all companies for public display (no HR filter)")
+  findAllPublic(
+    @Query('current') currentPage: string,
+    @Query('pageSize') limit: string,
+    @Query() qs: string
+  ) {
+    return this.companiesService.findAllPublic(+currentPage, +limit, qs);
+  }
+
   @Get()
-  @ResponseMessage("Fetch List Company with Paginate")
+  @ResponseMessage("Fetch list of companies with pagination (with HR filter)")
   findAll(
-    @Query("current") currentPage: string,
-    @Query("pageSize") limit: string,
+    @Query('current') currentPage: string,
+    @Query('pageSize') limit: string,
     @Query() qs: string,
     @User() user: IUser
   ) {
     return this.companiesService.findAll(+currentPage, +limit, qs, user);
-
   }
 
   @Get(':id')

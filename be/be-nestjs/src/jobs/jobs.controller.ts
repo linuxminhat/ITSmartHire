@@ -38,8 +38,19 @@ export class JobsController {
     return this.jobsService.search(name, location, current, size, qs);
   }
 
+  @Public()
+  @Get('public')
+  @ResponseMessage("Fetch all jobs for public display (no HR filter)")
+  findAllPublic(
+    @Query('current') currentPage: string,
+    @Query('pageSize') limit: string,
+    @Query() qs: string
+  ) {
+    return this.jobsService.findAllPublic(+currentPage, +limit, qs);
+  }
+
   @Get()
-  @ResponseMessage("Fetch all jobs with paginate")
+  @ResponseMessage("Fetch all jobs with paginate (with HR filter)")
   findAll(
     @Query('current') currentPage: string,
     @Query('pageSize') limit: string,

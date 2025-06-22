@@ -23,4 +23,8 @@ export const callFetchCompany = (query: string) => {
 
 export const callFetchCompanyById = (id: string) => {
     return axios.get<IBackendRes<ICompany>>(`/api/v1/companies/${id}`);
+}
+
+export const callFetchCompanyPublic = (query: string) => {
+    return axios.get<IBackendRes<IModelPaginate<ICompany>>>(`/api/v1/companies/public?${query}`);
 } 

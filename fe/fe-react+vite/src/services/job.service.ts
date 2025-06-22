@@ -55,4 +55,9 @@ export const callSearchJobs = (name?: string, location?: string, currentPage: nu
     queryParams.set('current', currentPage.toString());
     queryParams.set('pageSize', pageSize.toString());
     return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/search?${queryParams.toString()}`);
-}; 
+};
+
+// Thêm function mới cho public
+export const callFetchJobPublic = (query: string) => {
+    return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/public?${query}`);
+} 
