@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPinIcon, CurrencyDollarIcon, ChevronLeftIcon, ChevronRightIcon, ExclamationTriangleIcon, BriefcaseIcon } from '@heroicons/react/24/outline';
-import { callFetchJob } from '@/services/job.service';
+import { callFetchJobPublic } from '@/services/job.service';
 import { IJob } from '@/types/backend';
 import dayjs from 'dayjs';
 import Spinner from '@/components/Spinner';
@@ -70,7 +70,7 @@ const AllJobsPage: React.FC = () => {
     setError(null);
     try {
       const query = `current=${page}&pageSize=${size}&sort=-updatedAt`;
-      const res = await callFetchJob(query);
+      const res = await callFetchJobPublic(query);
       if (res && res.data && res.data.result) {
         setJobs(res.data.result);
         setTotal(res.data.meta.total);

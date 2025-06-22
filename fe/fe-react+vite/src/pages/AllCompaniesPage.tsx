@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { callFetchCompany } from '@/services/company.service';
+import { callFetchCompanyPublic } from '@/services/company.service';
 import { ICompany } from '@/types/backend';
 import Spinner from '@/components/Spinner';
 import { MapPinIcon, BuildingOffice2Icon, ArrowRightIcon } from '@heroicons/react/24/outline';
@@ -24,7 +24,7 @@ const AllCompaniesPage: React.FC = () => {
       setError(null);
       try {
         const query = `current=${page}&pageSize=${meta.pageSize}&sort=-updatedAt`;
-        const res = await callFetchCompany(query);
+        const res = await callFetchCompanyPublic(query);
         if (res && res.data) {
           setCompanies(res.data.result);
           setMeta(res.data.meta);
