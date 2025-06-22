@@ -8,11 +8,12 @@ import { Response, response } from 'express';
 import { IUser } from 'src/users/users.interface';
 import { Request } from 'express';
 import { RolesService } from 'src/roles/roles.service';
+import { UsersService } from 'src/users/users.service';
 
 @Controller("auth")
 export class AuthController {
     constructor(
-        private authService: AuthService, private rolesService: RolesService) { }
+        private authService: AuthService, private rolesService: RolesService, private usersService: UsersService) { }
 
     @Public() //Bo qua JWTAuthGuard
     @UseGuards(LocalAuthGuard)
@@ -38,11 +39,26 @@ export class AuthController {
         }
 
         try {
+            // Lấy thông tin đầy đủ của user từ database (bao gồm designation)
+            const fullUserProfile = await this.usersService.findUserProfile(user._id);
+            if (!fullUserProfile || typeof fullUserProfile === 'string') {
+                throw new Error('User profile not found');
+            }
+
+            // Lấy permissions từ role
             const temp = await this.rolesService.findOne(user.role._id) as any;
-            user.permissions = temp?.permissions || [];
-            return { user };
+            const permissions = temp?.permissions || [];
+
+            // Trả về user data đầy đủ
+            return { 
+                user: {
+                    ...fullUserProfile.toObject(), // Chứa designation và các field khác
+                    permissions
+                }
+            };
         } catch (error) {
-            console.error("Error getting role permissions:", error);
+            console.error("Error getting user account info:", error);
+            // Fallback: trả về user data từ token
             return { user: { ...user, permissions: [] } };
         }
     }

@@ -386,26 +386,29 @@ export class JobsService {
     let offset = ((currentPage ?? 1) - 1) * (limit ?? 10);
     let defaultLimit = limit ?? 10;
 
-    const searchQuery: mongoose.FilterQuery<JobDocument> = {
-      ...filter,
+    // Sử dụng pattern giống findAll
+    let finalFilter: any = {
+      isDeleted: false,  // ← Filter chính
       isActive: true
     };
 
     //filter by name using regex
     if (name) {
       const escapedName = this.escapeRegExp(name);
-      searchQuery.name = { $regex: escapedName, $options: 'i' };
+      finalFilter.name = { $regex: escapedName, $options: 'i' };
     }
 
     //filter by location 
     if (location && location !== '') {
-      searchQuery.location = location;
+      finalFilter.location = location;
     }
 
-    console.log('Final search query:', searchQuery);
+    // Add remaining filter properties
+    finalFilter = { ...finalFilter, ...filter };
 
+    console.log('Final search query:', finalFilter);
 
-    const totalItems = await this.jobModel.countDocuments(searchQuery);
+    const totalItems = await this.jobModel.countDocuments(finalFilter);
     const totalPages = Math.ceil(totalItems / defaultLimit);
 
     let defaultPopulation = [
@@ -414,7 +417,7 @@ export class JobsService {
       { path: 'skills', select: 'name' }
     ];
 
-    const result = await this.jobModel.find(searchQuery)
+    const result = await this.jobModel.find(finalFilter)
       .skip(offset)
       .limit(defaultLimit)
       .sort(sort as any)

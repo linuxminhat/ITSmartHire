@@ -71,7 +71,7 @@ export class UsersService {
 
     const selectFields = [
       '_id', 'name', 'email', 'age', 'gender', 'address',
-      'phone', 'aboutMe', 'skills', 'cvUrl',
+      'phone', 'aboutMe', 'designation', 'skills', 'cvUrl',
       'createdAt', 'updatedAt'
     ].join(' ');
 
@@ -239,7 +239,7 @@ export class UsersService {
       throw new BadRequestException('ID người dùng không hợp lệ');
     }
     //create temporary data type
-    type UserProfileUpdateData = Partial<Pick<UserM, 'name' | 'age' | 'gender' | 'address' | 'phone' | 'aboutMe'>> & { updatedBy?: object };
+    type UserProfileUpdateData = Partial<Pick<UserM, 'name' | 'age' | 'gender' | 'address' | 'phone' | 'aboutMe' | 'designation'>> & { updatedBy?: object };
 
     const updateData: UserProfileUpdateData = {};
     if (updateUserProfileDto.name !== undefined) updateData.name = updateUserProfileDto.name;
@@ -248,6 +248,7 @@ export class UsersService {
     if (updateUserProfileDto.address !== undefined) updateData.address = updateUserProfileDto.address;
     if (updateUserProfileDto.phone !== undefined) updateData.phone = updateUserProfileDto.phone;
     if (updateUserProfileDto.aboutMe !== undefined) updateData.aboutMe = updateUserProfileDto.aboutMe;
+    if (updateUserProfileDto.designation !== undefined) updateData.designation = updateUserProfileDto.designation;
 
     //case : person not update data 
     if (Object.keys(updateData).length === 0) {

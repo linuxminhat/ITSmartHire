@@ -98,9 +98,12 @@ export class UpdateUserProfileDto {
     aboutMe?: string;
 
     @IsOptional()
+    @IsString({ message: 'Chức danh phải là chuỗi' })
+    designation?: string;
+
+    @IsOptional()
     @IsUrl({}, { message: 'URL CV không hợp lệ' })
     cvUrl?: string;
-
 }
 
 export class RegisterEmployee {

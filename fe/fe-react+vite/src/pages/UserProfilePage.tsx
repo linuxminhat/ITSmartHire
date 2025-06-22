@@ -691,7 +691,12 @@ const UserProfilePage: React.FC = () => {
                             <div className="flex-grow text-center sm:text-left">
                                 <h1 className="text-2xl font-bold text-gray-800 mb-1">{profileData.name}</h1>
                                 <p className="text-sm text-gray-500 mb-2">
-                                    <span className="hover:text-indigo-600 cursor-pointer">Cập nhật chức danh</span>
+                                    <span 
+                                        className="hover:text-indigo-600 cursor-pointer transition-colors"
+                                        onClick={() => setIsDesignationModalOpen(true)}
+                                    >
+                                        {profileData.designation || 'Cập nhật chức danh'}
+                                    </span>
                                 </p>
                                 <p className="text-sm text-gray-600 flex items-center justify-center sm:justify-start mb-1">
                                     <EnvelopeIcon className="h-4 w-4 mr-1.5 flex-shrink-0" /> {profileData.email}

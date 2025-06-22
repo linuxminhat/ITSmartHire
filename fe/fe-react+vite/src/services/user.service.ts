@@ -208,4 +208,14 @@ export const callDeleteAttachedCv = (cvId: string) => {
     return axios.delete<IBackendRes<IUser>>(`/api/v1/users/me/attached-cvs/${cvId}`);
 };
 
+// Thêm interface riêng cho việc cập nhật designation
+export interface IDesignationUpdatePayload {
+    designation: string;
+}
+
+// Thêm function cập nhật designation
+export const callUpdateDesignation = (payload: IDesignationUpdatePayload) => {
+    return axios.patch<IBackendRes<IUser>>('/api/v1/users/profile', payload);
+};
+
 

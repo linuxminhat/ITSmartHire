@@ -138,6 +138,7 @@ export interface IUser {
     address?: string;
     phone?: string;
     jobTitle?: string;
+    designation?: string;
     linkedIn?: string;
     portfolio?: string;
     aboutMe?: string;
@@ -301,6 +302,7 @@ export interface IUserProfileUpdatePayload {
     phone?: string;
     aboutMe?: string;
     jobTitle?: string;
+    designation?: string;
     linkedIn?: string;
     portfolio?: string;
 }

@@ -176,7 +176,10 @@ export class User {
     aboutMe?: string;
 
     @Prop()
-    cvUrl?: string; // Added cvUrl property
+    designation?: string;
+
+    @Prop()
+    cvUrl?: string;
 
     @Prop({ type: [AttachedCvSchema], default: [] })
     attachedCvs?: AttachedCv[];
