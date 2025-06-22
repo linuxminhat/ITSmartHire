@@ -179,17 +179,6 @@ const Header: React.FC = () => {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <Link
-                    to="#"
-                    className={`${active ? 'bg-blue-50 text-blue-700' : 'text-gray-700'} flex items-center px-4 py-3 text-sm transition-colors duration-150`}
-                  >
-                    <Cog6ToothIcon className="h-5 w-5 mr-3 text-gray-400" />
-                    Cài đặt
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
                   <button
                     onClick={handleLogout}
                     className={`${active ? 'bg-red-50 text-red-700' : 'text-gray-700'} flex w-full items-center px-4 py-3 text-sm transition-colors duration-150`}

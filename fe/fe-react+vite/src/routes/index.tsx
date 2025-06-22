@@ -141,10 +141,6 @@ export const router = createBrowserRouter([
               { path: "saved-records", element: <SavedRecordsPage /> },
             ]
           },
-          // {
-          //   path: 'saved-cv-lists',
-          //   element: <SavedListsPage />
-          // }
         ]
       },
     ],
