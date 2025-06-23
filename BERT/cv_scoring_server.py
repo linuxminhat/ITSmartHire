@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import numpy as np
 from sentence_transformers import SentenceTransformer, util
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 from io import BytesIO
 from flask_cors import CORS
 import torch
@@ -16,7 +16,7 @@ import logging
 import google.generativeai as genai
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
     datefmt="%H:%M:%S",
 )
@@ -29,10 +29,6 @@ load_dotenv()
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 log.info("Loading SentenceTransformer model for scoring...")
 try:
-    #        "all-mpnet-base-v2", cache_folder="D:/hf-cache",
-    # model = SentenceTransformer(
-    #     "D:\pretrained model\all_mpnet_ft_cv_jd",
-    # )
     model_dir = os.path.join(
         os.path.dirname(__file__),
         "pretrained_model",
@@ -59,26 +55,32 @@ except Exception as e:
 
 
 JD_EXTRACTION_PROMPT = """
-As an expert HR AI, analyze the following job description (JD) and extract the key recruitment information.
-**Job Description:**
+You are an HR-AI. From the JD below, extract the following and return **ONLY** the JSON shown.
+
+JD:
 {jd_text}
-**Instructions:**
-1.**Extract the main job title.** Be specific (e.g., "Senior Java Developer" instead of just "Developer"). If no specific title is mentioned but can be inferred from skills (e.g., "requires proficiency in Laravel"), create a logical title like "Laravel Developer". If no title can be found, return "".
-2.**Extract the required years of experience.** Find the minimum number of years required (e.g., "at least 3 years" -> 3, "3-5 years" -> 3). If not mentioned, return 0.
-3. **Extract the required degree.**
-*If a specific degree is mentioned (e.g., "Bachelor of Science in Computer Science"), return that full string.
-*If a generic requirement is mentioned (e.g., "University degree in related fields", "Tốt nghiệp đại học chuyên ngành liên quan"), return the special token "GENERIC_IT_DEGREE".
-*If no degree is mentioned, return "".
-4. **Extract all required technical skills.** List all programming languages, frameworks, databases, tools, and methodologies mentioned.
-**Return ONLY a valid JSON object in the following format. Do not include any explanatory text or markdown.**
-```json
+
+Rules:
+• designation  → most specific title; infer from skills if absent; "" if none.  
+• required_experience_years  → smallest years mentioned (e.g. "3-5" → 3); 0 if none.  
+• required_degree  → full degree string; "GENERIC_IT_DEGREE" for generic mentions; "" if none.  
+• required_skills  → list every tech software skill (languages, frameworks, DBs, tools, methods).  
+• required_gpa  → highest GPA number required found (on a 4.0 scale); 0 if none.  
+• required_languages  → list any language requirements; [] if none.  
+• required_certifications  → list certifications explicitly required; [] if none.  
+• required_awards  → list awards/honors mentioned; [] if none.
+
+Output JSON (no markdown, no extra text):
 {{
-    "designation": "string",
-    "required_experience_years": "number",
-    "required_degree": "string",
-    "required_skills": ["string", "string", ...]
+  "designation": "",
+  "required_experience_years": 0,
+  "required_degree": "",
+  "required_skills": [],
+  "required_gpa": 0,
+  "required_languages": [],
+  "required_certifications": [],
+  "required_awards": []
 }}
-```
 """
 
 
@@ -87,6 +89,16 @@ def extract_jd_info_with_gemini(jd_text: str) -> dict:
         raise ConnectionError("Gemini API is not configured.")
 
     prompt = JD_EXTRACTION_PROMPT.format(jd_text=jd_text)
+    default_response = {
+        "designation": "",
+        "required_experience_years": 0,
+        "required_degree": "",
+        "required_skills": [],
+        "required_gpa": 0,
+        "required_languages": [],
+        "required_certifications": [],
+        "required_awards": [],
+    }
     try:
         log.info("Sending JD to Gemini API for extraction...")
         response = gemini_model.generate_content(
@@ -98,58 +110,141 @@ def extract_jd_info_with_gemini(jd_text: str) -> dict:
         response_text = response.text
         log.info("Received response from Gemini.")
         data = json.loads(response_text)
+        # Validate and structure the data
         validated_data = {
             "designation": data.get("designation", ""),
-            "required_experience_years": str(
-                data.get("required_experience_years", "0")
-            ),
+            "required_experience_years": float(data.get("required_experience_years", 0)),
             "required_degree": data.get("required_degree", ""),
             "required_skills": data.get("required_skills", []),
+            "required_gpa": float(data.get("required_gpa", 0)),
+            "required_languages": data.get("required_languages", []),
+            "required_certifications": data.get("required_certifications", []),
+            "required_awards": data.get("required_awards", []),
         }
         return validated_data
 
     except Exception as e:
         log.error(f"[Gemini API Error]: {e}")
-        return {
-            "designation": "",
-            "required_experience_years": "0",
-            "required_degree": "",
-            "required_skills": [],
-        }
+        return default_response
 
 
-def calculate_skills_score(candidate_skills, jd_skills, weight=25):
-    if not candidate_skills or not jd_skills or not model:
-        return 0
-    candidate_skills = [skill.lower().strip() for skill in candidate_skills]
-    jd_skills = [skill.lower().strip() for skill in jd_skills]
-    candidate_embeddings = model.encode(candidate_skills)
-    jd_embeddings = model.encode(jd_skills)
+def calculate_list_match_score(candidate_list, jd_list, threshold=0.7):
+    """Calculates match score for lists like skills, certs, awards."""
+    if not jd_list:
+        return -1.0 # Not required by JD
+    if pd.isna(candidate_list) or not candidate_list or str(candidate_list) == "Ứng viên không cung cấp thông tin này" or not model:
+        return 0.0
+
+    if isinstance(candidate_list, str):
+        candidate_list = [item.strip() for item in candidate_list.split(',') if item.strip()]
+    if not candidate_list:
+        return 0.0
+    
+    candidate_list = [item.lower().strip() for item in candidate_list]
+    jd_list = [item.lower().strip() for item in jd_list]
+
+    candidate_embeddings = model.encode(candidate_list)
+    jd_embeddings = model.encode(jd_list)
     similarities = util.cos_sim(candidate_embeddings, jd_embeddings)
-    threshold = 0.7
-    matches = torch.sum(similarities > threshold).item()
-    score = (float(matches) / len(jd_skills)) * weight if len(jd_skills) > 0 else 0
-    return min(score, weight)
+    
+    matches = 0
+    for i in range(len(jd_list)):
+        if torch.any(similarities[:, i] > threshold):
+            matches += 1
+            
+    score = (float(matches) / len(jd_list)) if len(jd_list) > 0 else 1.0
+    return min(score, 1.0)
 
 
-def calculate_experience_score(candidate_years, required_years, weight=20):
-    if not candidate_years:
-        return 0
+def calculate_experience_score(candidate_years, required_years):
+    if pd.isna(candidate_years) or str(candidate_years) == "Ứng viên không cung cấp thông tin này" or not candidate_years:
+        candidate_years = 0
     try:
         candidate_years = float(candidate_years)
         required_years = float(required_years)
 
         if required_years == 0:
-            return weight if candidate_years >= 0 else 0
+            return 1.0 # 100% fit if no experience is required
         if candidate_years >= required_years:
-            return weight
+            return 1.0
         elif candidate_years > 0:
-            return (candidate_years / required_years) * weight
-        return 0
+            return candidate_years / required_years
+        return 0.0
     except (ValueError, TypeError):
-        return 0
+        return 0.0
 
 
+def calculate_designation_score(candidate_designation: str, jd_designation: str) -> float:
+    if pd.isna(candidate_designation) or str(candidate_designation) == "Ứng viên không cung cấp thông tin này" or not candidate_designation or not jd_designation or not model:
+        return 0.0
+    cand = _normalize(candidate_designation)
+    jd = _normalize(jd_designation)
+    sim = util.cos_sim(model.encode([cand]), model.encode([jd]))[0][0].item()
+    
+    # Keep the bonus/penalty logic as it refines the raw similarity
+    tags_cand, tags_jd = _tag_set(cand), _tag_set(jd)
+    if tags_cand & tags_jd:
+        sim = min(sim + TAG_BONUS, 1.0)
+    elif {"backend", "frontend"} <= (tags_cand | tags_jd) and not (tags_cand & tags_jd):
+        sim = max(sim - TAG_PENALTY, 0.0)
+        
+    return sim
+
+
+def calculate_degree_score(candidate_degree: str, jd_degree: str) -> float:
+    if not model:
+        return 0.0
+    if not jd_degree or jd_degree.strip() == "":
+        return -1.0 # Not required
+    if pd.isna(candidate_degree) or str(candidate_degree) == "Ứng viên không cung cấp thông tin này" or not str(candidate_degree).strip():
+        return 0.0
+        
+    it_prototype_vector = np.mean(model.encode([
+        "bachelor of science in computer science", 
+        "associate in information technology"
+    ]), axis=0)
+
+    if jd_degree == "GENERIC_IT_DEGREE":
+        similarity = util.cos_sim(model.encode(candidate_degree), it_prototype_vector)[0][0].item()
+        return 1.0 if similarity > 0.5 else 0.0
+
+    similarity = util.cos_sim(model.encode(candidate_degree), model.encode(jd_degree))[0][0].item()
+    return similarity
+
+
+def calculate_gpa_score(gpa_str, required_gpa):
+    if required_gpa == 0:
+        return -1.0 # Not required
+    if pd.isna(gpa_str) or str(gpa_str) == "Ứng viên không cung cấp thông tin này" or not str(gpa_str).strip():
+        return 0.0
+        
+    gpa_str = str(gpa_str).strip()
+    try:
+        gpa_value_str = gpa_str.split("/")[0].strip()
+        gpa = float(gpa_value_str)
+        is_10_point_scale = ("/10" in gpa_str) or (gpa > 4.0 and gpa <= 10.0)
+        
+        normalized_gpa = gpa
+        if is_10_point_scale:
+            normalized_gpa = gpa / 2.5 # Convert to 4.0 scale
+        
+        return 1.0 if normalized_gpa >= required_gpa else 0.0
+    except (ValueError, TypeError):
+        return 0.0
+
+
+def calculate_language_score(candidate_langs, required_langs):
+    if not required_langs:
+        return -1.0 # Not required
+    if pd.isna(candidate_langs) or not str(candidate_langs).strip() or str(candidate_langs) == "Ứng viên không cung cấp thông tin này":
+        return 0.0
+    
+    # If we are here, it means the cell is not empty and not the placeholder text.
+    # Simple existence check as requested. For more complex logic, this can be expanded.
+    return 1.0
+
+
+# Helper functions _normalize and _tag_set remain the same
 NORMALIZE_PATTERNS = [
     (r"\b(full[\s\-]?stack|mern|mean|lamp)\b", "full stack"),
     (r"\bfront[\s\-]?end\b", "frontend"),
@@ -164,110 +259,29 @@ NORMALIZE_PATTERNS = [
 ]
 ROLE_TAGS: dict[str, set[str]] = {
     "frontend": {
-        "frontend",
-        "react",
-        "angular",
-        "vue",
-        "svelte",
-        "javascript",
-        "typescript",
-        "tailwind",
-        "bootstrap",
-        "material-ui",
+        "frontend", "react", "angular", "vue", "svelte", "javascript", "typescript", "tailwind", "bootstrap", "material-ui",
     },
     "backend": {
-        "backend",
-        "java",
-        "spring",
-        "node",
-        ".net",
-        "python",
-        "django",
-        "flask",
-        "fastapi",
-        "php",
-        "laravel",
-        "ruby",
-        "rails",
-        "go",
+        "backend", "java", "spring", "node", ".net", "python", "django", "flask", "fastapi", "php", "laravel", "ruby", "rails", "go",
     },
     "fullstack": {"full stack"},
     "mobile": {
-        "mobile",
-        "android",
-        "ios",
-        "swift",
-        "kotlin",
-        "flutter",
-        "react native",
-        "xamarin",
-        "cordova",
-        "ionic",
+        "mobile", "android", "ios", "swift", "kotlin", "flutter", "react native", "xamarin", "cordova", "ionic",
     },
     "devops": {
-        "devops",
-        "sre",
-        "docker",
-        "kubernetes",
-        "ci/cd",
-        "jenkins",
-        "terraform",
-        "ansible",
-        "aws",
-        "azure",
-        "gcp",
-        "prometheus",
-        "grafana",
+        "devops", "sre", "docker", "kubernetes", "ci/cd", "jenkins", "terraform", "ansible", "aws", "azure", "gcp", "prometheus", "grafana",
     },
     "data": {
-        "data",
-        "ml",
-        "etl",
-        "hadoop",
-        "spark",
-        "kafka",
-        "pandas",
-        "numpy",
-        "tensorflow",
-        "pytorch",
-        "sql",
-        "mysql",
-        "postgres",
-        "snowflake",
-        "bigquery",
-        "airflow",
+        "data", "ml", "etl", "hadoop", "spark", "kafka", "pandas", "numpy", "tensorflow", "pytorch", "sql", "mysql", "postgres", "snowflake", "bigquery", "airflow",
     },
     "qa": {
-        "qa",
-        "tester",
-        "selenium",
-        "cypress",
-        "playwright",
-        "junit",
-        "pytest",
-        "robot",
+        "qa", "tester", "selenium", "cypress", "playwright", "junit", "pytest", "robot",
     },
     "security": {
-        "security",
-        "jwt",
-        "oauth2",
-        "saml",
-        "keycloak",
-        "owasp",
-        "pentest",
-        "burp",
-        "zap",
-        "sonarqube",
+        "security", "jwt", "oauth2", "saml", "keycloak", "owasp", "pentest", "burp", "zap", "sonarqube",
     },
     "uiux": {
-        "ui",
-        "ux",
-        "figma",
-        "sketch",
-        "adobe xd",
-        "product designer",
-        "interaction designer",
-        "graphic designer",
+        "ui", "ux", "figma", "sketch", "adobe xd", "product designer", "interaction designer", "graphic designer",
     },
 }
 TAG_BONUS = 0.07
@@ -290,119 +304,6 @@ def _tag_set(text: str) -> set[str]:
     return {role for role, kws in ROLE_TAGS.items() if tokens & kws}
 
 
-def calculate_designation_score(
-    candidate_designation: str, jd_designation: str, weight: float = 15
-) -> float:
-    if not candidate_designation or not jd_designation or not model:
-        log.debug("designation empty → 0 đ")
-        return 0.0
-    cand = _normalize(candidate_designation)
-    jd = _normalize(jd_designation)
-    sim = util.cos_sim(model.encode([cand]), model.encode([jd]))[0][0].item()
-    tags_cand, tags_jd = _tag_set(cand), _tag_set(jd)
-    log.debug(
-        "cand='%s' | jd='%s' | raw_sim=%.3f | tags=%s/%s",
-        cand,
-        jd,
-        sim,
-        tags_cand,
-        tags_jd,
-    )
-    if tags_cand & tags_jd:
-        sim = min(sim + TAG_BONUS, 1)
-        log.debug("   bonus  → %.3f", sim)
-    elif {"backend", "frontend"} <= (tags_cand | tags_jd) and not (tags_cand & tags_jd):
-        sim = max(sim - TAG_PENALTY, 0)
-        log.debug("   penalty→ %.3f", sim)
-    score = weight / (1 + math.exp(-12 * (sim - 0.5)))
-    log.debug("designation_score=%.2f", score)
-    return round(score, 2)
-
-
-def calculate_degree_score(
-    candidate_degree: str, jd_degree: str, weight: float = 10
-) -> float:
-    if not model:
-        return 0.0
-    if not jd_degree or jd_degree.strip() == "":
-        log.debug("JD does not specify degree. Awarding full points.")
-        return float(weight)
-    if not candidate_degree or candidate_degree.strip() == "":
-        log.debug(f"JD requires a degree, but candidate has none. 0 points.")
-        return 0.0
-    it_prototype_vector = model.encode(
-        [
-            "bachelor of science in computer science",
-            "associate in information technology",
-        ]
-    )
-    it_prototype_vector = np.mean(it_prototype_vector, axis=0)
-
-    if jd_degree == "GENERIC_IT_DEGREE":
-        log.debug("JD requires a generic IT degree. Validating candidate's degree.")
-        candidate_emb = model.encode(candidate_degree)
-        similarity = util.cos_sim(candidate_emb, it_prototype_vector)[0][0].item()
-        it_degree_threshold = 0.5
-        log.debug(
-            f"CV degree '{candidate_degree}' vs IT prototype similarity: {similarity:.3f}"
-        )
-        return float(weight) if similarity > it_degree_threshold else 0.0
-
-    candidate_emb = model.encode(candidate_degree)
-    jd_emb = model.encode(jd_degree)
-    similarity = util.cos_sim(candidate_emb, jd_emb)[0][0].item()
-    log.debug(
-        f"Specific match: JD='{jd_degree}' vs CV='{candidate_degree}'. Similarity: {similarity:.3f}"
-    )
-    match_threshold = 0.6
-    return float(weight) if similarity > match_threshold else 0.0
-
-
-def calculate_gpa_score(gpa_str, weight=10):
-    if not gpa_str or not str(gpa_str).strip():
-        return 0
-    gpa_str = str(gpa_str).strip()
-    try:
-        gpa_value_str = gpa_str.split("/")[0].strip()
-        gpa = float(gpa_value_str)
-        is_10_point_scale = ("10" in gpa_str) or (gpa > 4.0 and gpa <= 10.0)
-        if is_10_point_scale:
-            gpa = min(max(gpa, 0.0), 10.0)
-            if gpa >= 9.0:
-                return weight
-            elif 8.0 <= gpa < 9.0:
-                return weight * 0.7
-            elif 7.0 <= gpa < 8.0:
-                return weight * 0.4
-            return 0
-        else:
-            gpa = min(max(gpa, 0.0), 4.0)
-            if gpa >= 3.6:
-                return weight
-            elif 3.2 <= gpa < 3.6:
-                return weight * 0.7
-            elif 2.8 <= gpa < 3.2:
-                return weight * 0.4
-            return 0
-    except (ValueError, TypeError):
-        return 0
-
-
-def calculate_bonus_scores(cv_data, weights):
-    score = 0
-    if cv_data.get("languages") and str(cv_data["languages"]).strip():
-        score += weights["languages"]
-    if cv_data.get("awards") and str(cv_data["awards"]).strip():
-        score += weights["awards"]
-    if cv_data.get("certifications") and str(cv_data["certifications"]).strip():
-        score += weights["certifications"]
-    if cv_data.get("github") and str(cv_data["github"]).strip():
-        score += weights["github"]
-    if cv_data.get("projects") and str(cv_data["projects"]).strip():
-        score += weights["projects"]
-    return score
-
-
 def translate_text_azure(text: str) -> str:
     log.info("--- AZURE TRANSLATION ---")
     try:
@@ -413,23 +314,20 @@ def translate_text_azure(text: str) -> str:
         key = os.getenv("AZURE_TRANSLATOR_KEY")
         ep = os.getenv("AZURE_TRANSLATOR_ENDPOINT").rstrip("/")
         loc = os.getenv("AZURE_TRANSLATOR_REGION")
+        if not all([key, ep, loc]):
+            log.warning("Azure Translator credentials missing. Skipping translation.")
+            return text
 
         url = f"{ep}/translate"
         params = {"api-version": "3.0", "from": "vi", "to": "en"}
         headers = {
-            "Ocp-Apim-Subscription-Key": key,
-            "Ocp-Apim-Subscription-Region": loc,
-            "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": key, "Ocp-Apim-Subscription-Region": loc, "Content-Type": "application/json",
         }
-
-        resp = requests.post(
-            url, params=params, headers=headers, json=[{"text": text}], timeout=15
-        )
+        resp = requests.post(url, params=params, headers=headers, json=[{"text": text}], timeout=15)
         resp.raise_for_status()
         result = resp.json()[0]["translations"][0]["text"]
         log.info("Translation OK")
         return result
-
     except Exception as e:
         log.error(f"Translation error: {e}")
         return text
@@ -438,19 +336,20 @@ def translate_text_azure(text: str) -> str:
 @app.route("/score", methods=["POST"])
 def score_cvs():
     if not model or not gemini_model:
-        return {
-            "error": "A required model (SentenceTransformer or Gemini) failed to load. Check server logs."
-        }, 503
-
+        return jsonify({"error": "A required model (SentenceTransformer or Gemini) failed to load. Check server logs."}), 503
     try:
         log.info("Received scoring request to /score")
+        
+        # Safer access to file and form data
+        if 'file' not in request.files:
+            return jsonify({"error": "No 'file' part in the request"}), 400
         excel_file = request.files["file"]
-        jd_text = request.form["jd"]
-        weights = json.loads(request.form["weights"])
 
+        jd_text = request.form.get("jd") # Use .get() for safer access
         if not jd_text:
-            return {"error": "Job Description text (position) is missing."}, 400
+            return jsonify({"error": "Job Description text ('jd' field) is missing from the form."}), 400
 
+        # Step 1: Translate JD if necessary
         translated_jd = translate_text_azure(jd_text)
         log.info(f"Translated JD: {translated_jd[:100]}...")
 
@@ -458,126 +357,187 @@ def score_cvs():
         jd_info = extract_jd_info_with_gemini(translated_jd)
         log.info(f"Extracted JD Info from Gemini: {jd_info}")
 
-        required_designation_str = jd_info["designation"]
-        required_skills = jd_info["required_skills"]
-        required_experience_str = jd_info["required_experience_years"]
-        required_degree_str = jd_info["required_degree"]
-
         # Step 3: Process CVs and Score
         df = pd.read_excel(excel_file)
-        scores = []
-        total_cvs = len(df)
-        log.info(f"Found {total_cvs} CVs. Starting scoring for each...")
+        scores_for_df = []
+        
+        log.info(f"Found {len(df)} CVs. Starting scoring...")
         for idx, row in df.iterrows():
-            log.debug(f"\n--- CV {idx + 1}/{total_cvs}: Processing ---")
+            log.debug(f"\n--- CV {idx + 1}/{len(df)}: Processing ---")
             row_dict = row.to_dict()
             try:
-                # Skills Score
-                skills_data = str(row_dict.get("Kỹ năng", ""))
-                candidate_skills = (
-                    [s.strip() for s in skills_data.split(",")] if skills_data else []
-                )
-                log.debug(
-                    f"  [Skills] CV='{candidate_skills}' vs JD='{required_skills}'"
-                )
-                skills_score = calculate_skills_score(
-                    candidate_skills, required_skills, weights["skills"]
-                )
-                log.debug(f"  => skills_score: {skills_score:.2f}")
+                # --- DETAILED LOGGING ---
+                log.debug(f"  [SKILLS]        CV: {row_dict.get('Kỹ năng')} | JD: {jd_info['required_skills']}")
+                skills_score = calculate_list_match_score(row_dict.get("Kỹ năng"), jd_info["required_skills"])
 
-                # Experience Score
-                exp_years_candidate_str = (
-                    str(row_dict.get("Năm kinh nghiệm", "0")).replace("năm", "").strip()
-                )
-                log.debug(
-                    f"  [Experience] CV='{exp_years_candidate_str}' vs JD='{required_experience_str}'"
-                )
-                exp_score = calculate_experience_score(
-                    exp_years_candidate_str,
-                    required_experience_str,
-                    weights["experience"],
-                )
-                log.debug(f"  => experience_score: {exp_score:.2f}")
+                exp_years_candidate_str = str(row_dict.get("Tổng số năm kinh nghiệm", "0")).strip()
+                log.debug(f"  [EXPERIENCE]    CV: {exp_years_candidate_str} | JD: {jd_info['required_experience_years']}")
+                exp_score = calculate_experience_score(exp_years_candidate_str, jd_info["required_experience_years"])
+                
+                log.debug(f"  [DESIGNATION]   CV: {row_dict.get('Chức danh')} | JD: {jd_info['designation']}")
+                designation_score = calculate_designation_score(row_dict.get("Chức danh"), jd_info["designation"])
 
-                # Designation Score
-                candidate_designation = row_dict.get("Chức danh", "")
-                log.debug(
-                    f"  [Designation] CV='{candidate_designation}' vs JD='{required_designation_str}'"
-                )
-                designation_score = calculate_designation_score(
-                    candidate_designation,
-                    required_designation_str,
-                    weights["designation"],
-                )
-                log.debug(f"  => designation_score: {designation_score:.2f}")
+                log.debug(f"  [DEGREE]        CV: {row_dict.get('Bằng cấp')} | JD: {jd_info['required_degree']}")
+                degree_score = calculate_degree_score(row_dict.get("Bằng cấp"), jd_info["required_degree"])
 
-                # Degree Score
-                candidate_degree = str(row_dict.get("Bằng cấp", ""))
-                log.debug(
-                    f"  [Degree] CV='{candidate_degree}' vs JD='{required_degree_str}'"
-                )
-                degree_score = calculate_degree_score(
-                    candidate_degree,
-                    required_degree_str,
-                    weights["degree"],
-                )
-                log.debug(f"  => degree_score: {degree_score:.2f}")
+                log.debug(f"  [GPA]           CV: {row_dict.get('Điểm GPA')} | JD: {jd_info['required_gpa']}")
+                gpa_score = calculate_gpa_score(row_dict.get("Điểm GPA"), jd_info["required_gpa"])
 
-                # GPA Score
-                candidate_gpa = str(row_dict.get("Điểm GPA", ""))
-                log.debug(f"  [GPA] CV='{candidate_gpa}'")
-                gpa_score = calculate_gpa_score(candidate_gpa, weights["gpa"])
-                log.debug(f"  => gpa_score: {gpa_score:.2f}")
+                candidate_langs_value = row_dict.get("Ngoại ngữ")
+                log.debug(f"  [LANGUAGE]      CV: {candidate_langs_value} (type: {type(candidate_langs_value)}) | JD: {jd_info['required_languages']}")
+                language_score = calculate_language_score(candidate_langs_value, jd_info["required_languages"])
 
-                # Bonus Score
-                log.debug("  [Bonus] Checking for bonus points...")
-                bonus_score = calculate_bonus_scores(row_dict, weights)
-                log.debug(f"  => bonus_score: {bonus_score:.2f}")
+                log.debug(f"  [CERTIFICATION] CV: {row_dict.get('Chứng chỉ')} | JD: {jd_info['required_certifications']}")
+                certification_score = calculate_list_match_score(row_dict.get("Chứng chỉ"), jd_info["required_certifications"])
 
-                total = (
-                    skills_score
-                    + exp_score
-                    + designation_score
-                    + degree_score
-                    + gpa_score
-                    + bonus_score
-                )
-                log.info(f"--- CV {idx + 1}/{total_cvs}: Total Score = {total:.2f} ---")
-                cv_score = {
-                    "skills_score": round(skills_score, 2),
-                    "experience_score": round(exp_score, 2),
-                    "designation_score": round(designation_score, 2),
-                    "degree_score": round(degree_score, 2),
-                    "gpa_score": round(gpa_score, 2),
-                    "bonus_score": round(bonus_score, 2),
-                    "total_score": round(total, 2),
-                }
-                scores.append(cv_score)
+                log.debug(f"  [AWARD]         CV: {row_dict.get('Giải thưởng')} | JD: {jd_info['required_awards']}")
+                award_score = calculate_list_match_score(row_dict.get("Giải thưởng"), jd_info["required_awards"])
+
+                log.debug(f"  => Scores (raw): skills={skills_score:.2f}, exp={exp_score:.2f}, design={designation_score:.2f}, degree={degree_score:.2f}, gpa={gpa_score:.2f}, lang={language_score:.2f}, cert={certification_score:.2f}, award={award_score:.2f}")
+
+                # Calculate total score (average of applicable scores)
+                raw_scores = [skills_score, exp_score, designation_score, degree_score, gpa_score, language_score, certification_score, award_score]
+                valid_scores = [s for s in raw_scores if s != -1.0]
+                total_score = (sum(valid_scores) / len(valid_scores)) if valid_scores else 0.0
+
+                # Format scores for Excel output
+                def format_score(score):
+                    if score == -1.0:
+                        return "JD không yêu cầu"
+                    return f"{score:.0%}"
+
+                scores_for_df.append({
+                    "Điểm Kỹ năng": format_score(skills_score),
+                    "Điểm Kinh nghiệm": format_score(exp_score),
+                    "Điểm Chức danh": format_score(designation_score),
+                    "Điểm Bằng cấp": format_score(degree_score),
+                    "Điểm GPA": format_score(gpa_score),
+                    "Điểm Ngôn ngữ": format_score(language_score),
+                    "Điểm Chứng chỉ": format_score(certification_score),
+                    "Điểm Giải thưởng": format_score(award_score),
+                    "Tổng điểm phù hợp": format_score(total_score),
+                })
+
             except Exception as e:
-                log.error(f"Error processing row {idx}: {e}", exc_info=True)
-                scores.append(
-                    {
-                        "skills_score": 0,
-                        "experience_score": 0,
-                        "designation_score": 0,
-                        "degree_score": 0,
-                        "gpa_score": 0,
-                        "bonus_score": 0,
-                        "total_score": 0,
-                    }
-                )
+                log.error(f"Error processing CV {idx + 1}: {str(e)}", exc_info=True)
+                scores_for_df.append({
+                    "Điểm Kỹ năng": "Error",
+                    "Điểm Kinh nghiệm": "Error",
+                    "Điểm Chức danh": "Error",
+                    "Điểm Bằng cấp": "Error",
+                    "Điểm GPA": "Error",
+                    "Điểm Ngôn ngữ": "Error",
+                    "Điểm Chứng chỉ": "Error",
+                    "Điểm Giải thưởng": "Error",
+                    "Tổng điểm phù hợp": "Error",
+                })
 
-        if scores and df.shape[0] == len(scores):
-            for key in scores[0].keys():
-                df[key] = [score[key] for score in scores]
-        else:
-            log.warning(
-                "Number of scores does not match number of CVs, or no scores were generated. Scores will not be added to the Excel file."
-            )
+        # Append new score columns to the original DataFrame
+        if scores_for_df:
+            scores_df = pd.DataFrame(scores_for_df)
+            # --- FIX: Drop existing score columns from the original df to avoid duplicates ---
+            cols_to_drop = [col for col in scores_df.columns if col in df.columns]
+            if cols_to_drop:
+                log.warning(f"Dropping pre-existing score columns from input file: {cols_to_drop}")
+                df = df.drop(columns=cols_to_drop)
+            
+            df = pd.concat([df, scores_df], axis=1)
 
         output = BytesIO()
         with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-            df.to_excel(writer, index=False)
+            # Manually create worksheet to have control over it
+            worksheet = writer.book.add_worksheet("CV Scores")
+            writer.sheets['CV Scores'] = worksheet
+
+            # --- Define Formats ---
+            header_format = writer.book.add_format({
+                'bold': True, 'font_color': 'black', 'font_size': 11, 'align': 'center',
+                'valign': 'vcenter', 'border': 1, 'bg_color': '#DDEBF7' # Light Blue
+            })
+            no_info_format = writer.book.add_format({
+                'italic': True, 'font_color': '#9C4500', 'bg_color': '#FFE5CC', 'border': 1,
+                'align': 'center', 'valign': 'vcenter' # Removed wrap
+            })
+            jd_not_required_format = writer.book.add_format({
+                'italic': True, 'font_color': '#666666', 'bg_color': '#EFEFEF', 'border': 1,
+                'align': 'center', 'valign': 'vcenter' # Removed wrap
+            })
+            percent_format = writer.book.add_format({
+                'num_format': '0%', 'border': 1, 'align': 'center', 'valign': 'vcenter', 'bg_color': 'white'
+            })
+            default_format = writer.book.add_format({
+                'border': 1, 'valign': 'top', 'bg_color': 'white' # No wrap
+            })
+            long_text_format = writer.book.add_format({
+                'border': 1, 'valign': 'top', 'text_wrap': True, 'bg_color': 'white' # Wrap for specific columns
+            })
+            error_format = writer.book.add_format({
+                'bg_color': '#FFC7CE', 'font_color': '#9C0006', 'border': 1, 'valign': 'vcenter'
+            })
+
+            # --- Write Data ONLY (header will be in the table) ---
+            long_text_columns = ['Kinh nghiệm làm việc', 'Dự án', 'Bằng cấp']
+            
+            # Write data rows starting from the first row (index 0)
+            for r_idx, row in enumerate(df.itertuples(index=False), 0):
+                for c_idx, cell_value in enumerate(row):
+                    col_name = df.columns[c_idx]
+                    current_format = default_format
+                    
+                    if pd.isna(cell_value): cell_value = ""
+
+                    if cell_value == "Ứng viên không cung cấp thông tin này":
+                        current_format = no_info_format
+                    elif cell_value == "JD không yêu cầu":
+                        current_format = jd_not_required_format
+                    elif cell_value == "Error":
+                        current_format = error_format
+                    elif isinstance(cell_value, str) and cell_value.endswith('%'):
+                        try:
+                            numeric_val = float(cell_value.strip('%')) / 100
+                            worksheet.write_number(r_idx + 1, c_idx, numeric_val, percent_format)
+                            continue # Skip the generic write at the end
+                        except (ValueError, TypeError):
+                            current_format = default_format
+                    elif col_name in long_text_columns:
+                        current_format = long_text_format
+                    
+                    worksheet.write(r_idx + 1, c_idx, cell_value, current_format)
+
+
+            # --- Final Touches: Table, Column Widths, Freeze Panes ---
+            (max_row, max_col) = df.shape
+            
+            # 1. Create a Table (adds filters and defines headers explicitly)
+            column_headers = [{'header': str(col)} for col in df.columns]
+            worksheet.add_table(0, 0, max_row, max_col - 1, {
+                'columns': column_headers,
+                'style': 'Table Style Medium 9',
+                'banded_rows': False,
+                'name': 'ScoredCVs'
+            })
+
+            # 2. Set Header Row Format and Height
+            worksheet.set_row(0, 25, header_format)
+
+            # 3. Set Column Widths
+            for idx, col_name in enumerate(df.columns):
+                if col_name in long_text_columns:
+                    worksheet.set_column(idx, idx, 60) # Fixed width for long text
+                else:
+                    # Auto-fit other columns
+                    series = df[col_name]
+                    max_len = 0
+                    if not series.dropna().empty:
+                        # Find max length of data or header
+                        max_len = max((series.astype(str).map(len).max()), len(str(col_name)))
+                    else:
+                        max_len = len(str(col_name))
+                    worksheet.set_column(idx, idx, max_len + 2) # Add a little padding
+
+            # 4. Freeze Top Row
+            worksheet.freeze_panes(1, 0)
+            
         output.seek(0)
 
         log.info("Sending response back")
@@ -585,12 +545,12 @@ def score_cvs():
             output,
             mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             as_attachment=True,
-            download_name="fit_cv_score.xlsx",
+            download_name="cv_scores.xlsx",
         )
 
     except Exception as e:
         log.error(f"Critical error in /score: {str(e)}", exc_info=True)
-        return {"error": str(e)}, 500
+        return jsonify({"error": f"An internal error occurred: {str(e)}"}), 500
 
 
 if __name__ == "__main__":

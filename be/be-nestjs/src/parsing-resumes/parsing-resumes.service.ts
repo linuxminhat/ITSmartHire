@@ -13,6 +13,7 @@ import pLimit from 'p-limit';
 import { Application, ApplicationDocument } from 'src/applications/schemas/application.schema';
 import * as XLSX from 'xlsx';
 import * as ExcelJS from 'exceljs';
+import FormData from 'form-data';
 
 @Injectable()
 export class ParsingResumesService {
@@ -307,36 +308,19 @@ export class ParsingResumesService {
   async scoreResumes(
     fileFromFrontend: Express.Multer.File,
     dataFromController: {
-      //job description
       jd: string;
-      //score weights
-      weights: {
-        skills: number;
-        experience: number;
-        designation: number;
-        degree: number;
-        gpa: number;
-        languages: number;
-        awards: number;
-        github: number;
-        certifications: number;
-        projects: number;
-      }
     }
   ) {
     try {
       const formData = new FormData();
-      const blob = new Blob([fileFromFrontend.buffer], { type: fileFromFrontend.mimetype });
-      formData.append('file', blob, fileFromFrontend.originalname);
-      formData.append('jd', JSON.stringify({
-        position: dataFromController.jd,
-
-      }));
-      formData.append('weights', JSON.stringify(dataFromController.weights));
+      // Use buffer directly from Multer's file object
+      formData.append('file', fileFromFrontend.buffer, fileFromFrontend.originalname);
+      formData.append('jd', dataFromController.jd);
 
       // Gọi đến AI Server
       const response = await axios.post('http://127.0.0.1:6970/score', formData, {
         headers: {
+          ...formData.getHeaders(), // Use headers from the form-data library
         },
         responseType: 'arraybuffer'
       });

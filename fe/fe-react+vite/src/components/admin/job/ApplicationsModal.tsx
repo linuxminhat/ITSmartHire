@@ -252,23 +252,9 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
         return;
       }
 
-      const defaultWeights = {
-        skills: 25,
-        experience: 20,
-        designation: 15,
-        degree: 10,
-        gpa: 10,
-        languages: 10,
-        awards: 2.5,
-        github: 2.5,
-        certifications: 2.5,
-        projects: 2.5
-      };
-
       await scoreResumes({
         jd: jobDescription,
         file: file,
-        weights: defaultWeights
       });
 
       setShowScoringModal(false);

@@ -76,7 +76,7 @@ const CVScoringModal: React.FC<CVScoringModalProps> = ({ onClose, onScore, isLoa
                     {jobDescription && (
                         <div className="space-y-2">
                             <h4 className="text-sm font-semibold text-gray-700">1. Job Description đang được áp dụng</h4>
-                            <div 
+                            <div
                                 className="prose prose-sm max-w-none w-full p-4 border border-gray-200 bg-gray-50 rounded-lg shadow-sm h-[150px] overflow-y-auto"
                                 dangerouslySetInnerHTML={{ __html: jobDescription }}
                             />

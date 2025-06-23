@@ -239,7 +239,6 @@ export class ParsingResumesController {
     @UploadedFile() file: Express.Multer.File,
     @Body() body: {
       jd: string;
-      weights: string;
     },
     @Res() res: Response,
   ) {
@@ -247,18 +246,11 @@ export class ParsingResumesController {
       if (!file) {
         throw new BadRequestException('File is required.');
       }
-      if (!body.jd || !body.weights) {
-        throw new BadRequestException('JD and weights are required.');
+      if (!body.jd) {
+        throw new BadRequestException('JD is required.');
       }
 
-      let parsedWeights;
-      try {
-        parsedWeights = JSON.parse(body.weights);
-      } catch (e) {
-        throw new BadRequestException('Invalid weights format. Weights should be a valid JSON string.');
-      }
-
-      const result = await this.parsingService.scoreResumes(file, { jd: body.jd, weights: parsedWeights });
+      const result = await this.parsingService.scoreResumes(file, { jd: body.jd });
 
       //return the result for client
       res.setHeader('Content-Type', result.headers['Content-Type']);
