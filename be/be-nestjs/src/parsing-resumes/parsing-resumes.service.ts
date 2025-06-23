@@ -472,7 +472,7 @@ export class ParsingResumesService {
       { header: 'Trường', key: 'university', width: 30 },
       { header: 'Bằng cấp', key: 'degree', width: 25 },
       { header: 'Điểm GPA', key: 'gpa', width: 10 },
-      { header: 'Năm tốt nghiệp', key: 'graduationYear', width: 15 },
+      { header: 'Năm tốt nghiệp', key: 'graduationYear', width: 25 },
       { header: 'Tổng số năm kinh nghiệm', key: 'totalExperienceYears', width: 15 },
       { header: 'Chức danh', key: 'designations', width: 40 },
       { header: 'Kinh nghiệm làm việc', key: 'workExperiences', width: 60 },
@@ -483,39 +483,81 @@ export class ParsingResumesService {
       { header: 'Chứng chỉ', key: 'certifications', width: 40 },
     ];
 
+    // Style the header
+    const headerRow = worksheet.getRow(1);
+    headerRow.font = { bold: true, color: { argb: 'FF000000' }, size: 12 };
+    headerRow.alignment = { vertical: 'middle', horizontal: 'center' };
+    headerRow.height = 20;
+
+
     // Data
     data.forEach(item => {
-      worksheet.addRow({
-        name: item.name || '',
-        email: item.email || '',
-        phone: item.phone || '',
-        github: item.github || '',
-        location: item.location || '',
-        university: item.university || '',
-        degree: item.degree || '',
-        gpa: item.gpa || '',
-        graduationYear: item.graduationYear || '',
-        totalExperienceYears: item.totalExperienceYears || 0,
-        designations: Array.isArray(item.designations) ? item.designations.join(', ') : '',
-        workExperiences: Array.isArray(item.workExperiences) ?
+      const row = worksheet.addRow({
+        name: item.name,
+        email: item.email,
+        phone: item.phone,
+        github: item.github,
+        location: item.location,
+        university: item.university,
+        degree: item.degree,
+        gpa: item.gpa,
+        graduationYear: item.graduationYear,
+        totalExperienceYears: item.totalExperienceYears,
+        designations: Array.isArray(item.designations) ? item.designations.join(', ') : item.designations,
+        workExperiences: Array.isArray(item.workExperiences) && item.workExperiences.length > 0 ?
           item.workExperiences.map(exp =>
             `Công ty: ${exp.company || 'N/A'}\nVị trí: ${exp.position || 'N/A'}\nThời gian: ${exp.duration || 'N/A'}\nMô tả:\n${Array.isArray(exp.description) ? exp.description.map(d => `- ${d}`).join('\n') : ''}`
-          ).join('\n\n') : '',
-        projects: Array.isArray(item.projects) ?
+          ).join('\n\n') : item.workExperiences,
+        projects: Array.isArray(item.projects) && item.projects.length > 0 ?
           item.projects.map(proj =>
             `[${proj.name || 'N/A'}]\n${Array.isArray(proj.description) ? proj.description.map(d => `- ${d}`).join('\n') : ''}`
-          ).join('\n\n') : '',
-        skills: Array.isArray(item.skills) ? item.skills.join(', ') : '',
-        languages: Array.isArray(item.languages) ? item.languages.join(', ') : '',
-        awards: Array.isArray(item.awards) ? item.awards.join(', ') : '',
-        certifications: Array.isArray(item.certifications) ? item.certifications.join(', ') : ''
+          ).join('\n\n') : item.projects,
+        skills: Array.isArray(item.skills) ? item.skills.join(', ') : item.skills,
+        languages: Array.isArray(item.languages) ? item.languages.join(', ') : item.languages,
+        awards: Array.isArray(item.awards) ? item.awards.join(', ') : item.awards,
+        certifications: Array.isArray(item.certifications) ? item.certifications.join(', ') : item.certifications,
+      });
+
+      row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+        const headerKey = worksheet.getColumn(colNumber).key;
+        const value = cell.value;
+
+        // Check for empty/null/undefined or empty array
+        const isEmpty = value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0);
+
+        if (isEmpty) {
+          cell.value = "Ứng viên không cung cấp thông tin này";
+          cell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FFFFE5CC' } // Light Orange
+          };
+          cell.font = {
+            color: { argb: 'FF9C4500' }, // Dark Orange
+            italic: true
+          };
+          cell.alignment = { ...cell.alignment, vertical: 'middle', horizontal: 'center' };
+        } else if (headerKey === 'totalExperienceYears' && (value === 0 || value === '0')) {
+          cell.alignment = { ...cell.alignment, horizontal: 'right' };
+        }
       });
     });
 
-    // Wrap text for all cells
-    worksheet.eachRow(row => {
-      row.eachCell(cell => {
-        cell.alignment = { wrapText: true, vertical: 'top' };
+    // Add borders to all cells and set alignment
+    worksheet.eachRow((row, rowNumber) => {
+      row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+        cell.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' }
+        };
+        // Set default alignment for all cells
+        cell.alignment = {
+          wrapText: true,
+          vertical: 'top',
+          ...cell.alignment // Preserve existing alignment settings
+        };
       });
     });
 
