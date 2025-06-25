@@ -2,4 +2,4 @@ BERT/models/pytorch_model.bin
 ResumeAI/
 **/node_modules/
 .env
- 
+BERT/finetune-score-cv-jd/

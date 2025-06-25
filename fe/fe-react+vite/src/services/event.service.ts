@@ -2,7 +2,6 @@ import { IBackendRes } from "@/types/backend";
 import axios from "@/config/axios-customize";
 
 import { IEvent } from "@/types/interview-event";
-
 export const getEvents = (start: Date, end: Date) =>
     axios.get<IEvent[]>(`/api/v1/events`, {
         params: { range: `${start.toISOString()}..${end.toISOString()}` },

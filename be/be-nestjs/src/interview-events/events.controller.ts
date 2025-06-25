@@ -27,7 +27,6 @@ export class EventsController {
     return this.eventsService.create(dto, req.user._id);
   }
 
-  //get a list of interview events that fall within a specific time period
   @Get()
   findRange(@Query('range') range: string, @Request() req) {
     const [start, end] = range.split('..');

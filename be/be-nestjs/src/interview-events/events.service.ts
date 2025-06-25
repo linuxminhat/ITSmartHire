@@ -17,15 +17,13 @@ export class EventsService {
   ) { }
 
   async create(dto: CreateEventDto, hrId: string) {
-    //Check for duplicate calendars
     const overlap = await this.model.exists({
       hrId,
-      start: { $lt: dto.end },//start < dto.end
-      end: { $gt: dto.start },//end > dto.start
+      start: { $lt: dto.end },
+      end: { $gt: dto.start },
     });
 
     if (overlap) throw new BadRequestException('Khung giờ đã được đặt');
-    //save in mongoDB
     const ev = await this.model.create({ ...dto, hrId });
     await this.sendInvite(ev, false);
     return ev;
@@ -33,11 +31,11 @@ export class EventsService {
 
   async update(eventId: string, dto: UpdateEventDto, hrId: string) {
     const ev = await this.model.findOneAndUpdate(
-      { _id: eventId, hrId },//check id 
-      dto,//check data update 
-      { new: true },//return 
+      { _id: eventId, hrId },
+      dto,
+      { new: true },
     );
-    if (ev) await this.sendInvite(ev, true);//update success -> send new email 
+    if (ev) await this.sendInvite(ev, true);
     return ev;
   }
 
@@ -46,18 +44,14 @@ export class EventsService {
     update = false,
   ) {
 
-    //connect google calendar API 
     const oAuth2Client = new google.auth.OAuth2(
       process.env.GCAL_CLIENT_ID,
       process.env.GCAL_CLIENT_SECRET,
       process.env.REDIRECT_URI,
     );
-
     oAuth2Client.setCredentials({ refresh_token: process.env.GCAL_REFRESH_TOKEN });
-    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
 
-    //create google meet 
-    //create event in google calendar 
+    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
     const res = await calendar.events.insert({
       calendarId: 'primary',
       conferenceDataVersion: 1,
@@ -76,7 +70,6 @@ export class EventsService {
       },
     });
 
-    //get google meet link 
     const entry = res.data.conferenceData?.entryPoints?.find(
       e => e.entryPointType === 'video'
     );
@@ -96,6 +89,7 @@ export class EventsService {
       })
       .toString();
 
+    // trong EventsService.sendInvite()
     const html = `
   <div style="font-family:sans-serif; padding:20px; background:#f5f5f5;">
     <div style="max-width:600px; margin:auto; background:#fff; padding:20px; border-radius:8px;">
@@ -155,7 +149,9 @@ export class EventsService {
       },
     });
 
-    //save meetLink in DB
+
+
+    // Update saved event with meetLink
     ev.meetLink = meetLink;
     await ev.save();
   }
