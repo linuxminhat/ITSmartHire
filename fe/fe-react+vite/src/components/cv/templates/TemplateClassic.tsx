@@ -53,153 +53,204 @@ const styles = StyleSheet.create({
     page: {
         flexDirection: 'row', // Two columns layout
         backgroundColor: '#FFFFFF',
-        fontFamily: 'Helvetica', // Consider using a specific font like Roboto if available
-        fontSize: 9.5, // Slightly reduce base font size for more content fit
-        lineHeight: 1.3, // Adjust line height for readability
-        color: '#444444', // Darker gray for body text
+        fontFamily: 'Helvetica', 
+        fontSize: 10, // Tăng base font size
+        lineHeight: 1.4, // Tăng line height
+        color: '#2D3748', // Màu đen đậm hơn
     },
     // --- Left Column (Wider) ---
     leftColumn: {
-        width: '70%',
-        padding: '25pt 15pt 25pt 25pt', // T R B L - Reduced padding slightly
+        width: '68%', // Giảm nhẹ để cân bằng
+        padding: '30pt 20pt 30pt 30pt', 
     },
     // --- Right Column (Narrower) ---
     rightColumn: {
-        width: '30%',
-        padding: '25pt 25pt 25pt 15pt', // T R B L - Reduced padding slightly
-        backgroundColor: '#F8F8F8', // Very light gray background
-        color: '#555555', // Slightly lighter text color for sidebar
+        width: '32%', // Tăng nhẹ
+        padding: '30pt 30pt 30pt 20pt', 
+        backgroundColor: '#F7FAFC', // Màu xanh nhạt elegant
+        color: '#4A5568', 
     },
     // --- General Section Styling ---
     section: {
-        marginBottom: 12, // Reduced margin between sections
+        marginBottom: 16, // Tăng spacing
     },
     sectionTitle: {
-        fontSize: 13,
+        fontSize: 14, // Tăng size
         fontWeight: 'bold',
-        color: '#2c5282', // Slightly darker blue
-        marginBottom: 6, // Reduced margin below title
+        color: '#2B6CB0', // Màu xanh đẹp hơn
+        marginBottom: 8, 
         textTransform: 'uppercase',
-        borderBottomWidth: 1.5, // Slightly thicker border
-        borderBottomColor: '#2c5282',
-        paddingBottom: 2,
+        letterSpacing: 0.5, // Thêm letter spacing
+        borderBottomWidth: 2,
+        borderBottomColor: '#2B6CB0',
+        paddingBottom: 3,
     },
     // --- Header / Personal Info (Right Column) ---
     name: {
-        fontSize: 22, // Slightly smaller name
+        fontSize: 20, // Giảm từ 24 xuống 20
         fontWeight: 'bold',
-        marginBottom: 4,
-        color: '#1A202C', // Very dark gray / near black
+        marginBottom: 6, // Giảm từ 8 xuống 6
+        color: '#1A202C',
+        lineHeight: 1.1, 
+        letterSpacing: 0.2, // Giảm letter spacing
     },
     jobTitle: {
-        fontSize: 11,
-        color: '#718096', // Medium gray
-        marginBottom: 12,
+        fontSize: 11, // Giảm từ 13 xuống 11
+        color: '#2B6CB0', 
+        marginBottom: 12, // Giảm từ 16 xuống 12
+        lineHeight: 1.2, // Giảm line height
+        fontWeight: 'normal',
+        fontStyle: 'italic',
     },
     contactInfoContainer: {
-        marginBottom: 8,
+        marginBottom: 10, // Giảm từ 12 xuống 10
+        borderTopWidth: 1,
+        borderTopColor: '#E2E8F0',
+        paddingTop: 8, // Giảm từ 12 xuống 8
     },
     contactItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 4, // Increased spacing slightly
-        fontSize: 9,
-        color: '#4A5568', // Darker gray for contact info
+        marginBottom: 4, // Giảm từ 6 xuống 4
+        fontSize: 9, // Giảm từ 10 xuống 9
+        color: '#4A5568',
+        lineHeight: 1.3, // Giảm line height
+    },
+    contactLabel: {
+        width: 12, // Giảm từ 16 xuống 12
+        fontSize: 8, // Giảm từ 9 xuống 8
+        color: '#718096',
+        marginRight: 4, // Giảm từ 6 xuống 4
     },
     // --- About Me (Left Column) ---
     aboutMeText: {
-        fontSize: 9.5,
+        fontSize: 10.5, // Tăng size
         textAlign: 'justify',
-        color: '#4A5568', // Consistent dark gray
+        color: '#4A5568',
+        lineHeight: 1.5, // Tăng line height cho dễ đọc
     },
     // --- Experience & Education Items ---
     itemContainer: {
-        marginBottom: 8, // Reduced spacing between items
+        marginBottom: 12, // Tăng lại spacing
+        paddingBottom: 8,
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#E2E8F0',
     },
     itemHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'flex-start', // Align items to the top
-        marginBottom: 2,
+        alignItems: 'flex-start',
+        marginBottom: 4,
     },
     itemTitle: {
-        fontSize: 10.5, // Slightly larger titles
+        fontSize: 10,
         fontWeight: 'bold',
-        color: '#2D3748', // Darker item title
-        maxWidth: '80%', // Prevent long titles from pushing dates too far
+        color: '#2D3748',
+        lineHeight: 1.3,
+        flex: 1,
+        paddingRight: 8,
     },
     itemSubtitle: {
-        fontSize: 9.5,
+        fontSize: 9,
         fontStyle: 'italic',
-        color: '#718096', // Medium gray
-        marginBottom: 2,
+        color: '#2B6CB0',
+        marginBottom: 4,
+        fontWeight: 'normal',
+        lineHeight: 1.3,
+        wordBreak: 'break-word',
     },
     itemDate: {
-        fontSize: 8.5,
-        color: '#A0AEC0', // Lighter gray for dates
-        textAlign: 'right', // Align dates to the right
-        minWidth: '50pt', // Ensure enough space for dates
+        fontSize: 8,
+        color: '#718096',
+        textAlign: 'right',
+        minWidth: '45pt',
+        fontWeight: 'bold',
+        lineHeight: 1.1,
+        flexShrink: 0,
     },
     itemDescription: {
-        fontSize: 9.5,
-        color: '#4A5568', // Consistent body text color
+        fontSize: 9,
+        color: '#4A5568',
+        lineHeight: 1.4, // Tăng lại line height
     },
     bulletPoint: {
         flexDirection: 'row',
-        marginLeft: 10, // Indent bullets
-        marginBottom: 3, // Spacing between bullet points
+        marginLeft: 10,
+        marginBottom: 4, // Tăng lại spacing
+        alignItems: 'flex-start',
     },
     bullet: {
-        width: 6,
-        marginRight: 4,
-        fontSize: 10, // Make bullet slightly larger/visible
-        // marginTop: 1, // Fine-tune vertical alignment if needed
+        width: 8,
+        marginRight: 6,
+        fontSize: 10,
+        color: '#2B6CB0',
+        marginTop: 1,
     },
     // --- Skills (Right Column) ---
     skillsContainer: {
-        // Could add flexWrap: 'wrap' if needed for many skills
+        flexDirection: 'column',
     },
     skillItem: {
-        marginBottom: 3,
-        fontSize: 9.5, // Consistent font size
+        marginBottom: 3, // Giảm từ 4 xuống 3
+        fontSize: 9, // Giảm từ 10 xuống 9
         color: '#4A5568',
+        paddingLeft: 6, // Giảm từ 8 xuống 6
+        borderLeftWidth: 1.5, // Giảm từ 2 xuống 1.5
+        borderLeftColor: '#2B6CB0',
+        lineHeight: 1.2, // Giảm từ 1.3 xuống 1.2
     },
     // --- Projects (Left Column) ---
     projectLink: {
-        fontSize: 8.5,
-        color: '#3182CE', // Brighter blue for links
-        textDecoration: 'none', // Remove underline by default, maybe add on hover if possible
-        marginLeft: 10,
-        marginBottom: 3,
+        fontSize: 8, // Giảm từ 9 xuống 8
+        color: '#2B6CB0',
+        textDecoration: 'none',
+        marginLeft: 8, // Giảm từ 12 xuống 8
+        marginBottom: 3, // Giảm từ 4 xuống 3
+        fontStyle: 'italic',
+        lineHeight: 1.2, // Thêm line height
     },
     projectTech: {
-        fontSize: 8.5,
+        fontSize: 8.5, // Giảm từ 9.5 xuống 8.5
         fontStyle: 'italic',
         color: '#718096',
-        marginLeft: 10,
-        marginBottom: 3,
+        marginLeft: 8, // Giảm từ 12 xuống 8
+        marginBottom: 3, // Giảm từ 4 xuống 3
+        backgroundColor: '#F7FAFC',
+        padding: 2, // Giảm từ 3 xuống 2
+        borderRadius: 2,
+        lineHeight: 1.2, // Thêm line height
     },
     // --- Certificates & Awards (Right Column) ---
     certAwardDate: {
-        fontSize: 8.5,
-        color: '#A0AEC0', // Lighter gray
-        marginLeft: 0, // No extra indent needed here if title/subtitle are clear
-        marginBottom: 3,
+        fontSize: 8, // Giảm từ 9 xuống 8
+        color: '#718096',
+        marginBottom: 3, // Giảm từ 4 xuống 3
+        fontStyle: 'italic',
+        lineHeight: 1.2, // Thêm line height
+    },
+    certAwardItem: {
+        marginBottom: 6, // Giảm từ 8 xuống 6
+        paddingBottom: 4, // Giảm từ 6 xuống 4
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#E2E8F0',
     },
     // --- Links ---
     link: {
-        color: '#3182CE',
+        color: '#2B6CB0',
         textDecoration: 'none',
     },
     // --- Footer ---
     footer: {
         position: 'absolute',
-        bottom: 15, // Move up slightly
-        left: 25,
-        right: 25,
+        bottom: 20,
+        left: 30,
+        right: 30,
         textAlign: 'center',
-        fontSize: 7.5, // Smaller footer text
-        color: '#A0AEC0', // Light gray
+        fontSize: 8,
+        color: '#A0AEC0',
+        borderTopWidth: 0.5,
+        borderTopColor: '#E2E8F0',
+        paddingTop: 8,
     }
 });
 
@@ -211,37 +262,51 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title
     </View>
 );
 
-// --- Reusable Component for List Items (Edu/Exp/Proj) ---
+// --- Enhanced ListItem Component ---
 const ListItem: React.FC<{
     title: string;
     subtitle?: string;
     dateRange?: string;
-    description?: string | string[]; // Can be a single string or array of bullets
+    description?: string | string[];
     linkUrl?: string;
     technologies?: string[];
     issueDate?: string;
-}> = ({ title, subtitle, dateRange, description, linkUrl, technologies, issueDate }) => {
-    // Split description string into an array of bullet points if it's a string
+    isAward?: boolean;
+}> = ({ title, subtitle, dateRange, description, linkUrl, technologies, issueDate, isAward = false }) => {
+    
+    const fullTitle = title || '';
+    const fullSubtitle = subtitle || '';
+    
     const descriptionPoints = typeof description === 'string'
         ? description.split('\n').map(s => s.trim()).filter(s => s !== '')
-        : description || [];
+        : (description || []);
+
+    const containerStyle = isAward ? styles.certAwardItem : styles.itemContainer;
 
     return (
-        <View style={styles.itemContainer}>
+        <View style={containerStyle}>
             <View style={styles.itemHeader}>
-                <Text style={styles.itemTitle}>{title}</Text>
+                <Text style={styles.itemTitle}>{fullTitle}</Text>
                 {dateRange && <Text style={styles.itemDate}>{dateRange}</Text>}
             </View>
-            {subtitle && <Text style={styles.itemSubtitle}>{subtitle}</Text>}
+            {fullSubtitle && <Text style={styles.itemSubtitle}>{fullSubtitle}</Text>}
             {issueDate && <Text style={styles.certAwardDate}>Issued: {issueDate}</Text>}
-            {linkUrl && <Link style={styles.projectLink} src={linkUrl}>{linkUrl}</Link>}
+            {linkUrl && (
+                <Link style={styles.projectLink} src={linkUrl}>
+                    {linkUrl}
+                </Link>
+            )}
             {technologies && technologies.length > 0 && (
-                <Text style={styles.projectTech}>Technologies: {technologies.join(', ')}</Text>
+                <Text style={styles.projectTech}>
+                    Tech: {technologies.join(' • ')}
+                </Text>
             )}
             {descriptionPoints.length > 0 && descriptionPoints.map((point, index) => (
-                <View key={index} style={styles.bulletPoint}>
-                    <Text style={styles.bullet}>•</Text>
-                    <Text style={styles.itemDescription}>{point}</Text>
+                <View key={index} style={styles.bulletPoint} wrap={false}>
+                    <Text style={styles.bullet}>▸</Text>
+                    <Text style={styles.itemDescription}>
+                        {point}
+                    </Text>
                 </View>
             ))}
         </View>
@@ -277,7 +342,7 @@ const TemplateClassic: React.FC<TemplateProps> = ({ profileData }) => {
 
     return (
         <Document title={`${profileData.name} CV`}>
-            <Page size="A4" style={styles.page}>
+            <Page size="A4" style={styles.page} wrap={true}> {/* SỬA: Thêm wrap={true} cho phép content tự động xuống trang */}
 
                 {/* === Left Column === */}
                 <View style={styles.leftColumn}>
@@ -297,7 +362,6 @@ const TemplateClassic: React.FC<TemplateProps> = ({ profileData }) => {
                                     title={exp.jobTitle || 'N/A'}
                                     subtitle={exp.companyName || 'N/A'}
                                     dateRange={`${formatDate(exp.startDate)} - ${formatDate(exp.endDate)}`}
-                                    // Pass the raw description string; ListItem will handle splitting
                                     description={exp.description}
                                 />
                             ))}
@@ -312,7 +376,6 @@ const TemplateClassic: React.FC<TemplateProps> = ({ profileData }) => {
                                     key={proj._id || index}
                                     title={proj.name || 'N/A'}
                                     dateRange={`${formatDate(proj.startDate)} - ${formatDate(proj.endDate)}`}
-                                    // Pass the raw description string
                                     description={proj.description}
                                     linkUrl={proj.url}
                                     technologies={proj.technologiesUsed}
@@ -326,19 +389,29 @@ const TemplateClassic: React.FC<TemplateProps> = ({ profileData }) => {
                 <View style={styles.rightColumn}>
                     {/* Personal Details */}
                     <View style={styles.section}>
-                         <Text style={styles.name}>{profileData.name || 'User Name'}</Text>
-                         {/* TODO: Add Job Title from profile if available */}
-                         <Text style={styles.jobTitle}>Software Developer</Text>
+                        <Text style={styles.name}>{profileData.name || 'User Name'}</Text>
+                        <Text style={styles.jobTitle}>Software Developer</Text>
 
-                         <View style={styles.contactInfoContainer}>
-                             {profileData.phone && <Text style={styles.contactItem}>{profileData.phone}</Text>}
-                             {profileData.email && <Text style={styles.contactItem}>{profileData.email}</Text>}
-                             {/* TODO: Add Birthday/Age if desired */}
-                             {/* {profileData.age && <Text style={styles.contactItem}>Age: {profileData.age}</Text>} */}
-                             {profileData.address && <Text style={styles.contactItem}>{profileData.address}</Text>}
-                             {/* TODO: Add LinkedIn/Portfolio Link if available */}
-                             {/* <Link style={styles.contactItem} src={"https://linkedin.com/..."}>LinkedIn Profile</Link> */}
-                         </View>
+                        <View style={styles.contactInfoContainer}>
+                            {profileData.phone && (
+                                <View style={styles.contactItem}>
+                                    <Text style={styles.contactLabel}>📞</Text>
+                                    <Text>{profileData.phone}</Text>
+                                </View>
+                            )}
+                            {profileData.email && (
+                                <View style={styles.contactItem}>
+                                    <Text style={styles.contactLabel}>✉️</Text>
+                                    <Text>{profileData.email}</Text>
+                                </View>
+                            )}
+                            {profileData.address && (
+                                <View style={styles.contactItem}>
+                                    <Text style={styles.contactLabel}>📍</Text>
+                                    <Text>{profileData.address}</Text>
+                                </View>
+                            )}
+                        </View>
                     </View>
 
                     {/* Education */}
@@ -350,7 +423,6 @@ const TemplateClassic: React.FC<TemplateProps> = ({ profileData }) => {
                                     title={edu.degree || 'N/A'}
                                     subtitle={edu.school || 'N/A'}
                                     dateRange={`${formatDate(edu.startDate)} - ${formatDate(edu.endDate)}`}
-                                     // Pass the raw description string
                                     description={edu.description}
                                 />
                             ))}
@@ -360,9 +432,11 @@ const TemplateClassic: React.FC<TemplateProps> = ({ profileData }) => {
                     {/* Skills */}
                     {skills.length > 0 && (
                         <Section title="Skills">
-                            {skills.map((skill, index) => (
-                                <Text key={index} style={styles.skillItem}>• {skill}</Text>
-                            ))}
+                            <View style={styles.skillsContainer}>
+                                {skills.map((skill, index) => (
+                                    <Text key={index} style={styles.skillItem}>{skill}</Text>
+                                ))}
+                            </View>
                         </Section>
                     )}
 
@@ -376,13 +450,14 @@ const TemplateClassic: React.FC<TemplateProps> = ({ profileData }) => {
                                     subtitle={cert.issuingOrganization}
                                     linkUrl={cert.credentialUrl}
                                     issueDate={formatDate(cert.issueDate)}
+                                    isAward={true}
                                 />
                             ))}
                         </Section>
                     )}
 
-                     {/* Awards */}
-                     {awards.length > 0 && (
+                    {/* Awards */}
+                    {awards.length > 0 && (
                         <Section title="Awards">
                             {awards.map((award, index) => (
                                 <ListItem
@@ -391,16 +466,17 @@ const TemplateClassic: React.FC<TemplateProps> = ({ profileData }) => {
                                     subtitle={award.issuingOrganization}
                                     issueDate={formatDate(award.issueDate)}
                                     description={award.description}
+                                    isAward={true}
                                 />
                             ))}
                         </Section>
                     )}
                 </View>
 
-                 {/* Footer */}
-                 <Text style={styles.footer} fixed>
-                     Generated by IT SMART HIRE - {format(new Date(), 'dd/MM/yyyy')}
-                 </Text>
+                {/* Footer */}
+                <Text style={styles.footer} fixed>
+                    Generated by IT SMART HIRE - {format(new Date(), 'dd/MM/yyyy')}
+                </Text>
             </Page>
         </Document>
     );
