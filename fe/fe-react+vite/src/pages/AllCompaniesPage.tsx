@@ -5,6 +5,8 @@ import { ICompany } from '@/types/backend';
 import Spinner from '@/components/Spinner';
 import { MapPinIcon, BuildingOffice2Icon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import companiesBanner from '@/assets/images/companies-banner.jpg';
+import { toast } from "react-toastify";
+
 interface IPagination {
   current: number;
   pageSize: number;
@@ -140,45 +142,35 @@ const AllCompaniesPage: React.FC = () => {
             {!isLoading && !error && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {companies.length > 0 ? (
-                     companies.map((company) => (
-                      <Link 
-                        key={company._id} 
-                        to={`/company/${company._id}`} 
-                        className="flex flex-col bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden border border-gray-200 hover:border-indigo-300 group"
-                       >
-                          <div className="flex items-center p-4 border-b border-gray-200 bg-gray-50 group-hover:bg-gray-100 transition">
-                               <img 
-                                   src={company.logo || 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Logo'} 
-                                   alt={`${company.name} logo`} 
-                                   className="h-14 w-14 object-contain mr-4 border rounded-md p-1 bg-white flex-shrink-0"
-                               />
-                               <span className="font-semibold text-gray-800 flex-grow truncate group-hover:text-indigo-600 transition" title={company.name}>{company.name}</span>
+                  {companies.map(company => (
+                    <div key={company._id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                      <div className="p-5">
+                        <div className="flex items-center mb-4">
+                          <img src={company.logo} alt={`${company.name} logo`} className="h-14 w-14 object-contain mr-4 flex-shrink-0" />
+                          <div className="min-w-0">
+                            <h3 className="text-lg font-bold text-gray-900 truncate" title={company.name}>{company.name}</h3>
+                            <p className="text-sm text-gray-500 truncate" title={company.industry || 'Ngành nghề không xác định'}>{company.industry || 'Ngành nghề không xác định'}</p>
                           </div>
-                          
-                          <div className="p-4 flex-grow">
-                               <div 
-                                  className="text-sm text-gray-600 line-clamp-3 prose prose-sm max-w-none" 
-                                  dangerouslySetInnerHTML={{ __html: company.description || '<p class="italic text-gray-400">Chưa có mô tả.</p>' }}
-                               />
-                          </div>
-                          
-                          <div className="p-4 mt-auto flex justify-between items-center text-sm text-gray-600 border-t border-gray-200 ">
-                              <div className="flex items-center space-x-1 truncate">
-                                  <MapPinIcon className="h-4 w-4 flex-shrink-0 text-gray-400" />
-                                  <span className="truncate" title={company.address || 'Chưa rõ'}>{company.address || 'Chưa rõ'}</span> 
-                              </div>
-                              <ArrowRightIcon className="h-4 w-4 text-gray-400 flex-shrink-0 group-hover:text-indigo-600 transition" />
-                          </div>
-                      </Link>
-                     ))
-                  ) : (
-                       <div className="col-span-full text-center text-gray-500 py-16 flex flex-col items-center">
-                           <BuildingOffice2Icon className="h-12 w-12 text-gray-400 mb-4" />
-                           <p className="text-lg">Không tìm thấy công ty nào phù hợp.</p>
-                           <p className="text-sm">Hãy thử lại sau hoặc khám phá các việc làm nổi bật.</p>
-                       </div>
-                  )}
+                        </div>
+                        <div
+                          className="prose prose-sm max-w-none text-gray-700 mb-4 h-20 overflow-hidden [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+                          dangerouslySetInnerHTML={{ __html: company.description || '<p>Không có mô tả.</p>' }}
+                        />
+                      </div>
+                      <div className="border-t border-gray-100 mt-auto p-5">
+                        <div className="flex items-center text-sm text-gray-600 mb-3">
+                          <MapPinIcon className="h-5 w-5 mr-2 text-gray-400 flex-shrink-0" />
+                          <span className="truncate">{company.address}</span>
+                        </div>
+                        <Link
+                          to={`/company/${company._id}`}
+                          className="block w-full text-center bg-blue-50 text-blue-700 font-semibold py-2 rounded-lg hover:bg-blue-100 transition-colors duration-200"
+                        >
+                          Xem chi tiết
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 {renderPagination()}
               </>
