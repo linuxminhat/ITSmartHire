@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogService } from '@/services/blog.service';
 import { IBlog } from '@/types/blog.type';
@@ -11,15 +11,34 @@ const BlogDetailPage: React.FC = () => {
   const [blog, setBlog] = useState<IBlog | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  const hasIncrementedView = useRef(false);
+  const currentBlogId = useRef<string | null>(null);
 
   useEffect(() => {
     const fetchBlogDetail = async () => {
       if (!id) return;
+      
+      if (currentBlogId.current !== id) {
+        hasIncrementedView.current = false;
+        currentBlogId.current = id;
+      }
+      
       try {
         setLoading(true);
+        setError(null);
+
+        if (!hasIncrementedView.current) {
+          console.log('[DEBUG] Tăng lượt xem cho blog:', id);
+          hasIncrementedView.current = true;
+          await blogService.incrementView(id);
+        }
+
         const response = await blogService.getById(id);
         if (response?.data) {
           setBlog(response.data);
+        } else {
+          setError('Không tìm thấy bài viết');
         }
       } catch (err) {
         setError('Không thể tải thông tin bài viết');

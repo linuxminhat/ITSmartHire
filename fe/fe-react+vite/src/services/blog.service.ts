@@ -29,6 +29,10 @@ class BlogService {
     return response;
   }
 
+  async incrementView(id: string) {
+    return axios.post(`${this.baseUrl}/${id}/view`);
+  }
+
   async search(keyword: string) {
     const response = await axios.get(`${this.baseUrl}/search?q=${encodeURIComponent(keyword)}`);
     return response;

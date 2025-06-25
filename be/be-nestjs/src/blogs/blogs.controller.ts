@@ -36,9 +36,13 @@ export class BlogsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    await this.blogsService.incrementViews(id);
+  findOne(@Param('id') id: string) {
     return this.blogsService.findOne(id);
+  }
+
+  @Post(':id/view')
+  incrementViews(@Param('id') id: string) {
+    return this.blogsService.incrementViews(id);
   }
 
   @Put(':id')
