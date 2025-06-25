@@ -54,17 +54,16 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     name: {
-        fontSize: 26,
+        fontSize: 24,
         fontWeight: 'bold',
-        color: '#1A202C', // Near Black
-        marginBottom: 6,
-        // fontFamily: 'Inter', fontWeight: 700,
+        color: '#1A202C',
+        marginBottom: 8,
+        lineHeight: 1.1,
     },
     jobTitle: {
-        fontSize: 13,
-        color: '#4A5568', // Medium-Dark Gray
-        marginBottom: 10,
-        // fontFamily: 'Inter', fontWeight: 500,
+        fontSize: 12,
+        color: '#4A5568',
+        marginBottom: 12,
     },
     contactInfoContainer: {
         flexDirection: 'row',

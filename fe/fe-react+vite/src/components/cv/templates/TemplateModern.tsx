@@ -74,17 +74,24 @@ const styles = StyleSheet.create({
     },
     // --- Header / Personal Info (Left Column) ---
     name: {
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 5,
         color: '#FFFFFF',
         textAlign: 'center',
+        lineHeight: 1.2,
+        marginBottom: 6,
     },
     jobTitle: {
-        fontSize: 12,
-        color: '#BDC3C7', // Light gray for job title
+        fontSize: 11,
+        color: '#BDC3C7',
         textAlign: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
+    },
+    nameContainer: {
+        marginBottom: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: '#1ABC9C',
+        paddingBottom: 15,
     },
     contactInfoContainer: {
         marginBottom: 15,
@@ -300,12 +307,14 @@ const TemplateModern: React.FC<TemplateProps> = ({ profileData }) => {
 
                 {/* === Left Column === */}
                 <View style={styles.leftColumn}>
-                    {/* --- Contact Info --- */}
-                    <View style={styles.section}> 
-                         <Text style={styles.name}>{profileData.name || 'User Name'}</Text>
-                         <Text style={styles.jobTitle}>{profileData.jobTitle || 'Software Developer'}</Text> 
-                         
-                         <LeftSection title="Contact">
+                    {/* --- Personal Info --- */}
+                    <View style={styles.section}>
+                        <View style={styles.nameContainer}>
+                            <Text style={styles.name}>{profileData.name || 'User Name'}</Text>
+                            <Text style={styles.jobTitle}>{profileData.jobTitle || 'Software Developer'}</Text>
+                        </View>
+                        
+                        <LeftSection title="Contact">
                             <View style={styles.contactInfoContainer}>
                                 {profileData.phone && <Text style={styles.contactItem}><View style={styles.iconPlaceholder}/>{profileData.phone}</Text>}
                                 {profileData.email && <Text style={styles.contactItem}><View style={styles.iconPlaceholder}/>{profileData.email}</Text>}
@@ -321,7 +330,7 @@ const TemplateModern: React.FC<TemplateProps> = ({ profileData }) => {
                                     </Link>
                                 }
                             </View>
-                         </LeftSection>
+                        </LeftSection>
                     </View>
 
                     {/* --- Education --- */}

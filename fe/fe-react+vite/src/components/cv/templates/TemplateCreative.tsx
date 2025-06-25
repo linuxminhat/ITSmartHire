@@ -49,53 +49,60 @@ const colors = {
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'column',
-        backgroundColor: colors.background,
-        fontFamily: 'Helvetica', // Fallback, use registered font like 'Raleway'
+        backgroundColor: '#FFFFFF',
+        fontFamily: 'Helvetica',
         fontSize: 10,
-        color: colors.textDark,
+        color: '#333333',
         padding: 30,
     },
     // --- Header Section ---
     header: {
+        padding: '0 0 20pt 0',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 25,
-        paddingBottom: 15,
+        alignItems: 'flex-end',
         borderBottomWidth: 2,
-        borderBottomColor: colors.primary,
+        borderBottomColor: '#4A5568',
+    },
+    headerLeft: {
+        flex: 1,
+    },
+    headerRight: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-end',
     },
     name: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: colors.primary,
+        color: '#2D3748',
         marginBottom: 4,
-        // fontFamily: 'Raleway', // Use registered font
     },
     jobTitle: {
         fontSize: 14,
-        color: colors.accent,
-        marginBottom: 10,
-    },
-    contactInfoContainer: {
-        textAlign: 'right',
+        color: '#718096',
+        fontStyle: 'italic',
     },
     contactItem: {
         fontSize: 9,
-        marginBottom: 3,
-        color: colors.textDark,
+        color: '#4A5568',
+        marginLeft: 12,
+        lineHeight: 1.4,
     },
-    contactLink: {
-        fontSize: 9,
-        color: colors.primary,
-        textDecoration: 'none',
+    profileImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        borderWidth: 3,
+        borderColor: '#4fd1c5', // Teal border
     },
     // --- Main Content Area (Single Column Approach) ---
     mainContent: {
         // Using single column for creative layout variation
     },
     section: {
-        marginBottom: 20,
+        marginBottom: 15,
+        breakInside: 'avoid',
     },
     sectionTitle: {
         fontSize: 16,
@@ -110,10 +117,10 @@ const styles = StyleSheet.create({
     },
     // --- Experience & Education Items ---
     itemContainer: {
-        marginBottom: 15,
-        paddingLeft: 10, // Indent items slightly
-        borderLeftWidth: 2,
-        borderLeftColor: colors.secondary,
+        marginBottom: 10,
+        paddingBottom: 8,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e2e8f0', // Light gray border
     },
     itemHeader: {
         flexDirection: 'row',
@@ -122,23 +129,24 @@ const styles = StyleSheet.create({
         marginBottom: 3,
     },
     itemTitle: {
-        fontSize: 12,
+        fontSize: 11,
         fontWeight: 'bold',
-        color: colors.textDark,
-        marginBottom: 2,
-        maxWidth: '85%',
+        color: '#2d3748',
+        flex: 1,
+        paddingRight: 10,
+        lineHeight: 1.3,
     },
     itemSubtitle: {
         fontSize: 10,
         fontStyle: 'italic',
-        color: '#666',
+        color: '#4a5568', // Darker gray
         marginBottom: 4,
     },
     itemDate: {
         fontSize: 9,
-        color: colors.accent,
-        textAlign: 'right',
+        color: '#718096', // Medium gray
         fontWeight: 'bold',
+        flexShrink: 0,
     },
     itemDescription: {
         fontSize: 10,
@@ -296,27 +304,17 @@ const TemplateCreative: React.FC<TemplateProps> = ({ profileData }) => {
 
     return (
         <Document title={`${profileData.name} CV - Creative`}>
-            <Page size="A4" style={styles.page}>
+            <Page size="A4" style={styles.page} wrap={true}>
                 {/* --- Header --- */}
                 <View style={styles.header}>
-                    <View>
+                    <View style={styles.headerLeft}>
                         <Text style={styles.name}>{profileData.name || 'User Name'}</Text>
                         <Text style={styles.jobTitle}>{profileData.jobTitle || 'Creative Professional'}</Text>
                     </View>
-                    <View style={styles.contactInfoContainer}>
+                    <View style={styles.headerRight}>
                         {profileData.phone && <Text style={styles.contactItem}>{profileData.phone}</Text>}
                         {profileData.email && <Text style={styles.contactItem}>{profileData.email}</Text>}
                         {profileData.address && <Text style={styles.contactItem}>{profileData.address}</Text>}
-                        {profileData.linkedIn && 
-                            <Link style={styles.contactLink} src={profileData.linkedIn}>
-                                <Text>LinkedIn</Text>
-                            </Link>
-                        }
-                         {profileData.portfolio && 
-                            <Link style={styles.contactLink} src={profileData.portfolio}>
-                                <Text>Portfolio</Text>
-                            </Link>
-                        }
                     </View>
                 </View>
 
