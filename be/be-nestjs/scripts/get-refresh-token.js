@@ -18,7 +18,7 @@ async function main() {
     });
     console.log('1) Mở URL này và cấp quyền:');
     console.log(authUrl);
-    const code = '4/0AUJR-x53E_3m5C3jQJcQdCOeMD01QiM5D_okJjygouIeUpCBuc5h1itdnDVhOvq8cJ9S1g';
+    const code = '4/0AVMBsJhjzaNYc9sAFBJFq1WMvn1ccRze30vnAzNW8WWDOAI9EFDtTS4GDwI8duSP8T70Pg';
     const { tokens } = await oAuth2Client.getToken(code);
     console.log('\n💾 Refresh Token:');
     console.log(tokens.refresh_token);

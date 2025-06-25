@@ -40,6 +40,7 @@ import HRNotificationsPage from "@/pages/admin/HRNotificationsPage";
 import InterviewSchedulePage from "@/pages/admin/InterviewSchedulePage";
 import ResumeParsingPage from "@/components/ResumeParsing/ResumeParsingPage";
 import SavedRecordsPage from "@/pages/hr/SaveRecordPage";
+import HrDashboardPage from "@/pages/hr/HrDashboardPage";
 
 
 
@@ -126,7 +127,7 @@ export const router = createBrowserRouter([
           {
             element: <AdminLayout />,
             children: [
-              { index: true, element: <HRPage /> },
+              { index: true, element: <HrDashboardPage /> },
               // { index: true, element: <Navigate to="/hr/jobs" replace /> },
               { path: "profile", element: <ProfilePage /> },
               { path: "companies", element: <ManageCompaniesPage /> },

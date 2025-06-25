@@ -22,6 +22,7 @@ import { EventsModule } from './interview-events/events.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ParsingResumesModule } from './parsing-resumes/parsing-resumes.module';
 import { CommentsModule } from './comments/comments.module';
+import { HrDashboardModule } from './hr-dashboard/hr-dashboard.module';
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { CommentsModule } from './comments/comments.module';
     EventsModule,
     ParsingResumesModule,
     CommentsModule,
+    HrDashboardModule,
   ],
 
   controllers: [AppController],

@@ -14,6 +14,7 @@ import math
 from langdetect import detect
 import logging
 import google.generativeai as genai
+from pathlib import Path
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -29,13 +30,11 @@ load_dotenv()
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 log.info("Loading SentenceTransformer model for scoring...")
 try:
-    model_dir = os.path.join(
-        os.path.dirname(__file__),
-        "pretrained_model",
-        "all_mpnet_ft_cv_jd",
-    )
+    model_dir = Path(__file__).resolve().parent / "finetune-score-cv-jd"
+    assert model_dir.exists(), f"Không tìm thấy thư mục model: {model_dir}"
 
-    model = SentenceTransformer(model_dir)
+    # SentenceTransformer chấp nhận cả str lẫn Path, nhưng truyền str là chắc ăn:
+    model = SentenceTransformer(str(model_dir))
     log.info("SentenceTransformer model loaded successfully.")
 except Exception as e:
     log.error(f"Failed to load SentenceTransformer model: {e}")
@@ -113,7 +112,9 @@ def extract_jd_info_with_gemini(jd_text: str) -> dict:
         # Validate and structure the data
         validated_data = {
             "designation": data.get("designation", ""),
-            "required_experience_years": float(data.get("required_experience_years", 0)),
+            "required_experience_years": float(
+                data.get("required_experience_years", 0)
+            ),
             "required_degree": data.get("required_degree", ""),
             "required_skills": data.get("required_skills", []),
             "required_gpa": float(data.get("required_gpa", 0)),
@@ -131,40 +132,51 @@ def extract_jd_info_with_gemini(jd_text: str) -> dict:
 def calculate_list_match_score(candidate_list, jd_list, threshold=0.7):
     """Calculates match score for lists like skills, certs, awards."""
     if not jd_list:
-        return -1.0 # Not required by JD
-    if pd.isna(candidate_list) or not candidate_list or str(candidate_list) == "Ứng viên không cung cấp thông tin này" or not model:
+        return -1.0  # Not required by JD
+    if (
+        pd.isna(candidate_list)
+        or not candidate_list
+        or str(candidate_list) == "Ứng viên không cung cấp thông tin này"
+        or not model
+    ):
         return 0.0
 
     if isinstance(candidate_list, str):
-        candidate_list = [item.strip() for item in candidate_list.split(',') if item.strip()]
+        candidate_list = [
+            item.strip() for item in candidate_list.split(",") if item.strip()
+        ]
     if not candidate_list:
         return 0.0
-    
+
     candidate_list = [item.lower().strip() for item in candidate_list]
     jd_list = [item.lower().strip() for item in jd_list]
 
     candidate_embeddings = model.encode(candidate_list)
     jd_embeddings = model.encode(jd_list)
     similarities = util.cos_sim(candidate_embeddings, jd_embeddings)
-    
+
     matches = 0
     for i in range(len(jd_list)):
         if torch.any(similarities[:, i] > threshold):
             matches += 1
-            
+
     score = (float(matches) / len(jd_list)) if len(jd_list) > 0 else 1.0
     return min(score, 1.0)
 
 
 def calculate_experience_score(candidate_years, required_years):
-    if pd.isna(candidate_years) or str(candidate_years) == "Ứng viên không cung cấp thông tin này" or not candidate_years:
+    if (
+        pd.isna(candidate_years)
+        or str(candidate_years) == "Ứng viên không cung cấp thông tin này"
+        or not candidate_years
+    ):
         candidate_years = 0
     try:
         candidate_years = float(candidate_years)
         required_years = float(required_years)
 
         if required_years == 0:
-            return 1.0 # 100% fit if no experience is required
+            return 1.0  # 100% fit if no experience is required
         if candidate_years >= required_years:
             return 1.0
         elif candidate_years > 0:
@@ -174,20 +186,28 @@ def calculate_experience_score(candidate_years, required_years):
         return 0.0
 
 
-def calculate_designation_score(candidate_designation: str, jd_designation: str) -> float:
-    if pd.isna(candidate_designation) or str(candidate_designation) == "Ứng viên không cung cấp thông tin này" or not candidate_designation or not jd_designation or not model:
+def calculate_designation_score(
+    candidate_designation: str, jd_designation: str
+) -> float:
+    if (
+        pd.isna(candidate_designation)
+        or str(candidate_designation) == "Ứng viên không cung cấp thông tin này"
+        or not candidate_designation
+        or not jd_designation
+        or not model
+    ):
         return 0.0
     cand = _normalize(candidate_designation)
     jd = _normalize(jd_designation)
     sim = util.cos_sim(model.encode([cand]), model.encode([jd]))[0][0].item()
-    
+
     # Keep the bonus/penalty logic as it refines the raw similarity
     tags_cand, tags_jd = _tag_set(cand), _tag_set(jd)
     if tags_cand & tags_jd:
         sim = min(sim + TAG_BONUS, 1.0)
     elif {"backend", "frontend"} <= (tags_cand | tags_jd) and not (tags_cand & tags_jd):
         sim = max(sim - TAG_PENALTY, 0.0)
-        
+
     return sim
 
 
@@ -195,39 +215,56 @@ def calculate_degree_score(candidate_degree: str, jd_degree: str) -> float:
     if not model:
         return 0.0
     if not jd_degree or jd_degree.strip() == "":
-        return -1.0 # Not required
-    if pd.isna(candidate_degree) or str(candidate_degree) == "Ứng viên không cung cấp thông tin này" or not str(candidate_degree).strip():
+        return -1.0  # Not required
+    if (
+        pd.isna(candidate_degree)
+        or str(candidate_degree) == "Ứng viên không cung cấp thông tin này"
+        or not str(candidate_degree).strip()
+    ):
         return 0.0
-        
-    it_prototype_vector = np.mean(model.encode([
-        "bachelor of science in computer science", 
-        "associate in information technology"
-    ]), axis=0)
+
+    it_prototype_vector = np.mean(
+        model.encode(
+            [
+                "bachelor of science in computer science",
+                "associate in information technology",
+            ]
+        ),
+        axis=0,
+    )
 
     if jd_degree == "GENERIC_IT_DEGREE":
-        similarity = util.cos_sim(model.encode(candidate_degree), it_prototype_vector)[0][0].item()
+        similarity = util.cos_sim(model.encode(candidate_degree), it_prototype_vector)[
+            0
+        ][0].item()
         return 1.0 if similarity > 0.5 else 0.0
 
-    similarity = util.cos_sim(model.encode(candidate_degree), model.encode(jd_degree))[0][0].item()
+    similarity = util.cos_sim(model.encode(candidate_degree), model.encode(jd_degree))[
+        0
+    ][0].item()
     return similarity
 
 
 def calculate_gpa_score(gpa_str, required_gpa):
     if required_gpa == 0:
-        return -1.0 # Not required
-    if pd.isna(gpa_str) or str(gpa_str) == "Ứng viên không cung cấp thông tin này" or not str(gpa_str).strip():
+        return -1.0  # Not required
+    if (
+        pd.isna(gpa_str)
+        or str(gpa_str) == "Ứng viên không cung cấp thông tin này"
+        or not str(gpa_str).strip()
+    ):
         return 0.0
-        
+
     gpa_str = str(gpa_str).strip()
     try:
         gpa_value_str = gpa_str.split("/")[0].strip()
         gpa = float(gpa_value_str)
         is_10_point_scale = ("/10" in gpa_str) or (gpa > 4.0 and gpa <= 10.0)
-        
+
         normalized_gpa = gpa
         if is_10_point_scale:
-            normalized_gpa = gpa / 2.5 # Convert to 4.0 scale
-        
+            normalized_gpa = gpa / 2.5  # Convert to 4.0 scale
+
         return 1.0 if normalized_gpa >= required_gpa else 0.0
     except (ValueError, TypeError):
         return 0.0
@@ -235,10 +272,14 @@ def calculate_gpa_score(gpa_str, required_gpa):
 
 def calculate_language_score(candidate_langs, required_langs):
     if not required_langs:
-        return -1.0 # Not required
-    if pd.isna(candidate_langs) or not str(candidate_langs).strip() or str(candidate_langs) == "Ứng viên không cung cấp thông tin này":
+        return -1.0  # Not required
+    if (
+        pd.isna(candidate_langs)
+        or not str(candidate_langs).strip()
+        or str(candidate_langs) == "Ứng viên không cung cấp thông tin này"
+    ):
         return 0.0
-    
+
     # If we are here, it means the cell is not empty and not the placeholder text.
     # Simple existence check as requested. For more complex logic, this can be expanded.
     return 1.0
@@ -259,29 +300,110 @@ NORMALIZE_PATTERNS = [
 ]
 ROLE_TAGS: dict[str, set[str]] = {
     "frontend": {
-        "frontend", "react", "angular", "vue", "svelte", "javascript", "typescript", "tailwind", "bootstrap", "material-ui",
+        "frontend",
+        "react",
+        "angular",
+        "vue",
+        "svelte",
+        "javascript",
+        "typescript",
+        "tailwind",
+        "bootstrap",
+        "material-ui",
     },
     "backend": {
-        "backend", "java", "spring", "node", ".net", "python", "django", "flask", "fastapi", "php", "laravel", "ruby", "rails", "go",
+        "backend",
+        "java",
+        "spring",
+        "node",
+        ".net",
+        "python",
+        "django",
+        "flask",
+        "fastapi",
+        "php",
+        "laravel",
+        "ruby",
+        "rails",
+        "go",
     },
     "fullstack": {"full stack"},
     "mobile": {
-        "mobile", "android", "ios", "swift", "kotlin", "flutter", "react native", "xamarin", "cordova", "ionic",
+        "mobile",
+        "android",
+        "ios",
+        "swift",
+        "kotlin",
+        "flutter",
+        "react native",
+        "xamarin",
+        "cordova",
+        "ionic",
     },
     "devops": {
-        "devops", "sre", "docker", "kubernetes", "ci/cd", "jenkins", "terraform", "ansible", "aws", "azure", "gcp", "prometheus", "grafana",
+        "devops",
+        "sre",
+        "docker",
+        "kubernetes",
+        "ci/cd",
+        "jenkins",
+        "terraform",
+        "ansible",
+        "aws",
+        "azure",
+        "gcp",
+        "prometheus",
+        "grafana",
     },
     "data": {
-        "data", "ml", "etl", "hadoop", "spark", "kafka", "pandas", "numpy", "tensorflow", "pytorch", "sql", "mysql", "postgres", "snowflake", "bigquery", "airflow",
+        "data",
+        "ml",
+        "etl",
+        "hadoop",
+        "spark",
+        "kafka",
+        "pandas",
+        "numpy",
+        "tensorflow",
+        "pytorch",
+        "sql",
+        "mysql",
+        "postgres",
+        "snowflake",
+        "bigquery",
+        "airflow",
     },
     "qa": {
-        "qa", "tester", "selenium", "cypress", "playwright", "junit", "pytest", "robot",
+        "qa",
+        "tester",
+        "selenium",
+        "cypress",
+        "playwright",
+        "junit",
+        "pytest",
+        "robot",
     },
     "security": {
-        "security", "jwt", "oauth2", "saml", "keycloak", "owasp", "pentest", "burp", "zap", "sonarqube",
+        "security",
+        "jwt",
+        "oauth2",
+        "saml",
+        "keycloak",
+        "owasp",
+        "pentest",
+        "burp",
+        "zap",
+        "sonarqube",
     },
     "uiux": {
-        "ui", "ux", "figma", "sketch", "adobe xd", "product designer", "interaction designer", "graphic designer",
+        "ui",
+        "ux",
+        "figma",
+        "sketch",
+        "adobe xd",
+        "product designer",
+        "interaction designer",
+        "graphic designer",
     },
 }
 TAG_BONUS = 0.07
@@ -321,9 +443,13 @@ def translate_text_azure(text: str) -> str:
         url = f"{ep}/translate"
         params = {"api-version": "3.0", "from": "vi", "to": "en"}
         headers = {
-            "Ocp-Apim-Subscription-Key": key, "Ocp-Apim-Subscription-Region": loc, "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": key,
+            "Ocp-Apim-Subscription-Region": loc,
+            "Content-Type": "application/json",
         }
-        resp = requests.post(url, params=params, headers=headers, json=[{"text": text}], timeout=15)
+        resp = requests.post(
+            url, params=params, headers=headers, json=[{"text": text}], timeout=15
+        )
         resp.raise_for_status()
         result = resp.json()[0]["translations"][0]["text"]
         log.info("Translation OK")
@@ -336,18 +462,32 @@ def translate_text_azure(text: str) -> str:
 @app.route("/score", methods=["POST"])
 def score_cvs():
     if not model or not gemini_model:
-        return jsonify({"error": "A required model (SentenceTransformer or Gemini) failed to load. Check server logs."}), 503
+        return (
+            jsonify(
+                {
+                    "error": "A required model (SentenceTransformer or Gemini) failed to load. Check server logs."
+                }
+            ),
+            503,
+        )
     try:
         log.info("Received scoring request to /score")
-        
+
         # Safer access to file and form data
-        if 'file' not in request.files:
+        if "file" not in request.files:
             return jsonify({"error": "No 'file' part in the request"}), 400
         excel_file = request.files["file"]
 
-        jd_text = request.form.get("jd") # Use .get() for safer access
+        jd_text = request.form.get("jd")  # Use .get() for safer access
         if not jd_text:
-            return jsonify({"error": "Job Description text ('jd' field) is missing from the form."}), 400
+            return (
+                jsonify(
+                    {
+                        "error": "Job Description text ('jd' field) is missing from the form."
+                    }
+                ),
+                400,
+            )
 
         # Step 1: Translate JD if necessary
         translated_jd = translate_text_azure(jd_text)
@@ -360,45 +500,92 @@ def score_cvs():
         # Step 3: Process CVs and Score
         df = pd.read_excel(excel_file)
         scores_for_df = []
-        
+
         log.info(f"Found {len(df)} CVs. Starting scoring...")
         for idx, row in df.iterrows():
             log.debug(f"\n--- CV {idx + 1}/{len(df)}: Processing ---")
             row_dict = row.to_dict()
             try:
                 # --- DETAILED LOGGING ---
-                log.debug(f"  [SKILLS]        CV: {row_dict.get('Kỹ năng')} | JD: {jd_info['required_skills']}")
-                skills_score = calculate_list_match_score(row_dict.get("Kỹ năng"), jd_info["required_skills"])
+                log.debug(
+                    f"  [SKILLS]        CV: {row_dict.get('Kỹ năng')} | JD: {jd_info['required_skills']}"
+                )
+                skills_score = calculate_list_match_score(
+                    row_dict.get("Kỹ năng"), jd_info["required_skills"]
+                )
 
-                exp_years_candidate_str = str(row_dict.get("Tổng số năm kinh nghiệm", "0")).strip()
-                log.debug(f"  [EXPERIENCE]    CV: {exp_years_candidate_str} | JD: {jd_info['required_experience_years']}")
-                exp_score = calculate_experience_score(exp_years_candidate_str, jd_info["required_experience_years"])
-                
-                log.debug(f"  [DESIGNATION]   CV: {row_dict.get('Chức danh')} | JD: {jd_info['designation']}")
-                designation_score = calculate_designation_score(row_dict.get("Chức danh"), jd_info["designation"])
+                exp_years_candidate_str = str(
+                    row_dict.get("Tổng số năm kinh nghiệm", "0")
+                ).strip()
+                log.debug(
+                    f"  [EXPERIENCE]    CV: {exp_years_candidate_str} | JD: {jd_info['required_experience_years']}"
+                )
+                exp_score = calculate_experience_score(
+                    exp_years_candidate_str, jd_info["required_experience_years"]
+                )
 
-                log.debug(f"  [DEGREE]        CV: {row_dict.get('Bằng cấp')} | JD: {jd_info['required_degree']}")
-                degree_score = calculate_degree_score(row_dict.get("Bằng cấp"), jd_info["required_degree"])
+                log.debug(
+                    f"  [DESIGNATION]   CV: {row_dict.get('Chức danh')} | JD: {jd_info['designation']}"
+                )
+                designation_score = calculate_designation_score(
+                    row_dict.get("Chức danh"), jd_info["designation"]
+                )
 
-                log.debug(f"  [GPA]           CV: {row_dict.get('Điểm GPA')} | JD: {jd_info['required_gpa']}")
-                gpa_score = calculate_gpa_score(row_dict.get("Điểm GPA"), jd_info["required_gpa"])
+                log.debug(
+                    f"  [DEGREE]        CV: {row_dict.get('Bằng cấp')} | JD: {jd_info['required_degree']}"
+                )
+                degree_score = calculate_degree_score(
+                    row_dict.get("Bằng cấp"), jd_info["required_degree"]
+                )
+
+                log.debug(
+                    f"  [GPA]           CV: {row_dict.get('Điểm GPA')} | JD: {jd_info['required_gpa']}"
+                )
+                gpa_score = calculate_gpa_score(
+                    row_dict.get("Điểm GPA"), jd_info["required_gpa"]
+                )
 
                 candidate_langs_value = row_dict.get("Ngoại ngữ")
-                log.debug(f"  [LANGUAGE]      CV: {candidate_langs_value} (type: {type(candidate_langs_value)}) | JD: {jd_info['required_languages']}")
-                language_score = calculate_language_score(candidate_langs_value, jd_info["required_languages"])
+                log.debug(
+                    f"  [LANGUAGE]      CV: {candidate_langs_value} (type: {type(candidate_langs_value)}) | JD: {jd_info['required_languages']}"
+                )
+                language_score = calculate_language_score(
+                    candidate_langs_value, jd_info["required_languages"]
+                )
 
-                log.debug(f"  [CERTIFICATION] CV: {row_dict.get('Chứng chỉ')} | JD: {jd_info['required_certifications']}")
-                certification_score = calculate_list_match_score(row_dict.get("Chứng chỉ"), jd_info["required_certifications"])
+                log.debug(
+                    f"  [CERTIFICATION] CV: {row_dict.get('Chứng chỉ')} | JD: {jd_info['required_certifications']}"
+                )
+                certification_score = calculate_list_match_score(
+                    row_dict.get("Chứng chỉ"), jd_info["required_certifications"]
+                )
 
-                log.debug(f"  [AWARD]         CV: {row_dict.get('Giải thưởng')} | JD: {jd_info['required_awards']}")
-                award_score = calculate_list_match_score(row_dict.get("Giải thưởng"), jd_info["required_awards"])
+                log.debug(
+                    f"  [AWARD]         CV: {row_dict.get('Giải thưởng')} | JD: {jd_info['required_awards']}"
+                )
+                award_score = calculate_list_match_score(
+                    row_dict.get("Giải thưởng"), jd_info["required_awards"]
+                )
 
-                log.debug(f"  => Scores (raw): skills={skills_score:.2f}, exp={exp_score:.2f}, design={designation_score:.2f}, degree={degree_score:.2f}, gpa={gpa_score:.2f}, lang={language_score:.2f}, cert={certification_score:.2f}, award={award_score:.2f}")
+                log.debug(
+                    f"  => Scores (raw): skills={skills_score:.2f}, exp={exp_score:.2f}, design={designation_score:.2f}, degree={degree_score:.2f}, gpa={gpa_score:.2f}, lang={language_score:.2f}, cert={certification_score:.2f}, award={award_score:.2f}"
+                )
 
                 # Calculate total score (average of applicable scores)
-                raw_scores = [skills_score, exp_score, designation_score, degree_score, gpa_score, language_score, certification_score, award_score]
+                raw_scores = [
+                    skills_score,
+                    exp_score,
+                    designation_score,
+                    degree_score,
+                    gpa_score,
+                    language_score,
+                    certification_score,
+                    award_score,
+                ]
                 valid_scores = [s for s in raw_scores if s != -1.0]
-                total_score = (sum(valid_scores) / len(valid_scores)) if valid_scores else 0.0
+                total_score = (
+                    (sum(valid_scores) / len(valid_scores)) if valid_scores else 0.0
+                )
 
                 # Format scores for Excel output
                 def format_score(score):
@@ -406,31 +593,35 @@ def score_cvs():
                         return "JD không yêu cầu"
                     return f"{score:.0%}"
 
-                scores_for_df.append({
-                    "Điểm Kỹ năng": format_score(skills_score),
-                    "Điểm Kinh nghiệm": format_score(exp_score),
-                    "Điểm Chức danh": format_score(designation_score),
-                    "Điểm Bằng cấp": format_score(degree_score),
-                    "Điểm GPA": format_score(gpa_score),
-                    "Điểm Ngôn ngữ": format_score(language_score),
-                    "Điểm Chứng chỉ": format_score(certification_score),
-                    "Điểm Giải thưởng": format_score(award_score),
-                    "Tổng điểm phù hợp": format_score(total_score),
-                })
+                scores_for_df.append(
+                    {
+                        "Điểm Kỹ năng": format_score(skills_score),
+                        "Điểm Kinh nghiệm": format_score(exp_score),
+                        "Điểm Chức danh": format_score(designation_score),
+                        "Điểm Bằng cấp": format_score(degree_score),
+                        "Điểm GPA": format_score(gpa_score),
+                        "Điểm Ngôn ngữ": format_score(language_score),
+                        "Điểm Chứng chỉ": format_score(certification_score),
+                        "Điểm Giải thưởng": format_score(award_score),
+                        "Tổng điểm phù hợp": format_score(total_score),
+                    }
+                )
 
             except Exception as e:
                 log.error(f"Error processing CV {idx + 1}: {str(e)}", exc_info=True)
-                scores_for_df.append({
-                    "Điểm Kỹ năng": "Error",
-                    "Điểm Kinh nghiệm": "Error",
-                    "Điểm Chức danh": "Error",
-                    "Điểm Bằng cấp": "Error",
-                    "Điểm GPA": "Error",
-                    "Điểm Ngôn ngữ": "Error",
-                    "Điểm Chứng chỉ": "Error",
-                    "Điểm Giải thưởng": "Error",
-                    "Tổng điểm phù hợp": "Error",
-                })
+                scores_for_df.append(
+                    {
+                        "Điểm Kỹ năng": "Error",
+                        "Điểm Kinh nghiệm": "Error",
+                        "Điểm Chức danh": "Error",
+                        "Điểm Bằng cấp": "Error",
+                        "Điểm GPA": "Error",
+                        "Điểm Ngôn ngữ": "Error",
+                        "Điểm Chứng chỉ": "Error",
+                        "Điểm Giải thưởng": "Error",
+                        "Tổng điểm phù hợp": "Error",
+                    }
+                )
 
         # Append new score columns to the original DataFrame
         if scores_for_df:
@@ -438,53 +629,91 @@ def score_cvs():
             # --- FIX: Drop existing score columns from the original df to avoid duplicates ---
             cols_to_drop = [col for col in scores_df.columns if col in df.columns]
             if cols_to_drop:
-                log.warning(f"Dropping pre-existing score columns from input file: {cols_to_drop}")
+                log.warning(
+                    f"Dropping pre-existing score columns from input file: {cols_to_drop}"
+                )
                 df = df.drop(columns=cols_to_drop)
-            
+
             df = pd.concat([df, scores_df], axis=1)
 
         output = BytesIO()
         with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
             # Manually create worksheet to have control over it
             worksheet = writer.book.add_worksheet("CV Scores")
-            writer.sheets['CV Scores'] = worksheet
+            writer.sheets["CV Scores"] = worksheet
 
             # --- Define Formats ---
-            header_format = writer.book.add_format({
-                'bold': True, 'font_color': 'black', 'font_size': 11, 'align': 'center',
-                'valign': 'vcenter', 'border': 1, 'bg_color': '#DDEBF7' # Light Blue
-            })
-            no_info_format = writer.book.add_format({
-                'italic': True, 'font_color': '#9C4500', 'bg_color': '#FFE5CC', 'border': 1,
-                'align': 'center', 'valign': 'vcenter' # Removed wrap
-            })
-            jd_not_required_format = writer.book.add_format({
-                'italic': True, 'font_color': '#666666', 'bg_color': '#EFEFEF', 'border': 1,
-                'align': 'center', 'valign': 'vcenter' # Removed wrap
-            })
-            percent_format = writer.book.add_format({
-                'num_format': '0%', 'border': 1, 'align': 'center', 'valign': 'vcenter', 'bg_color': 'white'
-            })
-            default_format = writer.book.add_format({
-                'border': 1, 'valign': 'top', 'bg_color': 'white' # No wrap
-            })
-            long_text_format = writer.book.add_format({
-                'border': 1, 'valign': 'top', 'text_wrap': True, 'bg_color': 'white' # Wrap for specific columns
-            })
-            error_format = writer.book.add_format({
-                'bg_color': '#FFC7CE', 'font_color': '#9C0006', 'border': 1, 'valign': 'vcenter'
-            })
+            header_format = writer.book.add_format(
+                {
+                    "bold": True,
+                    "font_color": "black",
+                    "font_size": 11,
+                    "align": "center",
+                    "valign": "vcenter",
+                    "border": 1,
+                    "bg_color": "#DDEBF7",  # Light Blue
+                }
+            )
+            no_info_format = writer.book.add_format(
+                {
+                    "italic": True,
+                    "font_color": "#9C4500",
+                    "bg_color": "#FFE5CC",
+                    "border": 1,
+                    "align": "center",
+                    "valign": "vcenter",  # Removed wrap
+                }
+            )
+            jd_not_required_format = writer.book.add_format(
+                {
+                    "italic": True,
+                    "font_color": "#666666",
+                    "bg_color": "#EFEFEF",
+                    "border": 1,
+                    "align": "center",
+                    "valign": "vcenter",  # Removed wrap
+                }
+            )
+            percent_format = writer.book.add_format(
+                {
+                    "num_format": "0%",
+                    "border": 1,
+                    "align": "center",
+                    "valign": "vcenter",
+                    "bg_color": "white",
+                }
+            )
+            default_format = writer.book.add_format(
+                {"border": 1, "valign": "top", "bg_color": "white"}  # No wrap
+            )
+            long_text_format = writer.book.add_format(
+                {
+                    "border": 1,
+                    "valign": "top",
+                    "text_wrap": True,
+                    "bg_color": "white",  # Wrap for specific columns
+                }
+            )
+            error_format = writer.book.add_format(
+                {
+                    "bg_color": "#FFC7CE",
+                    "font_color": "#9C0006",
+                    "border": 1,
+                    "valign": "vcenter",
+                }
+            )
 
             # --- Write Data ONLY (header will be in the table) ---
-            long_text_columns = ['Kinh nghiệm làm việc', 'Dự án', 'Bằng cấp']
-            
+            long_text_columns = ["Kinh nghiệm làm việc", "Dự án", "Bằng cấp"]
+
             # Write data rows starting from the first row (index 0)
             for r_idx, row in enumerate(df.itertuples(index=False), 0):
                 for c_idx, cell_value in enumerate(row):
                     col_name = df.columns[c_idx]
                     current_format = default_format
-                    
-                    if pd.isna(cell_value): cell_value = ""
+
+                    if pd.isna(cell_value):
+                        cell_value = ""
 
                     if cell_value == "Ứng viên không cung cấp thông tin này":
                         current_format = no_info_format
@@ -492,30 +721,37 @@ def score_cvs():
                         current_format = jd_not_required_format
                     elif cell_value == "Error":
                         current_format = error_format
-                    elif isinstance(cell_value, str) and cell_value.endswith('%'):
+                    elif isinstance(cell_value, str) and cell_value.endswith("%"):
                         try:
-                            numeric_val = float(cell_value.strip('%')) / 100
-                            worksheet.write_number(r_idx + 1, c_idx, numeric_val, percent_format)
-                            continue # Skip the generic write at the end
+                            numeric_val = float(cell_value.strip("%")) / 100
+                            worksheet.write_number(
+                                r_idx + 1, c_idx, numeric_val, percent_format
+                            )
+                            continue  # Skip the generic write at the end
                         except (ValueError, TypeError):
                             current_format = default_format
                     elif col_name in long_text_columns:
                         current_format = long_text_format
-                    
-                    worksheet.write(r_idx + 1, c_idx, cell_value, current_format)
 
+                    worksheet.write(r_idx + 1, c_idx, cell_value, current_format)
 
             # --- Final Touches: Table, Column Widths, Freeze Panes ---
             (max_row, max_col) = df.shape
-            
+
             # 1. Create a Table (adds filters and defines headers explicitly)
-            column_headers = [{'header': str(col)} for col in df.columns]
-            worksheet.add_table(0, 0, max_row, max_col - 1, {
-                'columns': column_headers,
-                'style': 'Table Style Medium 9',
-                'banded_rows': False,
-                'name': 'ScoredCVs'
-            })
+            column_headers = [{"header": str(col)} for col in df.columns]
+            worksheet.add_table(
+                0,
+                0,
+                max_row,
+                max_col - 1,
+                {
+                    "columns": column_headers,
+                    "style": "Table Style Medium 9",
+                    "banded_rows": False,
+                    "name": "ScoredCVs",
+                },
+            )
 
             # 2. Set Header Row Format and Height
             worksheet.set_row(0, 25, header_format)
@@ -523,21 +759,23 @@ def score_cvs():
             # 3. Set Column Widths
             for idx, col_name in enumerate(df.columns):
                 if col_name in long_text_columns:
-                    worksheet.set_column(idx, idx, 60) # Fixed width for long text
+                    worksheet.set_column(idx, idx, 60)  # Fixed width for long text
                 else:
                     # Auto-fit other columns
                     series = df[col_name]
                     max_len = 0
                     if not series.dropna().empty:
                         # Find max length of data or header
-                        max_len = max((series.astype(str).map(len).max()), len(str(col_name)))
+                        max_len = max(
+                            (series.astype(str).map(len).max()), len(str(col_name))
+                        )
                     else:
                         max_len = len(str(col_name))
-                    worksheet.set_column(idx, idx, max_len + 2) # Add a little padding
+                    worksheet.set_column(idx, idx, max_len + 2)  # Add a little padding
 
             # 4. Freeze Top Row
             worksheet.freeze_panes(1, 0)
-            
+
         output.seek(0)
 
         log.info("Sending response back")
