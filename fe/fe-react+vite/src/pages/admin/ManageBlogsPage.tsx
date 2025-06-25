@@ -25,6 +25,7 @@ const ManageBlogsPage: React.FC = () => {
   const basePath = useBasePath()
   const { user } = useAuth()
   const isAdmin = user?.role?.name === 'ADMIN'
+  const isHr = user?.role?.name === 'HR'
   const [blogs, setBlogs] = useState<IBlog[]>([])
   const [loading, setLoading] = useState(false)
   const [pagination, setPagination] = useState<IPagination>({
@@ -33,7 +34,7 @@ const ManageBlogsPage: React.FC = () => {
     pages: 1,
     total: 0,
   })
-  const [filter, setFilter] = useState<BlogFilterState>({ title: '', tag: '' })
+  const [filter, setFilter] = useState<BlogFilterState>({ title: '', tag: '', isMine: false })
   const [noPermOpen, setNoPermOpen] = useState(false)
   const showNoPermModal = () => setNoPermOpen(true)
 
@@ -41,6 +42,9 @@ const ManageBlogsPage: React.FC = () => {
     let q = `current=${page}&pageSize=${size}&sort=-updatedAt`
     if (f.title.trim()) q += `&search=${encodeURIComponent(f.title.trim())}`
     if (f.tag.trim()) q += `&tag=${encodeURIComponent(f.tag.trim())}`
+    if (isHr && f.isMine) {
+      q += `&author=${user?._id}`
+    }
     return q
   }
 
@@ -70,7 +74,7 @@ const ManageBlogsPage: React.FC = () => {
   }
 
   const handleReset = () => {
-    const emptyFilter = { title: '', tag: '' }
+    const emptyFilter = { title: '', tag: '', isMine: false }
     setFilter(emptyFilter)
     setPagination(p => ({ ...p, current: 1 }))
     fetchBlogs(buildQuery(1, pagination.pageSize, emptyFilter))
@@ -218,6 +222,7 @@ const ManageBlogsPage: React.FC = () => {
                 onChange={setFilter}
                 onReset={handleReset}
                 onSearch={handleSearch}
+                isHr={isHr}
               />
             </div>
 

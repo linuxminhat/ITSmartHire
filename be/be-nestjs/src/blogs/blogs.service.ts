@@ -26,6 +26,7 @@ export class BlogsService {
       sort = '-createdAt',
       search,
       tag,
+      author,
       ...rest
     } = query;
 
@@ -35,6 +36,9 @@ export class BlogsService {
     }
     if (tag) {
       conditions.tags = { $in: [tag] };
+    }
+    if (author) {
+      conditions.author = author;
     }
     const sortObject: Record<string, 1 | -1> = {};
     if (sort.startsWith('-')) {

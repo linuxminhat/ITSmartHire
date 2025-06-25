@@ -19,13 +19,15 @@ export class BlogsController {
     @Query('sort') sort = '-createdAt',
     @Query('search') search?: string,
     @Query('tag') tag?: string,
+    @Query('author') author?: string,
   ) {
     return this.blogsService.findAll({
       current: +current,
       pageSize: +pageSize,
       sort,
       search,
-      tag
+      tag,
+      author
     });
   }
 

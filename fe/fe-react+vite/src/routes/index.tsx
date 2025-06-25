@@ -129,7 +129,7 @@ export const router = createBrowserRouter([
             children: [
               { index: true, element: <HrDashboardPage /> },
               // { index: true, element: <Navigate to="/hr/jobs" replace /> },
-              { path: "profile", element: <ProfilePage /> },
+              { path: "profile", element: <HrDashboardPage /> },
               { path: "companies", element: <ManageCompaniesPage /> },
               { path: "jobs", element: <ManageJobsPage /> },
               { path: "interviews", element: <InterviewSchedulePage /> },
