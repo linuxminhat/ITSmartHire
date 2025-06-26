@@ -43,37 +43,8 @@ export class EventsService {
     ev: InterviewEvent,
     update = false,
   ) {
-
-    const oAuth2Client = new google.auth.OAuth2(
-      process.env.GCAL_CLIENT_ID,
-      process.env.GCAL_CLIENT_SECRET,
-      process.env.REDIRECT_URI,
-    );
-    oAuth2Client.setCredentials({ refresh_token: process.env.GCAL_REFRESH_TOKEN });
-
-    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
-    const res = await calendar.events.insert({
-      calendarId: 'primary',
-      conferenceDataVersion: 1,
-      requestBody: {
-        summary: ev.title,
-        description: ev.note,
-        start: { dateTime: ev.start.toISOString(), timeZone: ev.tz },
-        end: { dateTime: ev.end.toISOString(), timeZone: ev.tz },
-        attendees: [{ email: ev.candidateEmail }],
-        conferenceData: {
-          createRequest: {
-            requestId: `meet-${ev._id}`,
-            conferenceSolutionKey: { type: 'hangoutsMeet' },
-          },
-        },
-      },
-    });
-
-    const entry = res.data.conferenceData?.entryPoints?.find(
-      e => e.entryPointType === 'video'
-    );
-    const meetLink = entry?.uri;
+    // Lấy link trực tiếp từ sự kiện đã lưu
+    const meetLink = ev.meetLink;
 
     // Generate ICS
     const icsText = ical()
@@ -109,6 +80,7 @@ export class EventsService {
           <td style="border:1px solid #ddd;">${ev.personalMessage}</td>
         </tr>` : ''}
       </table>
+      ${meetLink ? `
       <p style="text-align:center; margin:20px 0;">
         <a href="${meetLink}"
            style="display:inline-block;padding:12px 24px;
@@ -117,6 +89,7 @@ export class EventsService {
           Tham gia Meet
         </a>
       </p>
+      ` : ''}
       <p>Chúc bạn một ngày tốt lành,<br/><strong>${ev.hrName}</strong> – ${ev.companyName}</p>
     </div>
   </div>
@@ -148,12 +121,6 @@ export class EventsService {
         }).toString(),
       },
     });
-
-
-
-    // Update saved event with meetLink
-    ev.meetLink = meetLink;
-    await ev.save();
   }
 
   findRange(hrId: string, start: Date, end: Date) {
