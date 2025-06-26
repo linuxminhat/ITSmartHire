@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Editor } from '@tinymce/tinymce-react';
 import { AxiosResponse } from 'axios';
+import { uploadFile } from '@/services/storage.service';
 
 interface IProvince {
   name: string;
@@ -331,17 +332,67 @@ const JobModal: React.FC<JobModalProps> = ({
                   initialValue={description}
                   onEditorChange={(newValue, editor) => setDescription(newValue)}
                   init={{
-                    height: 300,
-                    menubar: false,
+                    height: 400,
+                    menubar: 'file edit view insert format tools table help',
                     plugins: [
-                      'advlist autolink lists link image charmap print preview anchor',
-                      'searchreplace visualblocks code fullscreen',
-                      'insertdatetime media table paste code help wordcount'
+                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                      'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                      'insertdatetime', 'media', 'table', 'help', 'wordcount',
+                      'imagetools'
                     ],
-                    toolbar: 'undo redo | formatselect | bold italic backcolor | \
-                              alignleft aligncenter alignright alignjustify | \
-                              bullist numlist outdent indent | removeformat | help',
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                    toolbar: 'undo redo | formatselect | ' +
+                      'bold italic underline | alignleft aligncenter ' +
+                      'alignright alignjustify | bullist numlist outdent indent | ' +
+                      'image link | table | code',
+                    automatic_uploads: true,
+                    images_reuse_filename: true,
+                    images_upload_handler: function (blobInfo, progress) {
+                      return new Promise((resolve, reject) => {
+                        const file = new File([blobInfo.blob()], blobInfo.filename());
+                        uploadFile(file, 'job-descriptions', (p) => {
+                          progress(p);
+                        })
+                          .then(url => {
+                            resolve(url);
+                          })
+                          .catch(err => {
+                            reject('Upload thất bại: ' + err.message);
+                          });
+                      });
+                    },
+                    paste_data_images: true,
+                    file_picker_types: 'image',
+                    image_title: true,
+                    image_caption: true,
+                    font_formats:
+                      'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier;' +
+                      'Georgia=georgia,palatino;Tahoma=tahoma,arial,helvetica,sans-serif;' +
+                      'Times New Roman=times new roman,times;Verdana=verdana,geneva;',
+                    fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+                    file_picker_callback: function (callback, value, meta) {
+                      if (meta.filetype === 'image') {
+                        const input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'image/*');
+
+                        input.onchange = function () {
+                          if (input.files?.[0]) {
+                            const file = input.files[0];
+                            const uploadingText = `Đang tải lên ${file.name}...`;
+                            callback(uploadingText, { title: file.name });
+                            uploadFile(file, 'job-descriptions', () => { })
+                              .then(url => {
+                                callback(url, { title: file.name });
+                              })
+                              .catch(err => {
+                                console.error('Lỗi upload ảnh:', err);
+                                callback('', { title: 'Upload thất bại' });
+                              });
+                          }
+                        };
+                        input.click();
+                      }
+                    }
                   }}
                 />
                 {!description && <p className="text-xs text-red-500 mt-1">Mô tả không được để trống.</p>} 
