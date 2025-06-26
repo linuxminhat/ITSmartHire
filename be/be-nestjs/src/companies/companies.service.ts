@@ -116,14 +116,14 @@ export class CompaniesService {
   }
 
   async findAllPublic(currentPage: number, limit: number, qs: string) {
-    const { filter, skip, sort, projection, population } = aqp(qs);
+    const { filter, sort } = aqp(qs);
     delete filter.current;
     delete filter.pageSize;
 
-    let offset = (+currentPage - 1) * (+limit);
-    let defaultLimit = +limit ? +limit : 10;
+    const offset = (+currentPage - 1) * (+limit);
+    const defaultLimit = +limit ? +limit : 10;
 
-    let finalFilter = { ...filter, isDeleted: false };
+    let finalFilter: any = { ...filter, isDeleted: false };
 
     const searchFields = ['name', 'address', 'country', 'industry'];
     for (const field of searchFields) {
@@ -135,25 +135,80 @@ export class CompaniesService {
       }
     }
 
-    const totalItems = (await this.companyModel.find(finalFilter)).length;
-    const totalPages = Math.ceil(totalItems / defaultLimit);
+    const results = await this.companyModel.aggregate([
+      { $match: finalFilter },
+      {
+        $lookup: {
+          from: 'jobs',
+          let: { companyId: '$_id' },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ['$company._id', '$$companyId'] },
+                    { $eq: ['$isActive', true] },
+                    { $ne: ['$isDeleted', true] }
+                  ]
+                }
+              }
+            }
+          ],
+          as: 'jobData'
+        }
+      },
+      {
+        $lookup: {
+          from: 'skills',
+          localField: 'skills',
+          foreignField: '_id',
+          as: 'skillData'
+        }
+      },
+      {
+        $addFields: {
+          jobCount: { $size: '$jobData' },
+          skills: {
+            $map: {
+              input: "$skillData",
+              as: "skill",
+              in: { _id: "$$skill._id", name: "$$skill.name" }
+            }
+          }
+        }
+      },
+      {
+        $project: {
+          jobData: 0,
+          skillData: 0,
+          description: 0
+        }
+      },
+      {
+        $facet: {
+          paginatedResults: [
+            { $sort: sort as any || { createdAt: -1 } },
+            { $skip: offset },
+            { $limit: defaultLimit }
+          ],
+          totalCount: [
+            { $count: 'count' }
+          ]
+        }
+      }
+    ]);
 
-    const result = await this.companyModel.find(finalFilter)
-      .skip(offset)
-      .limit(defaultLimit)
-      .sort(sort as any)
-      .populate(population)
-      .select(projection as any)
-      .exec();
+    const paginatedData = results[0].paginatedResults;
+    const totalItems = results[0].totalCount[0]?.count || 0;
 
     return {
       meta: {
         current: currentPage,
         pageSize: limit,
-        pages: totalPages,
+        pages: Math.ceil(totalItems / defaultLimit),
         total: totalItems
       },
-      result
-    }
+      result: paginatedData
+    };
   }
 }

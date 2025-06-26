@@ -141,33 +141,46 @@ const AllCompaniesPage: React.FC = () => {
 
             {!isLoading && !error && (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {companies.map(company => (
-                    <div key={company._id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                      <div className="p-5">
-                        <div className="flex items-center mb-4">
-                          <img src={company.logo} alt={`${company.name} logo`} className="h-14 w-14 object-contain mr-4 flex-shrink-0" />
-                          <div className="min-w-0">
-                            <h3 className="text-lg font-bold text-gray-900 truncate" title={company.name}>{company.name}</h3>
-                            <p className="text-sm text-gray-500 truncate" title={company.industry || 'Ngành nghề không xác định'}>{company.industry || 'Ngành nghề không xác định'}</p>
+                    <div key={company._id} className="relative pt-12">
+                      {/* Logo - positioned on top */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                        <Link to={`/company/${company._id}`} className="block">
+                          <div className="h-24 w-24 bg-white rounded-full shadow-md p-2 flex items-center justify-center mx-auto">
+                            <img src={company.logo} alt={`${company.name} logo`} className="h-20 w-20 object-contain rounded-full" />
                           </div>
-                        </div>
-                        <div
-                          className="prose prose-sm max-w-none text-gray-700 mb-4 h-20 overflow-hidden [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
-                          dangerouslySetInnerHTML={{ __html: company.description || '<p>Không có mô tả.</p>' }}
-                        />
-                      </div>
-                      <div className="border-t border-gray-100 mt-auto p-5">
-                        <div className="flex items-center text-sm text-gray-600 mb-3">
-                          <MapPinIcon className="h-5 w-5 mr-2 text-gray-400 flex-shrink-0" />
-                          <span className="truncate">{company.address}</span>
-                        </div>
-                        <Link
-                          to={`/company/${company._id}`}
-                          className="block w-full text-center bg-blue-50 text-blue-700 font-semibold py-2 rounded-lg hover:bg-blue-100 transition-colors duration-200"
-                        >
-                          Xem chi tiết
                         </Link>
+                      </div>
+
+                      {/* The main card content */}
+                      <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center p-5 pt-16 h-full">
+                        {/* Company Name */}
+                        <Link to={`/company/${company._id}`} className="block w-full mb-3">
+                          <h3 className="text-lg font-bold text-gray-800 truncate" title={company.name}>
+                            {company.name}
+                          </h3>
+                        </Link>
+
+                        {/* Skills */}
+                        <div className="flex flex-wrap justify-center items-start content-start gap-2 mb-4 h-24 overflow-hidden">
+                          {(company.skills && company.skills.length > 0) ? (
+                            company.skills.map((skill: any) => (
+                              <span key={skill._id} className="bg-gray-100 text-gray-700 text-xs font-semibold px-2.5 py-1 rounded-full">{skill.name}</span>
+                            ))
+                          ) : (
+                            <div className="h-full flex items-center">
+                              <p className="text-sm text-gray-400 italic">Chưa có thông tin kỹ năng</p>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Footer */}
+                        <div className="w-full mt-auto pt-4 border-t border-gray-100 flex justify-center items-center text-sm">
+                          <span className="text-gray-500 truncate" title={company.address}>
+                            {company.address?.split(',').pop()?.trim() || "Việt Nam"}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   ))}

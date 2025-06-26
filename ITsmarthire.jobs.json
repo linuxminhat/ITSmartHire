@@ -1,0 +1,1607 @@
+[{
+  "_id": {
+    "$oid": "6823e510522c437728e5d8dd"
+  },
+  "name": "Java Tech Lead (U.S Client-Banking Domain)- Up to $3200",
+  "skills": [
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "68244b500afbaf28090aedff"
+  },
+  "company": {
+    "_id": "6823b924d10fb7f8218c6db1",
+    "name": "FPT Software chi nhánh Đà Nẵng",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2F8aacd876-cc18-493d-829b-e0102cb97a15.png?alt=media&token=c0843f68-fe3f-46dd-ae5c-36921a1cae01"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 60000000,
+  "quantity": 3,
+  "level": "Tech Lead",
+  "description": "<p style=\"padding-left: 40px;\"><strong>3 L&yacute; do để gia nhập c&ocirc;ng ty</strong><br>Global Exposure</p>\n<p>Fast Track Career</p>\n<p>Diversified Jobs &amp; Technologies</p>\n<p>M&ocirc; tả c&ocirc;ng việc<br>Về c&ocirc;ng ty<br>FPT Software l&agrave; c&ocirc;ng ty th&agrave;nh vi&ecirc;n của Tập đo&agrave;n FPT, được biết đến l&agrave; nh&agrave; cung cấp dịch vụ c&ocirc;ng nghệ th&ocirc;ng tin h&agrave;ng đầu to&agrave;n cầu, c&oacute; trụ sở ch&iacute;nh tại Việt Nam. Với hơn 30.000 nh&acirc;n vi&ecirc;n tại 83 văn ph&ograve;ng tr&ecirc;n 30 quốc gia v&agrave; 5 ch&acirc;u lục, FPT Software kh&ocirc;ng ngừng mang đến c&aacute;c giải ph&aacute;p tối ưu cho hơn 1000 kh&aacute;ch h&agrave;ng, trong đ&oacute; c&oacute; 100 c&ocirc;ng ty thuộc Fortune 500.</p>\n<p>Ch&uacute;ng t&ocirc;i đặt con người l&agrave; trọng t&acirc;m của mọi th&agrave;nh tựu. Trải nghiệm nh&acirc;n vi&ecirc;n l&agrave; ưu ti&ecirc;n h&agrave;ng đầu, lu&ocirc;n hướng đến m&ocirc;i trường l&agrave;m việc s&aacute;ng tạo, cởi mở v&agrave; th&uacute; vị.</p>\n<p>Năm 2023, FPT Software ch&iacute;nh thức gia nhập danh s&aacute;ch c&aacute;c c&ocirc;ng ty tỷ đ&ocirc; to&agrave;n cầu &mdash; minh chứng cho t&agrave;i năng v&agrave; nỗ lực của nhiều thế hệ nh&acirc;n vi&ecirc;n.</p>\n<p>H&atilde;y c&ugrave;ng kh&aacute;m ph&aacute; tiềm năng v&agrave; đồng h&agrave;nh tr&ecirc;n h&agrave;nh tr&igrave;nh rực rỡ c&ugrave;ng FPT Software!</p>\n<p>Tr&aacute;ch nhiệm c&ocirc;ng việc<br>Thiết kế v&agrave; ph&aacute;t triển c&aacute;c ứng dụng web mạnh mẽ, c&oacute; khả năng mở rộng sử dụng Java v&agrave; React.js</p>\n<p>Ph&aacute;t triển giao diện người d&ugrave;ng với HTML/CSS/JavaScript/React, đảm bảo thiết kế responsive v&agrave; tương th&iacute;ch đa tr&igrave;nh duyệt</p>\n<p>X&acirc;y dựng backend bằng Java, Spring Boot, v&agrave; c&aacute;c c&ocirc;ng nghệ li&ecirc;n quan</p>\n<p>Viết code r&otilde; r&agrave;ng, dễ bảo tr&igrave; v&agrave; thực hiện review code kỹ lưỡng</p>\n<p>Tạo v&agrave; t&iacute;ch hợp RESTful APIs v&agrave;o kiến tr&uacute;c ứng dụng</p>\n<p>Hợp t&aacute;c với đội kiểm thử đảm bảo chất lượng phần mềm</p>\n<p>Gỡ lỗi v&agrave; xử l&yacute; sự cố ứng dụng kịp thời</p>\n<p>Tham gia c&ugrave;ng kiến tr&uacute;c sư giải ph&aacute;p để x&aacute;c định hướng giải ph&aacute;p ph&ugrave; hợp với kỳ vọng kh&aacute;ch h&agrave;ng</p>\n<p>Y&ecirc;u cầu c&ocirc;ng việc<br>Chuy&ecirc;n m&ocirc;n kỹ thuật<br>Tốt nghiệp đại học chuy&ecirc;n ng&agrave;nh CNTT, Kỹ thuật phần mềm hoặc li&ecirc;n quan</p>\n<p>Từ 5 năm kinh nghiệm ph&aacute;t triển phần mềm, tối thiểu 2 năm l&agrave;m Technical Lead</p>\n<p>Giao tiếp tiếng Anh tốt (n&oacute;i v&agrave; viết)</p>\n<p>Th&agrave;nh thạo Frontend v&agrave; Backend:</p>\n<p>Frontend: JavaScript, ReactJS/React Native, CSS, HTML</p>\n<p>Backend: Java, Spring Boot, TypeScript, Hibernate, JPA</p>\n<p>Th&agrave;nh thạo Web Services: SOAP, RESTful</p>\n<p>C&oacute; kinh nghiệm với Enterprise Application Server</p>\n<p>Kỹ năng với HTML/CSS3/JavaScript/jQuery</p>\n<p>C&oacute; kinh nghiệm với c&aacute;c CSDL: Oracle, MS SQL Server, PostgreSQL, MongoDB (hoặc NoSQL kh&aacute;c)</p>\n<p>Th&agrave;nh thạo kiến tr&uacute;c Microservices, t&iacute;ch hợp, Message Broker, caching</p>\n<p>C&oacute; kinh nghiệm triển khai tr&ecirc;n Cloud (Azure hoặc AWS)</p>\n<p>Am hiểu v&ograve;ng đời ph&aacute;t triển phần mềm, Design Pattern, Unit Test</p>\n<p>Th&agrave;nh thạo CI/CD tools</p>\n<p>Quen thuộc với phương ph&aacute;p Agile</p>\n<p>Kỹ năng mềm<br>Tư duy giải ph&aacute;p: Ph&acirc;n t&iacute;ch, xử l&yacute; vấn đề tốt, linh hoạt th&iacute;ch ứng nhiều t&igrave;nh huống kh&aacute;c nhau</p>\n<p>S&aacute;ng tạo v&agrave; chủ động: Lu&ocirc;n hướng đến đổi mới, vượt mong đợi kh&aacute;ch h&agrave;ng</p>\n<p>T&iacute;ch cực v&agrave; cầu tiến: Lu&ocirc;n học hỏi v&agrave; kh&ocirc;ng ngừng phấn đấu</p>\n<p>Kỹ năng l&agrave;m việc nh&oacute;m v&agrave; giao tiếp tốt, c&oacute; khả năng truyền đạt kỹ thuật đến người kh&ocirc;ng chuy&ecirc;n</p>\n<p>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y<br>Bảo hiểm FPT Care d&agrave;nh ri&ecirc;ng cho nh&acirc;n vi&ecirc;n FPT</p>\n<p>Trợ cấp nghỉ m&aacute;t hằng năm hấp dẫn</p>\n<p>Đ&agrave;o tạo miễn ph&iacute; v&agrave; hỗ trợ đến 100% chi ph&iacute; chứng chỉ</p>\n<p>M&ocirc;i trường đa văn h&oacute;a với c&aacute;c sự kiện giao lưu quốc tế h&agrave;ng th&aacute;ng</p>\n<p>Cơ hội ph&aacute;t triển to&agrave;n cầu v&agrave; thăng tiến nghề nghiệp quốc tế</p>\n<p>Ch&iacute;nh s&aacute;ch nghỉ ph&eacute;p linh hoạt, kh&aacute;m sức khỏe định kỳ, gi&uacute;p c&acirc;n bằng cuộc sống v&agrave; c&ocirc;ng việc</p>",
+  "startDate": {
+    "$date": "2025-05-13T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2026-06-13T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "6823b053d10fb7f8218c6832",
+    "email": "hrfpt@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-14T00:34:24.200Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T01:46:05.492Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "680125b048ebc6dc41503f19",
+    "email": "adminitsmarthire@gmail.com"
+  },
+  "hrId": {
+    "$oid": "6823b053d10fb7f8218c6832"
+  }
+},
+{
+  "_id": {
+    "$oid": "68258e68534627945b2cbee6"
+  },
+  "name": "Frontend Engineer (JavaScript, ReactJS, TypeScript)",
+  "skills": [
+    {
+      "$oid": "68241de4be8cd56835f50c86"
+    },
+    {
+      "$oid": "68241db8be8cd56835f50c79"
+    },
+    {
+      "$oid": "68241d08be8cd56835f50c47"
+    },
+    {
+      "$oid": "68241cf9be8cd56835f50c40"
+    },
+    {
+      "$oid": "68241ce0be8cd56835f50c33"
+    },
+    {
+      "$oid": "68241ccdbe8cd56835f50c2c"
+    },
+    {
+      "$oid": "68241cc1be8cd56835f50c25"
+    }
+  ],
+  "category": {
+    "$oid": "6824586684e1748501ea8d1c"
+  },
+  "company": {
+    "_id": "682466f984e1748501ea9772",
+    "name": "Spartan Dev Inc chi nhánh Đà Nẵng",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2F71e28e32-2b34-4ad8-93dd-6aab93ac05ba.png?alt=media&token=033f182c-8d31-4b47-aaba-8040cb75aa36"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 30000000,
+  "quantity": 2,
+  "level": "Middle",
+  "description": "<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p><strong>About the job</strong><br>&nbsp;</p>\n<p><em><strong>Our team is growing because our customer is growing, which means we need you!</strong></em></p>\n<p>We are looking for an experienced&nbsp;<strong>Frontend Engineer</strong>&nbsp;to join our Spartan Team. Who is passionate about building, testing, and working closely with various stakeholders to deliver top-notch software. You will be able to solve challenging problems, work with the latest tech stack, and work with talented engineers to contribute meaningfully.</p>\n<p>&nbsp;</p>\n<p><strong>Responsibilities</strong></p>\n<ul>\n<li>Collaborate with designers and backend developers to translate wireframes and UI/UX designs into functional and interactive web interfaces.</li>\n<li>Write clean, efficient, and maintainable code using HTML, CSS, and JavaScript to implement responsive and cross-browser-compatible interfaces.</li>\n<li>Ensure that the web applications are optimized for maximum speed and scalability.</li>\n<li>Conduct thorough testing and debugging of frontend components to ensure high-quality and bug-free code.</li>\n<li>Collaborate with the development team to continuously improve the user experience and implement new features and enhancements.</li>\n<li>Stay up-to-date with the latest front-end development trends and best practices and apply them to improve the quality and performance of our web applications.</li>\n<li>Participate in code reviews and provide constructive feedback to ensure adherence to coding standards and best practices.</li>\n</ul>\n<p>&nbsp;</p>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<p><strong>What we'll love about you</strong><br>&nbsp;</p>\n<ul>\n<li><strong>Fluent in English, able to communicate directly with customers</strong></li>\n<li>Bachelor's degree in Computer Science or related field.</li>\n<li>3+ years of experience as a Frontend Developer, with a focus on web application development.</li>\n<li>Excellent understanding of computer science fundamentals,&nbsp;<strong>data structures, and algorithms.</strong></li>\n<li>Strong proficiency in frontend technologies such as HTML5, CSS3, JavaScript, and modern JavaScript frameworks (e.g., React, Angular, Vue.js).</li>\n<li>Experience with frontend build tools, package managers, and version control systems (e.g., Webpack, npm, Git).</li>\n<li>Strong problem-solving and analytical skills, with keen attention to detail.</li>\n</ul>\n<p><strong>Nice to have</strong></p>\n<ul>\n<li>Experience in Backend development (any language). Willing to transition into a Fullstack Engineer role.</li>\n</ul>\n<p><strong>Technology we use</strong></p>\n<ul>\n<li>ReactJs/nextJs</li>\n<li>Programming Languages: JavaScript (ES6+), TypeScript</li>\n<li>UI Component Libraries: Material-UI, Ant Design, Bootstrap</li>\n<li>State Management: Redux, Rematch</li>\n<li>Routing: React Router</li>\n<li>Testing: Jest, Enzyme, React Testing Library</li>\n<li>Build Tools: Webpack, Babel</li>\n<li>Version Control: Git, GitHub, GitLab</li>\n<li>Package Managers: npm, Yarn</li>\n<li>Code Quality and Linting: ESLint, Prettier</li>\n<li>DevOps and Deployment: Docker, AWS</li>\n<li>Continuous Integration and Deployment: Jenkins,&nbsp;<em>AWS Amplify</em></li>\n<li>Collaboration and Communication: Slack, Jira, Confluence</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>Benefit and Perks</strong></p>\n<p>&nbsp;</p>\n<p><em><strong>Salary &amp; Allowances</strong></em><br>&nbsp;</p>\n<ul>\n<li>100% salary during probation</li>\n<li>Competitive compensation packages</li>\n<li>Health care from Bao Viet Insurance</li>\n<li>Technical, Soft skills, English Training courses</li>\n</ul>\n<p><em><strong>At Spartan, you will find yourself in an exciting career with:</strong></em></p>\n<ul>\n<li>An open and transparent culture where people are valued, treated fairly, trusted, and empowered</li>\n<li>Training and career development opportunities</li>\n<li>Flexible Working Time and Hybrid Working - Working from anywhere!</li>\n<li>Device Provided&nbsp;</li>\n<li>Happy Hour, Company Trip, Year End Party, and many other events</li>\n<li>Unlimited paid time off (PTO) - You are entitled to Unlimited Paid Time Off as long as you deliver!</li>\n<li>Sponsoring sports participation costs - We have play hours where our team meets up for PS5 Gaming and Football sessions.</li>\n<li>Challenging yourself with high and difficult goals by participating in unprecedented business models in the market.</li>\n<li>Working in an Agile environment that is highly flexible and open, eager to incubate any valuable idea</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-15T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-15T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-15T06:49:12.499Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:20:02.194Z"
+  },
+  "__v": 0,
+  "hrId": {
+    "$oid": "68240563a3bb621cb10c397f"
+  }
+},
+{
+  "_id": {
+    "$oid": "68258ecb534627945b2cbeee"
+  },
+  "name": "Backend Engineer (Java, Python, Golang)",
+  "skills": [
+    {
+      "$oid": "68241aa8be8cd56835f50b75"
+    },
+    {
+      "$oid": "68241a90be8cd56835f50b6e"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "682448c00afbaf28090aed43"
+  },
+  "company": {
+    "_id": "682466f984e1748501ea9772",
+    "name": "Spartan Dev Inc chi nhánh Đà Nẵng",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2F71e28e32-2b34-4ad8-93dd-6aab93ac05ba.png?alt=media&token=033f182c-8d31-4b47-aaba-8040cb75aa36"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 20000000,
+  "quantity": 3,
+  "level": "Middle",
+  "description": "<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<p><strong>What we'll love about you</strong><br>&nbsp;</p>\n<ul>\n<li><strong>Fluent in English, able to communicate directly with customers</strong></li>\n<li>Bachelor's degree in Computer Science or related field.</li>\n<li>3+ years of experience as a Frontend Developer, with a focus on web application development.</li>\n<li>Excellent understanding of computer science fundamentals,&nbsp;<strong>data structures, and algorithms.</strong></li>\n<li>Strong proficiency in frontend technologies such as HTML5, CSS3, JavaScript, and modern JavaScript frameworks (e.g., React, Angular, Vue.js).</li>\n<li>Experience with frontend build tools, package managers, and version control systems (e.g., Webpack, npm, Git).</li>\n<li>Strong problem-solving and analytical skills, with keen attention to detail.</li>\n</ul>\n<p><strong>Nice to have</strong></p>\n<ul>\n<li>Experience in Backend development (any language). Willing to transition into a Fullstack Engineer role.</li>\n</ul>\n<p><strong>Technology we use</strong></p>\n<ul>\n<li>ReactJs/nextJs</li>\n<li>Programming Languages: JavaScript (ES6+), TypeScript</li>\n<li>UI Component Libraries: Material-UI, Ant Design, Bootstrap</li>\n<li>State Management: Redux, Rematch</li>\n<li>Routing: React Router</li>\n<li>Testing: Jest, Enzyme, React Testing Library</li>\n<li>Build Tools: Webpack, Babel</li>\n<li>Version Control: Git, GitHub, GitLab</li>\n<li>Package Managers: npm, Yarn</li>\n<li>Code Quality and Linting: ESLint, Prettier</li>\n<li>DevOps and Deployment: Docker, AWS</li>\n<li>Continuous Integration and Deployment: Jenkins,&nbsp;<em>AWS Amplify</em></li>\n<li>Collaboration and Communication: Slack, Jira, Confluence</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>Benefit and Perks</strong></p>\n<p>&nbsp;</p>\n<p><em><strong>Salary &amp; Allowances</strong></em><br>&nbsp;</p>\n<ul>\n<li>100% salary during probation</li>\n<li>Competitive compensation packages</li>\n<li>Health care from Bao Viet Insurance</li>\n<li>Technical, Soft skills, English Training courses</li>\n</ul>\n<p><em><strong>At Spartan, you will find yourself in an exciting career with:</strong></em></p>\n<ul>\n<li>An open and transparent culture where people are valued, treated fairly, trusted, and empowered</li>\n<li>Training and career development opportunities</li>\n<li>Flexible Working Time and Hybrid Working - Working from anywhere!</li>\n<li>Device Provided&nbsp;</li>\n<li>Happy Hour, Company Trip, Year End Party, and many other events</li>\n<li>Unlimited paid time off (PTO) - You are entitled to Unlimited Paid Time Off as long as you deliver!</li>\n<li>Sponsoring sports participation costs - We have play hours where our team meets up for PS5 Gaming and Football sessions.</li>\n<li>Challenging yourself with high and difficult goals by participating in unprecedented business models in the market.</li>\n<li>Working in an Agile environment that is highly flexible and open, eager to incubate any valuable idea.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-15T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-15T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-15T06:50:51.154Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:20:02.272Z"
+  },
+  "__v": 0,
+  "hrId": {
+    "$oid": "68240563a3bb621cb10c397f"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d55d0b1da1f83c6a34383"
+  },
+  "name": "[Middle, Junior] Java Backend Developer (Spring)",
+  "skills": [
+    {
+      "$oid": "68241eedbe8cd56835f50ce0"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "682456d184e1748501ea8c92"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Hà Nội",
+  "salary": 30000000,
+  "quantity": 2,
+  "level": "Junior cứng, Middle",
+  "description": "<div class=\"imy-5 paragraph\">\n<ul>\n<li>Ph&aacute;t triển c&aacute;c hệ thống, ứng dụng của Ng&acirc;n h&agrave;ng, gồm c&aacute;c hệ thống nội bộ v&agrave; ứng dụng d&agrave;nh cho kh&aacute;ch h&agrave;ng với quy m&ocirc; 30 triệu kh&aacute;ch h&agrave;ng c&aacute; nh&acirc;n v&agrave;&nbsp; 300.000 kh&aacute;ch h&agrave;ng doanh nghiệp.</li>\n<li>Ph&aacute;t triển hoặc phối hợp triển khai c&ugrave;ng c&aacute;c nh&agrave; cung cấp cho c&aacute;c giải ph&aacute;p C&ocirc;ng nghệ.</li>\n<li>Quản l&yacute;, ph&aacute;t triển dịch vụ t&iacute;ch hợp với c&aacute;c hệ thống core như: T24, WAY4, BPM, CRM, CIC ...</li>\n<li>Quản l&yacute;, ph&aacute;t triển API tr&ecirc;n API Gateway phục vụ t&iacute;ch hợp với c&aacute;c đối t&aacute;c trong nước v&agrave; quốc tế.</li>\n<li>Nghi&ecirc;n cứu, thử nghiệm, triển khai &aacute;p dụng c&aacute;c xu hướng c&ocirc;ng nghệ mới v&agrave;o việc ph&aacute;t triển: GraphQL, Docker Container (K8s), CICD, EventSourcing, CQRS, NoSQL ...</li>\n<li>Duy tr&igrave;, cập nhật đảm bảo hoạt động của c&aacute;c sản phẩm, dịch vụ của Ng&acirc;n h&agrave;ng trong phạm vi được quản l&yacute;.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp Đại học c&aacute;c chuy&ecirc;n ng&agrave;nh C&ocirc;ng nghệ th&ocirc;ng tin, Khoa học m&aacute;y t&iacute;nh, Điện tử viễn th&ocirc;ng, C&ocirc;ng nghệ phần mềm, Hệ thống th&ocirc;ng tin...</li>\n<li>C&oacute; kinh nghiệm l&agrave;m việc thực tế tại c&aacute;c c&ocirc;ng ty hoặc dự &aacute;n về lập tr&igrave;nh Backend</li>\n<li><strong>Th&agrave;nh thạo 1 trong c&aacute;c ng&ocirc;n ngữ BackEnd, ưu ti&ecirc;n Java.</strong></li>\n<li>Th&agrave;nh thạo Spring framework: spring core, spring sercuity, spring boots.</li>\n<li>Th&agrave;nh thạo một trong trong c&aacute;c loại database: Oracle, Sqlserver, PostgreSQL, Mongodb.</li>\n<li>C&oacute; kỹ năng ph&acirc;n t&iacute;ch, đưa ra giải ph&aacute;p để giải quyết c&aacute;c vấn đề tốt</li>\n<li>C&oacute; kinh nghiệm trong domain t&agrave;i ch&iacute;nh, ng&acirc;n h&agrave;ng l&agrave; lợi thế</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-21T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": true,
+  "deletedAt": {
+    "$date": "2025-05-27T06:47:58.052Z"
+  },
+  "createdAt": {
+    "$date": "2025-05-21T04:25:52.153Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T06:47:58.059Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  },
+  "deletedBy": {
+    "_id": "680125b048ebc6dc41503f19",
+    "email": "adminitsmarthire@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d561eb1da1f83c6a3438b"
+  },
+  "name": "[Middle, Junior] Java Fullstack Developer (Spring)",
+  "skills": [
+    {
+      "$oid": "68241ce0be8cd56835f50c33"
+    },
+    {
+      "$oid": "68241ccdbe8cd56835f50c2c"
+    },
+    {
+      "$oid": "68241cc1be8cd56835f50c25"
+    },
+    {
+      "$oid": "68241b58be8cd56835f50b91"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "68244a0c0afbaf28090aedac"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Hà Nội",
+  "salary": 25000000,
+  "quantity": 3,
+  "level": "Junior cứng, Middle",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>Top 3 reasons to join us</h2>\n<ul>\n<li>Mức lương cạnh tranh, hấp dẫn</li>\n<li>M&ocirc;i trường l&agrave;m việc chuy&ecirc;n nghiệp, th&acirc;n thiện</li>\n<li>Được l&agrave;m việc với c&aacute;c hệ thống hiện đại, ti&ecirc;n tiến</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Job description</h2>\n<ul>\n<li>Ph&aacute;t triển c&aacute;c hệ thống, ứng dụng của Ng&acirc;n h&agrave;ng, gồm c&aacute;c hệ thống nội bộ v&agrave; ứng dụng d&agrave;nh cho kh&aacute;ch h&agrave;ng với quy m&ocirc; 30 triệu kh&aacute;ch h&agrave;ng c&aacute; nh&acirc;n v&agrave;&nbsp; 300.000 kh&aacute;ch h&agrave;ng doanh nghiệp.</li>\n<li>Ph&aacute;t triển hoặc phối hợp triển khai c&ugrave;ng c&aacute;c nh&agrave; cung cấp cho c&aacute;c giải ph&aacute;p C&ocirc;ng nghệ.</li>\n<li>Quản l&yacute;, ph&aacute;t triển dịch vụ t&iacute;ch hợp với c&aacute;c hệ thống core như: T24, WAY4, BPM, CRM, CIC ...</li>\n<li>Quản l&yacute;, ph&aacute;t triển API tr&ecirc;n API Gateway phục vụ t&iacute;ch hợp với c&aacute;c đối t&aacute;c trong nước v&agrave; quốc tế.</li>\n<li>Nghi&ecirc;n cứu, thử nghiệm, triển khai &aacute;p dụng c&aacute;c xu hướng c&ocirc;ng nghệ mới v&agrave;o việc ph&aacute;t triển: GraphQL, Docker Container (K8s), CICD, EventSourcing, CQRS, NoSQL ...</li>\n<li>Duy tr&igrave;, cập nhật đảm bảo hoạt động của c&aacute;c sản phẩm, dịch vụ của Ng&acirc;n h&agrave;ng trong phạm vi được quản l&yacute;.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp Đại học c&aacute;c chuy&ecirc;n ng&agrave;nh C&ocirc;ng nghệ th&ocirc;ng tin, Khoa học m&aacute;y t&iacute;nh, Điện tử viễn th&ocirc;ng, C&ocirc;ng nghệ phần mềm, Hệ thống th&ocirc;ng tin ...</li>\n<li>C&oacute; kinh nghiệm l&agrave;m việc thực tế tại c&aacute;c c&ocirc;ng ty hoặc dự &aacute;n về lập tr&igrave;nh BackEnd, FullStack</li>\n<li>Th&agrave;nh thạo 1 trong c&aacute;c ng&ocirc;n ngữ BackEnd, ưu ti&ecirc;n Java.</li>\n<li>Th&agrave;nh thạo Spring framework: spring core, spring sercuity, spring boots.</li>\n<li>Th&agrave;nh thạo một trong trong c&aacute;c loại database: Oracle, Sqlserver, PostgreSQL, Mongodb.</li>\n<li>C&oacute; kỹ năng ph&acirc;n t&iacute;ch, đưa ra giải ph&aacute;p để giải quyết c&aacute;c vấn đề tốt</li>\n<li>C&oacute; kinh nghiệm trong domain t&agrave;i ch&iacute;nh, ng&acirc;n h&agrave;ng l&agrave; lợi thế</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-21T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-21T04:27:10.146Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:20:02.405Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d565ab1da1f83c6a34393"
+  },
+  "name": "[Middle, Senior] Java Backend Developer (Spring)",
+  "skills": [
+    {
+      "$oid": "68241f03be8cd56835f50ce7"
+    },
+    {
+      "$oid": "68241eedbe8cd56835f50ce0"
+    },
+    {
+      "$oid": "68241ed1be8cd56835f50cd9"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "68244ac00afbaf28090aedee"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Hà Nội",
+  "salary": 50000000,
+  "quantity": 1,
+  "level": "Middle cứng, Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>Top 3 reasons to join us in&nbsp;</h2>\n<ul>\n<li>Mức lương cạnh tranh, hấp dẫnn</li>\n<li>M&ocirc;i trường l&agrave;m việc chuy&ecirc;n nghiệp, th&acirc;n thiện</li>\n<li>Được l&agrave;m việc với c&aacute;c hệ thống hiện đại, ti&ecirc;n tiến&nbsp;</li>\n</ul>\n</div>\n<div class=\"imy-5 paragraph\">\n<h2>Job description</h2>\n<ul>\n<li>Ph&aacute;t triển c&aacute;c hệ thống, ứng dụng của Ng&acirc;n h&agrave;ng, gồm c&aacute;c hệ thống nội bộ v&agrave; ứng dụng d&agrave;nh cho kh&aacute;ch h&agrave;ng với quy m&ocirc; 30 triệu kh&aacute;ch h&agrave;ng c&aacute; nh&acirc;n v&agrave;&nbsp; 300.000 kh&aacute;ch h&agrave;ng doanh nghiệp</li>\n<li>Ph&aacute;t triển hoặc phối hợp triển khai c&ugrave;ng c&aacute;c nh&agrave; cung cấp cho c&aacute;c giải ph&aacute;p C&ocirc;ng nghệ.</li>\n<li>Quản l&yacute;, ph&aacute;t triển dịch vụ t&iacute;ch hợp với c&aacute;c hệ thống core như: T24, WAY4, BPM, CRM, CIC ...</li>\n<li>Quản l&yacute;, ph&aacute;t triển API tr&ecirc;n API Gateway phục vụ t&iacute;ch hợp với c&aacute;c đối t&aacute;c trong nước v&agrave; quốc tế.</li>\n<li>Nghi&ecirc;n cứu, thử nghiệm, triển khai &aacute;p dụng c&aacute;c xu hướng c&ocirc;ng nghệ mới v&agrave;o việc ph&aacute;t triển: GraphQL, Docker Container (K8s), CICD, EventSourcing, CQRS, NoSQL ...</li>\n<li>Tham gia ph&acirc;n t&iacute;ch nghiệp vụ, đề xuất giải ph&aacute;p, phương &aacute;n triển khai nhằm cải tiến, n&acirc;ng cao hiệu quả của c&aacute;c dự &aacute;n trong qu&aacute; tr&igrave;nh l&agrave;m việc.</li>\n<li>L&ecirc;n timeline c&ocirc;ng việc, quản l&yacute; tasks cho c&aacute;c th&agrave;nh vi&ecirc;n trong nh&oacute;m, gi&aacute;m s&aacute;t v&agrave; hỗ trợ c&aacute;c th&agrave;nh vi&ecirc;n ho&agrave;n th&agrave;nh đ&uacute;ng cam kết.</li>\n<li>Dẫn dắt nh&oacute;m 3-6 th&agrave;nh vi&ecirc;n, đồng h&agrave;nh c&ugrave;ng c&aacute;c th&agrave;nh vi&ecirc;n ph&aacute;t triển chuy&ecirc;n m&ocirc;n v&agrave; ho&agrave;n th&agrave;nh nhiệm vụ được giao.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp Đại học c&aacute;c chuy&ecirc;n ng&agrave;nh C&ocirc;ng nghệ th&ocirc;ng tin, Khoa học m&aacute;y t&iacute;nh, Điện tử viễn th&ocirc;ng, C&ocirc;ng nghệ phần mềm, Hệ thống th&ocirc;ng tin ...</li>\n<li>Tối thiểu 02 năm l&agrave;m việc thực tế tại c&aacute;c c&ocirc;ng ty, dự &aacute;n về lập tr&igrave;nh Backend</li>\n<li>Tối thiểu 1 - 2 năm kinh nghiệm l&agrave;m việc với Microservice.</li>\n<li>Th&agrave;nh thạo 1 trong c&aacute;c ng&ocirc;n ngữ BackEnd, ưu ti&ecirc;n Java.</li>\n<li>Th&agrave;nh thạo Spring framework: spring core, spring sercuity, spring boots.</li>\n<li>Th&agrave;nh thạo một trong trong c&aacute;c loại database: Oracle, Sqlserver, PostgreSQL, Mongodb.</li>\n<li>C&oacute; kiến thức tốt về kiến tr&uacute;c hệ thống. Th&ocirc;ng thạo đa dạng thiết kế phần mềm.</li>\n<li>C&oacute; khả năng tuning performance của ứng dụng, hệ thống.</li>\n<li>C&oacute; hiểu biết s&acirc;u về c&aacute;c kỹ thuật/c&ocirc;ng nghệ: MySQL, Redis, MongoDB, PostgreSQL, Kafka,&hellip;</li>\n<li>C&oacute; kinh nghiệm ph&aacute;t triển, sử dụng Cloud, AI, Front-end l&agrave; 1 lợi thế.</li>\n<li>C&oacute; kinh nghiệm hướng dẫn, quản l&yacute; đội nh&oacute;m l&agrave; lợi thế</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-21T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-21T04:28:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-25T17:26:54.213Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d56acb1da1f83c6a3439b"
+  },
+  "name": "[Middle, Senior] Java FullStack Developer (Spring)",
+  "skills": [
+    {
+      "$oid": "68241f0fbe8cd56835f50cee"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "68244b500afbaf28090aedff"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Hà Nội",
+  "salary": 60000000,
+  "quantity": 1,
+  "level": "Middle cứng, Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>Top 3 reasons to join us</h2>\n<ul>\n<li>Mức lương cạnh tranh, hấp dẫn</li>\n<li>M&ocirc;i trường l&agrave;m việc chuy&ecirc;n nghiệp, th&acirc;n thiện</li>\n<li>Được l&agrave;m việc với c&aacute;c hệ thống hiện đại, ti&ecirc;n tiến</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Job description</h2>\n<ul>\n<li>Ph&aacute;t triển c&aacute;c hệ thống, ứng dụng của Ng&acirc;n h&agrave;ng, gồm c&aacute;c hệ thống nội bộ v&agrave; ứng dụng d&agrave;nh cho kh&aacute;ch h&agrave;ng với quy m&ocirc; 30 triệu kh&aacute;ch h&agrave;ng c&aacute; nh&acirc;n v&agrave;&nbsp; 300.000 kh&aacute;ch h&agrave;ng doanh nghiệp.</li>\n<li>Ph&aacute;t triển hoặc phối hợp triển khai c&ugrave;ng c&aacute;c nh&agrave; cung cấp cho c&aacute;c giải ph&aacute;p C&ocirc;ng nghệ.</li>\n<li>Quản l&yacute;, ph&aacute;t triển dịch vụ t&iacute;ch hợp với c&aacute;c hệ thống core như: T24, WAY4, BPM, CRM, CIC ...</li>\n<li>Quản l&yacute;, ph&aacute;t triển API tr&ecirc;n API Gateway phục vụ t&iacute;ch hợp với c&aacute;c đối t&aacute;c trong nước v&agrave; quốc tế.</li>\n<li>Nghi&ecirc;n cứu, thử nghiệm, triển khai &aacute;p dụng c&aacute;c xu hướng c&ocirc;ng nghệ mới v&agrave;o việc ph&aacute;t triển: GraphQL, Docker Container (K8s), CICD, EventSourcing, CQRS, NoSQL ...</li>\n<li>Tham gia ph&acirc;n t&iacute;ch nghiệp vụ, đề xuất giải ph&aacute;p, phương &aacute;n triển khai nhằm cải tiến, n&acirc;ng cao hiệu quả của c&aacute;c dự &aacute;n trong qu&aacute; tr&igrave;nh l&agrave;m việc.</li>\n<li>L&ecirc;n timeline c&ocirc;ng việc, quản l&yacute; tasks cho c&aacute;c th&agrave;nh vi&ecirc;n trong nh&oacute;m, gi&aacute;m s&aacute;t v&agrave; hỗ trợ c&aacute;c th&agrave;nh vi&ecirc;n ho&agrave;n th&agrave;nh đ&uacute;ng cam kết.</li>\n<li>Dẫn dắt nh&oacute;m 3-6 th&agrave;nh vi&ecirc;n, đồng h&agrave;nh c&ugrave;ng c&aacute;c th&agrave;nh vi&ecirc;n ph&aacute;t triển chuy&ecirc;n m&ocirc;n v&agrave; ho&agrave;n th&agrave;nh nhiệm vụ được giao.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp Đại học c&aacute;c chuy&ecirc;n ng&agrave;nh C&ocirc;ng nghệ th&ocirc;ng tin, Khoa học m&aacute;y t&iacute;nh, Điện tử viễn th&ocirc;ng, C&ocirc;ng nghệ phần mềm, Hệ thống th&ocirc;ng tin ...</li>\n<li>Tối thiểu 02 năm l&agrave;m việc thực tế tại c&aacute;c c&ocirc;ng ty, dự &aacute;n về lập tr&igrave;nh Backend</li>\n<li>Tối thiểu 1 - 2 năm kinh nghiệm l&agrave;m việc với Microservice.</li>\n<li>Th&agrave;nh thạo 1 trong c&aacute;c ng&ocirc;n ngữ BackEnd, ưu ti&ecirc;n Java.</li>\n<li>Th&agrave;nh thạo Spring framework: spring core, spring sercuity, spring boots.</li>\n<li>Th&agrave;nh thạo một trong trong c&aacute;c loại database: Oracle, Sqlserver, PostgreSQL, Mongodb.</li>\n<li>C&oacute; kiến thức tốt về kiến tr&uacute;c hệ thống. Th&ocirc;ng thạo đa dạng thiết kế phần mềm.</li>\n<li>C&oacute; khả năng tuning performance của ứng dụng, hệ thống.</li>\n<li>C&oacute; hiểu biết s&acirc;u về c&aacute;c kỹ thuật/c&ocirc;ng nghệ: MySQL, Redis, MongoDB, PostgreSQL, Kafka,&hellip;</li>\n<li>C&oacute; kinh nghiệm ph&aacute;t triển, sử dụng Cloud, AI, Front-End l&agrave; một lợi thế.</li>\n<li>C&oacute; kinh nghiệm hướng dẫn, quản l&yacute; đội nh&oacute;m l&agrave; lợi thế</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": true,
+  "deletedAt": {
+    "$date": "2025-05-28T05:29:08.712Z"
+  },
+  "createdAt": {
+    "$date": "2025-05-21T04:29:32.414Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T05:29:08.718Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  },
+  "deletedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d5724b1da1f83c6a343bf"
+  },
+  "name": "Data Analysis and Fraud model",
+  "skills": [
+    {
+      "$oid": "682445fc0afbaf28090aec1f"
+    },
+    {
+      "$oid": "68242051be8cd56835f50d80"
+    },
+    {
+      "$oid": "68242043be8cd56835f50d79"
+    },
+    {
+      "$oid": "68241a90be8cd56835f50b6e"
+    }
+  ],
+  "category": {
+    "$oid": "6824590f84e1748501ea8df7"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Hà Nội",
+  "salary": 20000000,
+  "quantity": 3,
+  "level": "Fresher accpeted, Junior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>Top 3 reasons to join us</h2>\n<ul>\n<li>Mức lương cạnh tranh, hấp dẫn</li>\n<li>M&ocirc;i trường l&agrave;m việc chuy&ecirc;n nghiệp, th&acirc;n thiện</li>\n<li>Được l&agrave;m việc với c&aacute;c hệ thống hiện đại, ti&ecirc;n tiến</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Job description</h2>\n<h2><strong>Chuy&ecirc;n vi&ecirc;n Ph&acirc;n t&iacute;ch dữ liệu x&acirc;y dựng m&ocirc; h&igrave;nh nhận diện tội phạm c&ocirc;ng nghệ cao - Data Analysis and Fraud model</strong></h2>\n<ul>\n<li>Nghi&ecirc;n cứu, &aacute;p dụng c&aacute;c kỹ thuật ph&acirc;n t&iacute;ch dữ liệu trong nhận diện tội phạm c&ocirc;ng nghệ cao: ch&acirc;n dung, h&agrave;nh vi đối tượng;</li>\n<li>Nghi&ecirc;n cứu, x&acirc;y dựng c&aacute;c M&ocirc; h&igrave;nh Machine Learning, Deep Learning, AI (Random Forest, XGboost, Neural Network, LSTM, LLM, ...) trong nhận diện tội phạm c&ocirc;ng nghệ cao;</li>\n<li>X&acirc;y dựng Hệ thống nhận diện tội phạm c&ocirc;ng nghệ cao: Cybercrime Intelligence, Detection Kernel (Rules/M&ocirc; h&igrave;nh), ...;</li>\n<li>Quản l&yacute;, kiểm định, vận h&agrave;nh, đ&aacute;nh gi&aacute;, theo d&otilde;i v&agrave; tối ưu c&aacute;c kịch bản/M&ocirc; h&igrave;nh đ&atilde; triển khai;</li>\n<li>X&acirc;y dựng c&aacute;c kịch bản để ph&aacute;t hiện gian lận.</li>\n<li>Quản l&yacute;, theo d&otilde;i t&iacute;nh hiệu quả/ph&ugrave; hợp v&agrave; cải tiến li&ecirc;n tục c&aacute;c kịch bản để ph&aacute;t hiện gian lận.</li>\n<li>Tham gia đ&aacute;nh gi&aacute; rủi ro, tư vấn giải ph&aacute;p kiểm so&aacute;t rủi ro gian lận với c&aacute;c quy tr&igrave;nh, sản phẩm mới của Ng&acirc;n h&agrave;ng</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp đại học c&aacute;c chuy&ecirc;n ng&agrave;nh Kinh tế, T&agrave;i ch&iacute;nh Ng&acirc;n h&agrave;ng, Khoa học dữ liệu, To&aacute;n Kinh tế, To&aacute;n T&agrave;i ch&iacute;nh, C&ocirc;ng nghệ th&ocirc;ng tin...</li>\n<li>C&oacute; nền tảng kiến thức về CNTT, T&agrave;i ch&iacute;nh, Thống k&ecirc;, Data Mining, Machine Learning;</li>\n<li>C&oacute; khả năng sử dụng c&aacute;c ng&ocirc;n ngữ lập tr&igrave;nh d&ugrave;ng ph&acirc;n t&iacute;ch dữ nhiệu như Python/SQL/R&hellip;</li>\n<li>C&oacute; kinh nghiệm l&agrave;m việc với c&aacute;c hệ thống t&agrave;i ch&iacute;nh kinh doanh của c&aacute;c tổ chức t&agrave;i ch&iacute;nh/t&iacute;n dụng l&agrave; một điểm cộng;</li>\n<li>Hiểu biết phương ph&aacute;p, th&ocirc;ng lệ quản trị rủi ro n&oacute;i chung v&agrave; quản trị rủi ro gian lận n&oacute;i ri&ecirc;ng</li>\n<li>C&oacute; kinh nghiệm x&acirc;y dựng v&agrave; ứng dụng m&ocirc; h&igrave;nh (PD, Fraud Detection) trong thực tiễn l&agrave; một lợi thế</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-21T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-21T04:31:32.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:20:02.591Z"
+  },
+  "__v": 0,
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d5769b1da1f83c6a343c7"
+  },
+  "name": "Test Manager (Auto - Test & Performance Test)",
+  "skills": [
+    {
+      "$oid": "682446170afbaf28090aec2d"
+    },
+    {
+      "$oid": "682446090afbaf28090aec26"
+    }
+  ],
+  "category": {
+    "$oid": "68244a4e0afbaf28090aedcc"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 20000000,
+  "quantity": 3,
+  "level": "Fresher accpeted, Junior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>Top 3 reasons to join us</h2>\n<ul>\n<li>Mức lương cạnh tranh, hấp dẫn</li>\n<li>M&ocirc;i trường l&agrave;m việc chuy&ecirc;n nghiệp, th&acirc;n thiện</li>\n<li>Được l&agrave;m việc với c&aacute;c hệ thống hiện đại, ti&ecirc;n tiến</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Job description</h2>\n<ul>\n<li>X&acirc;y dựng chiến lược Auto-Test v&agrave; Performance Test</li>\n<li>X&acirc;y dựng v&agrave; nghi&ecirc;n cứu ứng dụng triển khai, cải tiến Framework Auto Test (C&ocirc;ng cụ, Quy tr&igrave;nh/Quy định)</li>\n<li>Tổ chức chiển khai, gi&aacute;m s&aacute;t v&agrave; đảm bảo hiệu quả Auto-Test</li>\n<li>Tuyển dụng, đ&agrave;o tạo, quản l&yacute; nh&acirc;n sự</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp đại học chinh quy c&aacute;c trường trong nước hoặc nước ngo&agrave;i.</li>\n<li>Chuy&ecirc;n ng&agrave;nh: CNTT, điện tử viễn th&ocirc;ng</li>\n<li><strong>Hiểu biết s&acirc;u sắc về sản xuất phần mềm: C&oacute; &iacute;t nhất 7 năm kinh nghiệm.</strong></li>\n<li>Hiểu biết s&acirc;u sắc về Kiểm thử phần mềm v&agrave; Kiểm thử tự động (Auto-Test):\n<ul>\n<li>C&oacute; &iacute;t nhất 5 năm kinh nghiệm x&acirc;y dựng v&agrave; vận h&agrave;nh Framework Auto-Test.</li>\n<li>C&oacute; &iacute;t nhất 3 năm kinh nghiệm với vai tr&ograve; Quản l&yacute; cấp tương đương.</li>\n</ul>\n</li>\n<li>C&oacute; kinh nghiệm triển khai Automation Test vs Performance Test trong lĩnh vực t&agrave;i ch&iacute;nh</li>\n<li>C&oacute; kinh nghiệm quản l&yacute;, team tối thiểu 30-40 người</li>\n<li>Ưu ti&ecirc;n chứng chỉ kiểm thử quốc tế (v&iacute; dụ ISTQB cấp Expert hoặc tương đương)</li>\n<li>Ưu ti&ecirc;n c&oacute; Kinh nghiệm tại ng&acirc;n h&agrave;ng.</li>\n<li>Ưu ti&ecirc;n c&oacute; Kinh nghiệm Lập tr&igrave;nh.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-21T04:32:41.724Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:20:02.650Z"
+  },
+  "__v": 0,
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d57b5b1da1f83c6a343cf"
+  },
+  "name": "Business Analyst (Project Manager, Agile)",
+  "skills": [
+    {
+      "$oid": "682446170afbaf28090aec2d"
+    },
+    {
+      "$oid": "682446090afbaf28090aec26"
+    }
+  ],
+  "category": {
+    "$oid": "68244a730afbaf28090aeddd"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 15000000,
+  "quantity": 2,
+  "level": "Middle",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>Top 3 reasons to join us</h2>\n<ul>\n<li>Mức lương cạnh tranh, hấp dẫn</li>\n<li>M&ocirc;i trường l&agrave;m việc chuy&ecirc;n nghiệp, th&acirc;n thiện</li>\n<li>Được l&agrave;m việc với c&aacute;c hệ thống hiện đại, ti&ecirc;n tiến</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Job description</h2>\n<ul>\n<li>Tiếp nhận c&aacute;c y&ecirc;u cầu về sản phẩm, dịch vụ đối với CNTT</li>\n<li>Thực hiện nghiệp vụ ph&acirc;n t&iacute;ch, l&agrave;m r&otilde; y&ecirc;u cầu v&agrave; thống nhất với c&aacute;c b&ecirc;n li&ecirc;n quan</li>\n<li>X&acirc;y dựng c&aacute;c t&agrave;i liệu ph&acirc;n t&iacute;ch, đặc tả y&ecirc;u cầu, m&ocirc; h&igrave;nh h&oacute;a quy tr&igrave;nh nghiệp vụ</li>\n<li>Tham gia gi&aacute;m s&aacute;t qu&aacute; tr&igrave;nh kiểm thử nhằm đảm bảo chất lượng của hệ thống CNTT đ&aacute;p ứng đ&uacute;ng v&agrave; đủ y&ecirc;u cầu đ&atilde; đặt ra</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp hệ ch&iacute;nh quy c&aacute;c Trường Đại học trong nước hoặc nước ngo&agrave;i</li>\n<li>Chuy&ecirc;n ng&agrave;nh đ&agrave;o tạo: C&ocirc;ng nghệ th&ocirc;ng tin, To&aacute;n tin, Điện tử Viễn th&ocirc;ng, kế to&aacute;n, T&agrave;i ch&iacute;nh Ng&acirc;n h&agrave;ng</li>\n<li>C&oacute; &iacute;t nhất 01 năm kinh nghiệm trong c&ocirc;ng t&aacute;c ph&acirc;n t&iacute;ch nghiệp vụ tại c&aacute;c Ng&acirc;n h&agrave;ng, Tổ chức T&agrave;i ch&iacute;nh, Tập đo&agrave;n &amp; C&ocirc;ng ty về CNTT</li>\n<li>Ưu ti&ecirc;n ứng vi&ecirc;n c&oacute; kinh nghiệm quản l&yacute; dự &aacute;n</li>\n<li>C&oacute; kiến thức tổng quan về ng&acirc;n h&agrave;ng v&agrave; am hiểu s&acirc;u nghiệp vụ ng&acirc;n h&agrave;ng</li>\n<li>C&oacute; hiểu biết/kinh nghiệm thực tế về c&aacute;c nghiệp vụ ng&acirc;n h&agrave;ng. Đ&atilde; từng l&agrave;m việc với c&aacute;c hệ thống T24, Kondor, Way4 l&agrave; một lợi thế</li>\n<li>Ưu thế khi ứng vi&ecirc;n c&oacute; kinh nghiệm l&agrave;m việc theo c&aacute;c phương ph&aacute;p Agile&nbsp;</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-21T04:33:57.597Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:20:02.709Z"
+  },
+  "__v": 0,
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d57f1b1da1f83c6a343d7"
+  },
+  "name": "(Fresher) BackEnd Engineer (Java, Spring)",
+  "skills": [
+    {
+      "$oid": "682448900afbaf28090aed26"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "682456d184e1748501ea8c92"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 15000000,
+  "quantity": 3,
+  "level": "Fresher accpeted, Junior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>Top 3 reasons to join us</h2>\n<ul>\n<li>Mức lương cạnh tranh, hấp dẫn</li>\n<li>M&ocirc;i trường l&agrave;m việc chuy&ecirc;n nghiệp, th&acirc;n thiện</li>\n<li>Được l&agrave;m việc với c&aacute;c hệ thống hiện đại, ti&ecirc;n tiến</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Job description</h2>\n<ul>\n<li>Tham gia Lập tr&igrave;nh, ph&aacute;t triển c&aacute;c hệ thống, ứng dụng của Ng&acirc;n h&agrave;ng.</li>\n<li>Tham gia ph&aacute;t triển hoặc phối hợp c&ugrave;ng c&aacute;c nh&agrave; cung cấp triển khai c&aacute;c giải ph&aacute;p C&ocirc;ng nghệ th&ocirc;ng tin</li>\n<li>Tham gia, ph&aacute;t triển dịch vụ t&iacute;ch hợp với c&aacute;c hệ thống core như: T24, WAY4, BPM, CRM, CIC ...</li>\n<li>Tham gia ph&aacute;t triển API tr&ecirc;n API Gateway phục vụ t&iacute;ch hợp với c&aacute;c đối t&aacute;c trong nước v&agrave; quốc tế.</li>\n<li>Nghi&ecirc;n cứu, thử nghiệm, triển khai &aacute;p dụng c&aacute;c xu hướng c&ocirc;ng nghệ mới v&agrave;o việc ph&aacute;t triển: GraphQL, Docker Container (K8s), CICD, EventSourcing, CQRS, NoSQL ...</li>\n<li>Tham gia duy tr&igrave;, cập nhật đảm bảo hoạt động của c&aacute;c sản phẩm dịch vụ của Ng&acirc;n h&agrave;ng</li>\n<li>Tham gia c&aacute;c chương tr&igrave;nh training, đ&agrave;o tạo để ho&agrave;n thiện chuy&ecirc;n m&ocirc;n, nhằm ph&aacute;t triển l&ecirc;n c&aacute;c vị tr&iacute; ch&iacute;nh thức sau chương tr&igrave;nh đ&agrave;o tạo</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Những bạn chuẩn bị tốt nghiệp hoặc đ&atilde; tốt nghiệp dưới 1 năm tại c&aacute;c trường&nbsp; Đại học.</li>\n<li>Chuy&ecirc;n ng&agrave;nh tốt nghiệp: C&ocirc;ng nghệ th&ocirc;ng tin, Khoa học m&aacute;y t&iacute;nh, Điện tử viễn th&ocirc;ng, C&ocirc;ng nghệ phần mềm, Hệ thống th&ocirc;ng tin ...</li>\n<li>C&oacute; kiến thức, hiểu biết về 1 trong c&aacute;c ng&ocirc;n ngữ lập tr&igrave;nh BackEnd, ưu ti&ecirc;n Java</li>\n<li>C&oacute; kỹ năng l&agrave;m việc với Spring framework: spring core, spring sercuity, spring boots.</li>\n<li>Hiểu biết về 1 trong c&aacute;c loại database: Oracle, Sqlserver, PostgreSQL, Mongodb.</li>\n<li>Ưu ti&ecirc;n c&aacute;c bạn tốt nghiệp loại Giỏi, Xuất sắc</li>\n<li>Ứng vi&ecirc;n c&oacute; thể l&agrave;m việc fulltime l&agrave; một lợi thế. Y&ecirc;u cầu onsite tối thiểu 3/5 ng&agrave;y l&agrave;m việc trong tuần.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-21T04:34:57.744Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T09:20:02.768Z"
+  },
+  "__v": 0,
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d5867b1da1f83c6a343df"
+  },
+  "name": "Solution Architect (Java)",
+  "skills": [
+    {
+      "$oid": "68244bbc0afbaf28090aee20"
+    },
+    {
+      "$oid": "68241e70be8cd56835f50cbd"
+    },
+    {
+      "$oid": "68241e60be8cd56835f50cb6"
+    },
+    {
+      "$oid": "68241e51be8cd56835f50caf"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "68244bde0afbaf28090aee3b"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 35000000,
+  "quantity": 2,
+  "level": "Senior, Solution Architect",
+  "description": "<div class=\"imy-5 paragraph\">\n<ul>\n<li>Chịu tr&aacute;ch nhiệm thiết kế kiến tr&uacute;c giải ph&aacute;p v&agrave; tham gia v&agrave;o qu&aacute; tr&igrave;nh ph&aacute;t triển c&aacute;c hệ thống CNTT</li>\n<li>Tham gia triển khai v&agrave; đảm bảo ti&ecirc;u chuẩn kiến tr&uacute;c được &aacute;p dụng v&agrave;o c&aacute;c dự &aacute;n/y&ecirc;u cầu ph&aacute;t triển</li>\n<li>Đ&aacute;nh gi&aacute; v&agrave; cho &yacute; kiến về c&aacute;c thay đổi kiến tr&uacute;c trong c&aacute;c dự &aacute;n, c&ocirc;ng việc c&oacute; li&ecirc;n quan đến thay đổi kiến tr&uacute;c.</li>\n<li>Tham mưu, đ&aacute;nh gi&aacute;, x&acirc;y dựng v&agrave; chuẩn ho&aacute; c&aacute;c phương &aacute;n cải tiến, tối ưu kiến tr&uacute;c.</li>\n<li>Nghi&ecirc;n cứu xu hướng c&ocirc;ng nghệ mới v&agrave; đ&aacute;nh gi&aacute; tiền khả thi/hiệu quả khi triển khai tại MB</li>\n<li>Hỗ trợ C&ocirc;ng ty th&agrave;nh vi&ecirc;n (CTTV) trong việc đ&aacute;nh gi&aacute; v&agrave; x&acirc;y dựng kiến tr&uacute;c khi c&oacute; y&ecirc;u cầu, đ&aacute;nh gi&aacute; mức độ trưởng th&agrave;nh kiến tr&uacute;c của CTTV</li>\n<li>X&acirc;y dựng, Tư vấn c&aacute;c Quy tr&igrave;nh về CNTT (li&ecirc;n quan tới Kiến tr&uacute;c).</li>\n<li>Tham gia xử l&yacute; rủi ro, sự cố c&ocirc;ng nghệ</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp Đại học c&aacute;c chuy&ecirc;n ng&agrave;nh C&ocirc;ng nghệ th&ocirc;ng tin, Khoa học m&aacute;y t&iacute;nh, To&aacute;n tin, Điện tử Viễn th&ocirc;ng&hellip;</li>\n<li>C&oacute; kinh nghiệm từ 3 năm trở l&ecirc;n l&agrave;m việc trong/hoặc với ng&acirc;n h&agrave;ng hoặc/v&agrave; c&aacute;c tổ chức t&iacute;n dụng; Tư vấn, thiết kế v&agrave; x&acirc;y dựng Kiến tr&uacute;c giải ph&aacute;p; Tham gia ph&aacute;t triển phần mềm hoặc triển khai c&aacute;c giải ph&aacute;p phần mềm</li>\n<li>Ưu ti&ecirc;n ứng vi&ecirc;n c&oacute; kinh nghiệm triển khai c&aacute;c giải ph&aacute;p lớn end to end như: Mobile Banking, Internet Banking, Core banking, Core Card, Core V&iacute;, Payment, BPM, ESB, MicroServices, CRM, Big Data, Risk, Treasury,...</li>\n<li>C&oacute; kinh nghiệm, kiến thức về c&aacute;c mảng li&ecirc;n quan tại Ng&acirc;n h&agrave;ng, Tổ chức T&agrave;i ch&iacute;nh về C&ocirc;ng nghệ th&ocirc;ng tin l&agrave; một lợi thế</li>\n<li>C&oacute; chứng chỉ Thiết kế Kiến tr&uacute;c tổng thể - TOGAF, Kiến tr&uacute;c Cloud l&agrave; một lợi thế.</li>\n<li>Vị tr&iacute; mở với c&aacute;c senior dev c&oacute; định hướng chuyển sang SA</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-21T04:36:55.435Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:08:12.408Z"
+  },
+  "__v": 0,
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  },
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682d58b4b1da1f83c6a343e7"
+  },
+  "name": "AI Engineer (Python,C++)",
+  "skills": [
+    {
+      "$oid": "68241b7dbe8cd56835f50bbc"
+    },
+    {
+      "$oid": "68241a90be8cd56835f50b6e"
+    }
+  ],
+  "category": {
+    "$oid": "6824590f84e1748501ea8df7"
+  },
+  "company": {
+    "_id": "682d553db1da1f83c6a34349",
+    "name": "MBBANK: MB NGÂN HÀNG QUÂN ĐỘI",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fe508b103-0ef5-4746-9976-cf6ab5290dea.png?alt=media&token=7d8aa5ef-637b-4b2e-93a2-15cdd5823207"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 20000000,
+  "quantity": 2,
+  "level": "Fresher accpeted, Junior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>Top 3 reasons to join us</h2>\n<ul>\n<li>Mức lương cạnh tranh, hấp dẫn</li>\n<li>M&ocirc;i trường l&agrave;m việc chuy&ecirc;n nghiệp, th&acirc;n thiện</li>\n<li>Được l&agrave;m việc với c&aacute;c hệ thống hiện đại, ti&ecirc;n tiến</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Job description</h2>\n<ul>\n<li>Chịu tr&aacute;ch nhiệm thiết kế kiến tr&uacute;c giải ph&aacute;p v&agrave; tham gia v&agrave;o qu&aacute; tr&igrave;nh ph&aacute;t triển c&aacute;c hệ thống CNTT</li>\n<li>Tham gia triển khai v&agrave; đảm bảo ti&ecirc;u chuẩn kiến tr&uacute;c được &aacute;p dụng v&agrave;o c&aacute;c dự &aacute;n/y&ecirc;u cầu ph&aacute;t triển</li>\n<li>Đ&aacute;nh gi&aacute; v&agrave; cho &yacute; kiến về c&aacute;c thay đổi kiến tr&uacute;c trong c&aacute;c dự &aacute;n, c&ocirc;ng việc c&oacute; li&ecirc;n quan đến thay đổi kiến tr&uacute;c.</li>\n<li>Tham mưu, đ&aacute;nh gi&aacute;, x&acirc;y dựng v&agrave; chuẩn ho&aacute; c&aacute;c phương &aacute;n cải tiến, tối ưu kiến tr&uacute;c.</li>\n<li>Nghi&ecirc;n cứu xu hướng c&ocirc;ng nghệ mới v&agrave; đ&aacute;nh gi&aacute; tiền khả thi/hiệu quả khi triển khai tại MB</li>\n<li>Hỗ trợ C&ocirc;ng ty th&agrave;nh vi&ecirc;n (CTTV) trong việc đ&aacute;nh gi&aacute; v&agrave; x&acirc;y dựng kiến tr&uacute;c khi c&oacute; y&ecirc;u cầu, đ&aacute;nh gi&aacute; mức độ trưởng th&agrave;nh kiến tr&uacute;c của CTTV</li>\n<li>X&acirc;y dựng, Tư vấn c&aacute;c Quy tr&igrave;nh về CNTT (li&ecirc;n quan tới Kiến tr&uacute;c).</li>\n<li>Tham gia xử l&yacute; rủi ro, sự cố c&ocirc;ng nghệ</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Your skills and experience</h2>\n<ul>\n<li>Tốt nghiệp Đại học c&aacute;c chuy&ecirc;n ng&agrave;nh C&ocirc;ng nghệ th&ocirc;ng tin, Khoa học m&aacute;y t&iacute;nh, To&aacute;n tin, Điện tử Viễn th&ocirc;ng&hellip;</li>\n<li>C&oacute; kinh nghiệm từ 3 năm trở l&ecirc;n l&agrave;m việc trong/hoặc với ng&acirc;n h&agrave;ng hoặc/v&agrave; c&aacute;c tổ chức t&iacute;n dụng; Tư vấn, thiết kế v&agrave; x&acirc;y dựng Kiến tr&uacute;c giải ph&aacute;p; Tham gia ph&aacute;t triển phần mềm hoặc triển khai c&aacute;c giải ph&aacute;p phần mềm</li>\n<li>Ưu ti&ecirc;n ứng vi&ecirc;n c&oacute; kinh nghiệm triển khai c&aacute;c giải ph&aacute;p lớn end to end như: Mobile Banking, Internet Banking, Core banking, Core Card, Core V&iacute;, Payment, BPM, ESB, MicroServices, CRM, Big Data, Risk, Treasury,...</li>\n<li>C&oacute; kinh nghiệm, kiến thức về c&aacute;c mảng li&ecirc;n quan tại Ng&acirc;n h&agrave;ng, Tổ chức T&agrave;i ch&iacute;nh về C&ocirc;ng nghệ th&ocirc;ng tin l&agrave; một lợi thế</li>\n<li>C&oacute; chứng chỉ Thiết kế Kiến tr&uacute;c tổng thể - TOGAF, Kiến tr&uacute;c Cloud l&agrave; một lợi thế.</li>\n<li>Vị tr&iacute; mở với c&aacute;c senior dev c&oacute; định hướng chuyển sang SA</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Why you'll love working here</h2>\n<p><strong>Trải nghiệm Thu nhập hấp dẫn với g&oacute;i đ&atilde;i ngộ to&agrave;n diện:</strong>&nbsp;</p>\n<ul>\n<li>Thưởng&nbsp;th&agrave;nh t&iacute;ch th&aacute;ng 13; Thưởng th&agrave;nh t&iacute;ch theo kết quả c&ocirc;ng việc 06 th&aacute;ng, 1 năm ; Thưởng c&aacute;c&nbsp;dịp lễ tết trong năm ; Thưởng theo danh hiệu c&aacute; nh&acirc;n v&agrave; tập thể&hellip;&nbsp;</li>\n<li>Du lịch nghỉ dưỡng h&agrave;ng năm</li>\n<li>Kh&aacute;m sức khỏe định k&igrave;</li>\n<li>G&oacute;i bảo hiểm sức khỏe c&aacute; nh&acirc;n v&agrave; người th&acirc;n (MIC)</li>\n<li>Qu&agrave; tặng v&agrave; ng&agrave;y nghỉ sinh nhật hưởng nguy&ecirc;n lương&nbsp;</li>\n</ul>\n<p><strong>Cơ hội nghề nghiệp v&agrave; ph&aacute;t triển bản th&acirc;n:</strong>&nbsp;</p>\n<ul>\n<li>Được thử sức với c&aacute;c nền tảng c&ocirc;ng nghệ mới, tham gia v&agrave;o những dự &aacute;n chuyển đổi lớn của ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>C&oacute; cơ hội học hỏi từ c&aacute;c Chuy&ecirc;n gia, L&atilde;nh đạo nội bộ h&agrave;ng đầu tại MB trong lĩnh vực IT, T&agrave;i ch&iacute;nh ng&acirc;n h&agrave;ng&nbsp;</li>\n<li>Được trải nghiệm c&aacute;c&nbsp;phương ph&aacute;p học tập&nbsp;mới v&agrave;&nbsp;ph&aacute;t triển năng lực theo lộ tr&igrave;nh c&ocirc;ng danh.&nbsp;</li>\n<li>Hưởng c&aacute;c ch&iacute;nh s&aacute;ch hỗ trợ, khuyến kh&iacute;ch học tập, n&acirc;ng cao tr&igrave;nh độ v&agrave; ph&aacute;t triển bản th&acirc;n (chứng chỉ nghề quốc tế...)&nbsp;</li>\n</ul>\n<p><strong>M&ocirc;i trường l&agrave;m việc l&yacute; tưởng với:</strong>&nbsp;</p>\n<ul>\n<li>Những người cộng sự th&acirc;n thiện v&agrave; t&agrave;i năng&nbsp;</li>\n<li>Cơ sở vật chất, kh&ocirc;ng gian l&agrave;m việc xanh v&agrave; hiện đại.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-21T04:38:12.899Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:02:45.468Z"
+  },
+  "__v": 0,
+  "hrId": {
+    "$oid": "682d5317b1da1f83c6a34066"
+  },
+  "updatedBy": {
+    "_id": "682d5317b1da1f83c6a34066",
+    "email": "hrmbbank@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "682f27087272d56755f17eb0"
+  },
+  "name": "Android Automotive Expert",
+  "hrId": {
+    "$oid": "68240563a3bb621cb10c397f"
+  },
+  "skills": [
+    {
+      "$oid": "682457a984e1748501ea8cc7"
+    },
+    {
+      "$oid": "68244bbc0afbaf28090aee20"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "682458b884e1748501ea8d83"
+  },
+  "company": {
+    "_id": "682466f984e1748501ea9772",
+    "name": "Spartan Dev Inc chi nhánh Đà Nẵng",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2F71e28e32-2b34-4ad8-93dd-6aab93ac05ba.png?alt=media&token=033f182c-8d31-4b47-aaba-8040cb75aa36"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 30000000,
+  "quantity": 1,
+  "level": "Senior accepted, Expert",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Committed 13th-mth bonus + attractive yearly bonus</li>\n<li>Premium Healthcare for you and 2 family members</li>\n<li>16++ days of paid leave per year</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p><strong>Position Overview:</strong><br>We are seeking an expert in Android Automotive development to lead the design, implementation, and optimization of In-Vehicle Infotainment (IVI) systems and Cockpit Domain Controllers. The ideal candidate will possess deep expertise in Android Automotive, AOSP (Android Open-Source Project), and integrating multimedia, navigation, connectivity, and vehicle control features in a real-time automotive environment. This role requires experience in driving the technical architecture, coding, and hands-on system integration to deliver innovative automotive solutions. A key part of your responsibilities will include leading the development of high-performance, low-latency Android Automotive systems and collaborating across multi-OS platforms, including QNX Hypervisor integration.<br><strong>Key Responsibilities:</strong><br><strong>Android Automotive Systems Development</strong><br>&nbsp;</p>\n<ul>\n<li>Lead the development of Android Automotive solutions, customizing AOSP for In-Vehicle Infotainment (IVI) platforms, and integrating multimedia, navigation, and vehicle control features.</li>\n<li>Optimize HMI (Human-Machine Interface) for seamless transitions between infotainment and vehicle systems, enhancing the driver experience.</li>\n</ul>\n<p><strong>Hands-On Development &amp; Debugging</strong></p>\n<p><strong>Platform Architecture &amp; Integration</strong></p>\n<p><strong>Client Engagement &amp; Business Development</strong><br><strong>Leadership &amp; Cross-Functional Collaboration</strong></p>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<ul>\n<li><strong>Extensive Experience in Android Automotive Development:</strong>&nbsp;At least 8 years of hands-on experience in developing Android Automotive solutions, including deep customization of AOSP for IVI systems and infotainment platforms.<br>&nbsp;</li>\n<li><strong>Real-Time Systems Expertise:&nbsp;</strong>Proven experience in optimizing Android for real-time applications, including the integration of safety-critical systems and the implementation of multi-layered solutions with low-latency performance.<br>&nbsp;</li>\n<li><strong>Hands-On Embedded Systems Development:</strong>&nbsp;Expertise in writing low-level code, device drivers, and firmware for automotive platforms running Android, with experience in BSP development and hardware integration.</li>\n<li><strong>Client-Facing &amp; Proposal Skills:</strong>&nbsp;Experience in client-facing roles, delivering technical presentations, and managing proposals and project bids related to Android Automotive solutions.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p>Why&nbsp;<strong>BOSCH</strong>?</p>\n<ul>\n<li>Because we don't just follow trends, we&nbsp;<strong>create&nbsp;</strong>them.</li>\n<li>Because we do not just follow trends, we&nbsp;<strong>create&nbsp;</strong>them. Together we turn ideas into reality, working every day to make the world of tomorrow a better place.&nbsp;</li>\n</ul>\n<p>Do you have high standards when it comes to your job? So do we. At Bosch, you will discover more than just work.</p>\n<p><strong>Benefits and Career Opportunities</strong></p>\n<ul>\n<li>Working in one of the&nbsp;<strong>Best Places to Work</strong>&nbsp;in Vietnam and&nbsp;Top 30 of the&nbsp;<strong>Most Innovative Companies&nbsp;</strong>all over the world</li>\n<li><strong>English-speaking</strong>&nbsp;environment, with opportunity to be part of innovation team and work in global projects</li>\n<li><strong>Onsite opportunities</strong></li>\n<li>Engage in our&nbsp;<strong>diverse training</strong>&nbsp;programs which surely help strengthen both your personal and professionalism</li>\n<li><strong>Flexible&nbsp;</strong>working time and working model</li>\n<li><strong>13th-month</strong>&nbsp;salary bonus + attractive&nbsp;<strong>performance bonus</strong>&nbsp;(you'll love it!) + annual performance appraisal</li>\n<li><strong>100% offered&nbsp;salary</strong>&nbsp;and&nbsp;mandatory&nbsp;<strong>social insurances</strong>&nbsp;in 2-month probation</li>\n<li><strong>15++ days</strong>&nbsp;of annual leave&nbsp;+ 1-day of birthday leave</li>\n<li>Premium health insurance for employee and&nbsp;<strong>02 family members</strong></li>\n<li>Lunch and parking allowance</li>\n<li>Good benefits of company activities such as: football, badminton, yoga, Aerobic, team building&hellip;</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "68240563a3bb621cb10c397f",
+    "email": "hrspartan@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-22T13:30:48.289Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T13:30:48.289Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6832ea6059cf8c94d9ca555c"
+  },
+  "name": "Game Tester (Manual Tester, QA QC)",
+  "hrId": {
+    "$oid": "680125b048ebc6dc41503f19"
+  },
+  "skills": [
+    {
+      "$oid": "682457a984e1748501ea8cc7"
+    },
+    {
+      "$oid": "68244a420afbaf28090aedbf"
+    },
+    {
+      "$oid": "682446170afbaf28090aec2d"
+    },
+    {
+      "$oid": "682446090afbaf28090aec26"
+    }
+  ],
+  "category": {
+    "$oid": "68244a4e0afbaf28090aedcc"
+  },
+  "company": {
+    "_id": "683012b15eb8f835ebde2ca7",
+    "name": "NFQ Asia",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2F2ab06446-8b2f-4dc6-964f-c2e5e5b13522.jpg?alt=media&token=3501d970-9129-4231-bd7c-4d8137074a2e"
+  },
+  "location": "Thành phố Đà Nẵng",
+  "salary": 10000000,
+  "quantity": 5,
+  "level": "Fresher accpeted, Junior",
+  "description": "<section class=\"reasons-join-us\">\n<h2 class=\"text-it-black\">3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul class=\"my-2 paragraph\">\n<li class=\"ipy-1\">MacBook Pro/Extra screens &amp; Remote Work policy</li>\n<li class=\"ipy-1\">Premium health insurance package for you, relative</li>\n<li class=\"ipy-1\">Company Trip 4-5*, Yoga, Gym/Fitness/English club</li>\n</ul>\n</section>\n<div class=\"border-top-dashed imy-6\">&nbsp;</div>\n<section class=\"job-description\">\n<h2 class=\"text-it-black imb-4\">M&ocirc; tả c&ocirc;ng việc</h2>\n<div class=\"paragraph\">\n<ul>\n<li>Write, execute and maintain test cases.</li>\n<li>Estimate and perform testing following test plans. Align and report testing status with development on a daily basis.</li>\n<li>Analyze the results of testing, submit defect reports, and lead the triage of defect reports to ensure that they are properly prioritized and assigned.</li>\n<li>Implement and maintain the testing process to ensure both the development team and QA team stays on the same page and issues are solved efficiently.</li>\n<li>Follow up on requests from the development team.</li>\n<li>Ensure effective internal and external communication. Proactively implement initiatives to enhance test processes and foster collaboration between internal and external QA teams.</li>\n</ul>\n</div>\n</section>\n<div class=\"border-top-dashed imy-6\">&nbsp;</div>\n<section class=\"job-experiences\">\n<h2 class=\"text-it-black imb-4\">Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<div class=\"paragraph\">\n<p><strong>SKILLS</strong></p>\n<ul>\n<li>2 years of experience in QA/QC/testing roles (games, mobile apps, or web applications).</li>\n<li>Reporting and synthesis</li>\n<li>Identifying test case scenarios</li>\n<li>Writing test cases and checklists</li>\n<li>Problem-solving &amp; troubleshooting</li>\n<li>Bug reporting and isolation</li>\n<li>Communication &amp; teamwork</li>\n<li>Strong English Reading &amp; Communication</li>\n</ul>\n<p><strong>KNOWLEDGE</strong></p>\n<ul>\n<li>Experience playing games at all skill levels.</li>\n<li>Software, Hardware, and Mobile Platform Testing Knowledge</li>\n<li>Essential Game Features: iOS &amp; Android</li>\n<li>Game development and QA Processes</li>\n<li>Agile/Scrum Methodology</li>\n<li>Test tools</li>\n</ul>\n<p><strong>ABILITIES</strong></p>\n<ul>\n<li>Working with Work Management Tools: Jira, Zephyr Scale, Firebase</li>\n<li>Analyzing &amp; Creating Test Cases</li>\n<li>Analyzing Game Documents</li>\n<li>Prioritization, Time Management</li>\n<li>Passion for Games</li>\n<li>Growth Mindset</li>\n<li>Quick Learner</li>\n<li>Work Ethic&nbsp;</li>\n</ul>\n</div>\n</section>\n<div class=\"border-top-dashed imy-6\">&nbsp;</div>\n<section class=\"job-why-love-working\">\n<h2 class=\"text-it-black imb-4\">Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<div class=\"paragraph\">\n<ul>\n<li>Great facility to work. You will have a MacBook and extra high-definition screens</li>\n<li>Premium health insurance package and annual medical check-up</li>\n<li>Sponsorship for training courses</li>\n<li>Interesting activities: gym/fitness club at work, English club, corporate social responsibility events...</li>\n<li>Attractive signing bonus for important positions</li>\n<li>With regular discussions with the CEO, founders, and executives of the company, you will have a lot of opportunities to learn from experts in their fields</li>\n<li>Annual bonus and project bonus</li>\n<li>International opportunity to expose and grow</li>\n<li>At least one abroad travels every year. We often send our elites to international conferences like GDC, WWDC, Google I/O... to update the latest technology</li>\n<li>Full labor insurance (social, health, unemployed)</li>\n<li>Annual leave 12 days / sick leave 2 days / remote work 12 days</li>\n<li>Free food &amp; drinks, kitchen at work, PlayStation after work</li>\n<li>Friday evening party, happy hour, team activities, and awesome parties&hellip;</li>\n</ul>\n</div>\n</section>",
+  "startDate": {
+    "$date": "2025-05-25T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "680125b048ebc6dc41503f19",
+    "email": "adminitsmarthire@gmail.com"
+  },
+  "isDeleted": true,
+  "deletedAt": {
+    "$date": "2025-05-25T10:04:25.080Z"
+  },
+  "createdAt": {
+    "$date": "2025-05-25T10:01:04.999Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T10:04:25.082Z"
+  },
+  "__v": 0,
+  "deletedBy": {
+    "_id": "680125b048ebc6dc41503f19",
+    "email": "adminitsmarthire@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "683671022c089f1a66a69c08"
+  },
+  "name": "Backend Technical Lead (Java)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "682449330afbaf28090aed56"
+    },
+    {
+      "$oid": "682448900afbaf28090aed26"
+    },
+    {
+      "$oid": "68241bbdbe8cd56835f50bd2"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "68244b500afbaf28090aedff"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 80000000,
+  "quantity": 2,
+  "level": "Technical Lead / Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p><strong>Description:</strong></p>\n<p>The Technical Leader will drive the efficient delivery of change through analysis, definition, and documentation of requirements whilst identifying potential solutions using agile delivery frameworks.</p>\n<p><strong>What you&rsquo;ll be doing</strong></p>\n<ul>\n<li>Work in small, highly collaborative agile teams. You and the team will have a clear mission and ownership of an important outcome that support Tyme and our customers.</li>\n<li>Align with stakeholders across Tyme on best practices around APIs, security, compliance, roadmap, and reliability.</li>\n<li>Help drive the technical direction of software features.</li>\n<li>Build highly scalable, reliable, and maintainable APIs to handle high-volume transactions.</li>\n<li>We aim for teams that are inclusive, helpful, and have a strong sense of ownership for the things they build.</li>\n</ul>\n<p>At Tyme, we optimize for quality, flow, and fast feedback, focusing on end-to-end ownership, continuous improvement, testing, monitoring, and experimentation. We&rsquo;re looking for positive and passionate people who will put teamwork and collaboration above all else.</p>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<p><strong>You should have:</strong></p>\n<ul>\n<li>A pragmatic mindset.</li>\n<li>Knowledge of professional software engineering practices for the full development life cycle (coding standards, code reviews, source control management, build processes, testing, operation, monitoring, etc.).</li>\n<li>With at least 8+ years of experience working in software development, we also welcome strong candidates having fewer years of experience.</li>\n<li>Preferably with 3+ years of experience in Java. We also welcome other general-purpose programming languages but are not limited to Java.</li>\n<li>Understanding of system design and tuning for high performance, scalability, and reliability.</li>\n<li>Strong database and schema design for large-scale and finance systems.</li>\n<li>Great problem-solving abilities.</li>\n<li>Experience with microservices architecture.</li>\n<li>Experience with event-driven architecture or message queue system</li>\n<li>Professional experience working with cloud (either AWS, Azure, or GCP).</li>\n<li>Experience in enterprise architecture.</li>\n<li>Working proficiency in English.</li>\n</ul>\n<p><strong>Qualifications:</strong></p>\n<ul>\n<li>The ability to work and live in Ho Chi Minh City</li>\n<li>B.Sc or M.Sc in Computer Science or a related discipline with proven &ldquo;hands-on&rdquo; development experience</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-28T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": false,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:12:18.062Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T05:38:12.339Z"
+  },
+  "__v": 0,
+  "updatedBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "683671af2c089f1a66a69c37"
+  },
+  "name": "Technical Scrum Master (Agile)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "6824580184e1748501ea8cf4"
+    },
+    {
+      "$oid": "682446170afbaf28090aec2d"
+    },
+    {
+      "$oid": "682446090afbaf28090aec26"
+    }
+  ],
+  "category": {
+    "$oid": "6824581784e1748501ea8d0b"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 40000000,
+  "quantity": 1,
+  "level": "Technical Lead / Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p>Are you a<strong>&nbsp;Technical</strong>&nbsp;<strong>Scrum Master</strong>&nbsp;that can still code and test when your team requires it? Do you have a experience in&nbsp;<strong>product development&nbsp;</strong>and desire to&nbsp;<strong>build</strong>&nbsp;<strong>high performing teams</strong>? If so read on.</p>\n<p><strong>About our Team</strong></p>\n<p>Our team is responsible for creating a brand of new digital financial platforms and apps that are highly reliable and scalable using modern engineering practices. You will be joining a project which talented software engineers in our Digital Bank Build team who is responsible for designing, building and maintaining the new digital banking platform and the customer channels. As part of the team, you will be responsible for implementing software features, involve in technical designs and writing tests to ensure the high quality delivery of the product. The teams operate in Scrum and DevOps model.</p>\n<p><strong>About the job</strong></p>\n<p>We are looking for an experienced and versatile&nbsp;<strong>Technical Scrum Master&nbsp;</strong>who will be responsible for building a new scrum team for the delivery of one of our new fintech products.</p>\n<p>The Scrum Master critical responsibility is for the team and for optimal flow of work to DONE. Scrum Masters are expected to do this by setting the pace for delivery and being proactive in planning and forecasting for upcoming deliverables. To be successful in the role you should demonstrate pragmatism in your approach and be sensitive to the environment that we operate in, using your skills and knowledge to appropriately influence the delivery approach.</p>\n<p><strong>We are seeking a motivated individual with:</strong></p>\n<ul>\n<li><strong>Excellent English speaking and written skills. (Mandatory)</strong></li>\n<li>Foster an open, honest and transparent relationship with key stakeholders</li>\n<li>Excellent presentation and facilitation, coaching and mentorship skills</li>\n<li>Strong stakeholder management and communications experience</li>\n<li>Strong ability to influence cross-functional teams and leadership</li>\n<li>Demonstrate assertiveness, being the voice of reason and authority</li>\n<li>Must be enthusiastic and bring high-energy to the delivery team</li>\n<li>Responsible for continuous delivery and management of technical debt</li>\n<li>Previous experience leading small teams while still being hands-on</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<ul>\n<li><strong>At least 2+ years recent experience as a Scrum Master.</strong></li>\n<li>Accountable for the quality of agile ceremonies including daily scrums, sprint planning, showcases and retrospectives</li>\n<li>Ability to provide constructive and timely feedback to delivery team members and stakeholders</li>\n<li><strong>Conflict resolution within/between delivery team and stakeholders</strong></li>\n<li>Ability to negotiate priorities and timelines with stakeholders</li>\n<li>Setting the pace/cadence for delivery and motivating teams to succeed</li>\n<li><strong>Ensuring the delivery team commits to their definition of done</strong></li>\n<li>Visual representation and management of work in the sprint e.g. card walls and burn-up charts</li>\n<li>Management of the Master Story List (MSL), ensuring it is adequately maintained, stories are up to date and ready to play into a sprint</li>\n</ul>\n<p><strong>Knowledge of at least 3 of the following areas:</strong></p>\n<ul>\n<li>Mobile: iOS or Android</li>\n<li>Web: HTML5, CSS3, Angular JS, Javascript</li>\n<li>Microsoft .Net (C#, ASP, Framework), SQL Server</li>\n<li>Quality Assurance, Automation Testing</li>\n<li>Web Security, OWASP</li>\n<li>Java, Oracle</li>\n<li>DevOps, Continuous Delivery</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p>At&nbsp;TYME&nbsp;opportunities are here for the taking. If want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowance</strong>&nbsp;covered by company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference and career talk) - we focus on your development.</li>\n<li><strong>Values driven, international working environment and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and working related.</li>\n<li><strong>Internal Hackathons and company's events</strong>&nbsp;(team building, coffee run, blue card...)</li>\n<li><strong>Pro-Rate</strong>&nbsp;and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:15:11.180Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:15:11.180Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683672072c089f1a66a69c54"
+  },
+  "name": "AWS DevOps Lead (DevOps, AWS)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "68244bbc0afbaf28090aee20"
+    },
+    {
+      "$oid": "68241fb2be8cd56835f50d3d"
+    },
+    {
+      "$oid": "68241e70be8cd56835f50cbd"
+    },
+    {
+      "$oid": "68241e60be8cd56835f50cb6"
+    },
+    {
+      "$oid": "68241c6abe8cd56835f50c09"
+    }
+  ],
+  "category": {
+    "$oid": "68244bde0afbaf28090aee3b"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 50000000,
+  "quantity": 2,
+  "level": "Technical Lead / Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p>We seek a highly skilled and motivated&nbsp;<strong>AWS DevOps Lead</strong>&nbsp;with a&nbsp;<strong>strong background in software development,</strong>&nbsp;<strong>expertise in AWS Cloud</strong>, and a solid understanding of the banking domain. A crucial part of the role is championing and leading infrastructure as code. You will be responsible for implementing tools and processes that enable rapid software development and deployment.</p>\n<p>Your mission is to embrace continuous integration/deployment in a delivery pipeline that will perform automated quality checks, deploy cloud infrastructure quickly, and provide operational tooling and metrics that development teams can consume. To succeed, you will have a blend of development experience and operational experience that provides a good understanding of the developers you are working with while balancing critical systems uptime.</p>\n<h3>Your responsibilities</h3>\n<ul>\n<li><strong>Collaborate with cross-functional teams to gather requirements and design scalable and maintainable software solutions.</strong></li>\n<li><strong>Build integration solutions for seamless communication between microservices, APIs, and third-party systems.</strong></li>\n<li><strong>Contribute to developing continuous delivery, automation frameworks, and pipelines to create an excellent experience for developers and customers.</strong></li>\n<li>Optimize database interactions and ensure data integrity across distributed systems.</li>\n<li><strong>Develop and enforce best practices for messaging, integration, and data pipeline architectures.</strong></li>\n<li>Identify and develop opportunities to improve our processes and tools for automation.</li>\n<li>Learn new skills and help foster a continuous delivery and cloud-first mindset.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<ul>\n<li><strong>7+ years of experience in the field of DevOps including backend development using Python or Java,&nbsp;</strong></li>\n<li><strong>At least 2+ years in a lead role. (DevOps or Technical Lead)</strong></li>\n<li><strong>Proficient in Apache Kafka, including Kafka Connect, Schema Registry, etc.</strong></li>\n<li><strong>Expertise in building and deploying microservice and event-driven architecture, distributed systems, event sourcing, CQRS patterns, etc..</strong></li>\n<li><strong>Experience using AWS foundation services (VPC, ECS, Lambda, RDS, SNS, SQS, Eventbridge, etc..).</strong></li>\n<li>Hands-on experience with tools like&nbsp;<strong>Kafka Connectors, Debezium</strong>, etc..</li>\n<li><strong>Solid experience with application integration patterns, RESTful APIs, and messaging protocols.</strong></li>\n<li>Able to do hands-on, deep-dive details and work closely with team members to troubleshoot and optimize our platform.</li>\n<li><strong>Able to design scalability systems as well as multi-country patterns for our platform</strong></li>\n<li><strong>Knowledge of one or more AWS CloudFormation/Terraform/CDK for infrastructure provisioning.</strong></li>\n<li>An automation mindset with the ability to develop tooling to improve the efficiency of repeatable tasks, reliability, and performance.</li>\n<li>Understanding cloud change management practices with an awareness of compliance and security standards.</li>\n<li>Good skills in English and the ability to communicate and coordinate effectively with business partners and technical teams.</li>\n<li>Demonstrate good logical thinking and problem-solving skills.</li>\n<li>Be curious and have a self-learning attitude.</li>\n</ul>\n<p>Big Plus:</p>\n<ul>\n<li>AWS Certification Developer Associate or DevOps / SA Professional.</li>\n</ul>\n<h3>You are:</h3>\n<ul>\n<li>Passionate about technology</li>\n<li>Independent but also a team player</li>\n<li>Comfortable with a high degree of ambiguity</li>\n<li>Focused on usability and speed</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": true,
+  "deletedAt": {
+    "$date": "2025-05-28T05:37:56.447Z"
+  },
+  "createdAt": {
+    "$date": "2025-05-28T02:16:39.934Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T05:37:56.450Z"
+  },
+  "__v": 0,
+  "deletedBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "6836726e2c089f1a66a69cdf"
+  },
+  "name": "Data Engineer - Digital Banking (Python, SQL Database)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "682446170afbaf28090aec2d"
+    },
+    {
+      "$oid": "682446090afbaf28090aec26"
+    },
+    {
+      "$oid": "682445fc0afbaf28090aec1f"
+    },
+    {
+      "$oid": "68242051be8cd56835f50d80"
+    }
+  ],
+  "category": {
+    "$oid": "6824590f84e1748501ea8df7"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 50000000,
+  "quantity": 3,
+  "level": "Middle accepted / Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p>TymeX is building some of world's fastest growing digital banks and the data team plays a key role in driving the bank&rsquo;s vision of creating a platform that stimulates economic participation and facilitates broader financial inclusion by implementing creative best in class data and analytic solutions to achieve success in providing quality services and products to our customers and optimising the business.</p>\n<p>&nbsp;</p>\n<p>As a&nbsp;<strong>Data Engineer</strong>&nbsp;you will contribute to the mission by creating solutions that will directly support informed decision-making and innovation by providing clean, protected, quality and auditable data from various sources into fit for purpose data products.</p>\n<p>&nbsp;</p>\n<p><strong>In this role, you can expect to:</strong></p>\n<ul>\n<li>Design, develop, test, deploy and monitor data pipelines in Databricks on AWS from a wide variety of data sources.</li>\n<li>Design, develop, test, deploy and monitor scalable code with PySpark and SQL in Databricks.</li>\n<li>Identify opportunities to improve internal process through code optimisation and automation.</li>\n<li>Build data quality dashboards, lineage flows / and or monitoring tools to utilize the data pipeline, providing active monitoring and actionable insight into overall data quality and data governance.</li>\n<li>Assist in migrating data from legacy systems onto newly developed solutions.</li>\n<li>Follow and lead best practices on all data security, retention, and privacy policies.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<ul>\n<li>Bachelor&rsquo;s degree.</li>\n<li><strong>2+ years&rsquo; experience&nbsp;</strong>of building ETL/ELT pipelines.</li>\n<li>Proven competency in solution design, development, implementation, reporting and analysis.</li>\n<li>Proficiency in&nbsp;<strong>Apache-Spark, Python and SQL languages</strong>.</li>\n<li>Proficiency in working with&nbsp;<strong>Text, Delta, Parquet, JSON, CSV, and XML data formats.</strong></li>\n<li>Working knowledge of Spark structured streaming.</li>\n<li>AWS infrastructure experience, specifically working with S3.</li>\n<li>Solid understanding of git-based version control, DevOps, and CI/CD. Experience of working on Atlassian stack a plus.</li>\n<li>Knowledge of common web API frameworks and web services.</li>\n<li>Strong teamwork, relationship, and client management skills, and the ability to influence peers and senior management to accomplish team goals.</li>\n<li>Willingness to embrace modern technology, best practice, and ways of work.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<ul>\n<li>Performance bonus up to 2 months</li>\n<li>13th month salary pro-rata</li>\n<li>15-day annual leave+ 3-day sick leave + 1 birthday leave + 1 Christmas leave</li>\n<li>Meal and parking allowance are covered by the company.</li>\n<li>Full benefits and salary rank during probation.</li>\n<li>Insurances as Vietnamese labor law and premium health care for you and your family without seniority compulsory</li>\n<li>SMART goals and clear career opportunities (technical seminar, conference, and career talk) - we focus on your development.</li>\n<li>Values-driven, international working environment, and agile culture.</li>\n<li>Overseas travel opportunities for training and working related.</li>\n<li>Internal Hackathons and company's events (team building, coffee run, blue card...)</li>\n<li>Work-life balance 40-hr per week from Mon to Fri.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-29T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:18:22.463Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:18:22.463Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683672af2c089f1a66a69ce7"
+  },
+  "name": "Quality Assurance Lead (QA QC)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "68244a420afbaf28090aedbf"
+    },
+    {
+      "$oid": "682446170afbaf28090aec2d"
+    }
+  ],
+  "category": {
+    "$oid": "68244a4e0afbaf28090aedcc"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 60000000,
+  "quantity": 2,
+  "level": "Technical Lead / Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p>Are you passionate about delivering world-class quality in banking products? Do you excel at leading teams, driving innovation, and ensuring every product makes a lasting positive impact on its users? If so, we have the perfect opportunity for you!</p>\n<p>&nbsp;</p>\n<p>As a&nbsp;<strong>QA Lead</strong>, you will play a critical role in shaping the quality vision across our digital banking platforms. Your focus will be on guiding and driving test automation while continuously improving processes across all feature teams and portfolios to elevate overall product quality.</p>\n<p>&nbsp;</p>\n<p>This role isn&rsquo;t finding bugs&mdash;it&rsquo;s about fostering a culture of quality where everyone contributes to delivering exceptional user experiences.</p>\n<p>&nbsp;</p>\n<p><strong>Job Responsibilities:</strong></p>\n<ul>\n<li><strong>Drive Quality Strategy</strong>:\n<ul>\n<li>Quality at speed enhances delivery testing and optimizes resource costs, making scaling easier.</li>\n<li>Ensure adherence to quality standards by all team members</li>\n<li>Monitor test plans, cases, and scripts to ensure alignment with business requirements (Include test management, test analytic, test government).</li>\n</ul>\n</li>\n<li><strong>Foster a Quality-First Culture</strong>:\n<ul>\n<li>Advocate for a mindset where quality is everyone&rsquo;s responsibility, not just QA&rsquo;s.</li>\n<li>Lead by example, showing how attention to detail can make a difference for users.</li>\n<li>Encourage open feedback and continuous improvement across the organization</li>\n</ul>\n</li>\n<li><strong>Champion Automation</strong>:\n<ul>\n<li>Advocate for and lead the adoption of cutting-edge test automation tools.</li>\n<li>Embed automation into the CI/CD pipeline to achieve faster, more reliable releases</li>\n<li>Stay ahead of trends to introduce innovative solutions that enhance efficiency</li>\n</ul>\n</li>\n<li><strong>Turn Metrics into Insights</strong>:\n<ul>\n<li>Track quality metrics like defect rates and test coverage to measure team success.</li>\n<li>Use data to identify areas for improvement and ensure risks are managed proactively</li>\n<li>Share progress, insights, and updates with DoE/PPM and Banks, keeping them informed and confident</li>\n</ul>\n</li>\n<li><strong>Be a Mentor and Leader</strong>:\n<ul>\n<li>Inspire and support your QA team, helping them grow professionally and excel in their roles</li>\n<li>Build a positive, collaborative team environment where quality is a shared priority</li>\n<li>Provide meaningful feedback through regular performance reviews to help your team shine</li>\n</ul>\n</li>\n<li><strong>Build Bridges Across Teams</strong>:\n<ul>\n<li>Collaborate seamlessly with engineering, product owners, and other QA teams to align on quality goals.</li>\n<li>Focusing on guiding and driving the engineering team to improve overall product quality.</li>\n</ul>\n</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<ul>\n<li><strong>Experience and Skills:</strong>\n<ul>\n<li>Proven experience as a QA Lead or similar role in a fast-paced digital banking or fintech environment.</li>\n<li>Expertise in manual and automated testing methodologies, tools, and frameworks.</li>\n<li>Expertise and Strong knowledge on Shift-left testing and Agile testing methodologies</li>\n<li>Familiarity knowledge of Agile and DevOps principles.</li>\n<li>Familiarity with CI/CD pipelines and integration of automated tests.</li>\n</ul>\n</li>\n<li><strong>Technical Knowledge:</strong>\n<ul>\n<li>Proficiency in testing APIs, web services, and mobile applications.</li>\n<li>Expert in test design and Test Management.</li>\n<li>Family with testing Microservices, Event-Drivent, Serverless..</li>\n<li>Solid understanding of security testing and performance testing best practices.</li>\n<li>Hands-on experience with tools like JIRA, XRAY, Postman, or equivalent.</li>\n</ul>\n</li>\n<li><strong>Soft Skills</strong>:\n<ul>\n<li>Excellent leadership and team management abilities.</li>\n<li>Strong problem-solving and analytical thinking skills.</li>\n<li>Outstanding communication and collaboration skills.</li>\n</ul>\n</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:19:27.950Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:19:27.950Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683673192c089f1a66a69cfd"
+  },
+  "name": "ReactJS Web Lead (AI-Focused)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "68241e37be8cd56835f50ca8"
+    },
+    {
+      "$oid": "68241cf9be8cd56835f50c40"
+    },
+    {
+      "$oid": "68241ce0be8cd56835f50c33"
+    },
+    {
+      "$oid": "68241ccdbe8cd56835f50c2c"
+    },
+    {
+      "$oid": "68241cc1be8cd56835f50c25"
+    },
+    {
+      "$oid": "68241cadbe8cd56835f50c1e"
+    },
+    {
+      "$oid": "68241b58be8cd56835f50b91"
+    },
+    {
+      "$oid": "68241b25be8cd56835f50b83"
+    }
+  ],
+  "category": {
+    "$oid": "6824595d84e1748501ea8e10"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 55000000,
+  "quantity": 1,
+  "level": "Technical Lead / Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p><strong>Description:</strong></p>\n<p>Our goal is simple: to be a serial bank builder. To achieve this,&nbsp;<strong>Tyme</strong>&nbsp;is seeking a&nbsp;<strong>Frontend</strong>&nbsp;<strong>Technical Lead Engineer&nbsp;</strong>to drive innovation and transformation by placing a heavy emphasis on the craft of software development and the adoption of engineering principles.</p>\n<p>At the core, our business is banking, but technology is critical to serving the needs of our millions of customers and delivering on our mission of financial inclusion and literacy for emerging markets. To achieve this goal, TYME Global has established a Centre of Excellence in Vietnam to be a world-class digital technology hub.</p>\n<p><strong>About our Team:</strong></p>\n<p>Our team is responsible for creating a brand of new digital financial platforms and apps that are highly reliable and scalable using modern engineering practices. You will join a project with talented software engineers in our Digital Bank Build team who are responsible for designing, building, and maintaining the new digital banking platform and the customer channels. As part of the team, you will be responsible for implementing software features, being involved in technical designs, and writing tests to ensure the high-quality delivery of the product. The teams operate in Scrum and DevOps models.</p>\n<p>We&rsquo;re looking for top engineers out there! During the interview process, we will test your coding and design skills to assess your experience and depth of knowledge. Don&rsquo;t worry. Our interview process will be fun!</p>\n<p><strong>Responsibilities:</strong></p>\n<ul>\n<li><strong>Evangelize and promote JavaScript &ndash; ReactJS best practices</strong>.</li>\n<li>Collaborate and support with Developer members through the software development lifecycle.</li>\n<li><strong>Harden engineering practices</strong>&nbsp;such as unit tests, code review, pair programming, and CI / CD.</li>\n<li>Train &amp; mentor other engineers to help them progress in their careers.</li>\n<li><strong>Research new technologies</strong>, understand the ecosystems, and assess market fit to expand the technical expertise of the company.</li>\n<li><strong>AI adoption and exploration</strong>&nbsp;are the plus. Lead the efficient delivery of change through analysis, definition, and documentation of requirements whilst identifying potential solutions using agile delivery frameworks.</li>\n<li>Solve complex technical and business problems and learn new technology and frameworks.</li>\n<li>Work with different stakeholders to design flexible and adaptive applications that can grow with the business needs.</li>\n<li>Design, develop, test, deploy, monitor, and improve; you are responsible for the entire lifecycle of your product &ndash; build it, own it.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<h3><strong>Requirements</strong></h3>\n<p>You will be a perfect match if your profile ticks some below items:</p>\n<p><strong>Must-have:</strong></p>\n<ul>\n<li>A pragmatic mindset.</li>\n<li><strong>Strong English communication skills</strong>&nbsp;(both verbal &amp; written), especially in the global software development environment.</li>\n<li><strong>Professional experience in ReactJS, NextJS, and its ecosystem (Hooks, Context, Redux, Redux-Thunk, State Management libraries...)</strong></li>\n<li>Proficiency in front-end languages:&nbsp;<strong>HTML, CSS, JavaScript (ES6+)</strong></li>\n<li>Hands-on experience with&nbsp;<strong>Git</strong></li>\n<li>Hands-on with&nbsp;<strong>RESTful APIs and asynchronous request</strong>&nbsp;handling for partial page updates</li>\n<li>Experience with&nbsp;<strong>micro-frontend</strong>&nbsp;is needed.</li>\n<li>Experienced in&nbsp;<strong>unit test, and automated test&nbsp;</strong>frameworks are needed.</li>\n<li>Familiarity with&nbsp;<strong>browser testing and debugging like Chrome, Firefox, Edge, Safari&hellip;</strong></li>\n</ul>\n<p><strong>Nice to have:</strong></p>\n<ul>\n<li>Have<strong>&nbsp;7+ years of work experience</strong>&nbsp;in front-end development.</li>\n<li>Familiar with CSS Frameworks like&nbsp;<strong>Bootstrap, TailwindCSS, Ant Design</strong>&hellip;</li>\n<li>Awareness of<strong>&nbsp;best practices in UI/UX design</strong>&nbsp;and development to ensure optimal user experience.</li>\n<li>Familiarity with&nbsp;<strong>CI/CD</strong>&nbsp;and ability to set up projects accordingly.</li>\n<li>Experienced in&nbsp;<strong>Vue/Angular</strong>&nbsp;development is a plus.</li>\n<li>Experience working in the&nbsp;<strong>banking and financial domain&nbsp;</strong>is a plus.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:21:13.633Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:21:13.633Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6836736d2c089f1a66a69d0c"
+  },
+  "name": ".NET Developer",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "68241bf7be8cd56835f50be7"
+    },
+    {
+      "$oid": "68241be1be8cd56835f50be0"
+    },
+    {
+      "$oid": "68241bcfbe8cd56835f50bd9"
+    },
+    {
+      "$oid": "68241bbdbe8cd56835f50bd2"
+    }
+  ],
+  "category": {
+    "$oid": "682448c00afbaf28090aed43"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 30000000,
+  "quantity": 1,
+  "level": "Junior Accepted / Middle",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p>Are you an experienced&nbsp;<strong>(Mid/Junior) .Net Engineer</strong>&nbsp;looking for your next career move? Do you have a background in<strong>&nbsp;developing digital products</strong>? If so, read on.</p>\n<p>&nbsp;</p>\n<p><strong>The team:</strong></p>\n<p>You will be part of our Digital Delivery Hub who are responsible for designing, developing and maintaining some of the most interesting and innovative digital apps within the financial services space that are at the forefront of the market. Our Hub is focused on building a world class User Experience, Design and Web / Mobile Development team that can work with the business to realize an exciting digital strategy.</p>\n<p>&nbsp;</p>\n<p><strong>The role:</strong></p>\n<p>We are looking for a talented<strong>&nbsp;(Mid/Junior) .Net Developer</strong>&nbsp;who still does hands-on development to contribute in the development and execution of an innovative mobile banking solution in Asia. This will include the development of in-country and cross-border solutions across all facets of a mobile banking operation including customer experience and design, developing and implementing new products and services, process engineering and other functional deliverable. Risk management and technology innovation will be essential for your success.</p>\n<p>You will work in cross-functional delivery teams to design and build best-of-breed mobile solutions whilst maintaining necessary support for ongoing products.</p>\n<p>&nbsp;</p>\n<h3><strong>Your duties will be to:</strong></h3>\n<ul>\n<li>Participate in requirements analysis</li>\n<li>Collaborate with internal teams to produce software design and architecture</li>\n<li>Write clean, scalable code using .NET programming languages</li>\n<li>Test and deploy applications and systems</li>\n<li>Revise, update, refactor and debug code</li>\n<li>Improve existing software</li>\n<li>Develop documentation throughout the software development life cycle (SDLC)</li>\n<li>Serve as an expert on applications and provide technical support</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<p><strong>Technical Skills:</strong></p>\n<ul>\n<li>1+ years of experience in developing software in .NET/.NET Core</li>\n<li>Proficient in C#, WPF, .NET/Core base class library and runtime environment.</li>\n<li>Ability and experience to build rich WPF-based applications</li>\n<li>Good experience in OOP programming, Design patterns experience with MVVM</li>\n<li>Experienced in code optimizations, profiling and debugging skills</li>\n<li>Knowledge of multi-process and multi-threading constructs</li>\n<li>Familiar with software engineering best practices: Scrum, JIRA, GitHub</li>\n<li>Intermediate level of written/spoken English</li>\n</ul>\n<p>&nbsp;</p>\n<p><strong>Soft skills:</strong></p>\n<ul>\n<li>Strong willingness to learn new practices and technologies.</li>\n<li>Able to work well in the team and willing to mentor/coach others.</li>\n<li>Exceptional interpersonal skills, including facilitation and negotiation.</li>\n<li>Understanding and experience of Agile methodology.</li>\n<li>Experience in working across several technical domains with the ability to &lsquo;deep dive&rsquo; where required and ensure correct solutions are implemented.</li>\n<li>Ability to translate technical talk to the business.</li>\n<li>Ability to deliver convincing presentations that provide significant insight and generate consensus and buy-in.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:22:37.334Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:22:37.334Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683673d52c089f1a66a69d4e"
+  },
+  "name": "Atlassian ITSM Development Engineer (ITSM, Python)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "6824580184e1748501ea8cf4"
+    },
+    {
+      "$oid": "68242051be8cd56835f50d80"
+    },
+    {
+      "$oid": "68241ec4be8cd56835f50cd2"
+    },
+    {
+      "$oid": "68241ea3be8cd56835f50ccb"
+    },
+    {
+      "$oid": "68241e89be8cd56835f50cc4"
+    },
+    {
+      "$oid": "68241e70be8cd56835f50cbd"
+    },
+    {
+      "$oid": "68241e60be8cd56835f50cb6"
+    }
+  ],
+  "category": {
+    "$oid": "68244bde0afbaf28090aee3b"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 35000000,
+  "quantity": 1,
+  "level": "Junior Accepted / Middle",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p>TymeX is an innovative digital banking development company that drives business growth by leveraging advanced technology solutions to multi banks internationally. We are dedicated to offering exceptional customer service and seamless product delivery through state-of-the-art tools and infrastructure. We are seeking an experienced ITSM Development Engineer to join our dynamic team, ensuring that ITSM developments are processed simply and efficiently through automations and integrations of modern techniques in alignment with business growth framework.</p>\n<p><strong>Role Overview:</strong></p>\n<p>The<strong>&nbsp;Atlassian ITSM Development Engineer&nbsp;</strong>will be responsible for&nbsp;<strong>designing, implementing, and optimizing IT Service Management solutions within the Atlassian ecosystem.</strong>&nbsp;You will collaborate with ITSM, DevOps, and Development teams to streamline processes, enhance user experiences, and support continuous improvement initiatives across the organization.</p>\n<p><strong>Key Responsibilities:</strong></p>\n<ul>\n<li><strong>Design and develop Atlassian ITSM solutions, including JIRA Service Management, Confluence, Opsgenie, and related tools.</strong></li>\n<li><strong>Customize workflows, automation, and configurations within the Atlassian suite to meet organizational requirements.</strong></li>\n<li><strong>Collaborate with cross-functional teams to understand business needs and implement solutions that support ITSM best practices.</strong></li>\n<li><strong>Monitor and maintain the stability, performance, and scalability of Atlassian systems.</strong></li>\n<li><strong>Develop custom scripts and integrations</strong>&nbsp;to enhance functionality and improve productivity.</li>\n<li>Perform regular system maintenance, upgrades, and troubleshooting as needed.</li>\n<li>Support users with training, documentation, and issue resolution.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<p><strong>Required Qualifications:</strong></p>\n<ul>\n<li>Bachelor&rsquo;s degree in computer science, Information Technology, or related field, or equivalent experience.</li>\n<li><strong>Proven hands-on experience in architecting, configuring, and managing JIRA Service Management, Confluence, and Opsgenie in complex enterprise environments.</strong></li>\n<li><strong>Solid understanding of ITSM concepts</strong>&nbsp;such as&nbsp;<strong>Incident, Problem, Change, and Configuration Management.</strong></li>\n<li><strong>Proficiency in scripting languages (e.g., Python, Groovy) for automation and customization within the Atlassian suite.</strong></li>\n<li>Familiarity with REST APIs and integrations with other ITSM/ITOM tools.</li>\n<li>Excellent problem-solving skills and a proactive approach to identifying improvements.</li>\n</ul>\n<p><strong>Preferred Qualifications:</strong></p>\n<ul>\n<li><strong>Atlassian certifications (e.g., Atlassian Certified Jira Project Administrator).</strong></li>\n<li>Experience with CI/CD and DevOps tools and practices.</li>\n<li>Knowledge of ITIL framework and relevant certifications.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>What We Offer:</strong></p>\n<ul>\n<li>Competitive salary and benefits package.</li>\n<li>Opportunity to work in a fast-paced, innovative fintech company.</li>\n<li>A collaborative and inclusive work environment.</li>\n<li>Growth opportunities within the company.</li>\n<li>Exposure to cutting-edge technologies and processes.</li>\n</ul>\n<p>This role is an excellent opportunity for someone with expertise in the Atlassian ecosystem and ITSM to contribute to our team&rsquo;s success and make a meaningful impact. We look forward to reviewing your application.</p>\n<ul>\n<li>Meal and parking allowance are covered by the company</li>\n<li>Full benefits and salary rank during probation</li>\n<li>Insurances as Vietnamese labor law and premium health care for you and your family without seniority compulsory</li>\n<li>Performance bonus up to 2 months</li>\n<li>13th month salary pro-rata</li>\n<li>15-day annual leave+ 3-day sick leave + 1 birthday leave + 1 Christmas leave</li>\n<li>SMART goals and clear career opportunities (technical seminar, conference, and career talk) &ndash; we focus on your development</li>\n<li>Values-driven, international working environment, and agile culture</li>\n<li>Overseas travel opportunities for training and working related</li>\n<li>Internal Hackathons and company&rsquo;s events (team building, coffee run, blue card&hellip;)</li>\n<li>Work-life balance 40-hr per week from Mon to Fri</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:24:21.840Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:24:21.840Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683674e22c089f1a66a69deb"
+  },
+  "name": "Java API Engineer - HCM (Microservice, AWS)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "6824580184e1748501ea8cf4"
+    },
+    {
+      "$oid": "68244bbc0afbaf28090aee20"
+    },
+    {
+      "$oid": "682449330afbaf28090aed56"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "68244b500afbaf28090aedff"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 40000000,
+  "quantity": 1,
+  "level": "Technical Lead / Senior",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p><strong>About our Team:</strong></p>\n<p>Our team is responsible for creating a brand of new digital financial platforms and apps that are highly reliable and scalable using modern engineering practices. You will be joining a project which talented software engineers in our Digital Bank Build team who is responsible for designing, building, and maintaining the new digital banking platform and the customer channels. As part of the team, you will be responsible for implementing software features, involve in technical designs, and writing tests to ensure the high-quality delivery of the product. The teams operate in Scrum and DevOps models.</p>\n<p>We&rsquo;re looking for top engineers out there! During the interview process, we will test your coding and design skills to assess your experience and depth of knowledge. Don&rsquo;t worry our interview process will be fun!</p>\n<p><strong>Responsibilities:</strong></p>\n<ul>\n<li>As a&nbsp;<strong>Java backend engineer</strong>, you will be working within a specific problem where you will design, develop, and deploy backend services with a focus on scalability, high availability, and low latency.</li>\n<li>Drive the efficient delivery of change through analysis, definition, and documentation of requirements whilst identifying potential solutions using agile delivery frameworks.</li>\n<li>Solve complex technical and business problems and learn new technology and frameworks.</li>\n<li>Be part of a team that will take full responsibility for the features you own.</li>\n<li>Design, develop, test, deploy, monitor, and improve, you are responsible for the full life-cycle of your product &ndash; build it, own it.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<p>You will be a perfect match if your profile ticks some below items:</p>\n<p><strong>Must-have:</strong></p>\n<ul>\n<li>A pragmatic mindset.</li>\n<li>Outstanding problem-solving ability, eagerness to learn, and curiosity.</li>\n<li>A few years of software development experience with one or more general-purpose programming languages.</li>\n<li>Strong database and schema design for large-scale applications.</li>\n<li>Adaptable attitude and personality that is ready for continuous change.</li>\n<li>Collaboration and culture fit in the Agile experience will be an advantage.</li>\n<li>Good English skills.</li>\n</ul>\n<p><strong>Nice to have:</strong></p>\n<ul>\n<li>Experience in developing distributed systems on top of micro-services architecture, event-driven architecture&nbsp;<strong>using Java, Spring and Spring boot, Kafka, Redis,&nbsp;</strong>etc. is a big plus</li>\n<li><strong>Experience in AWS, Ansible, Packer, Docker, Rancher, and K8s</strong>&nbsp;is a big plus</li>\n<li>Experienced in automated testing frameworks is a plus</li>\n<li>Good English listening and speaking is a big plus</li>\n<li>Experience working in the banking and the financial domain is a plus</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-29T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:28:50.599Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:28:50.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683675a62c089f1a66a69e4d"
+  },
+  "name": "Backend Technical Lead (Java)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "682449330afbaf28090aed56"
+    },
+    {
+      "$oid": "682448900afbaf28090aed26"
+    },
+    {
+      "$oid": "68241a22be8cd56835f50b5b"
+    },
+    {
+      "$oid": "682419bbbe8cd56835f50b4e"
+    },
+    {
+      "$oid": "6823d6f0d4cf2f7ad782648d"
+    }
+  ],
+  "category": {
+    "$oid": "682448c00afbaf28090aed43"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 60000000,
+  "quantity": 1,
+  "level": "Junior Accepted / Middle",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p><strong>Description:</strong></p>\n<p>The Technical Leader will drive the efficient delivery of change through analysis, definition, and documentation of requirements whilst identifying potential solutions using agile delivery frameworks.</p>\n<p><strong>What you&rsquo;ll be doing</strong></p>\n<ul>\n<li>Work in small, highly collaborative agile teams. You and the team will have a clear mission and ownership of an important outcome that support Tyme and our customers.</li>\n<li>Align with stakeholders across Tyme on best practices around APIs, security, compliance, roadmap, and reliability.</li>\n<li>Help drive the technical direction of software features.</li>\n<li>Build highly scalable, reliable, and maintainable APIs to handle high-volume transactions.</li>\n<li>We aim for teams that are inclusive, helpful, and have a strong sense of ownership for the things they build.</li>\n</ul>\n<p>At Tyme, we optimize for quality, flow, and fast feedback, focusing on end-to-end ownership, continuous improvement, testing, monitoring, and experimentation. We&rsquo;re looking for positive and passionate people who will put teamwork and collaboration above all else.</p>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<p><strong>You should have:</strong></p>\n<ul>\n<li>A pragmatic mindset.</li>\n<li>Knowledge of professional software engineering practices for the full development life cycle (coding standards, code reviews, source control management, build processes, testing, operation, monitoring, etc.).</li>\n<li>With at least 8+ years of experience working in software development, we also welcome strong candidates having fewer years of experience.</li>\n<li>Preferably with 3+ years of experience in Java. We also welcome other general-purpose programming languages but are not limited to Java.</li>\n<li>Understanding of system design and tuning for high performance, scalability, and reliability.</li>\n<li>Strong database and schema design for large-scale and finance systems.</li>\n<li>Great problem-solving abilities.</li>\n<li>Experience with microservices architecture.</li>\n<li>Experience with event-driven architecture or message queue system</li>\n<li>Professional experience working with cloud (either AWS, Azure, or GCP).</li>\n<li>Experience in enterprise architecture.</li>\n<li>Working proficiency in English.</li>\n</ul>\n<p><strong>Qualifications:</strong></p>\n<ul>\n<li>The ability to work and live in Ho Chi Minh City</li>\n<li>B.Sc or M.Sc in Computer Science or a related discipline with proven &ldquo;hands-on&rdquo; development experience</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:32:06.589Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:32:06.589Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683675fc2c089f1a66a69e55"
+  },
+  "name": "AWS DevOps Lead (DevOps, AWS)",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "68241e70be8cd56835f50cbd"
+    },
+    {
+      "$oid": "68241e60be8cd56835f50cb6"
+    },
+    {
+      "$oid": "68241e51be8cd56835f50caf"
+    },
+    {
+      "$oid": "68241c79be8cd56835f50c10"
+    },
+    {
+      "$oid": "68241c6abe8cd56835f50c09"
+    }
+  ],
+  "category": {
+    "$oid": "683675452c089f1a66a69e0e"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 40000000,
+  "quantity": 1,
+  "level": "Junior Accepted / Middle",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p>We seek a highly skilled and motivated&nbsp;<strong>AWS DevOps Lead</strong>&nbsp;with a&nbsp;<strong>strong background in software development,</strong>&nbsp;<strong>expertise in AWS Cloud</strong>, and a solid understanding of the banking domain. A crucial part of the role is championing and leading infrastructure as code. You will be responsible for implementing tools and processes that enable rapid software development and deployment.</p>\n<p>Your mission is to embrace continuous integration/deployment in a delivery pipeline that will perform automated quality checks, deploy cloud infrastructure quickly, and provide operational tooling and metrics that development teams can consume. To succeed, you will have a blend of development experience and operational experience that provides a good understanding of the developers you are working with while balancing critical systems uptime.</p>\n<h3>Your responsibilities</h3>\n<ul>\n<li><strong>Collaborate with cross-functional teams to gather requirements and design scalable and maintainable software solutions.</strong></li>\n<li><strong>Build integration solutions for seamless communication between microservices, APIs, and third-party systems.</strong></li>\n<li><strong>Contribute to developing continuous delivery, automation frameworks, and pipelines to create an excellent experience for developers and customers.</strong></li>\n<li>Optimize database interactions and ensure data integrity across distributed systems.</li>\n<li><strong>Develop and enforce best practices for messaging, integration, and data pipeline architectures.</strong></li>\n<li>Identify and develop opportunities to improve our processes and tools for automation.</li>\n<li>Learn new skills and help foster a continuous delivery and cloud-first mindset.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<ul>\n<li><strong>7+ years of experience in the field of DevOps including backend development using Python or Java,&nbsp;</strong></li>\n<li><strong>At least 2+ years in a lead role. (DevOps or Technical Lead)</strong></li>\n<li><strong>Proficient in Apache Kafka, including Kafka Connect, Schema Registry, etc.</strong></li>\n<li><strong>Expertise in building and deploying microservice and event-driven architecture, distributed systems, event sourcing, CQRS patterns, etc..</strong></li>\n<li><strong>Experience using AWS foundation services (VPC, ECS, Lambda, RDS, SNS, SQS, Eventbridge, etc..).</strong></li>\n<li>Hands-on experience with tools like&nbsp;<strong>Kafka Connectors, Debezium</strong>, etc..</li>\n<li><strong>Solid experience with application integration patterns, RESTful APIs, and messaging protocols.</strong></li>\n<li>Able to do hands-on, deep-dive details and work closely with team members to troubleshoot and optimize our platform.</li>\n<li><strong>Able to design scalability systems as well as multi-country patterns for our platform</strong></li>\n<li><strong>Knowledge of one or more AWS CloudFormation/Terraform/CDK for infrastructure provisioning.</strong></li>\n<li>An automation mindset with the ability to develop tooling to improve the efficiency of repeatable tasks, reliability, and performance.</li>\n<li>Understanding cloud change management practices with an awareness of compliance and security standards.</li>\n<li>Good skills in English and the ability to communicate and coordinate effectively with business partners and technical teams.</li>\n<li>Demonstrate good logical thinking and problem-solving skills.</li>\n<li>Be curious and have a self-learning attitude.</li>\n</ul>\n<p>Big Plus:</p>\n<ul>\n<li>AWS Certification Developer Associate or DevOps / SA Professional.</li>\n</ul>\n<h3>You are:</h3>\n<ul>\n<li>Passionate about technology</li>\n<li>Independent but also a team player</li>\n<li>Comfortable with a high degree of ambiguity</li>\n<li>Focused on usability and speed</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T02:33:32.929Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:33:32.929Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6836a36626eb14582e68a49e"
+  },
+  "name": "IT Governance Officer",
+  "hrId": {
+    "$oid": "682f63b94cf9e4546f612e3d"
+  },
+  "skills": [
+    {
+      "$oid": "6824580184e1748501ea8cf4"
+    }
+  ],
+  "category": {
+    "$oid": "6824581784e1748501ea8d0b"
+  },
+  "company": {
+    "_id": "682f87abdae207bd6bfb7c2e",
+    "name": "TymeX",
+    "logo": "https://firebasestorage.googleapis.com/v0/b/itsmarthire-774c4.firebasestorage.app/o/company-logos%2Fb0d3e139-c972-4611-9eb2-49f00b53890b.webp?alt=media&token=4fb9a7ab-a696-4730-976d-c699f546a4c3"
+  },
+  "location": "Thành phố Hồ Chí Minh",
+  "salary": 20000000,
+  "quantity": 2,
+  "level": "Junior  ",
+  "description": "<div class=\"imy-3 paragraph\">\n<h2>3 L&yacute; do để gia nhập c&ocirc;ng ty</h2>\n<ul>\n<li>Excellent environment and team to help you grow.</li>\n<li>Competitive salary and learning culture.</li>\n<li>Premium health care for you and your family.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>M&ocirc; tả c&ocirc;ng việc</h2>\n<p>The IT Governance Officer will execute and maintain IT internal controls over processes in compliance with company standards. Monitors and troubleshoots together with the Cybersecurity team in threat detection. Oversees IT operational potential risks to deploy controls in place appropriately. Plans and executes remediations for risk findings. Assists the IT service delivery team with day-to-day work.</p>\n<p>&nbsp;</p>\n<p><strong>Key Responsibilities:</strong></p>\n<ul>\n<li>Monitor and troubleshoot with the line manager and cybersecurity team or vendor on threat protection and cyberattacks.</li>\n<li>Monitors and investigates phishing emails reported from staff, if it is required to block url/domain and/or email of the sender.</li>\n<li>Maintains security policy up to date to make sure hardening policy is applied strictly on MacOS and Windows Devices as well as the logon policy standard.</li>\n<li>Investigates and works with end users to resolve any security breaches, which would be escalated to cyber cybersecurity team for technical issues if required.</li>\n<li>Monitors and collaborates with the cyber team to ensure timely remediation of vulnerabilities and misconfigurations.</li>\n<li>Monitors and troubleshoots all failed/missed updates from weekly patching reports.</li>\n<li>Assists the line manager in deploying all security features where required.</li>\n<li>Reports monthly on device compliance status.</li>\n<li>Maintains user matrix with roles and system access, together with engineering head advice that requires review and update yearly.</li>\n<li>Processes quarterly access review and update with line managers and system owners.</li>\n<li>Works together with the cybersecurity team to conduct an IT internal Pentest with the vendor, then schedules with the line manager to remediate any findings with high or medium potential risks.</li>\n<li>Monitors and reports on the protection of data lost through outbound email rules as well as hard disk encryption for compliance</li>\n<li>Maintain and improve System Access management processes on the core system, such as MS Entra ID.</li>\n<li>Work closely with Cyber Security and IT Operations teams to ensure governance alignment.</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Y&ecirc;u cầu c&ocirc;ng việc</h2>\n<ul>\n<li>Bachelor&rsquo;s degree in information technology, Cybersecurity, Computer Science, or a related field (or equivalent work experience).</li>\n<li>Minimum three years of experience working in related areas, including software installation, policy deployment, patch updates, and troubleshooting in Windows &amp; MacOS environments.</li>\n<li>Experience with Microsoft Entra ID, Microsoft Intune, and Microsoft 365 portal.</li>\n</ul>\n<p><strong>Preferred Qualifications:</strong></p>\n<ul>\n<li>IT certifications (e.g., Network+, ITIL or Microsoft certifications).</li>\n<li>Knowledge of cybersecurity principles and practices.</li>\n<li>Experience with scanning and endpoint tools (e.g., Endpoint Central, Cisco Secure Endpoint, Tenable.io/Nessus)</li>\n<li>Experience with internal and external IT audit</li>\n</ul>\n</div>\n<div class=\"border-bottom-dashed\">&nbsp;</div>\n<div class=\"imy-5 paragraph\">\n<h2>Tại sao bạn sẽ y&ecirc;u th&iacute;ch l&agrave;m việc tại đ&acirc;y</h2>\n<p><strong>You&rsquo;ll love working with us if you are:</strong></p>\n<ul>\n<li>Passionate about technology.</li>\n<li>Independent but also a good team player.</li>\n<li>Comfortable with a high degree of ambiguity.</li>\n<li>Focused on usability and speed.</li>\n<li>Keen on presenting your ideas to your peers and management.</li>\n</ul>\n<p>At&nbsp;<strong>TYME,</strong>&nbsp;opportunities are here for the taking. If you want to be part of our purpose and live and lead through our values, we can offer exciting development opportunities through expanded lateral roles, stretch assignments, or people leadership.</p>\n<p><strong>Some of our benefits:</strong></p>\n<ul>\n<li><strong>Meal and parking allowances</strong>&nbsp;are covered by the company.</li>\n<li><strong>Full benefits and salary rank during probation</strong>.</li>\n<li><strong>Insurances</strong>&nbsp;such as Vietnamese labor law and&nbsp;<strong>premium health care</strong>&nbsp;for you and your family.</li>\n<li><strong>SMART goals and clear career opportunities</strong>&nbsp;(technical seminar, conference, and career talk) - we focus on your development.</li>\n<li><strong>Values-driven, international working environment, and agile culture.</strong></li>\n<li><strong>Overseas travel opportunities</strong>&nbsp;for training and work-related.</li>\n<li><strong>Internal Hackathons and company events</strong>&nbsp;(team building, coffee run, etc.).</li>\n<li><strong>Pro-Rate&nbsp;</strong>and&nbsp;<strong>performance bonus</strong>.</li>\n<li><strong>15-day annual + 3-day sick leave</strong>&nbsp;per year from the company.</li>\n<li>Work-life balance&nbsp;<strong>40-hr per week</strong>&nbsp;from&nbsp;<strong>Mon to Fri</strong>.</li>\n</ul>\n</div>",
+  "startDate": {
+    "$date": "2025-05-27T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-07T00:00:00.000Z"
+  },
+  "isActive": true,
+  "createdBy": {
+    "_id": "682f63b94cf9e4546f612e3d",
+    "email": "hrtymex@gmail.com"
+  },
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-28T05:47:18.184Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T05:47:18.184Z"
+  },
+  "__v": 0
+}]
