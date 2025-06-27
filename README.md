@@ -2,9 +2,12 @@
 
 Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NestJS** (Backend cho đồ án tốt nghiệp). Website tích hợp 2 dự án website phụ, gồm có:
 
-* **Mock Interview**: trang phỏng vấn thử với các câu hỏi lập trình mô phỏng.
-* **CV Autogeneration**: trang hỗ trợ tạo CV tự động dựa trên mẫu có sẵn.
+* **Mock Interview**: trang phỏng vấn thử với các câu hỏi lập trình mô phỏng, công nghệ sử dụng gồm google-cloud texttospeech và gemini API.
+* **CV Autogeneration**: trang hỗ trợ tạo CV tự động dựa trên mẫu có sẵn sử dụng gemini API.
 
+Tính năng AI nổi bật : 
+* **Chấm điểm CV**: cải tiến mô hình học máy SentenceTransformer allmpnet-base-v2 nhằm chấm điểm hồ sơ file excel so khớp với JD (mô tả công việc) 
+* **ResumeParsing**: trích xuất hồ sơ ứng viên, sử dụng gemini API
 ---
 
 ## 📦 Cài đặt
