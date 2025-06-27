@@ -1,6 +1,6 @@
 # 🚀 ITFsmarthire
 
-Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NestJS** (Backend cho đồ án tốt nghiệp). Website tích hợp:
+Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NestJS** (Backend cho đồ án tốt nghiệp). Website tích hợp 2 dự án website phụ, gồm có:
 
 * **Mock Interview**: trang phỏng vấn thử với các câu hỏi lập trình mô phỏng.
 * **CV Autogeneration**: trang hỗ trợ tạo CV tự động dựa trên mẫu có sẵn.
