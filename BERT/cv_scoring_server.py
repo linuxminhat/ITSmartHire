@@ -32,8 +32,6 @@ log.info("Loading SentenceTransformer model for scoring...")
 try:
     model_dir = Path(__file__).resolve().parent / "finetune-score-cv-jd"
     assert model_dir.exists(), f"Không tìm thấy thư mục model: {model_dir}"
-
-    # SentenceTransformer chấp nhận cả str lẫn Path, nhưng truyền str là chắc ăn:
     model = SentenceTransformer(str(model_dir))
     log.info("SentenceTransformer model loaded successfully.")
 except Exception as e:

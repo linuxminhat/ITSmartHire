@@ -6,8 +6,6 @@ import Spinner from '@/components/Spinner';
 import dayjs from 'dayjs';
 import { TagIcon, EyeIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import blogBanner from '@/assets/images/blog-banner.jpg';
-
-
 interface IPagination {
   current: number;
   pageSize: number;
@@ -25,36 +23,27 @@ const BlogListPage: React.FC = () => {
   const [blogs, setBlogs] = useState<IBlog[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
   const [searchParams] = useSearchParams();
-  
-  // State cho các bộ lọc trên UI
   const [searchTerm, setSearchTerm] = useState('');
-  // Khởi tạo selectedTag từ URL, nếu không có thì để trống
   const [selectedTag, setSelectedTag] = useState(searchParams.get('tag') || '');
 
   const [meta, setMeta] = useState<IPagination>({
     current: 1,
-    pageSize: 6,   // mỗi trang 6 bài
+    pageSize: 6,
     pages: 0,
     total: 0,
   });
-
-  // SỬA: useEffect đã được cấu trúc lại để fix lỗi lặp vô hạn và lỗi filter
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
         setError(null);
-
-        // Xây dựng query string từ state của UI
         const parts = [
           `current=${meta.current}`,
           `pageSize=${meta.pageSize}`,
           `sort=-createdAt`,
         ];
         if (searchTerm) parts.push(`search=${encodeURIComponent(searchTerm)}`);
-        // SỬA: Dùng `selectedTag` từ dropdown thay vì `urlTag`
         if (selectedTag) parts.push(`tag=${encodeURIComponent(selectedTag)}`);
 
         const q = parts.join('&');
@@ -67,7 +56,7 @@ const BlogListPage: React.FC = () => {
         } else {
           setBlogs([]);
           setMeta({ current: 1, pageSize: 6, pages: 0, total: 0 });
-          // setError('Không thể tải danh sách bài viết');
+
         }
       } catch (err) {
         setError('Không thể tải danh sách bài viết');
@@ -78,16 +67,13 @@ const BlogListPage: React.FC = () => {
     };
 
     fetchBlogs();
-  // SỬA: Dependency array đã được cập nhật để theo dõi đúng các state filter
   }, [meta.current, meta.pageSize, searchTerm, selectedTag]);
 
-
+  //event for seach
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Khi tìm kiếm, chỉ cần reset về trang 1.
-    // useEffect sẽ tự động chạy lại vì searchTerm hoặc selectedTag đã thay đổi.
     if (meta.current !== 1) {
-        setMeta(prev => ({ ...prev, current: 1 }));
+      setMeta(prev => ({ ...prev, current: 1 }));
     }
   };
 

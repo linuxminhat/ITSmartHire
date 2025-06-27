@@ -16,22 +16,25 @@ import { useAuth } from '@/contexts/AuthContext';
 import ApplyJobModal from '@/components/job/ApplyJobModal';
 
 const JobDetailsPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();//get job id from URL
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();//get Auth
   const [job, setJob] = useState<IJob | null>(null);
   const [companyDetails, setCompanyDetails] = useState<ICompany | null>(null);
   const [similarJobs, setSimilarJobs] = useState<IJob[]>([]);
   const [attachedCvs, setAttachedCvs] = useState<IAttachedCv[]>([]);
+  // Loading flags
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoadingCompany, setIsLoadingCompany] = useState<boolean>(false);
   const [isLoadingSimilarJobs, setIsLoadingSimilarJobs] = useState<boolean>(false);
   const [isLoadingCvs, setIsLoadingCvs] = useState<boolean>(false);
   const [isApplying, setIsApplying] = useState<boolean>(false);
+  // Error messages
   const [error, setError] = useState<string | null>(null);
   const [errorCompany, setErrorCompany] = useState<string | null>(null);
   const [errorSimilarJobs, setErrorSimilarJobs] = useState<string | null>(null);
   const [errorCvs, setErrorCvs] = useState<string | null>(null);
+  // Modal open flag
   const [isApplyModalOpen, setIsApplyModalOpen] = useState<boolean>(false);
 
   const fetchSimilarJobs = async (jobId: string) => {
@@ -148,9 +151,9 @@ const JobDetailsPage: React.FC = () => {
       return;
     }
     if (!attachedCvs || attachedCvs.length === 0) {
-        toast.warn("Bạn chưa có CV nào được đính kèm. Vui lòng thêm CV tại trang Hồ sơ đính kèm.");
-        navigate('/resumes/attached');
-        return;
+      toast.warn("Bạn chưa có CV nào được đính kèm. Vui lòng thêm CV tại trang Hồ sơ đính kèm.");
+      navigate('/resumes/attached');
+      return;
     }
     setIsApplyModalOpen(true);
   };
@@ -167,9 +170,9 @@ const JobDetailsPage: React.FC = () => {
       const res = await callApplyJob(payload);
 
       if (res && res.message) {
-         toast.success(res.message);
+        toast.success(res.message);
       } else {
-         toast.success('Nộp đơn ứng tuyển thành công!');
+        toast.success('Nộp đơn ứng tuyển thành công!');
       }
       setIsApplyModalOpen(false);
 
@@ -177,9 +180,9 @@ const JobDetailsPage: React.FC = () => {
       console.error("Apply Job Error:", error);
       const errorMessage = error?.response?.data?.message || error.message || 'Có lỗi xảy ra khi nộp đơn.';
       if (typeof errorMessage === 'string' && errorMessage.includes('đã ứng tuyển')) {
-         toast.info(errorMessage);
+        toast.info(errorMessage);
       } else {
-         toast.error(errorMessage);
+        toast.error(errorMessage);
       }
     } finally {
       setIsApplying(false);
@@ -193,10 +196,10 @@ const JobDetailsPage: React.FC = () => {
   if (error) {
     return (
       <div className="container mx-auto max-w-6xl py-10 px-4">
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-              <strong className="font-bold mr-2">Lỗi!</strong>
-              <span className="block sm:inline">{error}</span>
-          </div>
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong className="font-bold mr-2">Lỗi!</strong>
+          <span className="block sm:inline">{error}</span>
+        </div>
       </div>
     );
   }
@@ -204,10 +207,10 @@ const JobDetailsPage: React.FC = () => {
   if (!job) {
     return (
       <div className="container mx-auto max-w-6xl py-10 px-4">
-          <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
-              <strong className="font-bold mr-2">Thông báo!</strong>
-              <span className="block sm:inline">Không tìm thấy thông tin việc làm.</span>
-          </div>
+        <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+          <strong className="font-bold mr-2">Thông báo!</strong>
+          <span className="block sm:inline">Không tìm thấy thông tin việc làm.</span>
+        </div>
       </div>
     );
   }
@@ -233,47 +236,47 @@ const JobDetailsPage: React.FC = () => {
 
   return (
     <div className="bg-gradient-to-b from-gray-50 to-gray-100 min-h-screen">
-        <div className="bg-white shadow-sm border-b border-gray-200 pt-16 pb-8">
-            <div className="container mx-auto max-w-6xl px-4">
-                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">{job.name}</h1>
-                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4 text-base">
-                     <Link 
-                        to={`/company/${job.company?._id}`} 
-                        className="text-gray-700 hover:text-indigo-600 font-medium transition duration-300"
-                    >
-                        {job.company?.name || 'Không rõ công ty'}
-                    </Link>
-                    {job.isHot && (
-                      <span className="flex items-center text-sm text-green-600 bg-green-100 px-2 py-0.5 rounded">
-                          <CurrencyDollarIcon className="h-4 w-4 mr-1" /> You'll love it
-                      </span>
-                    )}
-                 </div>
-                 <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                    <button
-                      className="w-full sm:w-auto flex-grow bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-md transition duration-300 shadow-sm text-center disabled:opacity-60 disabled:cursor-not-allowed"
-                      onClick={handleApplyClick}
-                      disabled={isApplying || isLoadingCvs}
-                    >
-                      {isLoadingCvs ? 'Đang tải CV...' : isApplying ? 'Đang nộp đơn...' : 'Ứng tuyển ngay'}
-                    </button>
-                     <button className="w-full sm:w-auto border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium py-2.5 px-4 rounded-md transition duration-300 flex items-center justify-center">
-                        <HeartIcon className="h-5 w-5" />
-                    </button>
-                 </div>
-                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-2 text-sm text-gray-600 pt-4 border-t border-gray-100">
-                     <div className="flex items-center">
-                        <MapPinIcon className="h-4 w-4 mr-1.5 text-gray-500" /> {job.location}
-                     </div>
-                     <div className="flex items-center">
-                         <ClockIcon className="h-4 w-4 mr-1.5 text-gray-500" /> {job.jobType}
-                     </div>
-                     <div className="flex items-center">
-                        <CalendarIcon className="h-4 w-4 mr-1.5 text-gray-500" /> Đăng {dayjs(job.createdAt).fromNow()}
-                     </div>
-                </div>
+      <div className="bg-white shadow-sm border-b border-gray-200 pt-16 pb-8">
+        <div className="container mx-auto max-w-6xl px-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">{job.name}</h1>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4 text-base">
+            <Link
+              to={`/company/${job.company?._id}`}
+              className="text-gray-700 hover:text-indigo-600 font-medium transition duration-300"
+            >
+              {job.company?.name || 'Không rõ công ty'}
+            </Link>
+            {job.isHot && (
+              <span className="flex items-center text-sm text-green-600 bg-green-100 px-2 py-0.5 rounded">
+                <CurrencyDollarIcon className="h-4 w-4 mr-1" /> You'll love it
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            <button
+              className="w-full sm:w-auto flex-grow bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-md transition duration-300 shadow-sm text-center disabled:opacity-60 disabled:cursor-not-allowed"
+              onClick={handleApplyClick}
+              disabled={isApplying || isLoadingCvs}
+            >
+              {isLoadingCvs ? 'Đang tải CV...' : isApplying ? 'Đang nộp đơn...' : 'Ứng tuyển ngay'}
+            </button>
+            <button className="w-full sm:w-auto border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium py-2.5 px-4 rounded-md transition duration-300 flex items-center justify-center">
+              <HeartIcon className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-2 text-sm text-gray-600 pt-4 border-t border-gray-100">
+            <div className="flex items-center">
+              <MapPinIcon className="h-4 w-4 mr-1.5 text-gray-500" /> {job.location}
             </div>
+            <div className="flex items-center">
+              <ClockIcon className="h-4 w-4 mr-1.5 text-gray-500" /> {job.jobType}
+            </div>
+            <div className="flex items-center">
+              <CalendarIcon className="h-4 w-4 mr-1.5 text-gray-500" /> Đăng {dayjs(job.createdAt).fromNow()}
+            </div>
+          </div>
         </div>
+      </div>
 
       <div className="container mx-auto max-w-6xl py-10 px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -295,18 +298,18 @@ const JobDetailsPage: React.FC = () => {
               <div className="prose prose-sm max-w-none prose-indigo text-gray-700" dangerouslySetInnerHTML={createMarkup(job.description)} />
             </div>
 
-             <div className="border-t border-gray-200 pt-8">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4">Chi tiết công việc</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm text-gray-700">
-                    {renderCompanyDetail(CurrencyDollarIcon, "Mức lương", job.salary ? `${job.salary.toLocaleString()} đ` : 'Thỏa thuận')}
-                    {renderCompanyDetail(BriefcaseIcon, "Cấp bậc", job.level)}
-                    {renderCompanyDetail(AcademicCapIcon, "Kinh nghiệm", job.experience)}
-                    {renderCompanyDetail(ClockIcon, "Hình thức", job.jobType)}
-                    {renderCompanyDetail(TagIcon, "Ngành nghề", typeof job.category === 'string' ? job.category : job.category?.name)}
-                    {renderCompanyDetail(UsersIcon, "Số lượng", job.quantity?.toString())}
-                    {renderCompanyDetail(CalendarDaysIcon, "Hạn nộp", dayjs(job.endDate).format('DD/MM/YYYY'))}
-                </div>
-             </div>
+            <div className="border-t border-gray-200 pt-8">
+              <h2 className="text-lg font-semibold text-gray-800 mb-4">Chi tiết công việc</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm text-gray-700">
+                {renderCompanyDetail(CurrencyDollarIcon, "Mức lương", job.salary ? `${job.salary.toLocaleString()} đ` : 'Thỏa thuận')}
+                {renderCompanyDetail(BriefcaseIcon, "Cấp bậc", job.level)}
+                {renderCompanyDetail(AcademicCapIcon, "Kinh nghiệm", job.experience)}
+                {renderCompanyDetail(ClockIcon, "Hình thức", job.jobType)}
+                {renderCompanyDetail(TagIcon, "Ngành nghề", typeof job.category === 'string' ? job.category : job.category?.name)}
+                {renderCompanyDetail(UsersIcon, "Số lượng", job.quantity?.toString())}
+                {renderCompanyDetail(CalendarDaysIcon, "Hạn nộp", dayjs(job.endDate).format('DD/MM/YYYY'))}
+              </div>
+            </div>
 
           </div>
 
@@ -314,113 +317,113 @@ const JobDetailsPage: React.FC = () => {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 sticky top-6">
               {isLoadingCompany && <div className="text-center"><Spinner /></div>}
               {errorCompany && (
-                 <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded text-sm" role="alert">
-                     {errorCompany}
-                 </div>
+                <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded text-sm" role="alert">
+                  {errorCompany}
+                </div>
               )}
               {!isLoadingCompany && !errorCompany && companyDetails && (
                 <>
                   <div className="flex items-center mb-4 pb-4 border-b border-gray-200">
-                     <img 
-                        src={companyDetails.logo || 'https://via.placeholder.com/100/CCCCCC/FFFFFF?text=Cty'} 
-                        alt={`${companyDetails.name} logo`} 
-                        className="h-16 w-16 object-contain border rounded-md p-1 bg-white flex-shrink-0 mr-4"
-                      />
-                      <div>
-                        <Link 
-                            to={`/company/${companyDetails._id}`} 
-                            className="text-base font-semibold text-gray-800 hover:text-indigo-600 transition duration-300 line-clamp-2"
-                        >
-                            {companyDetails.name}
-                        </Link>
-                      </div>
+                    <img
+                      src={companyDetails.logo || 'https://via.placeholder.com/100/CCCCCC/FFFFFF?text=Cty'}
+                      alt={`${companyDetails.name} logo`}
+                      className="h-16 w-16 object-contain border rounded-md p-1 bg-white flex-shrink-0 mr-4"
+                    />
+                    <div>
+                      <Link
+                        to={`/company/${companyDetails._id}`}
+                        className="text-base font-semibold text-gray-800 hover:text-indigo-600 transition duration-300 line-clamp-2"
+                      >
+                        {companyDetails.name}
+                      </Link>
+                    </div>
                   </div>
-                  
+
                   <h3 className="text-sm font-semibold text-gray-500 uppercase mb-3">Thông tin công ty</h3>
-                   <div className="space-y-1">
-                      {renderCompanyDetail(BuildingLibraryIcon, "Mô hình công ty", companyDetails.companyModel)}
-                      {renderCompanyDetail(SparklesIcon, "Lĩnh vực công ty", companyDetails.industry)}
-                      {renderCompanyDetail(UsersIcon, "Quy mô công ty", companyDetails.companySize)}
-                      {renderCompanyDetail(GlobeAltIcon, "Quốc gia", companyDetails.country)}
-                      {renderCompanyDetail(CalendarDaysIcon, "Thời gian làm việc", companyDetails.workingTime)}
-                   </div>
+                  <div className="space-y-1">
+                    {renderCompanyDetail(BuildingLibraryIcon, "Mô hình công ty", companyDetails.companyModel)}
+                    {renderCompanyDetail(SparklesIcon, "Lĩnh vực công ty", companyDetails.industry)}
+                    {renderCompanyDetail(UsersIcon, "Quy mô công ty", companyDetails.companySize)}
+                    {renderCompanyDetail(GlobeAltIcon, "Quốc gia", companyDetails.country)}
+                    {renderCompanyDetail(CalendarDaysIcon, "Thời gian làm việc", companyDetails.workingTime)}
+                  </div>
 
                   <div className="mt-6">
-                        <Link 
-                            to={`/company/${companyDetails._id}`} 
-                            className="w-full block text-center text-sm font-medium text-indigo-600 hover:text-indigo-800 border border-indigo-200 hover:bg-indigo-50 py-2 px-4 rounded-md transition duration-300"
-                        >
-                            Xem trang công ty
-                        </Link>
-                   </div>
+                    <Link
+                      to={`/company/${companyDetails._id}`}
+                      className="w-full block text-center text-sm font-medium text-indigo-600 hover:text-indigo-800 border border-indigo-200 hover:bg-indigo-50 py-2 px-4 rounded-md transition duration-300"
+                    >
+                      Xem trang công ty
+                    </Link>
+                  </div>
                 </>
               )}
-             {!isLoadingCompany && !errorCompany && !companyDetails && job.company && (
+              {!isLoadingCompany && !errorCompany && !companyDetails && job.company && (
                 <p className="text-sm text-gray-500">Đang tải thông tin công ty...</p>
-             )}
+              )}
             </div>
           </div>
         </div>
-        
-      
-      {/* Similar Jobs Section */}
-      {isLoadingSimilarJobs && (
+
+
+        {/* Similar Jobs Section */}
+        {isLoadingSimilarJobs && (
           <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 text-center mt-5">
-              <Spinner />
-              <p className="text-sm text-gray-500 mt-2">Đang tải công việc tương tự...</p>
+            <Spinner />
+            <p className="text-sm text-gray-500 mt-2">Đang tải công việc tương tự...</p>
           </div>
-      )}
-      {!isLoadingSimilarJobs && similarJobs.length > 0 && (
+        )}
+        {!isLoadingSimilarJobs && similarJobs.length > 0 && (
           <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200  mt-5">
-              <h2 className="text-xl font-semibold text-gray-800 mb-5">Công việc tương tự</h2>
-              <div className="grid grid-cols-1 gap-4">
-                  {similarJobs.map((similarJob) => (
-                       <div 
-                          key={similarJob._id} 
-                          className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:shadow-sm transition-all duration-200 cursor-pointer"
-                          onClick={() => handleSimilarJobClick(similarJob._id!)} 
-                      >
-                          <div className="flex items-start gap-4">
-                              <img 
-                                  src={similarJob.company?.logo || 'https://via.placeholder.com/60/CCCCCC/FFFFFF?text=Cty'} 
-                                  alt={`${similarJob.company?.name || 'Company'} logo`} 
-                                  className="h-12 w-12 object-contain border rounded-md p-1 bg-white flex-shrink-0 mt-1"
-                              />
-                              <div className="flex-grow">
-                                  <h3 className="text-base font-semibold text-indigo-700 hover:text-indigo-800 transition line-clamp-2 mb-1">
-                                      {similarJob.name}
-                                  </h3>
-                                  <p className="text-sm text-gray-700 mb-2 line-clamp-1 font-medium">
-                                      {similarJob.company?.name || 'Công ty không xác định'}
-                                  </p>
-                                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
-                                      <span className="flex items-center">
-                                          <CurrencyDollarIcon className="h-3.5 w-3.5 mr-1 text-gray-400" />
-                                          {similarJob.salary ? `${similarJob.salary.toLocaleString()} đ` : 'Thỏa thuận'}
-                                      </span>
-                                      <span className="flex items-center">
-                                          <MapPinIcon className="h-3.5 w-3.5 mr-1 text-gray-400" />
-                                          {similarJob.location}
-                                      </span>
-                                      {similarJob.isActive && (
-                                          <span className="flex items-center bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-[11px] font-medium">
-                                              Đang tuyển
-                                          </span>
-                                      )}
-                                  </div>
-                              </div>
-                          </div>
+            <h2 className="text-xl font-semibold text-gray-800 mb-5">Công việc tương tự</h2>
+            <div className="grid grid-cols-1 gap-4">
+              {similarJobs.map((similarJob) => (
+                <div
+                  key={similarJob._id}
+                  className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:shadow-sm transition-all duration-200 cursor-pointer"
+                  onClick={() => handleSimilarJobClick(similarJob._id!)}
+                >
+                  <div className="flex items-start gap-4">
+                    <img
+                      src={similarJob.company?.logo || 'https://via.placeholder.com/60/CCCCCC/FFFFFF?text=Cty'}
+                      alt={`${similarJob.company?.name || 'Company'} logo`}
+                      className="h-12 w-12 object-contain border rounded-md p-1 bg-white flex-shrink-0 mt-1"
+                    />
+                    <div className="flex-grow">
+                      <h3 className="text-base font-semibold text-indigo-700 hover:text-indigo-800 transition line-clamp-2 mb-1">
+                        {similarJob.name}
+                      </h3>
+                      <p className="text-sm text-gray-700 mb-2 line-clamp-1 font-medium">
+                        {similarJob.company?.name || 'Công ty không xác định'}
+                      </p>
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
+                        <span className="flex items-center">
+                          <CurrencyDollarIcon className="h-3.5 w-3.5 mr-1 text-gray-400" />
+                          {similarJob.salary ? `${similarJob.salary.toLocaleString()} đ` : 'Thỏa thuận'}
+                        </span>
+                        <span className="flex items-center">
+                          <MapPinIcon className="h-3.5 w-3.5 mr-1 text-gray-400" />
+                          {similarJob.location}
+                        </span>
+                        {similarJob.isActive && (
+                          <span className="flex items-center bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-[11px] font-medium">
+                            Đang tuyển
+                          </span>
+                        )}
                       </div>
-                  ))}
-              </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-      )}
-      {!isLoadingSimilarJobs && errorSimilarJobs && (
+        )}
+        {!isLoadingSimilarJobs && errorSimilarJobs && (
           <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-3 py-2 rounded text-sm">
-              {errorSimilarJobs}
+            {errorSimilarJobs}
           </div>
-      )}
-      {/* End Similar Jobs Section */}
+        )}
+        {/* End Similar Jobs Section */}
       </div>
 
       <ApplyJobModal

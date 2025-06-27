@@ -1,13 +1,14 @@
+//Authentication state management
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { IGetAccount } from '@/types/backend';
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>; // Expose setter
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   user: IGetAccount['user'] | null;
-  setUser: React.Dispatch<React.SetStateAction<IGetAccount['user'] | null>>; // Expose setter
+  setUser: React.Dispatch<React.SetStateAction<IGetAccount['user'] | null>>;
   isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>; // Expose setter
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);

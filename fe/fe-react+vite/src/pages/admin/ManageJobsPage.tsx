@@ -25,13 +25,15 @@ const ManageJobsPage: React.FC = () => {
   const [jobs, setJobs] = useState<IJob[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [meta, setMeta] = useState<{ current: number; pageSize: number; pages: number; total: number }>({ current: 1, pageSize: 10, pages: 0, total: 0 });
+  // Dùng để mở modal Thêm/Sửa
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [dataInit, setDataInit] = useState<IJob | null>(null);
+  // Danh sách options cho các select trong modal
   const [listSkills, setListSkills] = useState<ISkill[]>([]);
   const [listCategories, setListCategories] = useState<ICategory[]>([]);
   const [listCompanies, setListCompanies] = useState<ICompany[]>([]);
   const [listProvinces, setListProvinces] = useState<IProvince[]>([]);
-
+  // Modal xem ứng viên đã apply
   const [isApplicationsModalOpen, setIsApplicationsModalOpen] = useState<boolean>(false);
   const [selectedJob, setSelectedJob] = useState<IJob | null>(null);
 
@@ -49,13 +51,11 @@ const ManageJobsPage: React.FC = () => {
     f = filter
   ) => {
     let q = `current=${page}&pageSize=${size}`;
-
     if (f.name?.trim()) q += `&search=${encodeURIComponent(f.name.trim())}`;
     if (f.category) q += `&category=${f.category}`;
     if (f.skill) q += `&skill=${f.skill}`;
     if (f.company) q += `&company=${f.company}`;
     if (f.location?.trim()) q += `&location=${encodeURIComponent(f.location.trim())}`;
-
     console.log('Building query with filter:', f);
     console.log('Final query string:', q);
     return q;
@@ -64,6 +64,7 @@ const ManageJobsPage: React.FC = () => {
   const fetchJobs = useCallback(async (query?: string) => {
     setIsLoading(true);
     const defaultQuery = `current=${meta.current}&pageSize=${meta.pageSize}`;
+    //chọn query filter người dùng nếu có, ngược lại dùng defaultQuery.
     const finalQuery = query ? query : defaultQuery;
 
     console.log('Fetching jobs with query:', finalQuery);
@@ -147,7 +148,6 @@ const ManageJobsPage: React.FC = () => {
 
     setIsLoading(true);
     try {
-      // const res = await callDeleteJob(job._id);
       const res = await callDeleteJob(job._id) as IBackendRes<any>;
       if (res && res.data) {
         toast.success('Xóa việc làm thành công!');

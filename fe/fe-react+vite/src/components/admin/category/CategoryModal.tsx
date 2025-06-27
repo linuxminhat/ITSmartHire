@@ -24,15 +24,14 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   dataInit,
   refetch,
 }) => {
-  /* -------------------- STATES -------------------- */
+
   const [name, setName] = useState('');
-  const [description, setDesc] = useState('');           // 🆕
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([]); // 🆕
-  const [isActive, setIsActive] = useState(true);        // 🆕
-  const [skills, setSkills] = useState<ISkill[]>([]);    // 🆕 list option
+  const [description, setDesc] = useState('');
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [isActive, setIsActive] = useState(true);
+  const [skills, setSkills] = useState<ISkill[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  /* --------------- FETCH SKILL LIST --------------- */
   useEffect(() => {
     if (!isOpen) return;
     (async () => {
@@ -47,18 +46,16 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
     })();
   }, [isOpen]);
 
-  /* -------- SET FORM WHEN OPEN / EDIT -------- */
   useEffect(() => {
     if (dataInit) {
       setName(dataInit.name || '');
-      setDesc(dataInit.description || '');     // 🆕
-      setIsActive(dataInit.isActive ?? true);  // 🆕
-      // nếu category đã có trường skills (array ObjectId)
+      setDesc(dataInit.description || '');
+      setIsActive(dataInit.isActive ?? true);
       setSelectedSkills(
         (dataInit as any).skills?.map((s: any) =>
           typeof s === 'string' ? s : s._id,
         ) || [],
-      );                                       // 🆕
+      );
     } else {
       setName('');
       setDesc('');
@@ -67,7 +64,6 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
     }
   }, [dataInit, isOpen]);
 
-  /* ---------------- SUBMIT ---------------- */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
@@ -75,8 +71,6 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
       return;
     }
     setIsLoading(true);
-
-    // tạo payload – backend cần có các field này trước!
     const payload: Partial<ICategory> = {
       name: name.trim(),
       description,
@@ -105,7 +99,6 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
 
   if (!isOpen) return null;
 
-  /* -------------------- UI -------------------- */
   return (
     <div className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center p-4">
       <div

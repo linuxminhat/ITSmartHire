@@ -3,16 +3,6 @@ import { Document, Page, Text, View, StyleSheet, Link, Font } from '@react-pdf/r
 import { IUser, IEducation, IExperience, IProject, ICertificate, IAward } from '@/types/backend';
 import { format, parseISO } from 'date-fns';
 
-// --- Font Registration (Consider a clean sans-serif like Inter or Source Sans Pro) ---
-// Font.register({
-//   family: 'Inter',
-//   fonts: [
-//     { src: '/fonts/Inter-Regular.ttf' },
-//     { src: '/fonts/Inter-Medium.ttf', fontWeight: 500 }, // Medium for headings
-//     { src: '/fonts/Inter-Bold.ttf', fontWeight: 'bold' },
-//   ]
-// });
-
 // --- Date Formatting Helper ---
 const formatDate = (dateInput: string | Date | undefined | null): string => {
     if (!dateInput) return 'Present';
@@ -245,7 +235,7 @@ const ListItem: React.FC<{
                 </View>
             ))}
             {descriptionPoints.length === 0 && description && (
-                 <Text style={styles.itemDescription}>{description}</Text> // Display non-bulleted description
+                <Text style={styles.itemDescription}>{description}</Text> // Display non-bulleted description
             )}
         </View>
     );
@@ -280,12 +270,12 @@ const TemplateMinimalist: React.FC<TemplateProps> = ({ profileData }) => {
                         {profileData.email && <Text style={styles.contactItem}>{profileData.email}</Text>}
                         {profileData.phone && <Text style={styles.contactItem}>{profileData.phone}</Text>}
                         {profileData.address && <Text style={styles.contactItem}>{profileData.address}</Text>}
-                        {profileData.linkedIn && 
+                        {profileData.linkedIn &&
                             <Link style={styles.contactLink} src={profileData.linkedIn}>
                                 LinkedIn
                             </Link>
                         }
-                         {profileData.portfolio && 
+                        {profileData.portfolio &&
                             <Link style={styles.contactLink} src={profileData.portfolio}>
                                 Portfolio
                             </Link>
@@ -294,7 +284,7 @@ const TemplateMinimalist: React.FC<TemplateProps> = ({ profileData }) => {
                 </View>
 
                 {/* --- Summary --- */}
-                 {profileData.aboutMe && (
+                {profileData.aboutMe && (
                     <Section title="Summary">
                         <Text style={styles.itemDescription}>{profileData.aboutMe}</Text>
                     </Section>
@@ -332,7 +322,7 @@ const TemplateMinimalist: React.FC<TemplateProps> = ({ profileData }) => {
                 )}
 
                 {/* --- Education --- */}
-                 {education.length > 0 && (
+                {education.length > 0 && (
                     <Section title="Education">
                         {education.map((edu, index) => (
                             <ListItem
@@ -356,15 +346,15 @@ const TemplateMinimalist: React.FC<TemplateProps> = ({ profileData }) => {
                     </Section>
                 )}
 
-                 {/* --- Certificates & Awards --- */}
-                 {certificates.length > 0 && (
+                {/* --- Certificates & Awards --- */}
+                {certificates.length > 0 && (
                     <Section title="Certificates">
                         {certificates.map((cert, index) => (
                             <View key={cert._id || index} style={styles.certAwardContainer}>
                                 <Text style={styles.certAwardTitle}>{cert.name || 'N/A'}</Text>
                                 {cert.issuingOrganization && <Text style={styles.certAwardSubtitle}>{cert.issuingOrganization}</Text>}
                                 {cert.issueDate && <Text style={styles.certAwardDate}>Issued: {formatDate(cert.issueDate)}</Text>}
-                                {cert.credentialUrl && 
+                                {cert.credentialUrl &&
                                     <Link style={styles.certAwardLink} src={cert.credentialUrl}>
                                         View Credential
                                     </Link>
@@ -372,11 +362,11 @@ const TemplateMinimalist: React.FC<TemplateProps> = ({ profileData }) => {
                             </View>
                         ))}
                     </Section>
-                 )}
+                )}
                 {awards.length > 0 && (
                     <Section title="Awards">
                         {awards.map((award, index) => (
-                             <View key={award._id || index} style={styles.certAwardContainer}>
+                            <View key={award._id || index} style={styles.certAwardContainer}>
                                 <Text style={styles.certAwardTitle}>{award.name || 'N/A'}</Text>
                                 {award.issuingOrganization && <Text style={styles.certAwardSubtitle}>{award.issuingOrganization}</Text>}
                                 {award.issueDate && <Text style={styles.certAwardDate}>Date: {formatDate(award.issueDate)}</Text>}

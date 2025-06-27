@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 interface ViewUserDetailProps {
   open: boolean;
   onClose: (v: boolean) => void;
-  dataInit: IUser | null;
+  dataInit: IUser | null;//data user need to view 
   setDataInit: (v: IUser | null) => void;
 }
 
@@ -42,7 +42,7 @@ const ViewUserDetail: React.FC<ViewUserDetailProps> = ({ open, onClose, dataInit
             <DetailItem label="Địa chỉ" value={dataInit.address} />
             <DetailItem label="Vai trò" value={typeof dataInit.role === 'object' ? dataInit.role.name : dataInit.role} />
             {dataInit.company && (
-                <DetailItem label="Công ty" value={typeof dataInit.company === 'object' ? dataInit.company.name : dataInit.company} />
+              <DetailItem label="Công ty" value={typeof dataInit.company === 'object' ? dataInit.company.name : dataInit.company} />
             )}
             <DetailItem label="Ngày tạo" value={dayjs(dataInit.createdAt).format('DD/MM/YYYY HH:mm:ss')} />
             <DetailItem label="Cập nhật lần cuối" value={dayjs(dataInit.updatedAt).format('DD/MM/YYYY HH:mm:ss')} />
@@ -54,14 +54,14 @@ const ViewUserDetail: React.FC<ViewUserDetailProps> = ({ open, onClose, dataInit
 };
 
 interface DetailItemProps {
-    label: string;
-    value?: string | number | null;
+  label: string;
+  value?: string | number | null;
 }
 const DetailItem: React.FC<DetailItemProps> = ({ label, value }) => (
-    <div>
-        <dt className="text-sm font-medium text-gray-500">{label}</dt>
-        <dd className="mt-1 text-sm text-gray-900">{value ?? 'N/A'}</dd>
-    </div>
+  <div>
+    <dt className="text-sm font-medium text-gray-500">{label}</dt>
+    <dd className="mt-1 text-sm text-gray-900">{value ?? 'N/A'}</dd>
+  </div>
 );
 
 export default ViewUserDetail;

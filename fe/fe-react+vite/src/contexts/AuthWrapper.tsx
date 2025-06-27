@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useAuth } from './AuthContext';
+import { useAuth } from './AuthContext';//state Auth
 import { callFetchAccount, callLogin } from '@/services/auth.service';
-import { useNavigate } from 'react-router-dom';
-import axiosInstance from '@/config/axios-customize'; // Import instance axios đã cấu hình
-import { AuthActionProvider } from './AuthActionContext'; // Import Action Provider
+import { useNavigate } from 'react-router-dom';//hook for navigate
+import axiosInstance from '@/config/axios-customize';
+import { AuthActionProvider } from './AuthActionContext';
 
-// Component này wrap nội dung chính của RouterProvider
+//provide handleLogin and handleLogout
 const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const {
     isAuthenticated,
@@ -15,22 +15,18 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   } = useAuth();
   const navigate = useNavigate();
 
-  // Logic fetch account ban đầu khi component mount
+  //useEffect is a hook allow tasks after the component renders (literally).
   useEffect(() => {
     const fetchInitialAccount = async () => {
       const token = localStorage.getItem('access_token');
       if (token) {
-        // >>> QUAN TRỌNG: Đảm bảo axios instance đã được cấu hình để gửi token
-        // Trong file axios-customize.ts, interceptor request đã làm việc này
-        // Nếu không, bạn cần thêm header ở đây:
-        // axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         try {
           const res = await callFetchAccount();
           if (res && res.data) {
+            //Check if token is valid
             setIsAuthenticated(true);
             setUser(res.data.user);
           } else {
-            // Token không hợp lệ hoặc hết hạn
             localStorage.removeItem('access_token');
             delete axiosInstance.defaults.headers.common['Authorization'];
           }
@@ -42,7 +38,6 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           setUser(null);
         }
       } else {
-        // Không có token, đảm bảo trạng thái là chưa đăng nhập
         setIsAuthenticated(false);
         setUser(null);
         delete axiosInstance.defaults.headers.common['Authorization'];
@@ -51,10 +46,8 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     };
 
     fetchInitialAccount();
-  }, [setIsAuthenticated, setIsLoading, setUser]); // Dependencies
+  }, [setIsAuthenticated, setIsLoading, setUser]);
 
-  // Các hàm login/logout có thể được định nghĩa ở đây hoặc trong các component cần dùng
-  // Ví dụ: Tạo hàm login để component LoginPage có thể gọi
   const handleLogin = async (username: string, password: string) => {
     setIsLoading(true);
     try {
@@ -73,17 +66,17 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           // --- Navigation Logic --- 
           const roleName = accountRes.data.user.role?.name;
           if (roleName === 'ADMIN') {
-            navigate('/admin'); // Navigate ADMIN to /admin
+            navigate('/admin');
           } else if (roleName === 'HR') {
-            navigate('/hr'); // Navigate HR to /hr
+            navigate('/hr');
           } else {
-            navigate('/'); // Navigate other roles (like USER) to homepage
+            navigate('/');
           }
           // ------------------------
 
-          return accountRes.data; // Trả về dữ liệu nếu cần
+          return accountRes.data;
         } else {
-          // Clear token and state if fetching account after login fails
+
           localStorage.removeItem('access_token');
           delete axiosInstance.defaults.headers.common['Authorization'];
           setIsAuthenticated(false);
@@ -91,17 +84,17 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           throw new Error('Failed to fetch account details after login.');
         }
       } else {
-        // Use message from API response if available
+
         throw new Error(res?.message || 'Login failed');
       }
     } catch (error) {
-      // Xóa token và reset state nếu login lỗi
+
       localStorage.removeItem('access_token');
       delete axiosInstance.defaults.headers.common['Authorization'];
       setIsAuthenticated(false);
       setUser(null);
       console.error("AuthWrapper: Login error:", error);
-      throw error; // Ném lỗi ra để component gọi xử lý (vd: hiển thị toast)
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -110,7 +103,6 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const handleLogout = async () => {
     setIsLoading(true);
     try {
-      // await callLogout(); // Gọi API logout nếu cần
     } catch (error) {
       console.error("AuthWrapper: Logout API call failed:", error);
     } finally {
@@ -122,8 +114,6 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       navigate('/login');
     }
   };
-
-  // Wrap children bằng AuthActionProvider và truyền các hàm vào
   return (
     <AuthActionProvider loginAction={handleLogin} logoutAction={handleLogout}>
       {children}

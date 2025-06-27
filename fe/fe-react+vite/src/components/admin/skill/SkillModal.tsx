@@ -50,7 +50,6 @@ const SkillModal: React.FC<SkillModalProps> = ({ isOpen, onClose, dataInit, refe
   const nameInputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  /* -------------------------- INIT / RESET -------------------------- */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -71,7 +70,6 @@ const SkillModal: React.FC<SkillModalProps> = ({ isOpen, onClose, dataInit, refe
     setTimeout(() => nameInputRef.current?.focus(), 10);
   }, [dataInit, isOpen]);
 
-  /* ------------------------- ESC & TAB CYCLE ------------------------ */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -106,7 +104,6 @@ const SkillModal: React.FC<SkillModalProps> = ({ isOpen, onClose, dataInit, refe
     return () => document.removeEventListener('keydown', handleKey as any);
   }, [isOpen]);
 
-  /* ----------------------------- SUBMIT ----------------------------- */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -136,7 +133,6 @@ const SkillModal: React.FC<SkillModalProps> = ({ isOpen, onClose, dataInit, refe
     }
   };
 
-  /* --------------------------- RENDER UI --------------------------- */
   if (!isOpen) return null;
 
   return (

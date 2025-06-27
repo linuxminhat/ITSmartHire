@@ -18,7 +18,6 @@ import { ISkill } from '@/types/backend';
 import { callFetchSkill } from '@/services/skill.service';
 import { FireIcon } from '@heroicons/react/24/solid';
 
-// Define interface for province data
 interface IProvince {
   name: string;
   code: number;

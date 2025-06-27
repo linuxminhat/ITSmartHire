@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
-import { IUser } from '@/types/backend';
+import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';//using for save PDF file
+import { IUser } from '@/types/backend'; //define data of user 
 import { XMarkIcon, ArrowDownTrayIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+//template
 import TemplateClassic from './templates/TemplateClassic';
 import TemplateModern from './templates/TemplateModern';
 import TemplateCreative from './templates/TemplateCreative';
-import TemplateMinimalist from './templates/TemplateMinimalist'; // Import Minimalist
-
-// SỬA: Import các ảnh preview
+import TemplateMinimalist from './templates/TemplateMinimalist';
+//preview image 
 import classicPreview from '@/assets/images/cv-previews/classic.png';
 import modernPreview from '@/assets/images/cv-previews/modern.png';
 import minimalistPreview from '@/assets/images/cv-previews/minimalist.png';
 import creativePreview from '@/assets/images/cv-previews/creative.png';
 
-// Placeholder for the actual CV template component
-// This needs to be implemented using react-pdf primitives
+//Haven't developed the application form yet, use PlaceholderCVTemplate temporarily.
 const PlaceholderCVTemplate = ({ profileData }: { profileData: IUser | null }) => (
     <Document>
         <Page size="A4" style={styles.page}>
@@ -28,13 +27,13 @@ const PlaceholderCVTemplate = ({ profileData }: { profileData: IUser | null }) =
     </Document>
 );
 
-// Basic styles for the PDF document
+//Stylesheet for PDF
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'column',
-        backgroundColor: '#E4E4E4', // Example background
+        backgroundColor: '#E4E4E4',
         padding: 30,
-        fontFamily: 'Helvetica', // Consider setting a default font
+        fontFamily: 'Helvetica',
     },
     section: {
         margin: 10,
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
 interface CVTemplateSelectionModalProps {
     visible: boolean;
     onCancel: () => void;
-    profileData: IUser | null; // Pass the full profile data
+    profileData: IUser | null;//profileData : contains data of user 
 }
 
 const CVTemplateSelectionModal: React.FC<CVTemplateSelectionModalProps> = ({
@@ -60,18 +59,14 @@ const CVTemplateSelectionModal: React.FC<CVTemplateSelectionModalProps> = ({
     profileData,
 }) => {
     const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
-    // Use generic 'loading' state for overall modal ops if needed, PDFLink has its own
-    // const [loading, setLoading] = useState(false); 
-    const [pdfError, setPdfError] = useState<string | null>(null); // For PDF generation errors
+    const [pdfError, setPdfError] = useState<string | null>(null);
 
-    if (!visible) return null; // Don't render if not visible
+    if (!visible) return null;
 
     const handleSelectTemplate = (templateName: string) => {
         setSelectedTemplate(templateName);
-        setPdfError(null); // Clear PDF error on new selection attempt
+        setPdfError(null);
     };
-
-    // Type for template components expecting profileData
     type CvTemplateComponent = React.FC<{ profileData: IUser | null }>;
 
     const renderDownloadLink = (templateName: string, TemplateComponent: CvTemplateComponent) => {
@@ -82,8 +77,6 @@ const CVTemplateSelectionModal: React.FC<CVTemplateSelectionModalProps> = ({
                 </button>
             );
         }
-
-        // Generate Vietnamese filename
         const safeName = profileData.name?.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_') || 'NguoiDung';
         const fileName = `CV_${safeName}_${templateName}.pdf`;
 
@@ -91,7 +84,7 @@ const CVTemplateSelectionModal: React.FC<CVTemplateSelectionModalProps> = ({
             <PDFDownloadLink
                 document={<TemplateComponent profileData={profileData} />}
                 fileName={fileName}
-                style={{ textDecoration: 'none' }} // Necessary for link styling override
+                style={{ textDecoration: 'none' }}
             >
                 {({ blob, url, loading: pdfLoading, error: pdfGenError }) => {
                     // Handle PDF generation error specifically
@@ -130,17 +123,17 @@ const CVTemplateSelectionModal: React.FC<CVTemplateSelectionModalProps> = ({
         );
     };
 
-    // SỬA: Thêm thuộc tính `previewImage` vào mảng templates
+
     const templates: { name: string; component: CvTemplateComponent; description: string; previewImage: string }[] = [
         { name: 'Cổ điển', component: TemplateClassic, description: 'Bố cục cổ điển, có cấu trúc, phù hợp với các vai trò truyền thống.', previewImage: classicPreview },
         { name: 'Hiện đại', component: TemplateModern, description: 'Đường nét gọn gàng, tập trung vào thành tích chính. Tuyệt vời cho vai trò công nghệ.', previewImage: modernPreview },
         { name: 'Tối giản', component: TemplateMinimalist, description: 'Đơn giản, thanh lịch, nhấn mạnh sự rõ ràng của nội dung.', previewImage: minimalistPreview },
         { name: 'Sáng tạo', component: TemplateCreative, description: 'Nổi bật về mặt hình ảnh, phù hợp với vai trò thiết kế hoặc tiếp thị.', previewImage: creativePreview },
     ];
-    // --- End Templates Definition ---
+
 
     return (
-        // Modal Backdrop - Reverted from full screen
+
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex justify-center items-center px-4 py-6">
             {/* Modal Content - Reverted to fixed width, centered */}
             <div className="relative mx-auto p-6 border w-full max-w-4xl shadow-xl rounded-lg bg-white"> {/* Increased max-w slightly */}

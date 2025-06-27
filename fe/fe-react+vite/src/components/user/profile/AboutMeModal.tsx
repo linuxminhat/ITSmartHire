@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 interface AboutMeModalProps {
   visible: boolean;
-  initialValue?: string;
+  initialValue?: string;//Initializing the text area with value (if any).
   onCancel: () => void;
   onOk: (values: { aboutMe: string }) => Promise<void>;
   loading: boolean;
@@ -17,16 +17,15 @@ const AboutMeModal: React.FC<AboutMeModalProps> = ({ visible, initialValue, onCa
     }
   }, [visible, initialValue]);
 
+  //handle save button
   const handleOk = async () => {
     try {
-      // No form validation needed for a simple textarea
       await onOk({ aboutMe: currentValue });
     } catch (errorInfo) {
       console.error('Save Failed:', errorInfo);
     }
   };
 
-  // Handle Escape key to close modal
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -59,7 +58,7 @@ const AboutMeModal: React.FC<AboutMeModalProps> = ({ visible, initialValue, onCa
         </button>
 
         <h3 className="text-xl font-semibold text-gray-800 mb-4">Giới thiệu bản thân</h3>
-        
+
         <div className="mb-4">
           <label htmlFor="aboutMeTextarea" className="block text-sm font-medium text-gray-700 mb-1">
             Mô tả điểm mạnh, kinh nghiệm làm việc nổi bật của bạn...

@@ -3,7 +3,7 @@ import axios from '@/config/axios-customize';
 
 /**
  *
-Module Role
+Module Role ok !
  */
 export const callCreateRole = (role: IRole) => {
     return axios.post<IBackendRes<IRole>>('/api/v1/roles', { ...role })

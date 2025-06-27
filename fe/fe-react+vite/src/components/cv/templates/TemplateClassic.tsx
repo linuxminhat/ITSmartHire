@@ -1,50 +1,28 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Link, Font } from '@react-pdf/renderer';
 import { IUser, IEducation, IExperience, IProject, ICertificate, IAward } from '@/types/backend';
-import { format, parseISO } from 'date-fns'; // For date formatting
-
-// --- Font Registration (Example: Roboto) ---
-// Make sure you have the font files (.ttf) available in your project, e.g., in public/fonts
-// Font.register({
-//   family: 'Roboto',
-//   fonts: [
-//     { src: '/fonts/Roboto-Regular.ttf' }, // Adjust path as needed
-//     { src: '/fonts/Roboto-Bold.ttf', fontWeight: 'bold' },
-//     { src: '/fonts/Roboto-Italic.ttf', fontStyle: 'italic' },
-//     { src: '/fonts/Roboto-BoldItalic.ttf', fontWeight: 'bold', fontStyle: 'italic' },
-//   ],
-// });
-
-// --- Helper Function for Date Formatting ---
+import { format, parseISO } from 'date-fns';
 const formatDate = (dateInput: string | Date | undefined | null): string => {
-    if (!dateInput) return 'Present'; // Or handle as needed
+    if (!dateInput) return 'Present';
 
     try {
         let date: Date;
         if (typeof dateInput === 'string') {
-            // Attempt to parse ISO string (common format from backend/JSON)
             date = parseISO(dateInput);
         } else if (dateInput instanceof Date) {
-            // If it's already a Date object
             date = dateInput;
         } else {
-            // Handle unexpected types if necessary
             return 'Invalid Date';
         }
-
-        // Check if the parsed/provided date is valid
         if (isNaN(date.getTime())) {
-            // Handle invalid date strings that parseISO might produce (e.g., "Invalid Date")
             console.warn("Invalid date encountered:", dateInput);
-            // Attempt to return original string if it was a string, otherwise indicate invalid
-            return typeof dateInput === 'string' ? dateInput : 'Invalid Date'; 
+            return typeof dateInput === 'string' ? dateInput : 'Invalid Date';
         }
 
-        return format(date, 'MM/yyyy'); // Format as MM/YYYY
+        return format(date, 'MM/yyyy');
     } catch (error) {
         console.error("Error formatting date:", dateInput, error);
-        // Return original input or a generic error message
-        return typeof dateInput === 'string' ? dateInput : 'Date Error'; 
+        return typeof dateInput === 'string' ? dateInput : 'Date Error';
     }
 };
 
@@ -53,7 +31,7 @@ const styles = StyleSheet.create({
     page: {
         flexDirection: 'row', // Two columns layout
         backgroundColor: '#FFFFFF',
-        fontFamily: 'Helvetica', 
+        fontFamily: 'Helvetica',
         fontSize: 10, // Tăng base font size
         lineHeight: 1.4, // Tăng line height
         color: '#2D3748', // Màu đen đậm hơn
@@ -61,14 +39,14 @@ const styles = StyleSheet.create({
     // --- Left Column (Wider) ---
     leftColumn: {
         width: '68%', // Giảm nhẹ để cân bằng
-        padding: '30pt 20pt 30pt 30pt', 
+        padding: '30pt 20pt 30pt 30pt',
     },
     // --- Right Column (Narrower) ---
     rightColumn: {
         width: '32%', // Tăng nhẹ
-        padding: '30pt 30pt 30pt 20pt', 
+        padding: '30pt 30pt 30pt 20pt',
         backgroundColor: '#F7FAFC', // Màu xanh nhạt elegant
-        color: '#4A5568', 
+        color: '#4A5568',
     },
     // --- General Section Styling ---
     section: {
@@ -78,7 +56,7 @@ const styles = StyleSheet.create({
         fontSize: 14, // Tăng size
         fontWeight: 'bold',
         color: '#2B6CB0', // Màu xanh đẹp hơn
-        marginBottom: 8, 
+        marginBottom: 8,
         textTransform: 'uppercase',
         letterSpacing: 0.5, // Thêm letter spacing
         borderBottomWidth: 2,
@@ -91,12 +69,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 6, // Giảm từ 8 xuống 6
         color: '#1A202C',
-        lineHeight: 1.1, 
+        lineHeight: 1.1,
         letterSpacing: 0.2, // Giảm letter spacing
     },
     jobTitle: {
         fontSize: 11, // Giảm từ 13 xuống 11
-        color: '#2B6CB0', 
+        color: '#2B6CB0',
         marginBottom: 12, // Giảm từ 16 xuống 12
         lineHeight: 1.2, // Giảm line height
         fontWeight: 'normal',
@@ -273,10 +251,10 @@ const ListItem: React.FC<{
     issueDate?: string;
     isAward?: boolean;
 }> = ({ title, subtitle, dateRange, description, linkUrl, technologies, issueDate, isAward = false }) => {
-    
+
     const fullTitle = title || '';
     const fullSubtitle = subtitle || '';
-    
+
     const descriptionPoints = typeof description === 'string'
         ? description.split('\n').map(s => s.trim()).filter(s => s !== '')
         : (description || []);

@@ -11,23 +11,23 @@ const BlogDetailPage: React.FC = () => {
   const [blog, setBlog] = useState<IBlog | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+  //The component uses hasIncrementedView.current as a "flag".
   const hasIncrementedView = useRef(false);
   const currentBlogId = useRef<string | null>(null);
 
   useEffect(() => {
     const fetchBlogDetail = async () => {
       if (!id) return;
-      
       if (currentBlogId.current !== id) {
         hasIncrementedView.current = false;
         currentBlogId.current = id;
       }
-      
+
       try {
         setLoading(true);
         setError(null);
 
+        //send request to backend for increment view 
         if (!hasIncrementedView.current) {
           console.log('[DEBUG] Tăng lượt xem cho blog:', id);
           hasIncrementedView.current = true;

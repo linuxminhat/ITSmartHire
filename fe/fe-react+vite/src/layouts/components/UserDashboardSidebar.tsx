@@ -1,3 +1,4 @@
+//User Dashboad Side Bar
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { IUser } from '@/types/backend';
@@ -16,11 +17,10 @@ interface UserDashboardSidebarProps {
   user: IUser | null;
 }
 
+//Component Notification
 const NotificationBadge = () => {
   const { unreadCount } = useNotification();
-
   if (unreadCount <= 0) return null;
-
   return (
     <span className="absolute -top-1 -right-1 flex h-4 w-4">
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>

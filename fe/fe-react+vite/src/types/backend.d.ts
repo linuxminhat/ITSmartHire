@@ -150,7 +150,7 @@ export interface IUser {
     projects?: IProject[];
     certificates?: ICertificate[];
     awards?: IAward[];
-    attachedCvs?: IAttachedCv[]; // Use the array field
+    attachedCvs?: IAttachedCv[];
     createdBy?: string;
     isDeleted?: boolean;
     deletedAt?: boolean | null;

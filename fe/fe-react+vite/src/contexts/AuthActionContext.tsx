@@ -1,16 +1,18 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 
-// Định nghĩa kiểu cho các hàm actions
+//Defines the type of value
 interface AuthActionContextType {
-  handleLogin: (username: string, password: string) => Promise<any>; // Kiểu trả về có thể chi tiết hơn
+  handleLogin: (username: string, password: string) => Promise<any>;
   handleLogout: () => Promise<void>;
 }
 
-// Tạo context
+//create context with undefined start
 const AuthActionContext = createContext<AuthActionContextType | undefined>(undefined);
 
-// Hook để sử dụng context
+//Incapsulation this
+//custom hook
 export const useAuthActions = (): AuthActionContextType => {
+  //useContext for get value
   const context = useContext(AuthActionContext);
   if (context === undefined) {
     throw new Error('useAuthActions must be used within an AuthActionProvider');
@@ -18,14 +20,12 @@ export const useAuthActions = (): AuthActionContextType => {
   return context;
 };
 
-// Props cho Provider
 interface AuthActionProviderProps {
   children: ReactNode;
   loginAction: (username: string, password: string) => Promise<any>;
   logoutAction: () => Promise<void>;
 }
 
-// Provider component
 export const AuthActionProvider: React.FC<AuthActionProviderProps> = ({
   children,
   loginAction,

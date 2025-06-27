@@ -11,19 +11,18 @@ import UserDashboardSidebar from '@/layouts/components/UserDashboardSidebar';
 import { useAuth } from '@/contexts/AuthContext';
 
 const AppliedJobsPage: React.FC = () => {
-  const { user } = useAuth(); // Get user info if needed for sidebar
+  const { user } = useAuth();
   const [applications, setApplications] = useState<IApplication[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [meta, setMeta] = useState<IModelPaginate<any>['meta'] | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const pageSize = 10; // Adjust as needed
+  const pageSize = 10;
 
   const fetchAppliedJobs = useCallback(async (page: number) => {
     setIsLoading(true);
     setError(null);
-    const query = `current=${page}&pageSize=${pageSize}&sort=-createdAt`; // Sort by newest first
-
+    const query = `current=${page}&pageSize=${pageSize}&sort=-createdAt`;
     try {
       const res = await callFetchAppliedJobs(query);
       if (res && res.data) {
@@ -54,17 +53,18 @@ const AppliedJobsPage: React.FC = () => {
   };
 
   // Simplified status rendering for this page
+  //get state from backend
   const renderApplicationStatus = (status: string) => {
     switch (status.toLowerCase()) {
       case 'pending':
-        return <span className="flex items-center text-xs font-medium text-yellow-800 bg-yellow-100 px-2 py-0.5 rounded-full"><ClockIcon className="h-3 w-3 mr-1"/>Chờ duyệt</span>;
+        return <span className="flex items-center text-xs font-medium text-yellow-800 bg-yellow-100 px-2 py-0.5 rounded-full"><ClockIcon className="h-3 w-3 mr-1" />Chờ duyệt</span>;
       case 'reviewed':
-        return <span className="flex items-center text-xs font-medium text-blue-800 bg-blue-100 px-2 py-0.5 rounded-full"><CheckCircleIcon className="h-3 w-3 mr-1"/>Đã xem</span>;
+        return <span className="flex items-center text-xs font-medium text-blue-800 bg-blue-100 px-2 py-0.5 rounded-full"><CheckCircleIcon className="h-3 w-3 mr-1" />Đã xem</span>;
       case 'accepted':
       case 'offered': // Group offered with accepted for simplicity here
-        return <span className="flex items-center text-xs font-medium text-green-800 bg-green-100 px-2 py-0.5 rounded-full"><CheckCircleIcon className="h-3 w-3 mr-1"/>Phù hợp</span>;
+        return <span className="flex items-center text-xs font-medium text-green-800 bg-green-100 px-2 py-0.5 rounded-full"><CheckCircleIcon className="h-3 w-3 mr-1" />Phù hợp</span>;
       case 'rejected':
-        return <span className="flex items-center text-xs font-medium text-red-800 bg-red-100 px-2 py-0.5 rounded-full"><ExclamationCircleIcon className="h-3 w-3 mr-1"/>Từ chối</span>;
+        return <span className="flex items-center text-xs font-medium text-red-800 bg-red-100 px-2 py-0.5 rounded-full"><ExclamationCircleIcon className="h-3 w-3 mr-1" />Từ chối</span>;
       default:
         return <span className="text-xs font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full">{status}</span>;
     }
@@ -95,7 +95,7 @@ const AppliedJobsPage: React.FC = () => {
                   <DocumentMagnifyingGlassIcon className="mx-auto h-12 w-12 text-gray-400 mb-3" />
                   <p className="font-medium">Bạn chưa ứng tuyển vào công việc nào.</p>
                   <Link to="/jobs" className="mt-4 inline-block px-4 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">
-                     Tìm việc ngay
+                    Tìm việc ngay
                   </Link>
                 </div>
               )}
@@ -112,64 +112,64 @@ const AppliedJobsPage: React.FC = () => {
                         <div className="flex flex-col sm:flex-row gap-4">
                           {/* Company Logo */}
                           <div className="flex-shrink-0">
-                            <img 
-                              src={company?.logo || 'https://via.placeholder.com/80/CCCCCC/FFFFFF?text=Cty'} 
-                              alt={`${company?.name || 'Company'} logo`} 
+                            <img
+                              src={company?.logo || 'https://via.placeholder.com/80/CCCCCC/FFFFFF?text=Cty'}
+                              alt={`${company?.name || 'Company'} logo`}
                               className="h-16 w-16 object-contain border rounded-md p-1 bg-white"
                             />
                           </div>
                           {/* Job Info */}
                           <div className="flex-grow overflow-hidden">
-                             {job ? (
-                                <Link 
-                                    to={`/job/${job._id}`} 
-                                    className="font-semibold text-indigo-700 hover:text-indigo-800 transition line-clamp-2 text-lg mb-1 block"
-                                    title={job.name}
-                                >
-                                    {job.name}
-                                </Link>
-                             ) : (
-                                 <p className="font-semibold text-gray-500 text-lg mb-1">Công việc không tồn tại</p>
-                             )}
-                            {company ? (
-                                <Link 
-                                    to={`/company/${company._id}`} 
-                                    className="text-sm text-gray-600 hover:text-gray-800 transition line-clamp-1 mb-2 block"
-                                    title={company.name}
-                                >
-                                    {company.name}
-                                </Link>
+                            {job ? (
+                              <Link
+                                to={`/job/${job._id}`}
+                                className="font-semibold text-indigo-700 hover:text-indigo-800 transition line-clamp-2 text-lg mb-1 block"
+                                title={job.name}
+                              >
+                                {job.name}
+                              </Link>
                             ) : (
-                                <p className="text-sm text-gray-500 mb-2">Công ty không tồn tại</p>
+                              <p className="font-semibold text-gray-500 text-lg mb-1">Công việc không tồn tại</p>
+                            )}
+                            {company ? (
+                              <Link
+                                to={`/company/${company._id}`}
+                                className="text-sm text-gray-600 hover:text-gray-800 transition line-clamp-1 mb-2 block"
+                                title={company.name}
+                              >
+                                {company.name}
+                              </Link>
+                            ) : (
+                              <p className="text-sm text-gray-500 mb-2">Công ty không tồn tại</p>
                             )}
                             <div className="flex flex-wrap items-center text-xs text-gray-500 gap-x-3 gap-y-1">
-                               {job?.salary && (
-                                    <span className="flex items-center whitespace-nowrap">
-                                        <CurrencyDollarIcon className="h-4 w-4 mr-1"/> 
-                                        {job.salary.toLocaleString()} đ
-                                    </span>
-                                )}
-                                {job?.location && (
-                                    <span className="flex items-center whitespace-nowrap truncate">
-                                        <MapPinIcon className="h-4 w-4 mr-1"/>
-                                        <span className="truncate">{job.location}</span>
-                                    </span>
-                                )}
+                              {job?.salary && (
+                                <span className="flex items-center whitespace-nowrap">
+                                  <CurrencyDollarIcon className="h-4 w-4 mr-1" />
+                                  {job.salary.toLocaleString()} đ
+                                </span>
+                              )}
+                              {job?.location && (
+                                <span className="flex items-center whitespace-nowrap truncate">
+                                  <MapPinIcon className="h-4 w-4 mr-1" />
+                                  <span className="truncate">{job.location}</span>
+                                </span>
+                              )}
                             </div>
                           </div>
                           {/* Application Info */}
                           <div className="flex flex-col items-start sm:items-end space-y-1.5 flex-shrink-0 sm:w-40">
-                             <p className="text-xs text-gray-400 whitespace-nowrap">
-                                Đã nộp: {dayjs(app.createdAt).format('DD/MM/YYYY')}
-                             </p>
+                            <p className="text-xs text-gray-400 whitespace-nowrap">
+                              Đã nộp: {dayjs(app.createdAt).format('DD/MM/YYYY')}
+                            </p>
                             {renderApplicationStatus(app.status)}
-                            <a 
-                                href={app.cvUrl} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-xs text-indigo-600 hover:text-indigo-800 hover:underline"
-                                >
-                                Xem lại CV đã nộp
+                            <a
+                              href={app.cvUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-indigo-600 hover:text-indigo-800 hover:underline"
+                            >
+                              Xem lại CV đã nộp
                             </a>
                           </div>
                         </div>

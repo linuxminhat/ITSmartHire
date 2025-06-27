@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { callFetchApplicationsByJob, callUpdateApplicationStatus, IApplication, analyzeAndExportApplications } from '@/services/applications.service';
 import { IModelPaginate } from '@/types/backend';
 import Spinner from '@/components/Spinner';
-// Remove unused icons, add icons if needed for status rendering
 import { XMarkIcon, DocumentTextIcon, CheckCircleIcon, ClockIcon, ExclamationCircleIcon, ArrowTopRightOnSquareIcon, CurrencyDollarIcon, UserCircleIcon, SparklesIcon, ArrowDownTrayIcon, StarIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import Pagination from '@/components/shared/Pagination';
@@ -32,7 +31,6 @@ const applicationStatusMap: { [key: string]: string } = {
 const applicationStatuses = Object.keys(applicationStatusMap);
 
 const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, jobId, jobTitle, jobDescription }) => {
-  // Restore states
   const [applications, setApplications] = useState<IApplication[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,6 +51,7 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
 
     setIsLoading(true);
     setError(null);
+    //build query string
     const query = `current=${page}&pageSize=${pageSize}&populate=userId`;
 
     try {
@@ -76,33 +75,29 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
     }
   }, [jobId, pageSize]);
 
-  // Restore useEffect to fetch data
   useEffect(() => {
     if (isOpen && jobId) {
       setCurrentPage(1);
       fetchApplications(1);
-      setAnalyzedFile(null); // Reset on open/job change
+      setAnalyzedFile(null);
       setParsedRowCount(0);
     } else {
       setApplications([]);
       setMeta(null);
       setError(null);
       setIsLoading(false);
-      setAnalyzedFile(null); // Reset on close
+      setAnalyzedFile(null);
       setParsedRowCount(0);
     }
   }, [isOpen, jobId, fetchApplications]);
 
-  // Restore handlePageChange function
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     fetchApplications(page);
   };
 
-  // handleUpdateStatus remains largely the same
   const handleUpdateStatus = async (applicationId: string, newStatus: string) => {
     if (!applicationId || !newStatus) return;
-    // Prevent updating to the same status
     const currentApp = applications.find(app => app._id === applicationId);
     if (currentApp?.status === newStatus) return;
 
@@ -111,7 +106,7 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
     try {
       const res = await callUpdateApplicationStatus(applicationId, { status: newStatus });
       if (res && res.message) {
-        toast.success(res.message || "Cập nhật trạng thái thành công!"); // Use backend message or default
+        toast.success(res.message || "Cập nhật trạng thái thành công!");
         setApplications(prevApps =>
           prevApps.map(app =>
             app._id === applicationId ? { ...app, status: newStatus } : app
@@ -128,9 +123,10 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
     }
   };
 
+  //Trích xuất CV
   const handleAnalyze = async () => {
     if (!jobId) return;
-
+    //Initialize UI State Before Calling API
     setIsAnalyzing(true);
     setAnalyzedFile(null);
     setParsedRowCount(0);
@@ -147,9 +143,8 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
       } else if (response && response.data instanceof Blob) {
         blobToSave = response.data;
       }
-
+      //If blob is valid, read back to count records number
       if (blobToSave && blobToSave.size > 0) {
-        // Read the blob to get row count for the counter
         const data = await blobToSave.arrayBuffer();
         const workbook = XLSX.read(data);
         const worksheetName = workbook.SheetNames[0];
@@ -210,15 +205,12 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
         const worksheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[worksheetName];
 
-        // Convert sheet to JSON to handle multiline fields properly
         const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet);
 
-        // "Flatten" the data by replacing newlines in all string fields
         const flattenedData = jsonData.map(row => {
           const newRow = {};
           for (const key in row) {
             if (typeof row[key] === 'string') {
-              // Replace newlines with a space to keep each row on a single line
               newRow[key] = row[key].replace(/\r?\n/g, ' ');
             } else {
               newRow[key] = row[key];
@@ -242,7 +234,7 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
       setIsExporting(false);
     }
   };
-
+  //Chấm điểm CV 
   const handleScore = async (file: File) => {
     setIsScoring(true);
     try {
@@ -268,7 +260,6 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
     }
   };
 
-  // Render status with Vietnamese text and icons
   const renderStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
       case 'pending':
@@ -302,15 +293,15 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
                 onClick={() => handleExport('excel')}
                 disabled={!analyzedFile || isExporting || isAnalyzing}
                 className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${!analyzedFile || isExporting || isAnalyzing
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
-                    : 'bg-green-500 text-white hover:bg-green-600 border-green-500'
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
+                  : 'bg-green-500 text-white hover:bg-green-600 border-green-500'
                   }`}
               >
                 <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
                 <span>Xuất Excel</span>
                 <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${!analyzedFile || isExporting || isAnalyzing
-                    ? 'bg-gray-200 text-gray-500'
-                    : 'bg-green-400 text-white'
+                  ? 'bg-gray-200 text-gray-500'
+                  : 'bg-green-400 text-white'
                   }`}>
                   {parsedRowCount}/{meta?.total || 0}
                 </span>
@@ -318,29 +309,26 @@ const ApplicationsModal: React.FC<ApplicationsModalProps> = ({ isOpen, onClose, 
               <button
                 onClick={() => handleExport('csv')}
                 disabled={!analyzedFile || isExporting || isAnalyzing}
-                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${
-                  !analyzedFile || isExporting || isAnalyzing
-                    ? 'bg-gray-200 text-gray-500'
-                    : 'bg-green-400 text-white'
-                }`}>
-                  <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
-                  <span>Xuất CSV</span>
-                  <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
-                    !analyzedFile || isExporting || isAnalyzing
-                      ? 'bg-gray-200 text-gray-500'
-                      : 'bg-green-400 text-white'
+                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${!analyzedFile || isExporting || isAnalyzing
+                  ? 'bg-gray-200 text-gray-500'
+                  : 'bg-green-400 text-white'
                   }`}>
-                    {parsedRowCount}/{meta?.total || 0}
-                  </span>
-                </button>
+                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                <span>Xuất CSV</span>
+                <span className={`ml-2 text-xs font-semibold px-2 py-0.5 rounded-full ${!analyzedFile || isExporting || isAnalyzing
+                  ? 'bg-gray-200 text-gray-500'
+                  : 'bg-green-400 text-white'
+                  }`}>
+                  {parsedRowCount}/{meta?.total || 0}
+                </span>
+              </button>
               <button
                 onClick={() => setShowScoringModal(true)}
                 disabled={isLoading || isAnalyzing || isExporting || isScoring || applications.length === 0}
-                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${
-                  isLoading || isAnalyzing || isExporting || isScoring || applications.length === 0
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
-                    : 'bg-purple-500 text-white hover:bg-purple-600 border-purple-500'
-                }`}
+                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-colors text-sm font-medium border shadow-sm ${isLoading || isAnalyzing || isExporting || isScoring || applications.length === 0
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
+                  : 'bg-purple-500 text-white hover:bg-purple-600 border-purple-500'
+                  }`}
                 title={applications.length === 0 ? "Chưa có ứng viên để chấm điểm" : "Chấm điểm CV hàng loạt"}
               >
                 <StarIcon className="h-5 w-5 mr-2" />

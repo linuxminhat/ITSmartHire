@@ -13,9 +13,7 @@ import { saveAs } from 'file-saver'
 import dayjs from 'dayjs'
 
 const ManageCategoriesPage: React.FC = () => {
-  /* -------------------------------------------------------------------------- */
-  /*                                   STATE                                   */
-  /* -------------------------------------------------------------------------- */
+
   const [categories, setCategories] = useState<ICategory[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [meta, setMeta] = useState({ current: 1, pageSize: 10, pages: 0, total: 0 })
@@ -23,9 +21,7 @@ const ManageCategoriesPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [dataInit, setDataInit] = useState<ICategory | null>(null)
 
-  /* -------------------------------------------------------------------------- */
-  /*                               API UTILITIES                                */
-  /* -------------------------------------------------------------------------- */
+  //building query string for API 
   const buildQuery = (page = meta.current, size = meta.pageSize, f = filter) => {
     let q = `current=${page}&pageSize=${size}`
     if (f.name.trim()) q += `&name=${encodeURIComponent(f.name.trim())}`
@@ -59,9 +55,6 @@ const ManageCategoriesPage: React.FC = () => {
     fetchCategories()
   }, [fetchCategories])
 
-  /* -------------------------------------------------------------------------- */
-  /*                               EVENT HANDLERS                               */
-  /* -------------------------------------------------------------------------- */
   const handleReset = () => {
     setFilter({ name: '', skill: '' })
     setMeta(m => ({ ...m, current: 1 }))
@@ -127,9 +120,7 @@ const ManageCategoriesPage: React.FC = () => {
     fetchCategories(buildQuery(p, newSize))
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                   RENDER                                   */
-  /* -------------------------------------------------------------------------- */
+
   return (
     <div className="p-4 md:p-6 bg-gray-50 min-h-full">
       <Breadcrumb items={[{ label: 'Quản lý Danh mục', icon: RectangleGroupIcon }]} />

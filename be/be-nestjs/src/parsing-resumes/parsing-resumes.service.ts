@@ -313,19 +313,16 @@ export class ParsingResumesService {
   ) {
     try {
       const formData = new FormData();
-      // Use buffer directly from Multer's file object
       formData.append('file', fileFromFrontend.buffer, fileFromFrontend.originalname);
       formData.append('jd', dataFromController.jd);
 
-      // Gọi đến AI Server
       const response = await axios.post('http://127.0.0.1:6970/score', formData, {
         headers: {
-          ...formData.getHeaders(), // Use headers from the form-data library
+          ...formData.getHeaders(),
         },
         responseType: 'arraybuffer'
       });
 
-      // Trả về file Excel đã chấm điểm
       return {
         data: response.data,
         headers: {
@@ -347,13 +344,9 @@ export class ParsingResumesService {
     }
   }
 
-  //... bên trong class ParsingResumesService
-
-  // Helper function to remove invalid XML characters that corrupt Excel files
   private sanitizeString(str: any): string {
     if (str === null || str === undefined) return '';
-    // This regex removes characters that are invalid in XML documents.
-    // eslint-disable-next-line no-control-regex
+
     const regex = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u0084\u0086-\u009F\uFDD0-\uFDEF\uFFFE\uFFFF]/g;
     return String(str).replace(regex, '');
   }

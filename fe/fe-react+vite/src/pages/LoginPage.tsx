@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 const backgroundImageUrl = 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80';
 
+//Trang đăng nhập
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -31,7 +32,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex items-stretch min-h-screen bg-white">
-      <div 
+      <div
         className="relative hidden w-1/2 lg:block bg-cover bg-center"
         style={{ backgroundImage: `url(${backgroundImageUrl})` }}
       >
@@ -73,8 +74,8 @@ const LoginPage: React.FC = () => {
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="email">
                 Email
               </label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 placeholder="your.email@example.com"
                 id="email"
                 required
@@ -88,8 +89,8 @@ const LoginPage: React.FC = () => {
               <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="password">
                 Mật khẩu
               </label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 placeholder="••••••••"
                 id="password"
                 required
@@ -113,9 +114,9 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
             <div>
-              <button 
-                type="submit" 
-                disabled={isLoading} 
+              <button
+                type="submit"
+                disabled={isLoading}
                 className="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Đang xử lý...' : 'Đăng nhập'}

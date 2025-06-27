@@ -41,11 +41,6 @@ import InterviewSchedulePage from "@/pages/admin/InterviewSchedulePage";
 import ResumeParsingPage from "@/components/ResumeParsing/ResumeParsingPage";
 import SavedRecordsPage from "@/pages/hr/SaveRecordPage";
 import HrDashboardPage from "@/pages/hr/HrDashboardPage";
-
-
-
-
-//component root 
 const Root = () => (
   <AuthProvider>
     <NotificationProvider>
@@ -73,7 +68,6 @@ export const router = createBrowserRouter([
           { path: "company/:id", element: <CompanyDetailsPage /> },
           { path: "jobs", element: <AllJobsPage /> },
           { path: "job/:id", element: <JobDetailsPage /> },
-          // { path: "jobs/by-skill/:skillId", element: <JobsBySkillPage /> },
           { path: "jobs/skill/:skillId", element: <JobsBySkillPage /> },
           { path: "jobs/by-category/:categoryId", element: <JobsByCategoryPage /> },
           { path: "jobs/search", element: <JobSearchResultsPage /> },
@@ -92,8 +86,6 @@ export const router = createBrowserRouter([
           },
         ]
       },
-
-      //root cho admin và hr đều có bảo vệ 
       {
         path: "admin",
         element: <ProtectedRoute allowedRoles={['ADMIN']} />,
@@ -128,7 +120,6 @@ export const router = createBrowserRouter([
             element: <AdminLayout />,
             children: [
               { index: true, element: <HrDashboardPage /> },
-              // { index: true, element: <Navigate to="/hr/jobs" replace /> },
               { path: "profile", element: <HrDashboardPage /> },
               { path: "companies", element: <ManageCompaniesPage /> },
               { path: "jobs", element: <ManageJobsPage /> },

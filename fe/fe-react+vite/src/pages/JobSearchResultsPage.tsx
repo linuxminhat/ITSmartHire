@@ -5,19 +5,18 @@ import { IJob, IModelPaginate } from '@/types/backend';
 import Spinner from '@/components/Spinner';
 import { MapPinIcon, CurrencyDollarIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
-import Pagination from '@/components/shared/Pagination'; // Assuming you have a Pagination component
+import Pagination from '@/components/shared/Pagination';
 
 const JobSearchResultsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const name = searchParams.get('name') || undefined;
   const location = searchParams.get('location') || undefined;
-
   const [jobs, setJobs] = useState<IJob[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [meta, setMeta] = useState<IModelPaginate<any>['meta'] | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const pageSize = 10; // Or make this configurable
+  const pageSize = 10;
 
   const fetchSearchResults = useCallback(async (page: number) => {
     setIsLoading(true);
@@ -43,14 +42,15 @@ const JobSearchResultsPage: React.FC = () => {
   }, [name, location, pageSize]);
 
   useEffect(() => {
-    setCurrentPage(1); // Reset to page 1 when search params change
+    setCurrentPage(1);
     fetchSearchResults(1);
-  }, [name, location, fetchSearchResults]); // Rerun fetch when name or location changes
+  }, [name, location, fetchSearchResults]);
 
+  //pagination
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     fetchSearchResults(page);
-    window.scrollTo(0, 0); // Scroll to top on page change
+    window.scrollTo(0, 0);
   };
 
   const getSearchDescription = () => {
@@ -88,16 +88,16 @@ const JobSearchResultsPage: React.FC = () => {
         {!isLoading && !error && jobs.length > 0 && (
           <div className="space-y-6">
             {jobs.map((job) => (
-              <Link 
-                key={job._id} 
-                to={`/job/${job._id}`} 
+              <Link
+                key={job._id}
+                to={`/job/${job._id}`}
                 className="block bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 border border-gray-200 hover:border-indigo-300 p-5"
               >
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-shrink-0">
-                    <img 
-                      src={job.company?.logo || 'https://via.placeholder.com/100/CCCCCC/FFFFFF?text=Cty'} 
-                      alt={`${job.company?.name || 'Company'} logo`} 
+                    <img
+                      src={job.company?.logo || 'https://via.placeholder.com/100/CCCCCC/FFFFFF?text=Cty'}
+                      alt={`${job.company?.name || 'Company'} logo`}
                       className="h-14 w-14 object-contain border rounded-md p-1 bg-white"
                     />
                   </div>
@@ -106,11 +106,11 @@ const JobSearchResultsPage: React.FC = () => {
                     <p className="text-sm text-gray-600 mb-2 truncate" title={job.company?.name || 'Không rõ công ty'}>{job.company?.name || 'Không rõ công ty'}</p>
                     <div className="flex flex-wrap items-center text-xs text-gray-500 gap-x-3 gap-y-1">
                       <span className="flex items-center whitespace-nowrap">
-                        <CurrencyDollarIcon className="h-4 w-4 mr-1"/> 
+                        <CurrencyDollarIcon className="h-4 w-4 mr-1" />
                         {job.salary ? `${job.salary.toLocaleString()} đ` : 'Thỏa thuận'}
-                      </span> 
+                      </span>
                       <span className="flex items-center whitespace-nowrap truncate">
-                        <MapPinIcon className="h-4 w-4 mr-1"/>
+                        <MapPinIcon className="h-4 w-4 mr-1" />
                         <span className="truncate">{job.location}</span>
                       </span>
                     </div>

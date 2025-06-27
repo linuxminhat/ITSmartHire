@@ -20,7 +20,7 @@ const RoleTable: React.FC<RoleTableProps> = ({ roles, meta, isLoading, onEdit, o
     if (total <= pageSize && pages <= 1) return null;
 
     const pageNumbers = [];
-    const maxPagesToShow = 5;
+    const maxPagesToShow = 5;//view maximum 5 
     let startPage = Math.max(1, current - Math.floor(maxPagesToShow / 2));
     let endPage = Math.min(pages, startPage + maxPagesToShow - 1);
 

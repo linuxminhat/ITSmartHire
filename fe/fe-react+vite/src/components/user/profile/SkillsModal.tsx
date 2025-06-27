@@ -25,7 +25,7 @@ const SkillsModal: React.FC<SkillsModalProps> = ({ visible, initialSkills, onCan
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    if (error) setError(null); // Clear error on typing
+    if (error) setError(null);
   };
 
   const handleAddSkill = () => {

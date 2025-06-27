@@ -46,7 +46,7 @@ const RegisterPage: React.FC = () => {
     }
 
     try {
-      // Pass defaultRoleId to callRegister
+
       const res = await callRegister(name, email, password, parsedAge, gender, address, defaultRoleId);
 
       if (res && res.data) {

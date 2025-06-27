@@ -1,4 +1,3 @@
-// src/contexts/HRNotificationContext.tsx
 import React, {
     createContext,
     useContext,
@@ -8,7 +7,7 @@ import React, {
     useCallback,
     useRef,
 } from 'react';
-
+//service use to call API
 import {
     fetchHRNotifications,
     getUnreadHRNotificationCount,
@@ -18,6 +17,7 @@ import {
 } from '@/services/hr-notifications.service';
 
 import { useAuth } from '@/contexts/AuthContext';
+//Firebase Helper
 import {
     requestNotificationPermission,
     setupForegroundNotifications,
@@ -28,21 +28,17 @@ interface CtxType {
     unreadCount: number;
     meta: { current: number; pageSize: number; pages: number; total: number };
     loading: boolean;
-
     fetchNotifications: (page?: number) => Promise<void>;
     markAsRead: (id: string) => Promise<void>;
     markAllAsRead: () => Promise<void>;
 }
 
 const Ctx = createContext<CtxType | undefined>(undefined);
-
-// Cấu hình thời gian tối thiểu giữa các lần gọi API (mili giây)
-const MIN_FETCH_INTERVAL = 120000; // 2 phút
+const MIN_FETCH_INTERVAL = 120000;//2 minutes
 
 export const HRNotificationProvider = ({ children }: { children: ReactNode }) => {
     const { isAuthenticated, user } = useAuth();
     const isHR = user?.role?.name === 'HR';
-
     const [notifications, setNotifications] = useState<IHRNotification[]>([]);
     const [unreadCount, setUnreadCount] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -52,44 +48,38 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
         pages: 0,
         total: 0,
     });
-    
-    // Sử dụng useRef để lưu trữ thời gian gọi API cuối cùng
-    // useRef sẽ giữ giá trị qua các lần render mà không gây render lại
     const lastFetchTimeRef = useRef<number>(0);
     const fetchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+    //fetch notification
     const fetchNotifications = useCallback(async (page = 1, force = false) => {
         if (!isHR) return;
-        
-        // Chỉ cho phép fetch khi:
-        // 1. Force = true (ví dụ: người dùng tự refresh)
-        // 2. Hoặc đã qua khoảng thời gian MIN_FETCH_INTERVAL
-        // 3. Hoặc chưa có dữ liệu notifications
+        //get now
         const now = Date.now();
+        //spam
         if (
             !force &&
             page === meta.current &&
-            now - lastFetchTimeRef.current < MIN_FETCH_INTERVAL && 
+            now - lastFetchTimeRef.current < MIN_FETCH_INTERVAL &&
             notifications.length > 0
         ) {
             console.log('[HR Notifications] Skipping fetch - too frequent');
             return;
         }
-        
-        // Hủy timeout fetch trước đó nếu có
         if (fetchTimeoutRef.current) {
             clearTimeout(fetchTimeoutRef.current);
         }
-        
+
         lastFetchTimeRef.current = now;
         setLoading(true);
-        
+
         try {
             const query = `current=${page}&pageSize=${meta.pageSize}&sort=-createdAt`;
-            
+            //call API get notification list
             const res = await fetchHRNotifications(query);
             const data = res.data;
 
+            //if there is no data
             if (data) {
                 setNotifications(data.result);
                 setMeta(data.meta);
@@ -107,6 +97,7 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
     const markAsRead = async (id: string) => {
         try {
             await markHRNotificationAsRead(id);
+            //same id => set true (read)
             setNotifications((n) =>
                 n.map((item) => (item._id === id ? { ...item, isRead: true } : item)),
             );
@@ -146,17 +137,15 @@ export const HRNotificationProvider = ({ children }: { children: ReactNode }) =>
         if (isHR) {
             fetchNotifications(1, true);
         }
-    }, [isHR]); // Dependency array changed to only run once on mount
-
-    // Separate useEffect for polling to avoid re-triggering on page change
+    }, [isHR]);
     useEffect(() => {
         if (!isHR) return;
-        
+
         const intervalId = setInterval(() => {
             console.log('Polling for new notifications on page 1...');
             fetchNotifications(1, true);
-        }, 300000); // 5 phút
-        
+        }, 300000);
+
         return () => clearInterval(intervalId);
     }, [isHR, fetchNotifications]);
 

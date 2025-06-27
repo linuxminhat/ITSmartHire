@@ -73,9 +73,8 @@ const JobsByCategoryPage: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      // Fetch Category Name (Optional but good for UX)
       try {
-        // Ensure callFetchCategoryById exists and fetches category details
+
         const categoryRes = await callFetchCategoryById(id);
         if (categoryRes?.data?.name) {
           setCategoryName(categoryRes.data.name);
@@ -111,7 +110,7 @@ const JobsByCategoryPage: React.FC = () => {
     if (categoryId) {
       fetchJobsByCategoryData(categoryId, current, pageSize);
     }
-  }, [categoryId, current]); // Refetch when categoryId or current page changes
+  }, [categoryId, current]);
 
   const handlePageChange = (page: number) => {
     setCurrent(page);

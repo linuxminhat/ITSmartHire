@@ -12,7 +12,6 @@ import { saveAs } from 'file-saver';
 import dayjs from 'dayjs';
 
 const ManageSkillsPage: React.FC = () => {
-  /* ----------------------------- State ----------------------------- */
   const [skills, setSkills] = useState<ISkill[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [meta, setMeta] = useState({ current: 1, pageSize: 10, pages: 0, total: 0 });
@@ -20,7 +19,6 @@ const ManageSkillsPage: React.FC = () => {
   const [dataInit, setDataInit] = useState<ISkill | null>(null);
   const [filter, setFilter] = useState<SkillFilterState>({ name: '', category: '' });
 
-  /* ------------------------ Build Query String ------------------------ */
   const buildSkillQuery = (
     page = meta.current,
     size = meta.pageSize,
@@ -32,7 +30,6 @@ const ManageSkillsPage: React.FC = () => {
     return q;
   };
 
-  /* --------------------------- Fetch Skill --------------------------- */
   const fetchSkills = useCallback(async (query?: string) => {
     setIsLoading(true);
     const finalQuery = query ?? buildSkillQuery();
@@ -57,7 +54,6 @@ const ManageSkillsPage: React.FC = () => {
     fetchSkills();
   }, [fetchSkills]);
 
-  /* --------------------------- Handlers --------------------------- */
   const handleResetFilter = () => {
     const empty = { name: '', category: '' } as SkillFilterState;
     setFilter(empty);
@@ -110,7 +106,6 @@ const ManageSkillsPage: React.FC = () => {
     fetchSkills(buildSkillQuery(page, newSize));
   };
 
-  /* ------------------------- Export to Excel ------------------------- */
   const handleExportExcel = () => {
     if (!skills.length) return toast.info('Không có dữ liệu để xuất');
 
@@ -132,7 +127,6 @@ const ManageSkillsPage: React.FC = () => {
     toast.success(`Đã xuất ${data.length} dòng ra Excel`);
   };
 
-  /* --------------------------- Breadcrumb --------------------------- */
   const breadcrumbItems = [{ label: 'Quản lý Kỹ năng', icon: AcademicCapIcon }];
 
   return (

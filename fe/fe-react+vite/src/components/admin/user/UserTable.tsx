@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 interface UserTableProps {
   users: IUser[];
-  meta: { current: number; pageSize: number; total: number, pages: number };
+  meta: { current: number; pageSize: number; total: number, pages: number };//pagination information 
   isLoading: boolean;
   onEdit: (user: IUser) => void;
   onDelete: (user: IUser) => void;

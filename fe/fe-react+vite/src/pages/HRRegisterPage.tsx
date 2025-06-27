@@ -13,7 +13,7 @@ const normalizeCompanyName = (companyName: string): string => {
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9]/g, '');
 };
-
+//Register Page for HR
 const HRRegisterPage: React.FC = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');

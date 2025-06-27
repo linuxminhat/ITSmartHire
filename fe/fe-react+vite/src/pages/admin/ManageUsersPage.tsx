@@ -1,3 +1,4 @@
+//server side pagination 
 import UserModal from '@/components/admin/user/UserModal';
 import UserTable from '@/components/admin/user/UserTable';
 import ViewUserDetail from '@/components/admin/user/ViewUserDetail';
@@ -24,8 +25,6 @@ const ManageUsersPage: React.FC = () => {
     let q =
       `current=${page}&pageSize=${size}` +
       `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
-
-
     if (f.name.trim()) q += `&name=${encodeURIComponent(f.name.trim())}`;
     if (f.email.trim()) q += `&email=${encodeURIComponent(f.email.trim())}`;
     if (f.role.trim()) q += `&role=${encodeURIComponent(f.role.trim())}`;
@@ -35,27 +34,25 @@ const ManageUsersPage: React.FC = () => {
   const handleResetFilter = () => {
     const empty: FilterState = { name: '', email: '', role: '' };
     setFilter(empty);
+    //reset state page into page 1 
     setMeta(m => ({ ...m, current: 1 }));
     fetchUsers(buildUserQuery(1, meta.pageSize, empty));
     toast.info('Đã làm mới trang');
   };
 
   const handleSearch = async () => {
+    //search => load into page 1 
     setMeta(m => ({ ...m, current: 1 }));
-
     const count = await fetchUsers(buildUserQuery(1, meta.pageSize));
-
     toast.success(`Tìm thấy ${count} người dùng`);
   };
 
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [meta, setMeta] = useState<{ current: number; pageSize: number; pages: number; total: number }>({ current: 1, pageSize: 10, pages: 0, total: 0 });
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDetailOpen, setIsDetailOpen] = useState<boolean>(false);
   const [dataInit, setDataInit] = useState<IUser | null>(null);
-
   const [listRoles, setListRoles] = useState<IRole[]>([]);
   const [listCompanies, setListCompanies] = useState<ICompany[]>([]);
   const [filter, setFilter] = useState<FilterState>({
@@ -69,8 +66,6 @@ const ManageUsersPage: React.FC = () => {
     setIsLoading(true);
     let defaultQuery = `current=${meta.current}&pageSize=${meta.pageSize}`;
     defaultQuery += `&populate=role,company&fields=role._id,role.name,company._id,company.name`;
-    // const finalQuery = query ? query : defaultQuery;
-    // const finalQuery = query ?? buildUserQuery(meta.current, meta.pageSize);
     const finalQuery = query ?? buildUserQuery();
     try {
       const res = await callFetchUser(finalQuery);
@@ -94,7 +89,6 @@ const ManageUsersPage: React.FC = () => {
       setIsLoading(true);
       try {
         const [userRes, roleRes, companyRes] = await Promise.all([
-          // callFetchUser(`current=1&pageSize=${meta.pageSize}&populate=role,company&fields=role._id,role.name,company._id,company.name`),
           callFetchUser(buildUserQuery(1, meta.pageSize)),
           callFetchRole('current=1&pageSize=100'),
           callFetchCompany('current=1&pageSize=100')
@@ -148,8 +142,7 @@ const ManageUsersPage: React.FC = () => {
       toast.info('Không có dữ liệu để xuất');
       return;
     }
-
-    // 1. Chuyển danh sách thành mảng object phẳng
+    //convert data array into FLAT 
     const data = users.map((u, idx) => ({
       STT: (meta.current - 1) * meta.pageSize + idx + 1,
       Tên: u.name,
@@ -234,7 +227,7 @@ const ManageUsersPage: React.FC = () => {
             Xuất File
           </button>
 
-          {/* NÚT THÊM MỚI (đặt sát bên phải) */}
+          {/* NÚT THÊM MỚI  */}
           <button
             onClick={handleAddNew}
             className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700"

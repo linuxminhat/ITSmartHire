@@ -1,15 +1,14 @@
+//context for uploading and parsing
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import { toast } from 'react-toastify';
-
-// 1. Định nghĩa kiểu dữ liệu cho từng file upload
+//describe file upload data
 export interface FileItem {
     id: string;
     file: File;
     status: 'pending' | 'parsing' | 'done' | 'error';
     progress: number;
 }
-
-// 2. Định nghĩa tất cả các trường sẽ hiển thị trong bảng
+//describe parsing result
 export interface WorkExperience {
     company: string;
     position: string;
@@ -42,7 +41,6 @@ export interface ParsedResume {
     designations: string[];
 }
 
-// 3. Interface cho giá trị context
 interface ResumeContextValue {
     files: FileItem[];
     setFiles: React.Dispatch<React.SetStateAction<FileItem[]>>;
@@ -51,8 +49,6 @@ interface ResumeContextValue {
 }
 
 const STORAGE_KEY = 'resume_parsing_state';
-
-// 4. Tạo context với giá trị mặc định
 export const ResumeContext = createContext<ResumeContextValue>({
     files: [],
     setFiles: () => { },
@@ -60,9 +56,8 @@ export const ResumeContext = createContext<ResumeContextValue>({
     setParsed: () => { },
 });
 
-// 5. Provider component
 export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    // Khôi phục state từ localStorage khi component mount
+    //restore data
     const [files, setFiles] = useState<FileItem[]>(() => {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
@@ -70,6 +65,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             // Khôi phục File objects từ stored data
             return parsed.files.map((f: any) => ({
                 ...f,
+                //Note: because the browser does not allow saving file content to localStorage, we only restore metadata (name, type), not content.
                 file: new File([], f.file.name, {
                     type: f.file.type,
                 })
@@ -78,6 +74,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         return [];
     });
 
+    //used to restored
     const [parsed, setParsed] = useState<ParsedResume[]>(() => {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
@@ -87,7 +84,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         return [];
     });
 
-    // Lưu state vào localStorage khi có thay đổi
+    //persist state into LocalStorage
     useEffect(() => {
         const state = {
             files: files.map(f => ({
@@ -102,7 +99,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }, [files, parsed]);
 
-    // Thêm event listener để cảnh báo khi rời trang
+    //alert before leave page
     useEffect(() => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
             if (files.length > 0 || parsed.length > 0) {
@@ -118,8 +115,6 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, [files, parsed]);
-
-    // Thêm effect để cảnh báo khi chuyển route trong ứng dụng
     useEffect(() => {
         const handleRouteChange = () => {
             if (files.length > 0 || parsed.length > 0) {
@@ -141,7 +136,6 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         };
     }, [files, parsed]);
 
-    // Thêm effect để kiểm tra khi state thay đổi
     useEffect(() => {
         console.log('Files state changed:', files);
     }, [files]);

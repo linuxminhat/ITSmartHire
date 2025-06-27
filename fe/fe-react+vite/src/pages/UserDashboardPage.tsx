@@ -9,13 +9,12 @@ import { IAttachedCv } from '@/types/backend';
 import { toast } from 'react-toastify';
 import UpdateDesignationModal from '@/components/UpdateDesignationModal';
 
+//Tổng quan
 const UserDashboardPage: React.FC = () => {
   const { user, isLoading, setUser } = useAuth();
   const [attachedCvs, setAttachedCvs] = useState<IAttachedCv[]>([]);
   const [isLoadingCvs, setIsLoadingCvs] = useState<boolean>(false);
   const [isDesignationModalOpen, setIsDesignationModalOpen] = useState(false);
-
-  // Fetch attached CVs on mount
   useEffect(() => {
     const fetchAttachedCvs = async () => {
       if (!user) return;
@@ -126,7 +125,7 @@ const UserDashboardPage: React.FC = () => {
                 <h1 className="text-2xl font-bold text-gray-800 mb-1">{user.name}</h1>
                 <p className="text-sm text-gray-500 flex items-center justify-center sm:justify-start mb-1">
                   <PencilSquareIcon className="h-4 w-4 mr-1.5" />
-                  <span 
+                  <span
                     className="hover:text-indigo-600 cursor-pointer transition-colors"
                     onClick={() => setIsDesignationModalOpen(true)}
                   >

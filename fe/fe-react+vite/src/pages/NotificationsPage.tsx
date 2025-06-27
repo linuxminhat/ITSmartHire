@@ -16,15 +16,12 @@ const NotificationsPage: React.FC = () => {
 
     const [isMarkingAll, setIsMarkingAll] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-
-    // Mỗi khi currentPage thay đổi, tải lại thông báo
     useEffect(() => {
         loadNotifications(currentPage);
     }, [currentPage]);
 
     const loadNotifications = async (page: number) => {
         await fetchNotifications(page);
-        // meta sẽ được cập nhật tự động trong context
     };
 
     const formatRelativeTime = (date: string | Date) =>

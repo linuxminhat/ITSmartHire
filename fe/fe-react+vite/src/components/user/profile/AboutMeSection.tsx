@@ -1,3 +1,4 @@
+//AboutMeSection -> edit 
 import React from 'react';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
@@ -10,7 +11,7 @@ const AboutMeSection: React.FC<AboutMeSectionProps> = ({ aboutMe, onEdit }) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 relative">
       {/* Edit Button */}
-      <button 
+      <button
         onClick={onEdit}
         className="absolute top-4 right-4 p-1 text-gray-500 hover:text-indigo-600"
         aria-label="Chỉnh sửa Giới thiệu bản thân"
@@ -19,7 +20,7 @@ const AboutMeSection: React.FC<AboutMeSectionProps> = ({ aboutMe, onEdit }) => {
       </button>
 
       <h2 className="text-xl font-semibold text-gray-800 mb-3">Giới thiệu bản thân</h2>
-      
+
       {aboutMe ? (
         // Using whitespace-pre-line to preserve line breaks from the textarea
         <p className="text-sm text-gray-600 whitespace-pre-line">{aboutMe}</p>

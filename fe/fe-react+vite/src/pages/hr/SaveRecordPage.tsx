@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { 
-    ArrowDownTrayIcon, 
+import {
+    ArrowDownTrayIcon,
     TrashIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
@@ -22,8 +22,6 @@ interface SavedRecord {
     format: 'excel' | 'csv';
     cvs: any[];
 }
-
-// Simple Pagination Component (reused from JobsBySkillPage)
 interface PaginationProps {
     current: number;
     pageSize: number;
@@ -126,7 +124,7 @@ const SavedRecordsPage: React.FC = () => {
 
     const handleDelete = async (id: string, name: string) => {
         if (!confirm(`Bạn có chắc muốn xóa danh sách "${name}" không?`)) return;
-        
+
         try {
             await apiDeleteSavedList(id);
             setAllRecords(prev => prev.filter(r => r.id !== id));
@@ -161,10 +159,10 @@ const SavedRecordsPage: React.FC = () => {
             'Trường': cv.university || '',
             'Bằng cấp': cv.degree || '',
             'Điểm GPA': cv.gpa || '',
-            'Kinh nghiệm làm việc': cv.workExperiences?.map((exp: any) => 
+            'Kinh nghiệm làm việc': cv.workExperiences?.map((exp: any) =>
                 `${exp.company} - ${exp.position} (${exp.duration})`
             ).join('\n') || '',
-            'Dự án': cv.projects?.map((proj: any) => 
+            'Dự án': cv.projects?.map((proj: any) =>
                 `${proj.name}: ${proj.description.join(', ')}`
             ).join('\n') || '',
             'Kỹ năng': cv.skills?.join(', ') || '',
@@ -174,7 +172,7 @@ const SavedRecordsPage: React.FC = () => {
         const ws = XLSX.utils.json_to_sheet(data);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "CV Data");
-        XLSX.writeFile(wb, `${record.name}_${new Date().toISOString().slice(0,10)}.xlsx`);
+        XLSX.writeFile(wb, `${record.name}_${new Date().toISOString().slice(0, 10)}.xlsx`);
     };
 
     const downloadAsCSV = (record: SavedRecord) => {
@@ -187,10 +185,10 @@ const SavedRecordsPage: React.FC = () => {
             'Trường': cv.university || '',
             'Bằng cấp': cv.degree || '',
             'Điểm GPA': cv.gpa || '',
-            'Kinh nghiệm làm việc': cv.workExperiences?.map((exp: any) => 
+            'Kinh nghiệm làm việc': cv.workExperiences?.map((exp: any) =>
                 `${exp.company} - ${exp.position} (${exp.duration})`
             ).join('; ') || '',
-            'Dự án': cv.projects?.map((proj: any) => 
+            'Dự án': cv.projects?.map((proj: any) =>
                 `${proj.name}: ${proj.description.join(', ')}`
             ).join('; ') || '',
             'Kỹ năng': cv.skills?.join(', ') || '',
@@ -201,12 +199,12 @@ const SavedRecordsPage: React.FC = () => {
             quotes: true,
             delimiter: ','
         });
-        
+
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${record.name}_${new Date().toISOString().slice(0,10)}.csv`;
+        a.download = `${record.name}_${new Date().toISOString().slice(0, 10)}.csv`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -262,7 +260,7 @@ const SavedRecordsPage: React.FC = () => {
                                                 Hiển thị {((current - 1) * pageSize) + 1} - {Math.min(current * pageSize, total)} của {total} mục
                                             </p>
                                         </div>
-                                        <button 
+                                        <button
                                             onClick={fetchFromBackend}
                                             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                                         >
@@ -304,11 +302,10 @@ const SavedRecordsPage: React.FC = () => {
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                                                                record.format === 'excel' 
-                                                                    ? 'bg-green-100 text-green-800' 
+                                                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${record.format === 'excel'
+                                                                    ? 'bg-green-100 text-green-800'
                                                                     : 'bg-blue-100 text-blue-800'
-                                                            }`}>
+                                                                }`}>
                                                                 {record.format.toUpperCase()}
                                                             </span>
                                                         </td>
@@ -343,11 +340,11 @@ const SavedRecordsPage: React.FC = () => {
                                     </div>
 
                                     {/* Pagination */}
-                                    <SimplePagination 
-                                        current={current} 
-                                        pageSize={pageSize} 
-                                        total={total} 
-                                        onChange={handlePageChange} 
+                                    <SimplePagination
+                                        current={current}
+                                        pageSize={pageSize}
+                                        total={total}
+                                        onChange={handlePageChange}
                                     />
                                 </>
                             ) : (

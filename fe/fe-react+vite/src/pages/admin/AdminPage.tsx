@@ -33,6 +33,7 @@ ChartJS.register(
   Legend
 );
 
+//4 statcard 
 const StatCard: React.FC<{
   title: string;
   value: string | number;
@@ -86,10 +87,10 @@ const AdminPage: React.FC = () => {
         growthRes
       });
 
-      setStats(statsRes);               // Nếu statsRes là { data: ... } thì giữ nguyên
-      setTopSkills(skillsRes);               // BỎ .data
-      setTopCompanies(companiesRes);         // BỎ .data
-      setTopCategories(categoriesRes);       // BỎ .data
+      setStats(statsRes);
+      setTopSkills(skillsRes);
+      setTopCompanies(companiesRes);
+      setTopCategories(categoriesRes);
       setUserGrowth(growthRes);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
@@ -114,7 +115,7 @@ const AdminPage: React.FC = () => {
   // Chart configurations
   const skillsChartConfig = {
     data: {
-      labels: Array.isArray(topSkills) ? topSkills.map(skill => skill.name) : [],
+      labels: Array.isArray(topSkills) ? topSkills.map(skill => skill.name) : [],//topSkills is useState 
       datasets: [{
         label: 'Số lượng công việc',
         data: Array.isArray(topSkills) ? topSkills.map(skill => skill.count) : [],
@@ -137,7 +138,7 @@ const AdminPage: React.FC = () => {
 
   const companiesChartConfig = {
     data: {
-      labels: Array.isArray(topCompanies) ? topCompanies.map(company => company.name) : [],
+      labels: Array.isArray(topCompanies) ? topCompanies.map(company => company.name) : [],//topConpanies is useState
       datasets: [{
         label: 'Số lượng việc làm',
         data: Array.isArray(topCompanies) ? topCompanies.map(company => company.jobCount) : [],

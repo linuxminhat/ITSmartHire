@@ -14,6 +14,7 @@ interface CategoryFilterProps {
     onSearch: () => void
 }
 
+//Tailwind CSS 
 const inputCls =
     'h-10 border rounded px-3 text-sm focus:outline-none focus:ring focus:border-indigo-300'
 

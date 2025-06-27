@@ -11,22 +11,21 @@ interface ExperienceModalProps {
   loading: boolean;
 }
 
-// Re-use or adapt the date formatter if needed
 const formatDateForInput = (date: string | Date | undefined): string => {
-    if (!date) return '';
-    try {
-        if (typeof date === 'string' && /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(date)) {
-            return date;
-        }
-        const d = new Date(date);
-        const year = d.getFullYear();
-        const month = (`0${d.getMonth() + 1}`).slice(-2);
-        const day = (`0${d.getDate()}`).slice(-2);
-        return `${year}-${month}-${day}`;
-    } catch (e) {
-        console.error("Error formatting date:", e);
-        return '';
+  if (!date) return '';
+  try {
+    if (typeof date === 'string' && /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(date)) {
+      return date;
     }
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = (`0${d.getMonth() + 1}`).slice(-2);
+    const day = (`0${d.getDate()}`).slice(-2);
+    return `${year}-${month}-${day}`;
+  } catch (e) {
+    console.error("Error formatting date:", e);
+    return '';
+  }
 };
 
 const ExperienceModal: React.FC<ExperienceModalProps> = ({ visible, initialData, onCancel, onOk, loading }) => {
@@ -56,13 +55,13 @@ const ExperienceModal: React.FC<ExperienceModalProps> = ({ visible, initialData,
 
   // Basic validation
   const validateForm = (): boolean => {
-      const newErrors: { [key: string]: string } = {};
-      if (!companyName.trim()) newErrors.companyName = 'Tên công ty không được bỏ trống';
-      if (!jobTitle.trim()) newErrors.jobTitle = 'Chức danh không được bỏ trống';
-      if (!startDate) newErrors.startDate = 'Ngày bắt đầu không được bỏ trống';
-      // Add date comparison validation if needed
-      setErrors(newErrors);
-      return Object.keys(newErrors).length === 0;
+    const newErrors: { [key: string]: string } = {};
+    if (!companyName.trim()) newErrors.companyName = 'Tên công ty không được bỏ trống';
+    if (!jobTitle.trim()) newErrors.jobTitle = 'Chức danh không được bỏ trống';
+    if (!startDate) newErrors.startDate = 'Ngày bắt đầu không được bỏ trống';
+    // Add date comparison validation if needed
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   // Handle OK button click
@@ -162,7 +161,7 @@ const ExperienceModal: React.FC<ExperienceModalProps> = ({ visible, initialData,
                 disabled={loading}
                 className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.startDate ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'} disabled:bg-gray-50 disabled:cursor-not-allowed`}
               />
-               {errors.startDate && <p className="mt-1 text-xs text-red-600">{errors.startDate}</p>}\
+              {errors.startDate && <p className="mt-1 text-xs text-red-600">{errors.startDate}</p>}\
             </div>
             <div>
               <label htmlFor="endDateExp" className="block text-sm font-medium text-gray-700 mb-1">Ngày kết thúc (Để trống nếu đang làm)</label>

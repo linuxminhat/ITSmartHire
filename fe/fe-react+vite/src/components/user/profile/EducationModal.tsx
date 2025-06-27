@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { IEducation } from '@/types/backend';
-import { IEducationPayload } from '@/services/user.service'; // Import payload type
-import { XMarkIcon } from '@heroicons/react/24/solid'; // Use solid icon for close
+import { IEducationPayload } from '@/services/user.service';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
 interface EducationModalProps {
   visible: boolean;
   initialData?: IEducation | null;
   onCancel: () => void;
-  onOk: (values: IEducationPayload | Partial<IEducationPayload>) => Promise<void>; // Accepts full or partial payload
+  onOk: (values: IEducationPayload | Partial<IEducationPayload>) => Promise<void>;
   loading: boolean;
 }
 
-// Helper to format date for input type="date"
 const formatDateForInput = (date: string | Date | undefined): string => {
-    if (!date) return '';
-    try {
-        // Check if it's already in YYYY-MM-DD format
-        if (typeof date === 'string' && /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(date)) {
-            return date;
-        }
-        const d = new Date(date);
-        const year = d.getFullYear();
-        const month = (`0${d.getMonth() + 1}`).slice(-2); // Add leading zero
-        const day = (`0${d.getDate()}`).slice(-2);       // Add leading zero
-        return `${year}-${month}-${day}`;
-    } catch (e) {
-        console.error("Error formatting date:", e);
-        return ''; // Return empty string on error
+  if (!date) return '';
+  try {
+    if (typeof date === 'string' && /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(date)) {
+      return date;
     }
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = (`0${d.getMonth() + 1}`).slice(-2);
+    const day = (`0${d.getDate()}`).slice(-2);
+    return `${year}-${month}-${day}`;
+  } catch (e) {
+    console.error("Error formatting date:", e);
+    return '';
+  }
 };
 
 const EducationModal: React.FC<EducationModalProps> = ({ visible, initialData, onCancel, onOk, loading }) => {
@@ -49,43 +47,40 @@ const EducationModal: React.FC<EducationModalProps> = ({ visible, initialData, o
       setStartDate(formatDateForInput(initialData?.startDate));
       setEndDate(formatDateForInput(initialData?.endDate));
       setDescription(initialData?.description || '');
-      setErrors({}); // Reset errors when modal opens or initialData changes
+      setErrors({});
     } else {
-        // Optional: Clear fields when modal is hidden if desired
-        // setSchool(''); setDegree(''); ...
+
     }
   }, [visible, initialData]);
 
   const validateForm = (): boolean => {
-      const newErrors: { [key: string]: string } = {};
-      if (!school.trim()) newErrors.school = 'Tên trường không được bỏ trống';
-      if (!degree.trim()) newErrors.degree = 'Bằng cấp không được bỏ trống';
-      if (!startDate) newErrors.startDate = 'Ngày bắt đầu không được bỏ trống';
-      // Add more specific date validation if needed (e.g., end date after start date)
-      setErrors(newErrors);
-      return Object.keys(newErrors).length === 0;
+    const newErrors: { [key: string]: string } = {};
+    if (!school.trim()) newErrors.school = 'Tên trường không được bỏ trống';
+    if (!degree.trim()) newErrors.degree = 'Bằng cấp không được bỏ trống';
+    if (!startDate) newErrors.startDate = 'Ngày bắt đầu không được bỏ trống';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleOk = async () => {
     if (!validateForm()) {
-        return; // Stop if validation fails
+      return;
     }
 
     const payload: IEducationPayload | Partial<IEducationPayload> = {
       school: school.trim(),
       degree: degree.trim(),
-      fieldOfStudy: fieldOfStudy.trim() || undefined, // Send undefined if empty
-      startDate: startDate, // Already in YYYY-MM-DD
-      endDate: endDate || undefined, // Send undefined if empty
-      description: description.trim() || undefined, // Send undefined if empty
+      fieldOfStudy: fieldOfStudy.trim() || undefined,
+      startDate: startDate,
+      endDate: endDate || undefined,
+      description: description.trim() || undefined,
     };
 
     try {
       await onOk(payload);
-      // onOk should handle closing the modal on success
     } catch (errorInfo) {
       console.error('Save Education Failed:', errorInfo);
-      // Error display is likely handled by the parent component via toast
     }
   };
 
@@ -167,7 +162,7 @@ const EducationModal: React.FC<EducationModalProps> = ({ visible, initialData, o
                 disabled={loading}
                 className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.startDate ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'} disabled:bg-gray-50 disabled:cursor-not-allowed`}
               />
-               {errors.startDate && <p className="mt-1 text-xs text-red-600">{errors.startDate}</p>}
+              {errors.startDate && <p className="mt-1 text-xs text-red-600">{errors.startDate}</p>}
             </div>
             <div>
               <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-1">Ngày kết thúc (Để trống nếu đang học)</label>

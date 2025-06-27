@@ -22,8 +22,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   if (!userRoleName || !allowedRoles.includes(userRoleName)) {
     return <Navigate to="/login" state={{ message: "Bạn không có quyền truy cập trang này." }} replace />;
   }
-  //Nếu hợp lệ cho vào route con 
-
+  //let login
   return <Outlet />;
 };
 

@@ -16,7 +16,7 @@ const CompanyDetailsPage: React.FC = () => {
   const [isLoadingJobs, setIsLoadingJobs] = useState<boolean>(true);
   const [errorCompany, setErrorCompany] = useState<string | null>(null);
   const [errorJobs, setErrorJobs] = useState<string | null>(null);
-
+  //Company Detail Page
   useEffect(() => {
     if (!id) {
       setErrorCompany("Không tìm thấy ID công ty.");

@@ -103,11 +103,6 @@ const ManageBlogsPage: React.FC = () => {
   }
 
   const handleEdit = (id: string) => navigate(`${id}/edit`)
-  // const handleDelete = async (id: string) => {
-  //   if (!window.confirm('Xác nhận xóa bài viết này?')) return
-  //   await blogService.delete(id)
-  //   fetchBlogs()
-  // }
   const handleDelete = async (id: string, canModify: boolean) => {
     if (!canModify) return showNoPermModal();
     if (!window.confirm('Xác nhận xóa bài viết này?')) return

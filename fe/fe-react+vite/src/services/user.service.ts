@@ -26,19 +26,14 @@ export const callFetchUserById = (id: string) => {
 
 // New function to fetch current user's profile
 export const callGetUserProfile = () => {
-    // Backend service now populates education
     return axios.get<IBackendRes<IUser>>('/api/v1/users/profile');
 };
 
 export const callUpdateUserProfile = (payload: IUserProfileUpdatePayload) => {
-    // This function now correctly expects the imported IUserProfileUpdatePayload type
     return axios.patch<IBackendRes<IUser>>('/api/v1/users/profile', payload);
 };
 
 // --- Education Profile Section --- 
-
-// Define payload type for adding/updating education
-// Similar to IEducation but without _id for adding, and all optional for updating
 export interface IEducationPayload {
     school: string;
     degree: string;
@@ -50,26 +45,21 @@ export interface IEducationPayload {
 
 // Add Education
 export const callAddEducation = (payload: IEducationPayload) => {
-    // Backend returns the full updated User object including the new education array
     return axios.post<IBackendRes<IUser>>('/api/v1/users/profile/education', payload);
 };
 
 // Update Education
 export const callUpdateEducation = (eduId: string, payload: Partial<IEducationPayload>) => {
-    // Backend returns the full updated User object
     return axios.patch<IBackendRes<IUser>>(`/api/v1/users/profile/education/${eduId}`, payload);
 };
 
 // Delete Education
 export const callDeleteEducation = (eduId: string) => {
-    // Backend returns the full updated User object after deletion
     return axios.delete<IBackendRes<IUser>>(`/api/v1/users/profile/education/${eduId}`);
 };
 // -------------------------------- 
 
 // --- Experience Profile Section --- 
-
-// Define payload type for adding/updating experience
 export interface IExperiencePayload {
     companyName: string;
     jobTitle: string;
@@ -81,19 +71,16 @@ export interface IExperiencePayload {
 
 // Add Experience
 export const callAddExperience = (payload: IExperiencePayload) => {
-    // Correct path relative to baseURL (assuming baseURL includes /api/v1)
     return axios.post<IBackendRes<IUser>>('/api/v1/users/profile/experience', payload);
 };
 
 // Update Experience
 export const callUpdateExperience = (expId: string, payload: Partial<IExperiencePayload>) => {
-    // Correct path relative to baseURL
     return axios.patch<IBackendRes<IUser>>(`/api/v1/users/profile/experience/${expId}`, payload);
 };
 
 // Delete Experience
 export const callDeleteExperience = (expId: string) => {
-    // Correct path relative to baseURL
     return axios.delete<IBackendRes<IUser>>(`/api/v1/users/profile/experience/${expId}`);
 };
 // ---------------------------------- 
@@ -102,19 +89,16 @@ export const callDeleteExperience = (expId: string) => {
 
 // Payload for updating skills
 export interface IUserSkillsUpdatePayload {
-    skills: string[]; // Required array of strings
+    skills: string[];
 }
 
 // Update User Skills
 export const callUpdateUserSkills = (payload: IUserSkillsUpdatePayload) => {
-    // Backend returns the full updated User object
     return axios.patch<IBackendRes<IUser>>('/api/v1/users/profile/skills', payload);
 };
 // ----------------------------
 
 // --- Project Profile Section --- 
-
-// Define payload type for adding/updating project
 export interface IProjectPayload {
     name: string;
     url?: string;
@@ -141,8 +125,6 @@ export const callDeleteProject = (projectId: string) => {
 // -----------------------------
 
 // --- Certificate Profile Section --- 
-
-// Define payload type for adding/updating certificate
 export interface ICertificatePayload {
     name: string;
     issuingOrganization: string;

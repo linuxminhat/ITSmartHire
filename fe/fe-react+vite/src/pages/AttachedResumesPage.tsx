@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import UserDashboardSidebar from '@/layouts/components/UserDashboardSidebar';
 import { useAuth } from '@/contexts/AuthContext';
 import Spinner from '@/components/Spinner';
-import { uploadFile } from '@/services/storage.service';
+import { uploadFile } from '@/services/storage.service';//upload file and storage in Firebase 
 import { callGetAttachedCvs, callAddAttachedCv, callDeleteAttachedCv } from '@/services/user.service';
 import { toast } from 'react-toastify';
 import { DocumentArrowUpIcon, DocumentCheckIcon, TrashIcon, LinkIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
@@ -10,6 +10,7 @@ import { IUser, IAttachedCv } from '@/types/backend';
 
 const AttachedResumesPage: React.FC = () => {
   const { user, isLoading: authLoading } = useAuth();
+  //declare state
   const [attachedCvs, setAttachedCvs] = useState<IAttachedCv[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -23,6 +24,7 @@ const AttachedResumesPage: React.FC = () => {
       if (!authLoading && user) {
         setIsLoading(true);
         try {
+          //if loading and have user 
           const res = await callGetAttachedCvs();
           if (res && res.data) {
             setAttachedCvs(res.data);
@@ -40,17 +42,16 @@ const AttachedResumesPage: React.FC = () => {
     fetchAttachedCvs();
   }, [user, authLoading]);
 
-  // Trigger hidden file input
   const handleUploadButtonClick = () => {
     fileInputRef.current?.click();
   };
 
   // Handle file selection and upload
+  //get file that person click 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Basic validation (e.g., file type, size)
     const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     if (!allowedTypes.includes(file.type)) {
       toast.error('Chỉ chấp nhận file PDF hoặc DOC/DOCX.');
@@ -61,17 +62,17 @@ const AttachedResumesPage: React.FC = () => {
       toast.error('Kích thước file không được vượt quá 5MB.');
       return;
     }
-
+    //Initialize upload state
     setIsUploading(true);
     setUploadProgress(0);
 
     try {
-      // 1. Upload to Firebase
+      // Upload to Firebase
       const downloadURL = await uploadFile(file, 'user-cvs', (progress) => {
         setUploadProgress(progress);
       });
 
-      // 2. Add the CV to the user's attached CVs
+      // Add the CV to the user's attached CVs
       const res = await callAddAttachedCv({
         name: file.name,
         url: downloadURL

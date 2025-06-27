@@ -49,10 +49,8 @@ const InterviewCalendar: React.FC = () => {
     };
 
     const handleDatesSet = (arg: DatesSetArg) => fetchRange(arg.start, arg.end);
-    // 1) Xử lý click đơn vào ô trống
     const handleDateClick = (arg: DateClickArg) => {
         const start = arg.date;
-        // ví dụ: mặc định end = start + 30 phút
         const end = new Date(start.getTime() + 30 * 60000);
         setModal({ open: true, range: { start, end } });
     };

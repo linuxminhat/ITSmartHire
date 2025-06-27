@@ -3,15 +3,6 @@ import { Document, Page, Text, View, StyleSheet, Link, Font } from '@react-pdf/r
 import { IUser, IEducation, IExperience, IProject, ICertificate, IAward } from '@/types/backend';
 import { format, parseISO } from 'date-fns';
 
-// --- Font Registration (Consider registering a modern font like Lato or Open Sans) ---
-// Font.register({
-//   family: 'Open Sans',
-//   fonts: [
-//     { src: '/fonts/OpenSans-Regular.ttf' }, 
-//     { src: '/fonts/OpenSans-SemiBold.ttf', fontWeight: 600 }, // Use semi-bold for headings
-//     { src: '/fonts/OpenSans-Italic.ttf', fontStyle: 'italic' },
-//   ]
-// });
 
 // --- Date Formatting Helper ---
 const formatDate = (dateInput: string | Date | undefined | null): string => {
@@ -203,23 +194,23 @@ const styles = StyleSheet.create({
     },
     // --- Certificates & Awards (Right Column) ---
     certAwardContainer: {
-         marginBottom: 10,
+        marginBottom: 10,
     },
     certAwardTitle: {
-         fontSize: 10.5,
-         fontWeight: 'bold',
-         color: '#2C3E50',
+        fontSize: 10.5,
+        fontWeight: 'bold',
+        color: '#2C3E50',
     },
     certAwardSubtitle: {
-         fontSize: 9.5,
-         color: '#7F8C8D',
-         marginBottom: 2,
+        fontSize: 9.5,
+        color: '#7F8C8D',
+        marginBottom: 2,
     },
     certAwardDate: {
-         fontSize: 9,
-         color: '#95A5A6',
+        fontSize: 9,
+        color: '#95A5A6',
     },
-     certAwardLink: {
+    certAwardLink: {
         fontSize: 9,
         color: '#16A085',
         textDecoration: 'none',
@@ -313,20 +304,20 @@ const TemplateModern: React.FC<TemplateProps> = ({ profileData }) => {
                             <Text style={styles.name}>{profileData.name || 'User Name'}</Text>
                             <Text style={styles.jobTitle}>{profileData.jobTitle || 'Software Developer'}</Text>
                         </View>
-                        
+
                         <LeftSection title="Contact">
                             <View style={styles.contactInfoContainer}>
-                                {profileData.phone && <Text style={styles.contactItem}><View style={styles.iconPlaceholder}/>{profileData.phone}</Text>}
-                                {profileData.email && <Text style={styles.contactItem}><View style={styles.iconPlaceholder}/>{profileData.email}</Text>}
-                                {profileData.address && <Text style={styles.contactItem}><View style={styles.iconPlaceholder}/>{profileData.address}</Text>}
-                                {profileData.linkedIn && 
+                                {profileData.phone && <Text style={styles.contactItem}><View style={styles.iconPlaceholder} />{profileData.phone}</Text>}
+                                {profileData.email && <Text style={styles.contactItem}><View style={styles.iconPlaceholder} />{profileData.email}</Text>}
+                                {profileData.address && <Text style={styles.contactItem}><View style={styles.iconPlaceholder} />{profileData.address}</Text>}
+                                {profileData.linkedIn &&
                                     <Link style={styles.contactLink} src={profileData.linkedIn}>
-                                        <Text style={styles.contactItem}><View style={styles.iconPlaceholder}/>LinkedIn</Text>
+                                        <Text style={styles.contactItem}><View style={styles.iconPlaceholder} />LinkedIn</Text>
                                     </Link>
                                 }
-                                {profileData.portfolio && 
+                                {profileData.portfolio &&
                                     <Link style={styles.contactLink} src={profileData.portfolio}>
-                                        <Text style={styles.contactItem}><View style={styles.iconPlaceholder}/>Portfolio</Text>
+                                        <Text style={styles.contactItem}><View style={styles.iconPlaceholder} />Portfolio</Text>
                                     </Link>
                                 }
                             </View>
@@ -407,9 +398,9 @@ const TemplateModern: React.FC<TemplateProps> = ({ profileData }) => {
                                     <Text style={styles.certAwardTitle}>{cert.name || 'N/A'}</Text>
                                     {cert.issuingOrganization && <Text style={styles.certAwardSubtitle}>{cert.issuingOrganization}</Text>}
                                     {cert.issueDate && <Text style={styles.certAwardDate}>Issued: {formatDate(cert.issueDate)}</Text>}
-                                    {cert.credentialUrl && 
+                                    {cert.credentialUrl &&
                                         <Link style={styles.certAwardLink} src={cert.credentialUrl}>
-                                            <Text>{cert.credentialUrl}</Text> 
+                                            <Text>{cert.credentialUrl}</Text>
                                         </Link>
                                     }
                                 </View>
@@ -425,7 +416,7 @@ const TemplateModern: React.FC<TemplateProps> = ({ profileData }) => {
                                     <Text style={styles.certAwardTitle}>{award.name || 'N/A'}</Text>
                                     {award.issuingOrganization && <Text style={styles.certAwardSubtitle}>{award.issuingOrganization}</Text>}
                                     {award.issueDate && <Text style={styles.certAwardDate}>Date: {formatDate(award.issueDate)}</Text>}
-                                    {/* Award description could be added here if desired */} 
+                                    {/* Award description could be added here if desired */}
                                 </View>
                             ))}
                         </RightSection>
@@ -434,8 +425,8 @@ const TemplateModern: React.FC<TemplateProps> = ({ profileData }) => {
 
                 {/* --- Footer --- */}
                 <Text style={styles.footer} fixed>
-                     Generated by IT SMART HIRE - {format(new Date(), 'MM/dd/yyyy')}
-                 </Text>
+                    Generated by IT SMART HIRE - {format(new Date(), 'MM/dd/yyyy')}
+                </Text>
             </Page>
         </Document>
     );

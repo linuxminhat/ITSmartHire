@@ -32,6 +32,7 @@ const ManageCompaniesPage: React.FC = () => {
     size = meta.pageSize,
     f = filter
   ) => {
+    //current=2&pageSize=10&name=FPT%20Software&country=Việt%20Nam
     let q = `current=${page}&pageSize=${size}`
 
     if (f.name.trim()) q += `&name=${encodeURIComponent(f.name.trim())}`
