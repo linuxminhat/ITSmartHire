@@ -1,44 +1,55 @@
 # 🚀 ITFsmarthire
 
-Dự án tuyển dụng & tìm kiếm việc làm, phát triển bằng **NestJS** (Backend cho đồ án tốt nghiệp).
+Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NestJS** (Backend cho đồ án tốt nghiệp). Website tích hợp:
+
+* **Mock Interview**: trang phỏng vấn thử với các câu hỏi lập trình mô phỏng.
+* **CV Autogeneration**: trang hỗ trợ tạo CV tự động dựa trên mẫu có sẵn.
 
 ---
 
-## 🛠️ Môi trường phát triển
+## 📦 Cài đặt
 
-| Công nghệ  | Phiên bản     |
-|------------|---------------|
-| Node.js    | `v16.20.0`    |
-| NestJS     | `v9.4.2`      |
+Chạy lệnh sau để cài đặt tất cả phụ thuộc:
+
+```bash
+npm install
+```
+
+## 🚀 Khởi chạy dự án
+
+```bash
+npm run start
+```
 
 ---
 
-## 📦 Cài đặt các thư viện cần thiết
+## 🌟 Tính năng chính của website tìm việc làm IT :
 
-### 1. Cài đặt Mongoose (phiên bản tương thích với NestJS)
-```bash
-npm install --save-exact @nestjs/mongoose@9.2.2 mongoose@7.1.0
-```
-### 2. Cài đặt cấu hình môi trường (@nestjs/config)
-```bash
-npm install --save-exact @nestjs/config@2.3.1
-```
-### 3. Cài đặt thư viện hash mật khẩu (bcryptjs)
-```bash
-npm install --save-exact bcryptjs@2.4.3
-```
-```bash
-npm install --save-dev @types/bcryptjs@2.4.2
-```
-### 4. Cài đặt thư viện validate dữ liệu (class-validator, class-transformer)
-```bash
-npm install --save-exact class-validator@0.14.0 class-transformer@0.5.1
-```
-### 5.  Soft-delete plugin
-```bash
-npm i --save-exact soft-delete-plugin-mongoose@1.0.15
-```
-### 6.  Query Builder
-```bash
- npm i --save-exact api-query-params@5.4.0
-```
+* **Đăng ký / Đăng nhập**: bảo mật bằng JWT và hash mật khẩu.
+* **ROLE HR : Quản lý hồ sơ ứng viên, Tạo trang công ty và trang việc làm, tạo công việc, xem hồ sơ ứng viên, đặt lịch phỏng vấn gửi về email ứng viên**: CRUD
+* **ROLE USER : Tìm kiếm việc làm, chỉnh sửa hồ sơ cá nhân, tìm công việc**
+* Tính năng AI nổi bật
+* **Resume Parsing**: trích xuất hồ sơ ứng viên
+* **Chấm điểm hồ sơ ứng viên**: cải tiến mô hình học máy SentenceTransformer allmpnet-base-v2
+* **Mock Interview**: phỏng vấn giả lập với bộ câu hỏi lập trình được sinh ra tự động ở gemini API
+* **CV Autogeneration**: tạo CV tự động dựa trên mẫu và thông tin ứng viên.
+
+---
+
+## 📄 Bảo mật & cấu hình
+
+* Sử dụng file `.env` để cấu hình biến môi trường.
+* Các biến quan trọng:
+
+  * `DB_URI`: kết nối cơ sở dữ liệu MongoDB.
+  * `JWT_SECRET`: khóa JWT.
+
+---
+
+## ❤️ Đóng góp
+
+Mọi đóng góp vui lòng tạo PR hoặc issue trong repository GitHub.
+
+---
+
+Tóm lại: Dự án ITFsmarthire cung cấp nền tảng tuyển dụng IT toàn diện, kết hợp tính năng phỏng vấn thử và hỗ trợ tạo CV tự động.
