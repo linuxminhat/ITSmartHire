@@ -31,7 +31,8 @@ npm run start
 * **Đăng ký / Đăng nhập**: bảo mật bằng JWT và hash mật khẩu.
 * **Vai trò  HR : Quản lý hồ sơ ứng viên, tạo trang công ty và trang việc làm, tạo công việc, xem hồ sơ ứng viên, đặt lịch phỏng vấn gửi về email ứng viên**: CRUD
 * **Vai trò USER : Tìm kiếm việc làm, chỉnh sửa hồ sơ cá nhân, tìm kiếm công việc**
-* Tính năng AI nổi bật
+
+## 🌟 Tính năng AI nổi bật :
 * **Resume Parsing**: trích xuất hồ sơ ứng viên sử dụng công nghệ gemini API
 * **Chấm điểm hồ sơ ứng viên**: cải tiến mô hình học máy SentenceTransformer allmpnet-base-v2 với tập dataset gồm 9546 bản ghi mô tả công việc và hồ sơ ứng viên.
 * **Mock Interview**: phỏng vấn giả lập với bộ câu hỏi lập trình được sinh ra tự động ở gemini API
