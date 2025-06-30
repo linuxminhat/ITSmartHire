@@ -2,8 +2,8 @@
 
 Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NestJS** **ReactJS** (Backend và Frontend cho đồ án tốt nghiệp). Website tích hợp 2 dự án website phụ, gồm có:
 
-* **Mock Interview**: website hỗ trợ phỏng vấn giả lập với các câu hỏi lập trình mô phỏng, công nghệ sử dụng gồm **google-cloud texttospeech** hỗ trợ chuyển giọng nói thành văn bản và **gemini API** hỗ trợ sinh câu hỏi và nhận xét.
-* **CV Autogeneration**: website hỗ trợ tạo CV tự động dựa trên mẫu có sẵn sử dụng **gemini API**.
+* **Mock Interview**: Link dự án : https://github.com/linuxminhat/ITsmartinterview.git : website hỗ trợ phỏng vấn giả lập với các câu hỏi lập trình mô phỏng, công nghệ sử dụng gồm **google-cloud texttospeech** hỗ trợ chuyển giọng nói thành văn bản và **gemini API** hỗ trợ sinh câu hỏi và nhận xét.
+* **CV Autogeneration**: Link dự án : https://github.com/linuxminhat/ITsmartresume-prj.git :  website hỗ trợ tạo CV tự động dựa trên mẫu có sẵn sử dụng **gemini API**.
 
 Tính năng AI nổi bật : 
 * **Chấm điểm hồ sơ ứng viên so với mô tả công việc**: cải tiến mô hình học máy **SentenceTransformer allmpnet-base-v2** nhằm chấm điểm hồ sơ là file excel được trích xuất so khớp với JD (mô tả công việc). 
