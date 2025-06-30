@@ -1,12 +1,12 @@
 # 🚀 ITFsmarthire : Website tuyển dụng và tìm việc làm IT 
 
-Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NestJS** **ReactJS** (Backend và Frontend cho đồ án tốt nghiệp). Website tích hợp 2 dự án website phụ, gồm có:
+Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NestJS** **ReactJS**. Website tích hợp 2 dự án website phụ, gồm có:
 
-* **Mock Interview**: Link dự án : https://github.com/linuxminhat/ITsmartinterview.git : website hỗ trợ phỏng vấn giả lập với các câu hỏi lập trình mô phỏng, công nghệ sử dụng gồm **google-cloud texttospeech** hỗ trợ chuyển giọng nói thành văn bản và **gemini API** hỗ trợ sinh câu hỏi và nhận xét.
-* **CV Autogeneration**: Link dự án : https://github.com/linuxminhat/ITsmartresume-prj.git :  website hỗ trợ tạo CV tự động dựa trên mẫu có sẵn sử dụng **gemini API**.
+* **Mock Interview**: Link dự án : https://github.com/linuxminhat/ITsmartinterview.git : Website hỗ trợ phỏng vấn giả lập với các câu hỏi lập trình mô phỏng, công nghệ sử dụng gồm **google-cloud texttospeech** hỗ trợ chuyển giọng nói thành văn bản, hỗ trợ tiếng Anh và tiếng Việt, **gemini API** hỗ trợ sinh câu hỏi và nhận xét.
+* **CV Autogeneration**: Link dự án : https://github.com/linuxminhat/ITsmartresume-prj.git : Website hỗ trợ tạo CV tự động dựa trên mẫu có sẵn sử dụng **gemini API**.
 
 Tính năng AI nổi bật : 
-* **Chấm điểm hồ sơ ứng viên so với mô tả công việc**: cải tiến mô hình học máy **SentenceTransformer allmpnet-base-v2** nhằm chấm điểm hồ sơ là file excel được trích xuất so khớp với JD (mô tả công việc). 
+* **Chấm điểm hồ sơ ứng viên so với mô tả công việc**: cải tiến mô hình học máy **SentenceTransformer allmpnet-base-v2** nhằm chấm điểm hồ sơ là file excel được trích xuất so khớp với JD (mô tả công việc). Repository cung cấp Dataset và mô hình output.
 * **ResumeParsing**: trích xuất hồ sơ ứng viên, sử dụng **gemini API**
 ---
 
@@ -29,15 +29,14 @@ npm run start
 ## 🌟 Tính năng chính của website tìm việc làm IT :
 
 * **Đăng ký / Đăng nhập**: bảo mật bằng JWT và hash mật khẩu.
-* **Vai trò  HR : Quản lý hồ sơ ứng viên, tạo trang công ty và trang việc làm, tạo công việc, xem hồ sơ ứng viên, đặt lịch phỏng vấn gửi về email ứng viên**: CRUD
+* **Vai trò  HR : Quản lý hồ sơ ứng viên, tạo trang công ty và trang việc làm, tạo công việc, xem hồ sơ ứng viên, đặt lịch phỏng vấn gửi về email ứng viên tích hợp Google Meet vào thông báo**: CRUD
 * **Vai trò USER : Tìm kiếm việc làm, chỉnh sửa hồ sơ cá nhân, tìm kiếm công việc**
 
 ## 🌟 Tính năng AI nổi bật :
-* **Resume Parsing**: trích xuất hồ sơ ứng viên sử dụng công nghệ gemini API
-* **Chấm điểm hồ sơ ứng viên**: cải tiến mô hình học máy SentenceTransformer allmpnet-base-v2 với tập dataset gồm 9546 bản ghi mô tả công việc và hồ sơ ứng viên.
-* **Mock Interview**: phỏng vấn giả lập với bộ câu hỏi lập trình được sinh ra tự động ở gemini API
-* **CV Autogeneration**: tạo CV tự động dựa trên mẫu và thông tin ứng viên nhập vào.
-
+* **Resume Parsing**: trích xuất hồ sơ ứng viên sử dụng công nghệ gemini API, mô hình gemini-1.5-pro. 
+* **Chấm điểm hồ sơ ứng viên**: cải tiến mô hình học máy SentenceTransformer allmpnet-base-v2 với tập dataset gồm 9546 bản ghi mô tả công việc và hồ sơ ứng viên, nhằm so khớp hồ sơ ứng viên và mô tả công việc. 
+* **Mock Interview**: phỏng vấn giả lập với bộ câu hỏi lập trình được sinh ra tự động ở gemini API. Tích hợp Repository này : https://github.com/linuxminhat/ITsmartinterview.git
+* **CV Autogeneration**: tạo CV tự động dựa trên mẫu và thông tin ứng viên nhập vào. Tích hợp Repository này : https://github.com/linuxminhat/ITsmartresume-prj.git
 ---
 ## 🔧 Cấu hình file `.env` backend của dự án website tìm việc IT 
 
