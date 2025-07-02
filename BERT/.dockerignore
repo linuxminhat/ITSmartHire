@@ -3,3 +3,4 @@ data
 ner_resumes
 BERT.ipynb
 inference.ipynb
+.env
