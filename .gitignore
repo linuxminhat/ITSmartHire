@@ -3,3 +3,4 @@ ResumeAI/
 **/node_modules/
 .env
 BERT/finetune-score-cv-jd/
+BERT/.env
