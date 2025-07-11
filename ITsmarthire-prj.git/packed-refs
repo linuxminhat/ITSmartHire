@@ -1,0 +1,33 @@
+# pack-refs with: peeled fully-peeled sorted 
+c0aef8c43b6a2fb01b511cec32c7ac1b997c1fe5 refs/heads/BlogImageFix
+bbf24f42de28e170ef9f46c1618e766c74a325c0 refs/heads/HR-calendar
+774ea093ce4235f3f378c4f5318831e9e0b4ea7d refs/heads/HR-dashboard
+cba8b458c07e76eb6e5d5edad993cdfff13db2cd refs/heads/HR-update-blog
+80abe4dbf6e055dbf13d7d6c718b002414e4dbe6 refs/heads/HRRegisterPage
+80abe4dbf6e055dbf13d7d6c718b002414e4dbe6 refs/heads/ITsmartinterview
+7aaa717084a7b115daa9315b714dbb451767a38f refs/heads/ITsmartresume
+b2b73e144290bd055708f5e56b8f1b2ce90b6d6e refs/heads/be-module-company
+82cc3478604466e70adafb94133ad52872ebc7ac refs/heads/be-module-createinitdata
+f9ea6d6bb25fe063c0e272892d7ce887fccf3afc refs/heads/be-module-job
+c2f47b18cd9dfdb30a429abc912ff9893acc89a4 refs/heads/be-module-permissions
+2404798a4c112a5adf08aaa270cb1d95e71b0cb1 refs/heads/be-module-resume
+82cc3478604466e70adafb94133ad52872ebc7ac refs/heads/be-module-roles
+bf6a2c81a4d52e0217dbe856644938c64fe79934 refs/heads/be-module-user
+f8d7f565d5947820251d5441d21bd0d940bfafa7 refs/heads/be-nestjs-mongoose-plugins
+b7a5a851b526a94953f1e34a928af1949dedc29b refs/heads/comment
+11e4a31ee128407815bce0fb2207e694faf5f768 refs/heads/fe-company-map
+680864d4bb9998fef1f4264ffdb4f22c27ad0d15 refs/heads/fe-react+vite
+735a087438da14b84c4962513eb0f523913b0c9b refs/heads/fe-user
+8ed0c71a27a304ff2c655725b0ffaddba0040476 refs/heads/fixbug-branch
+abee8335bbcf5df72363d197cc75239d074be4e1 refs/heads/main
+ddbb3a48b6e7022ebed4c51ccb7319add8a58e51 refs/heads/notification
+0b5cb3cf3df5a526e18a3835f78389b740d34793 refs/heads/notification-hr
+0373ae6ad056fcb811319678d8b8ba820c517b31 refs/heads/problem-analysis
+811ad6e84111447731d9511eb7b4789b0ba372bc refs/heads/resume-parsing
+29a730b33a50f4047c8286e7982fdee2e2f6804a refs/heads/smart-interview
+f778f62da5f9d6b138dfbb963d6be678668fca7e refs/tags/backup-before-merge-notification-hr
+^cf432e2f3cb3334fb7e4b9d449f538516dc7eac0
+9ff7197f91a611d7e3d2c53e1e5d28d1ca3b73f2 refs/tags/backup-main-before-BlogImageFix-merge-2025-05-28
+^4b1af08abfcf9c3843df8b35be38ad8914e18c97
+6bb16207e4a04d54960d637c80d4c5332ffe1b5a refs/tags/backup-main-before-hr-update-blog-2025-05-28
+^a8e9e92c77d6457e221ec9517e0973f26b2dca62
