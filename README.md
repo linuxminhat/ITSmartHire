@@ -7,7 +7,7 @@ Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **Nod
 *Tính năng AI nổi bật : 
 * **Chấm điểm hồ sơ ứng viên so với mô tả công việc**: cải tiến mô hình học máy **SentenceTransformer allmpnet-base-v2** nhằm chấm điểm hồ sơ là file excel được trích xuất so khớp với JD (mô tả công việc). Repository cung cấp Dataset và mô hình output. Thư mục mô hình đã được tinh chỉnh và lưu : BERT/finetune-score-cv-jd. Chạy Server : **cv_scoring_server.py**. 
 * **ResumeParsing**: trích xuất hồ sơ ứng viên, sử dụng **gemini API**. Chạy Server **llm_server.py**. 
----
+---fdfdf
 
 ## 📦 Cài đặt
 
