@@ -1,5 +1,5 @@
 # 🚀 ITFsmarthire : Website tuyển dụng và tìm việc làm IT 
-Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NodeJS** **NestJS** **ReactJS** **FireBase** . Website tích hợp 2 dự án website phụ, gồm có:
+Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NodeJS** **NestJS** **ReactJS** **FireBase** . Websitedđ tích hợp 2 dự án website phụ, gồm có:
 
 * **Mock Interview**: Link dự án : https://github.com/linuxminhat/ITsmartinterview.git : Website hỗ trợ phỏng vấn giả lập với các câu hỏi lập trình mô phỏng, công nghệ sử dụng gồm **google-cloud texttospeech** hỗ trợ chuyển giọng nói thành văn bản, hỗ trợ tiếng Anh và tiếng Việt, **gemini API** hỗ trợ sinh câu hỏi và nhận xét.
 * **CV Autogeneration**: Link dự án : https://github.com/linuxminhat/ITsmartresume-prj.git : Website hỗ trợ tạo CV tự động dựa trên mẫu có sẵn sử dụng **gemini API**.
