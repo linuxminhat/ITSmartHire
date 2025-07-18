@@ -1,14 +1,13 @@
 # 🚀 ITFsmarthire : Website tuyển dụng và tìm việc làm IT 
-
-Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NodeJS** **NestJS** **ReactJS** **FireBase** . Website tích hợp 2 dự án website phụ, gồm có:
-
+Dự án tuyển dụng & tìm kiếm việc làm IT, phát triển bằng **NodeJS** **NestJS** **ReactJS** **FireBase** . Websitedđ tích hợp 2 dự án website phụ, gồm có:
+ff
 * **Mock Interview**: Link dự án : https://github.com/linuxminhat/ITsmartinterview.git : Website hỗ trợ phỏng vấn giả lập với các câu hỏi lập trình mô phỏng, công nghệ sử dụng gồm **google-cloud texttospeech** hỗ trợ chuyển giọng nói thành văn bản, hỗ trợ tiếng Anh và tiếng Việt, **gemini API** hỗ trợ sinh câu hỏi và nhận xét.
 * **CV Autogeneration**: Link dự án : https://github.com/linuxminhat/ITsmartresume-prj.git : Website hỗ trợ tạo CV tự động dựa trên mẫu có sẵn sử dụng **gemini API**.
-
-Tính năng AI nổi bật : 
+* **Demo Dự Án**: https://www.youtube.com/watch?v=-G52aJkSifw
+*Tính năng AI nổi bật : 
 * **Chấm điểm hồ sơ ứng viên so với mô tả công việc**: cải tiến mô hình học máy **SentenceTransformer allmpnet-base-v2** nhằm chấm điểm hồ sơ là file excel được trích xuất so khớp với JD (mô tả công việc). Repository cung cấp Dataset và mô hình output. Thư mục mô hình đã được tinh chỉnh và lưu : BERT/finetune-score-cv-jd. Chạy Server : **cv_scoring_server.py**. 
 * **ResumeParsing**: trích xuất hồ sơ ứng viên, sử dụng **gemini API**. Chạy Server **llm_server.py**. 
----
+---fdfdf
 
 ## 📦 Cài đặt
 
